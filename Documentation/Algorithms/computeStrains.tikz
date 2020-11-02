@@ -1,0 +1,26 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of computeJacobian
+\node [endPoint]  (computeStrains_SP)  {Compute Strains};
+
+\node [bloc, join] (computeStrains_F0) {
+$\F = \Id + \N_{,x} \Delta \overrightarrow{u_0}$ 
+};
+
+\node [bloc, join] (computeStrains_PD) {
+$\F \rightarrow \R,\U$ 
+};
+
+\node [bloc, join] (computeStrains_E) {
+$\Delta\E = \ln \left[\U\right] $\\
+$\E \pluseq \Delta \E$
+};
+
+% End of computeStrains
+ \node [endPoint, join] (computeStrains_EP)  {END};
+
+\node [bloc, left=of computeStrains_PD,  text width = 20mm, xshift = 1.5cm, yshift = 0.2cm)] (computeStrains_loopIntPts) {loop over\\intPoints Elements};
+\draw [norm]  ($(computeStrains_E.south)!0.35!(computeStrains_EP.north)$) -| (computeStrains_loopIntPts.south);
+\draw [norm] (computeStrains_loopIntPts.north) |- ($(computeStrains_SP.south)!0.35!(computeStrains_F0.north)$);
+
+\end{tikzpicture}

@@ -1,0 +1,19 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of computeJacobian
+\node [endPoint]  (computeRFI_SP)  {Compute RFI};
+
+\node [bloc, join] (computeRFI_invJ) {
+$\Sig = \R \Sig \R^T$ \\
+$\E = \R \E \R^T$ \\
+$\E^p = \R \E^p \R^T$ 
+};
+
+% End of computeRFI
+ \node [endPoint, join] (computeRFI_EP)  {END};
+
+\node [bloc, left=of computeRFI_invJ,  text width = 20mm, xshift = 1.5cm, yshift = 0.2cm)] (computeRFI_loopIntPts) {loop over\\intPoints Elements};
+\draw [norm]  ($(computeRFI_invJ.south)!0.35!(computeRFI_EP.north)$) -| (computeRFI_loopIntPts.south);
+\draw [norm] (computeRFI_loopIntPts.north) |- ($(computeRFI_SP.south)!0.35!(computeRFI_invJ.north)$);
+
+\end{tikzpicture}

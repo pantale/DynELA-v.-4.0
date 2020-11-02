@@ -1,0 +1,116 @@
+% !TeX spellcheck = en_US
+% !TeX root = DynELA.tex
+%
+% LaTeX source file of DynELA FEM Code
+%
+% (c) by Olivier Pantalé 2020
+%
+%\selectlanguage{french}%
+
+\chapter*{Notations\addcontentsline{toc}{chapter}{Notations}\markboth{Notations}{Notations}}
+
+\LETTRINE{F}rom a general point of view, it is usual to observe that one of the main difficulties in the field of mechanics, as in other fields, is the non-homogeneity of notations between the various authors. It is then easy to make completely incomprehensible the slightest theory when one decides to change notation. As the notion of universal notation is not yet valid (even if certain conventions can be assimilated to universal concepts), then we present below the set of notations used throughout this document and in a broader way in all the other documents in that series.
+
+\subsection*{Notations Conventions \vspace{-1ex}}
+
+\begin{longtable}[l]{>{\raggedright}p{0.2\paperwidth}>{\raggedright}p{0.8\paperwidth}}
+$a$ & Scalar\tabularnewline
+$\overrightarrow{a}$ & Vector\tabularnewline
+$\A$ & $2^{nd}$ order Tensor or matrix\tabularnewline
+$\IiA$ & $3^{rd}$ order Tensor\tabularnewline
+$\IIA$ & $4^{th}$ order Tensor\tabularnewline
+\end{longtable}
+
+\subsection*{Linear Algebra and Mathematical Operators \vspace{-1ex}}
+
+\begin{longtable}[l]{>{\raggedright}p{0.2\paperwidth}>{\raggedright}p{0.8\paperwidth}}
+$\overrightarrow{a}\cdot\overrightarrow{b}$ & Dot product of the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$\tabularnewline
+$\overrightarrow{a}\otimes\overrightarrow{b}$ & Tensor (or Dyadic) product of the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$\tabularnewline
+$\overrightarrow{a}\wedge\overrightarrow{b}$ & Vectorial product of the vectors $\overrightarrow{a}$ and $\overrightarrow{b}$\tabularnewline
+$\A:\B$ & Double contracted product of the two tensors $\A$ et $\B$\tabularnewline
+$\stackrel{\bullet}{\boxempty}$ & Time derivative of quantity $\boxempty$\tabularnewline
+$\stackrel{\bullet\bullet}{\boxempty}$ & Second order time derivative of quantity $\boxempty$\tabularnewline
+$\boxempty_{,\boxempty}$ & Partial derivative of quantity $\boxempty$ with respect to $_{\boxempty}$\tabularnewline
+$\boxempty^{T}$ & Transpose of a matrix or a vector $\boxempty$\tabularnewline
+$\tr\,\boxempty$ & Trace of a matrix or a tensor $\boxempty$ ($\tr\,\boxempty=\sum\boxempty_{ii}$)\tabularnewline
+$\dev\,\boxempty$ & Deviatoric part of a tensor $\boxempty$ ($\dev\,\boxempty=\boxempty-\frac{1}{3}\tr\,\boxempty \Id$)\tabularnewline
+$\delta_{ij}$ & Kronecker delta identity\tabularnewline
+$\Id$ & Unity matrix or second order tensor\tabularnewline
+$\IId$ & Unity fourth order tensor\tabularnewline
+\end{longtable}
+
+\subsection*{Basic Continuum Mechanics\vspace{-1ex}}
+
+\begin{longtable}[l]{>{\raggedright}p{0.2\paperwidth}>{\raggedright}p{0.8\paperwidth}}
+$\overrightarrow{x}=\left[\begin{array}{ccc}
+x & y & z\end{array}\right]^{T}$ & Coordinates in the physical domain\tabularnewline
+$\overrightarrow{u}=\left[\begin{array}{ccc}
+u & v & w\end{array}\right]^{T}$ & Displacement field\tabularnewline
+$\overrightarrow{\omega}=\left[\begin{array}{ccc}
+\omega_{x} & \omega_{y} & \omega_{z}\end{array}\right]^{T}$ & Rotation field\tabularnewline
+$\Om$ & Arbitrary body in the current configuration\tabularnewline
+$\Gam$ & Boundary of an arbitrary body $\Om$ in the current configuration\tabularnewline
+$\rho$ & Material density\tabularnewline
+$E$ & Young's modulus of a material\tabularnewline
+$\nu$ & Poisson's ratio of a material\tabularnewline
+$K$ & Bulk modulus of a material\tabularnewline
+$\lambda$ & Lamé's first parameter of a material\tabularnewline
+$\mu=G$ & Lamé's second parameter / Coulomb's shear modulus\tabularnewline
+$\overrightarrow{F}$ & External load vector\tabularnewline
+$\overrightarrow{f}$ & External load vector\tabularnewline
+$\Eps$ & Green-Lagrange strain tensor\tabularnewline
+$\Sig$ & Cauchy stress tensor\tabularnewline
+$\Dev$ & Deviatoric part of the Cauchy stress tensor\tabularnewline
+$\Alp$ & Backstress tensor\tabularnewline
+$\Fi$ & $\Fi=\Dev-\Alp$\tabularnewline
+\end{longtable}
+
+\subsection*{Constitutive laws\vspace{-1ex}}
+
+\begin{longtable}[l]{>{\raggedright}p{0.2\paperwidth}>{\raggedright}p{0.8\paperwidth}}
+$f$ & \tabularnewline
+$\n$ & Direction of the plastic flow\tabularnewline
+$\q$ & Heredity variables in an elastoplastic behavior\tabularnewline
+$\overline{\sigma}$ & von Mises equivalent stress\tabularnewline
+$\overline{\varepsilon}^{p}$ & Equivalent plastic strain\tabularnewline
+$\stackrel{\bullet}{\overline{\varepsilon}^{p}}$ & Equivalent plastic strain rate\tabularnewline
+$\Lambda$ & Norm of the plastic strain\tabularnewline
+$\sigma^{v}$ & \tabularnewline
+$\sigma_{0}^{v}$ & \tabularnewline
+$\sigma_{\infty}^{v}$ & \tabularnewline
+\end{longtable}
+
+\subsection*{Large Deformations\vspace{-1ex}}
+
+\begin{longtable}[l]{>{\raggedright}p{0.2\paperwidth}>{\raggedright}p{0.8\paperwidth}}
+$\overrightarrow{X}=\left[\begin{array}{ccc}
+X & Y & Z\end{array}\right]^{T}$ & Coordinates in the reference domain\tabularnewline
+$\E$ & Green-Lagrange deformation tensor\tabularnewline
+$\F$ & Deformation gradient tensor\tabularnewline
+$\U,\ \V$ & Right and left pure deformation tensors\tabularnewline
+$\R$ & Rotation tensor\tabularnewline
+$\iL$ & Deformation speed tensor\tabularnewline
+$\D$ &Symmetric part of the $\iL$ tensor\tabularnewline
+$\W$ & Skew-symmetric part of the $\iL$ tensor\tabularnewline
+\end{longtable}
+
+\subsection*{Finite Element Data Structures\vspace{-1ex}}
+\begin{flushleft}
+\begin{longtable}[l]{>{\raggedright}p{0.2\paperwidth}>{\raggedright}p{0.8\paperwidth}}
+$\N$ &Shape functions matrix\tabularnewline
+$\overrightarrow{\xi}=\left[\begin{array}{ccc}
+\xi & \eta & \zeta\end{array}\right]^{T}$ & Coordinates in the parent domain\tabularnewline
+$\B$ & Derivatives of the shape functions\tabularnewline
+$\boxempty^{e}$ & Quantity $\boxempty$ related to element $e$\tabularnewline
+$\J$ & Jacobian matrix\tabularnewline
+$\M$ & Mass matrix\tabularnewline
+$\K$ & Stiffness matrix\tabularnewline
+$\overline{\F}$ & External surfacic load vector\tabularnewline
+$\F$ & External load vector\tabularnewline
+$\overline{\f}$ & External volumic load vector\tabularnewline
+$\q$ & Nodal unknowns vector\tabularnewline
+$n_{g}$ & Number of nodes of the current element\tabularnewline
+$n_{Q}$ & Number of integration points of the current element\tabularnewline
+\end{longtable}
+\par\end{flushleft}
+

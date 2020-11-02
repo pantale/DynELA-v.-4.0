@@ -1,0 +1,120 @@
+% !TeX spellcheck = en_US
+% !TeX root = DynELA.tex
+%
+% LaTeX source file of DynELA FEM Code
+%
+% (c) by Olivier Pantalé 2020
+%
+\chapter{Curves utility}
+
+\startcontents[chapters]
+\printmyminitoc[1]
+
+\LETTRINE{T}his chapter deals about the curves utility of the \DynELA. This curve utility is a Python library used to produce plots (vector or bitmap plots) from \DynELA~history files by reading a configuration file describing the way to produce those plots from a simple syntax language. The core of the library uses the matplotlib library implemented using the Python3 language. With this curve utility library, it is therefore possible to produce output graphics and curves directly from the python model file at the end of the solve.
+
+\section{Introduction and presentation of the script}
+
+\subsection{Usage of the Python script}
+
+The Curve library is called from a Python script with the following minimal form.
+
+\begin{PythonListing}
+import dnlCurves              # Import the dnlCurve library
+curves = dnlCurves.Curves()   # Creates an instance of the Curve object
+curves.plotFile('Curves.ex')  # Plot the curves defined by the 'Curves.ex' file
+\end{PythonListing}
+
+\subsection{Datafile format}
+
+The datafile format is the plot file used by \DynELA. This file is a text file with $\overrightarrow{x}$ and $\overrightarrow{y}$ datas defined by two or more series of floating point data on two or more columns separated by spaces. This file should contain two header lines on top and should conform to the following for a datafile containing one data.
+
+\begin{PythonListing}
+#DynELA_plot history file
+#plotted :timeStep 
+1.0596474E-06 1.0596474E-06 
+1.0058495E-04 1.0572496E-06 
+\ldots\ldots
+1.0000000E-02 1.4838518E-07 
+\end{PythonListing}
+
+In this file, the very first line is ignored by the script, while the second one is used to define the default name of the variable to be plotted (here 'timeStep' in this case). Here after is a example of a datafile containing more columns.
+
+\begin{PythonListing}
+#DynELA_plot history file
+#plotted :s11 s22 s33 
+1.0596474E-06 1.0596474E+06 2.0596474E+06 -1.0596474E+06 
+1.0058495E-04 1.0572496E+06 2.0572496E+06 -1.0572496E+06 
+\ldots\ldots
+1.0000000E-02 1.4838518E+07 2.4838518E+07 -1.4838518E+07 
+\end{PythonListing}
+
+In this case, one can specify which columns will be used for plotting the curves as it will be presented just later.
+
+\section{Configuration file to define the plots}
+
+A configuration file is used to define the plots and is read by the \textsf{curves.plotFile()} method of the Curves object. Global parameters are defined using the keyword \textsf{Parameters} at the beginning of a line of the parameter file. The keyword parameter is followed by a set of commands used to set some global parameters for all the subsequent generated graphs by overwriting the default parameters, before generating the very first graph.
+
+\begin{PythonListing}
+Parameters, xname=Displacement x, crop=True
+\end{PythonListing}
+
+Then all parameters can also be altered within the definition of a plot. A definition of a plot is done by a line without the \textsf{Parameters} keyword. The first element on this line is the name of the generated graph, followed by a set of parameters defining the generated plot.
+
+\begin{PythonListing}
+# Plot of Temp.plot to Temp.svg file
+Temp, name=$T$, Temp.plot
+# Plot of column 1 of Stress.plot file to S11.svg file
+S11, name=$\sigma_{xx}$, legendlocate=topleft, Stress.plot[0:1]
+# Plot of column 2 of Stress.plot file to S22.svg file
+S22, name=$\sigma_{yy}$, legendlocate=bottomleft, Stress.plot[0:2]
+# Plot of dt.plot and Abaqus/Step.plot files to TimeStep.svg file
+TimeStep, name=$\Delta t$, dt.plot, name=$Abaqus \Delta t$, Abaqus/Step.plot
+\end{PythonListing}
+
+In the proposed example we have the following.
+\begin{itemize}
+\item Line 2: plots the content of the Temp.plot file with legend $T$ in a Temp.svg file using default parameters.
+\item Line 4: plots the content of the Stress.plot file with legend $\sigma_{xx}$ in a S11.svg file using data from columns $0$ for $\overrightarrow{x}$ and from column $1$ for $\overrightarrow{y}$ and with a legend located in the top left part of the figure.
+\item Line 6: plots the content of the Stress.plot file with legend $\sigma_{yy}$ in a S22.svg file using data from columns $0$ for $\overrightarrow{x}$ and from column $2$ for $\overrightarrow{y}$ with a legend located in the bottom left part of the figure.
+\item Line 8: plots the content of the dt.plot file with legend $\Delta t$ and Abaqus/Step.plot file with legend $Abaqus\,\Delta t$ in a TimeStep.svg file.
+\end{itemize}
+
+As presented just before, \LaTeX~can be used for names and legends by using the escape character $\$$ and remembering that space character has to be defined by the combination of an escape '\textbackslash' character followed by the space '~' so that '\textbackslash~'.
+
+Comments can be inserted as presented briefly earlier by using the '\#' character. Everything after the '\#' character and up to the end of the line is ignored and treated as comment. Blank lines are also allowed in the file to help human readability of the file.
+
+\subsection{Global parameters for a graph}
+\begin{description}
+\item [outputformat = <'format'>]: is used to define the format of the output file, \ie pdf, svg, png,\ldots (default value is svg file).
+\item [transparent = <True, False>]: is used to define if the background should be or not transparent (default value is False).
+\item [crop = <True, False>]: is used to define if the output image should be or not cropped (default value is False).
+\item [grid = <True, False>]: is used to define if the output graph should contain or not a grid (default value is True).
+\item [title = <'name'>]: defines the title of the graph on the top part of the plot ( default value 'Default title of the graph')
+\item [xname, yname = <'name'>]: defines the names of the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis for the plot (default value are 'x-axis' and 'y-axis').
+\item [titlefontsize = <size>]: defines the font size of the title on the top part of the plot (default value is $20$).
+\item [xfontsize, yfontsize = <size>]: defines the font size of the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis names for the plot (default value is $20$).
+\item [xlabelfontsize, ylabelfontsize = <size>]: defines the font size of the values along the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis for the plot (default value is $16$).
+\item [xrange, yrange = <range>]: remaps the range of the curves for the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis to the given value. For example, setting \textsf{xrange=10} will remap the x-data within the range $[0,10]$. 
+\item [xscale, yscale = <range>]: multiply the $\overrightarrow{x}$ or the $\overrightarrow{y}$ data by a given factor. For example, setting \textsf{xscale=10} will multiply all x-data by a factor of $10$.
+\end{description}
+
+\subsection{Plotting curve parameters}
+\begin{description}
+\item [name = <'name'>]: defines a new name for the next curve in the legend and overrides the one defined by the datafile.
+\item [removename = <'name'>]: removes from the names of the curves a given pattern for the legends. Example: \textsf{removename} = -S11 will convert 'data-S11' into 'data'. This is not a very useful method and one should prefer the \textsf{name} command to redefine the name of the plotting curve.
+\item [linewidth = <'width'>]: defines the line width for all subsequent plots (default value is $2$). 
+\item [marks = <'symbol'>]: is used to define the next marker to use for all subsequent plots (default value is ''). If the value is void, markers are cycled through the default markers list.
+\item [marksnumber = <number>]: defines the total number of markers on the curves for all subsequent plots (default value is $20$).
+\item [markersize = <size>]: defines the size of the marker symbols to use for all subsequent plots (default value is $10$).
+\end{description}
+
+\subsection{Legend definition}
+\begin{description}
+\item [legendcolumns = <columns>]: defines the number of columns to use for the legend (default value is $1$).
+\item [legendshadow = <True, False>]: is used to define if the output graph legend should contain or not a shadow box (default value is True).
+\item [legendanchor = <'position'>]: defines the position of the legend anchor independently from the legend position parameter.
+\item [legendposition = <'position'>]: defines the position of the legend position independently from the legend anchor parameter.
+\item [legendlocate = <'position'>]: defines the position of the legend with the following four options: 'topleft', 'topright', 'bottomleft' and 'bottomright' (default value is 'topright').
+\item [legendfontsize = <size>]: defines the font size of the text in the legend (default value is $16$).
+\end{description}
+

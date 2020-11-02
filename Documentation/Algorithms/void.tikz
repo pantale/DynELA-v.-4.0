@@ -1,0 +1,119 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of computeJacobian
+\node [endPoint]  (computeJacobian_SP)  {Compute Jacobian};
+
+\node [bloc, join] (computeJacobian_JxW) {
+$\J = \sum_{I=1}^{n} \N_{I,\xi}\overrightarrow{x_I}$\\
+$J = \det [\J]$
+};
+
+\node [test, join] (computeJacobian_JPositif) {$J > 0$};
+\path (computeJacobian_JPositif.east)  to node [above right]  {No}  (computeJacobian_JPositif);
+\path (computeJacobian_JPositif.south)  to node [below right]  {Yes}  (computeJacobian_JPositif);
+
+\node [bloc, join] (computeJacobian_invJ) {
+$\TI{invJ} = \J^{-1}$ \\
+$\TI{dN}= \N_{,x} = \N_{,\xi}\J^{-1}$
+};
+
+% End of computeJacobian
+ \node [endPoint, join] (computeJacobian_EP)  {END};
+
+\node [bloc, left=of computeJacobian_JPositif,  text width = 20mm, xshift = 1.5cm)] (computeJacobian_loopIntPts) {loop over\\intPoints\\in loop\\Elements};
+
+%\draw [norm]  ($(computeJacobian_invJ.south)!0.35!(computeJacobian_EP.north)$) -| +(-3.5,+1) |-(computeJacobian_JxW.west);
+%draw [norm]  ($(computeJacobian_invJ.south)!0.35!(computeJacobian_EP.north)$) -| (computeJacobian_loopIntPts.south);
+%draw [norm]  ($(computeJacobian_invJ.south)!0.35!(computeJacobian_EP.north)$) -| +(-3.5,+1) |-(computeJacobian_JxW.west);
+\draw [norm]  ($(computeJacobian_invJ.south)!0.35!(computeJacobian_EP.north)$) -| (computeJacobian_loopIntPts.south);
+\draw [norm] (computeJacobian_loopIntPts.north) |- (computeJacobian_JxW.west);
+
+\node [endPoint, right=of computeJacobian_JPositif,  text width = 20mm, xshift = -1.5cm] (computeJacobian_fatalError) {Fatal Error};
+\draw [norm]  (computeJacobian_JPositif.east) -- (computeJacobian_fatalError.west);
+
+
+% Test initial time for Package or Solve
+%\node [test, join] (testInitialTime) {$t = 0$};
+%\path (testInitialTime.east)  to node [above right]  {Yes}  (testInitialTime);
+%\path (testInitialTime.south)  to node [below right]  {No} (testInitialTime);
+
+% Start of the predictor phase / elastic predictor
+%\node [bloc, join]  (elasticPredictor)  {
+%$p_{0}=\frac{1}{3}\tr\left[\Sig_{0}\right]$; $\Dev_{0}=\Sig_{0}-p_{0}\Id$\\
+%$p_{1}=p_{0}+K\tr\left[\Delta\E\right]$\\
+%$\Dev_{tr}=\Dev_{0}+2G\dev\left[\Delta\E\right]$\\
+%$\overline{\sigma}_{tr}=\sqrt{\frac{3}{2}\Dev_{tr}:\Dev_{tr}}$
+%};
+
+%\node [test, join] (strialYield) {$\overline{\sigma}_{tr}>\sigma^{y}_0$};
+%\path (strialYield.east)  to node [above right]  {No}  (strialYield);
+%\path (strialYield.south)  to node [below right]  {Yes}  (strialYield);
+
+%\node [bloc, join]  (pred2)  {
+%$\Gamma=\Gamma_{0}$; $\Gamma_{min}=0$; %$\Gamma_{max}=\frac{\overline{\sigma}_{tr}}{\sqrt{6}G}$\\
+%};
+
+% \node [bloc, join]  (NRloop0)  {
+% $\overline{\varepsilon}_{1}^{p}=\overline{\varepsilon}_{0}^{p}+\sqrt{\frac{2}{3}}\Gamma$\\
+% $\stackrel{\bullet}{\overline{\varepsilon}_{1}^{p}}=\frac{1}{\Delta t}\sqrt{\frac{2}{3}}\Gamma$\\
+% $T_1=T_0+\frac{\eta}{\sqrt{6}\rho C_p}(\sigma^{y}_0+\sigma^{y}_1)\Gamma$\\
+% $\sigma^{y}_1 = \sigma^{y}_1(\overline{\varepsilon}_{1}^{p},\stackrel{\bullet}{\overline{\varepsilon}_{1}^{p}},T_1)$\\
+% $f(\Gamma)=\overline{\sigma}_{tr} - \sqrt{6}G\Gamma-\sigma^{y}_1(\Gamma)$\\
+% $f^{'}(\Gamma) = -\sqrt{6}G-\frac{d\sigma^{y}_1(\Gamma)}{d\Gamma}$\\
+% $\Delta\Gamma=-f(\Gamma)/f^{'}(\Gamma)$
+% };
+% 
+% \node [bloc, join]  (NRloop1)  {
+% $\left\{ \begin{array}{lll}
+% \Gamma_{max}=\Gamma & \mbox{if} & f(\Gamma)<0\\
+% \Gamma_{min}=\Gamma & \mbox{if} & f(\Gamma)>0
+% \end{array}\right.$
+% $\Gamma\leftarrow\Gamma+\Delta\Gamma$
+% };
+% 
+% % Test sur Gamma
+% \node [test, join] (gammaBounds) {$\Gamma\in\left[\Gamma_{min},\Gamma_{max}\right]$};
+% \path (gammaBounds.east)  to node [above right]  {Yes}  (gammaBounds);
+% \path (gammaBounds.south)  to node [below right]  {No}  (gammaBounds);
+% 
+% \node [bloc, join]  (NRloop2)  {
+% $\Delta\Gamma = \frac{1}{2}\left( \Gamma_{max} - \Gamma_{min}\right)$\\
+% $\Gamma = \Gamma_{min}+\Delta\Gamma$
+% };
+% 
+% \node [test, join] (NRloops) {$|\Delta\Gamma| < \varepsilon_{NR}$};
+% \path (NRloops.west)  to node [above left]  {No}  (NRloops);
+% \path (NRloops.south)  to node [below right]  {Yes}  (NRloops);
+% \draw [norm]  (NRloops.west) -| +(-2,+1) |- ($(pred2.south)!0.35!(NRloop0.north)$);
+% 
+% \node [bloc, join]  (NRend)  {
+% $\n = \frac{\Dev_{tr}}{\left\Vert \Sig\right\Vert }$\\
+% $\Dev_{1}=\Dev_{tr}-2G\Gamma\n$
+% };
+% 
+% \node [bloc, join]  (updateStresses)  {
+% $\Sig_{1}=\Dev_{1}+p_{1}\Id$\\
+% $e_{1}=e_{0}+\frac{1}{2\rho}\left(\Sig_{0}+\Sig_{1}\right):\Delta\E$\\
+% $\omega_{1}^{p}=\omega_{0}^{p}+\frac{1}{\sqrt{6}\rho}( \sigma^{y}_0+ \sigma^{y}_1)\Gamma$
+% };
+% 
+% 
+% \node [bloc, right=of testInitialTime]  (package)  {
+% Abaqus package subroutine\\
+% $\Sig_{1}=\Sig_{0}+2G\dev[\Delta\E]+K\tr\left[\Delta\E\right]\Id$
+% };
+% 
+% \node [endPoint, join]  (endPoint)  {End of VUMAT};
+% 
+%\draw [norm]  (testInitialTime.east) -- (package.west);
+
+% \node [bloc, right=of NRloop0, text width=30 mm]  (Elastic)  {
+% $\Dev_{1}=\Dev_{tr}$\\
+% $\sigma^{y}_1=\sigma^{y}_0$\\
+% $\Gamma=0$
+% };
+% \draw [norm]  (strialYield.east) -| (Elastic.north);
+% \draw [norm]  (Elastic.south) |-  ($(NRend.south)!0.35!(updateStresses.north)$);
+% \draw [norm]  (gammaBounds.east) -| +(+2,-1) |- ($(NRloop2.south)!0.35!(NRloops.north)$);
+
+\end{tikzpicture}

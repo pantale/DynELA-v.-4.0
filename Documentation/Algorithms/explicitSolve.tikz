@@ -1,0 +1,30 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of explictSolve
+\node [endPoint]  (explictSolve_SP)  {Explicit Solve};
+
+\node [bloc, join] (explictSolve_solve) {
+$\overrightarrow{A} = \M^{-1} \overrightarrow{F}$
+};
+
+\node [bloc, join] (explictSolve_pred) {
+$\stackrel{\bullet\bullet}{\overrightarrow{x_1}} = \frac {\overrightarrow{A}-\alpha_M \stackrel{\bullet\bullet}{\overrightarrow{x_0}}}{1-\alpha_M}$\\
+$\stackrel{\bullet}{\overrightarrow{x_1}} = \stackrel{\bullet}{\overrightarrow{x_1}} + \gamma\Delta t \stackrel{\bullet\bullet}{\overrightarrow{x_1}}$\\
+$\Delta \overrightarrow{u_1} = \Delta \overrightarrow{u_1} + \beta \Delta t^2 \stackrel{\bullet\bullet}{\overrightarrow{x_1}}$
+};
+
+\node [bloc, join] (explictSolve_BC) {Apply Boundary Conditions};
+
+\node [bloc, join] (explictSolve_post) {
+$ \overrightarrow{u_1} =  \overrightarrow{u_0} +  \Delta \overrightarrow{u_1}$\\
+$ \overrightarrow{x} =  \overrightarrow{x} +  \Delta \overrightarrow{u_1}$
+};
+
+% End of explictSolve
+ \node [endPoint, join] (explictSolve_EP)  {END};
+
+\node [bloc, left=of explictSolve_BC,  text width = 20mm, xshift = 1.5cm)] (explictSolve_loopIntPts) {Node loop};
+\draw [norm]  ($(explictSolve_post.south)!0.35!(explictSolve_EP.north)$) -| (explictSolve_loopIntPts.south);
+\draw [norm] (explictSolve_loopIntPts.north) |- ($(explictSolve_solve.south)!0.35!(explictSolve_pred.north)$) ;
+
+\end{tikzpicture}

@@ -1,0 +1,68 @@
+% !TeX spellcheck = en_US
+%
+% LaTeX source file of DynELA FEM code Documentation
+%
+% (c) by Olivier Pantalé 2020
+%
+\documentclass[11pt,french,english,twoside]{book}
+\input{macrosHyperlink.tex}
+
+\begin{document}
+\includepdf[pages=1-2]{Cover.pdf}
+
+\dominitoc\renewcommand{\thepage}{\roman{page}}\setcounter{page}{1}
+
+% Includes Table of contents
+\tableofcontents
+
+% Includes List of Figures
+\listoffigures
+
+% Includes List of Tables
+\listoftables
+
+\cleardoublepage
+
+\renewcommand{\thepage}{\arabic{page}}\setcounter{page}{1}
+
+\input{NotationsMec.tex}
+
+\input{Installation.tex} 
+
+\part{DynELA FEM code theory}
+
+\cleardoublepage
+
+\part{DynELA Programming}
+
+\input{ProgrammingLanguage.tex} 
+
+\input{ProgrammingCurves.tex}
+
+\input{ProgrammingAbaqusExtract.tex}
+
+\cleardoublepage
+
+\part{DynELA Samples}
+
+\input{ElementSamples.tex}
+
+\input{PlasticitySamples.tex}
+
+\input{ImpactSamples.tex}
+
+\cleardoublepage
+
+\bibliographystyle{unsrt}
+\addcontentsline{toc}{chapter}{\bibname}
+
+\begin{center}
+\includegraphics[width=0.4\columnwidth]{Figures/Bibliography}
+\par\end{center}
+
+\bibliography{Private,Bibliography}
+
+\cleardoublepage
+
+\printindex
+\end{document}

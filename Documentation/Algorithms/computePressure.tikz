@@ -1,0 +1,29 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of computePressure
+\node [endPoint]  (computePressure_SP)  {Compute Pressure};
+
+\node [bloc, join] (computePressure_initP) {
+$\Delta p = 0$
+};
+
+\node [bloc, join] (computePressure_sumP) {
+$\Delta p \pluseq \tr[\Delta\E]$
+};
+
+\node [bloc, join] (computePressure_compP) {
+$p = \frac {1}{3} \tr[\Sig] + \frac {K}{n^{intPts}}\Delta p $
+};
+
+% End of computePressure
+ \node [endPoint, join] (computePressure_EP)  {END};
+
+\node [bloc, right=of computePressure_sumP,  text width = 20mm, xshift = -1.5cm)] (computePressure_loopIntPts) {loop over\\Int Pts};
+\draw [norm]  ($(computePressure_sumP.south)!0.35!(computePressure_compP.north)$) -| (computePressure_loopIntPts.south);
+\draw [norm] (computePressure_loopIntPts.north) |- ($(computePressure_initP.south)!0.35!(computePressure_sumP.north)$);
+
+\node [bloc, left=of computePressure_sumP,  text width = 20mm, xshift = 1.5cm)] (computePressure_loopIntPts) {loop over\\Elements};
+\draw [norm]  ($(computePressure_compP.south)!0.35!(computePressure_EP.north)$) -| (computePressure_loopIntPts.south);
+\draw [norm] (computePressure_loopIntPts.north) |-  ($(computePressure_SP.south)!0.35!(computePressure_initP.north)$);
+
+\end{tikzpicture}

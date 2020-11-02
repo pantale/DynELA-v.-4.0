@@ -1,0 +1,158 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of VUMAT
+\node [endPoint]  (computeStress_SP)  {Compute Stress};
+
+% Test initial time for Package or Solve
+\node [bloc, join] (computeStress_HF) {$h_f = \frac {\eta}{\rho C_p} $};
+
+% Start of the predictor phase / elastic predictor
+\node [bloc, join]  (computeStress_Predictor)  {
+$\Dev_0 = \dev [\Sig_0] = \Sig_0 - \frac1{3} \tr \left[\Sig_0\right]\Id$\\
+$S_0 = \| \Dev_0 \| = \sqrt{\Dev_0:\Dev_0}$\\
+$\Dev_1 = \Dev_0 + 2G \dev\left[\Delta\E\right]$\\
+$S_1 = \| \Dev_1 \| =  \sqrt{\Dev_1:\Dev_1}$\\
+$S^{tr} = \sqrt{\frac32} S_1$\\
+$T = T_0$\\
+$\overline{\varepsilon}^p = \overline{\varepsilon}_0^p$\\
+$\stackrel{\bullet}{\overline{\varepsilon}^p} = \stackrel{\bullet}{\overline{\varepsilon}_0^p}$\\
+$\sigma^y = \sigma^y_0$\\
+$\gamma = 0$
+};
+
+\node [test, join] (computeStress_syzero) {$\sigma^y = 0$};
+\path (computeStress_syzero.east)  to node [above right]  {Yes}  (computeStress_syzero);
+\path (computeStress_syzero.south)  to node [below left]  {No}  (computeStress_syzero);
+
+\node [test, join] (computeStress_yield) {$\overline{\sigma}_{tr}>\sigma^y_0$};
+\path (computeStress_yield.east)  to node [above right]  {No}  (computeStress_yield);
+\path (computeStress_yield.south)  to node [below right]  {Yes}  (computeStress_yield);
+
+\node [bloc, join]  (computeStress_initGammas)  {
+$\gamma=\gamma_0$\\
+$\gamma_{min}=0;\ \gamma_{max}=\frac{S^{tr}}{2 \sqrt{\frac {3}{2}}G}$\\
+};
+
+\node [test, join] (computeStress_epspzero) {$\overline{\varepsilon}^p = 0$};
+\path (computeStress_epspzero.east)  to node [above right]  {Yes}  (computeStress_epspzero);
+\path (computeStress_epspzero.south)  to node [below left]  {No}  (computeStress_epspzero);
+
+\node [bloc, join]  (computeStress_initLoop0)  {
+$\stackrel{\bullet}{\overline{\varepsilon}^p} = \frac1{\Delta t}\sqrt{\frac23}\gamma$\\
+$\overline{\varepsilon}^p = \overline{\varepsilon}_0^p+\sqrt{\frac23}\gamma$\\
+$T = T_0 + \frac12 \gamma h_f \left( \sqrt{\frac {2}{3}} \sigma^y + S_0 \right)$\\
+$run = 1$
+};
+
+\node [bloc, join]  (computeStress_initLoop1)  {
+$\sigma^y = \sigma(\overline{\varepsilon}^p,\stackrel{\bullet}{\overline{\varepsilon}^p},T)$\\
+$f(\gamma) = S^{tr} - 2 \sqrt{\frac {3}{2}}G - \sigma^y$\\
+};
+
+\node [test, join] (computeStress_fneg) {$f < 0$ ?};
+\path (computeStress_fneg.east)  to node [above right]  {Yes}  (computeStress_fneg);
+\path (computeStress_fneg.west)  to node [above left]  {No}  (computeStress_fneg);
+
+\node [bloc, text width = 20mm, xshift = -3cm, yshift = 1cm] (computeStress_rho) {
+\vspace{-0.3cm}
+$\gamma_{min} = \gamma$
+};
+
+\node [bloc, right= of computeStress_rho, text width = 20mm, xshift = -0.5cm] (computeStress_rhoA) {
+\vspace{-0.3cm}
+$\gamma_{max} = \gamma$
+};
+
+\node [bloc, below=of computeStress_fneg, yshift=-3cm]  (computeStress_NR1)  {
+$h = \sigma^h (\overline{\varepsilon}^p,\stackrel{\bullet}{\overline{\varepsilon}^p},T,\Delta t)$\\
+$f^{'}(\gamma) = 2 \sqrt{\frac {3}{2}}G + \sqrt{\frac {2}{3}} h$\\
+$\Delta\gamma = f(\gamma)/f^{'}(\gamma)$\\
+$\gamma \pluseq \Delta\gamma$
+};
+
+\draw [norm] (computeStress_fneg.west) -| (computeStress_rho.north);
+\draw [norm] (computeStress_fneg.east) -| (computeStress_rhoA.north);
+\draw [norm] (computeStress_rhoA.south) |- +(0,-0.5) -| (computeStress_NR1.north);
+\draw [norm] (computeStress_rho.south) |- +(0,-0.5) -| (computeStress_NR1.north);
+
+% Test sur gamma
+\node [test, join] (computeStress_gammaBound) {$\gamma\in\left[\gamma_{min},\gamma_{max}\right]$};
+\path (computeStress_gammaBound.east)  to node [above right]  {No}  (computeStress_gammaBound);
+\path (computeStress_gammaBound.south)  to node [below left]  {Yes}  (computeStress_gammaBound);
+
+\node [test, join] (computeStress_converged) {$|\Delta\gamma| < \varepsilon_{NR}$};
+\path (computeStress_converged.east)  to node [above right]  {Yes}  (computeStress_converged);
+\path (computeStress_converged.south)  to node [below left]  {No}  (computeStress_converged);
+%\draw [norm]  (computeStress_converged.west) -| +(-2,+1) |- ($(computeStress_initGammas.south)!0.35!(computeStress_initLoop0.north)$);
+
+\node [bloc, join]  (computeStress_recompInternal)  {
+$\stackrel{\bullet}{\overline{\varepsilon}^p} = \frac1{\Delta t}\sqrt{\frac23}\gamma$\\
+$\overline{\varepsilon}^p = \overline{\varepsilon}_0^p+\sqrt{\frac23}\gamma$\\
+$T = T_0 + \frac12 \gamma h_f \left( \sqrt{\frac {2}{3}} \sigma^y + S_0 \right)$\\
+};
+
+\node [test, join] (computeStress_runtest) {$run = 1$};
+\path (computeStress_runtest.west)  to node [above left]  {Yes}  (computeStress_runtest);
+\path (computeStress_runtest.south)  to node [below left]  {No}  (computeStress_runtest);
+\draw [norm]  (computeStress_runtest.west) -|+(-3,1)|-  ($(computeStress_initLoop0.south)!0.35!(computeStress_initLoop1.north)$);
+
+\node [bloc, join]  (computeStress_recompValues)  {
+$\stackrel{\bullet}{\overline{\varepsilon}_1^p} = \frac1{\Delta t}\sqrt{\frac23}\gamma$\\
+$\overline{\varepsilon}_1^p = \overline{\varepsilon}_0^p+\sqrt{\frac23}\gamma$\\
+$\Dev \multeq 1 - 2G\gamma/S_1$\\
+$\E^p_1 = \E^p_0 + \gamma \Dev / S_1$\\
+$\gamma_1 = \gamma$\\
+$\gamma^c \pluseq \gamma$\\
+$\sigma^y_1 = \sigma^y$
+};
+
+\node [bloc, join]  (computeStress_updateStress)  {
+$\Sig_1=\Dev+p_1\Id$\\
+};
+
+\node [bloc, join]  (computeStress_updateEnergy1)  {
+$e_1=e_0+\frac1{2\rho_0}\left(\Sig_0+\Sig_1\right):\Delta\E$\\
+};
+
+\node [test, join] (computeStress_plastic) {$\gamma \neq 0$};
+\path (computeStress_plastic.east)  to node [above right]  {No}  (computeStress_plastic);
+\path (computeStress_plastic.south)  to node [below left]  {Yes}  (computeStress_plastic);
+
+\node [bloc, join]  (computeStress_updateEnergy2)  {
+$\omega_1^p=\omega_0^p+\frac1{2\rho_0}( S_0+ \| \Dev \|)\gamma$\\
+$T_1 = T_0 + \frac12 h_f ( S_0+ \| \Dev \|)\gamma$
+};
+
+\node [endPoint, join]  (endPoint)  {End of VUMAT};
+\draw [norm]  (computeStress_plastic.east) -|+(2,-1)|-  ($(computeStress_updateEnergy2.south)!0.35!(endPoint.north)$);
+
+
+\node [bloc, right=of computeStress_syzero, text width=45 mm]  (computeStress_sy0)  {
+$\sigma^y = \sigma \left( \sqrt{\frac23} \gamma_i, \sqrt{\frac23} \gamma_i/\Delta t,T\right)$
+};
+\draw [norm]  (computeStress_syzero.east) -- (computeStress_sy0.west);
+\draw [norm]  (computeStress_sy0.south) |- ($(computeStress_syzero.south)!0.35!(computeStress_yield.north)$);
+
+\node [bloc, right=of computeStress_epspzero, text width=15 mm, xshift = -2cm]  (computeStress_epsp0)  {
+$\gamma = \gamma_i$
+};
+\draw [norm]  (computeStress_epspzero.east) -- (computeStress_epsp0.west);
+\draw [norm]  (computeStress_epsp0.south) |- ($(computeStress_epspzero.south)!0.35!(computeStress_initLoop0.north)$);
+
+\node [bloc,  right= of computeStress_gammaBound, text width = 30mm, xshift = -2cm]  (computeStress_gammaCenter)  {
+$\Delta\gamma = \frac1{2}\left( \gamma_{max} - \gamma_{min}\right)$\\
+$\gamma = \gamma_{min}+\Delta\gamma$
+};
+\draw [norm]  (computeStress_gammaBound.east) -- (computeStress_gammaCenter.west);
+\draw [norm]  (computeStress_gammaCenter.south) |- ($(computeStress_gammaBound.south)!0.35!(computeStress_converged.north)$);
+
+\node [bloc,  right= of computeStress_converged, text width = 20mm, xshift = -2cm]  (computeStress_run0)  {
+$run = 0$
+};
+\draw [norm]  (computeStress_converged.east) -- (computeStress_run0.west);
+\draw [norm]  (computeStress_run0.south) |- ($(computeStress_recompInternal.south)!0.35!(computeStress_runtest.north)$);
+
+\draw [norm]  (computeStress_yield.east) -| +(5,0) |-  ($(computeStress_recompValues.south)!0.35!(computeStress_updateStress.north)$);
+%\draw [norm]  (computeStress_gammaBound.east) -| +(+2,-1) |- ($(computeStress_gammaCenter.south)!0.35!(computeStress_converged.north)$);
+
+\end{tikzpicture}

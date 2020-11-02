@@ -1,0 +1,36 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of computeDensity
+\node [endPoint]  (computeDensity_SP)  {Compute Density};
+
+\node [test, join] (computeDensity_Axi) {Axi ?};
+\path (computeDensity_Axi.east)  to node [above right]  {Yes}  (computeDensity_Axi);
+\path (computeDensity_Axi.west)  to node [above left]  {No}  (computeDensity_Axi);
+
+\node [bloc, text width = 20mm, xshift = -3cm] (computeDensity_rho) {
+\vspace{-0.3cm}
+\[
+\rho = \rho_0 \frac{J_0}{J}
+\]
+};
+
+% End of computeDensity
+ \node [endPoint, below=of computeDensity_Axi, yshift=-3.5cm ] (computeDensity_EP)  {END};
+
+\node [bloc, right= of computeDensity_rho, text width = 20mm, xshift = -0.5cm] (computeDensity_rhoA) {
+\vspace{-0.3cm}
+\[
+\rho = \rho_0 \frac{1}{R} \frac{J_0}{J}
+\]
+};
+
+\draw [norm] (computeDensity_Axi.west) -| (computeDensity_rho.north);
+\draw [norm] (computeDensity_Axi.east) -| (computeDensity_rhoA.north);
+\draw [norm] (computeDensity_rhoA.south) |- +(0,-0.5) -| (computeDensity_EP.north);
+\draw [norm] (computeDensity_rho.south) |- +(0,-0.5) -| (computeDensity_EP.north);
+
+\node [bloc, left=of computeDensity_Axi,  text width = 20mm, xshift = 1.5cm)] (computeDensity_loopIntPts) {loop over\\intPoints\\in loop\\Elements};
+\draw [norm]  ($(computeDensity_Axi.south)!0.85!(computeDensity_EP.north)$) -| (computeDensity_loopIntPts.south);
+\draw [norm] (computeDensity_loopIntPts.north) |-  ($(computeDensity_SP.south)!0.35!(computeDensity_Axi.north)$);
+
+\end{tikzpicture}

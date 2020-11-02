@@ -1,0 +1,101 @@
+% !TeX spellcheck = en_US
+% !TeX root = DynELA.tex
+%
+% LaTeX source file of DynELA FEM Code
+%
+% (c) by Olivier Pantalé 2020
+%
+\chapter{Installation of the \DynELA}\label{Chapter!Installation}
+
+\startcontents[chapters]
+\printmyminitoc[1]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. This is a new version of the early proposed v.2 code written between 1996 and 2010. The previous version has been included into the CAE Linux distribution some year ago and the corresponding work has been published in some Scientific Journals \cite{
+pantale_object-oriented_2002,
+pantale_development_2004,
+pantale_parallelization_2005,
+menanteau_methodology_2006,
+nistor_numerical_2007,
+nistor_numerical_2008,
+pantale_rp_2020}
+, some international conferences \cite{
+menanteau_coupled_2005,
+nistor_modeling_2005,
+pantale_strategies_2005,
+pantale_developpement_2004,
+pantale_developpement_1999,
+pantale_development_2002}
+ and served to support for some Ph.D. theses \cite{
+menanteau_developpement_2004,
+nistor_identification_2005}
+. The aim of v.3.0 is to provide an enhanced version of the code with enhancements concerning the constitutive laws, a new programming interface based on Python 3 formalism, along with some documentation.
+The \DynELA~is developped under Linux (an Ubuntu 18.04 LTS is currently used for the development). All source code and material can be downloaded from the following github website:
+
+\hspace*{1cm}\textsf{https://github.com/pantale/DynELA}
+
+The \DynELA~is licensed under BSD-3-Clause license.
+
+\section{Prerequisites}
+
+Compilation of the \DynELA~requires a number of libraries.
+Generation of Makefiles for DynELA compilation is based on the use of the CMake tool. CMake is a cross-platform, open-source build system generator. Under Ubuntu it can be installed with the following command:
+
+\begin{BashListing}[numbers=none]
+sudo apt install cmake
+\end{BashListing}
+
+DynELA is written in \Cpp~and Python 3.x therefore it needs a \Cpp~compiler and some Python 3.x libraries. Under Ubuntu those libraries can be installed with the following command:
+
+\begin{BashListing}[numbers=none]
+sudo apt install build-essential swig zlib1g-dev liblapacke-dev python3-dev
+\end{BashListing}
+
+It also needs some Python 3.x modules to run properly and at least numpy, matplotlib:
+
+\begin{BashListing}[numbers=none]
+sudo apt install python3-numpy python3-matplotlib texlive dvipng \
+texlive-latex-extra texlive-fonts-recommended
+\end{BashListing}
+
+\section{Download and compilation}
+
+Download of the source code from the github repository, compilation and installation of the software into a sub-directory can be done using the following procedure:
+
+\begin{BashListing}[numbers=none]
+git clone https://github.com/pantale/DynELA.git
+cd DynELA
+mkdir Build
+cd Build
+cmake ../Sources
+make
+\end{BashListing}
+
+After downloading and compilation, there is no need to install the executable or something similar to use the FEM code. You just have to modify the \textsf{.bashrc} file and add the following lines where \emph{path\_to\_DynELA} points to the top directory of your \DynELA~installation:
+
+\begin{BashListing}[numbers=none]
+export DYNELA="path_to_DynELA"
+export PATH=$PATH:$DYNELA/bin
+export DYNELA_BIN=$DYNELA/Build/bin
+export DYNELA_LIB=$DYNELA/Build/lib
+export PYTHONPATH="$DYNELA_BIN:$PYTHONPATH"
+export PYTHONPATH="$DYNELA_LIB:$PYTHONPATH"
+export LD_LIBRARY_PATH=$DYNELA_LIB:$LD_LIBRARY_PATH
+\end{BashListing}
+
+\section{Testing and usage}
+
+Testing of the installation can be done by running one of the provided samples. All samples of the \DynELA~are located into the sub-directories of the Samples folder. Running a simulation is done using the following command in one of the Samples sub-directories:
+
+\begin{BashListing}[numbers=none]
+python sample.py
+\end{BashListing}
+
+Running the tests in the Samples directories can also be done with regard to the Makefiles contained in the Samples directories. Benchmark tests can be run from any sub-directory of the Sample folder using the following command:
+
+\begin{BashListing}[numbers=none]
+make
+\end{BashListing}
+
+The \DynELA~now has a class for direct export of contourplot results using SVG vectorial format for a 2D or 3D mesh and time-history curves through the Python command interface. See the documentation for all instructions concerning SVG and time-history outputs and the examples included in the Samples directories.
+
+The DynELA FEM code can generate VTK files for the results. The Paraview postprocessor can be used to visualize those results. Paraview is available here:
+
+\hspace*{1cm}\textsf{\hspace*{1cm}\textsf{https://www.paraview.org}}

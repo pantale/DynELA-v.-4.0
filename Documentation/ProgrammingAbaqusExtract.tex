@@ -1,0 +1,65 @@
+% !TeX spellcheck = en_US
+% !TeX root = DynELA.tex
+%
+% LaTeX source file of DynELA FEM Code
+%
+% (c) by Olivier Pantalé 2020
+%
+\chapter{Abaqus extractor utility}
+
+\startcontents[chapters]
+\printmyminitoc[1]
+\LETTRINE{T}his chapter deals about the Abaqus extractor utility of the \DynELA. This extractor is a Python library used to extract results from an Abaqus \textsf{odb} datafile by reading a configuration file describing the way to produce those extracts from a simple syntax language. 
+
+\section{Introduction and presentation of the script}
+
+The \textsf{AbaqusExtract} library is called from a Python script with the following minimal form.
+
+\begin{PythonListing}
+# import the AbaqusExtract library
+import AbaqusExtract
+# Extract data using datafile Extract.ex
+AbaqusExtract.AbaqusExtract('Extract.ex')
+\end{PythonListing}
+
+Assuming that the Python script containing this piece of code is named \textsf{'Extract.py'}, therefore this script must be called from the Abaqus main program using the following command: 
+
+\begin{BashListing}
+abaqus python Extract.py
+\end{BashListing}
+
+\section{Syntax of the configuration file}
+
+Different forms are used depending on the nature of the data to extract, but everything conforms to the Abaqus Python command syntax. The \textsf{AbaqusExtract} library uses some keywords to define the nature of the data to extract as proposed here after.
+\begin{description}
+\item [TimeHistory]: is a keyword defining that the line contains the instructions to extract a time history from an Abaqus \textsf{odb} file.
+\item [job]: is used to define the name of the odb file to use for the extraction of the results \ie it's the name of the \textsf{odb} file without the extension \textsf{.odb}.
+\item [value]: is the nature of the variable to extract conforming to the variables names of Abaqus.
+\item [name]: is the given name of the plotting file to generate, \ie the name of the plotting file without the \textsf{.plot} extension.
+\item [region]: is used to define the location of the data to extract. This one is more complex, as it can be a global location, a node location or an integration point location as described hereafter.
+\item [operate]: is an optional parameter defining what to do when multiple regions are defined.
+\end{description}
+As an example, the following piece of code gives some application examples.
+
+\begin{PythonListing}
+# Extraction of a time history node data
+TimeHistory, job=Torus, value=U1, name=dispX, region=Node PART-1.3
+# Extraction of a time history integration point data
+TimeHistory, job=Torus, value=MISES, name=vM, region=Element PART-1.25 Int Point 1
+# Extraction of a time history global variable
+TimeHistory, job=Torus, value=DT, name=timeStep, region=Assembly ASSEMBLY
+\end{PythonListing}
+
+In the previous example:
+\begin{itemize}
+\item line $2$ is used to extract the nodal displacement \textsf{U1} from the odb file \textsf{Torus.odb} and produce the \textsf{dispX.plot} file for node $3$ of the \textsf{PART-1} piece.
+\item line $4$ is used to extract the integration point value \textsf{MISES} from the odb file \textsf{Torus.odb} and produce the \textsf{vM.plot} file for integration point $1$ of element $25$ of the \textsf{PART-1} piece.
+\item line $6$ is used to extract the global timestep \textsf{DT} from the odb file \textsf{Torus.odb} and produce the \textsf{timeStep.plot} file.
+\end{itemize}
+Concerning the definition of the region to use, it is possible to define more than $1$ region by using the \textsf{'+'} sign in the definition of the region. When this is used, the optional parameter operate is used to define what to do with this multiple data. The operation is defined by:
+\begin{description}
+\item [operate = none]: or no operate parameter defined, therefore, all values are reported to the plotting file separated by a white space.
+\item [operate = mean]: the mean value is computed and reported to the plotting file.
+\item [operate = sum]: the sum of the values is computed and reported= to the plotting file.
+\end{description}
+

@@ -1,0 +1,37 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of computeJacobian
+\node [endPoint]  (computeJacobian_SP)  {Compute Jacobian};
+
+\node [bloc, join] (computeJacobian_JxW) {
+\vspace{-0.4cm}
+\[
+\J = \sum_{I=1}^{n} \N_{I,\xi}\overrightarrow{x_I}
+\]
+\vspace{-0.5cm}
+\[
+J = \det [\J]
+\]
+};
+
+\node [test, join] (computeJacobian_JPositif) {$J > 0$};
+\path (computeJacobian_JPositif.east)  to node [above right]  {No}  (computeJacobian_JPositif);
+\path (computeJacobian_JPositif.south)  to node [below right]  {Yes}  (computeJacobian_JPositif);
+
+\node [bloc, join] (computeJacobian_invJ) {
+$\TI{invJ} = \J^{-1}$ \\
+$\TI{dN}= \N_{,x} = \N_{,\xi}\J^{-1}$
+};
+
+% End of computeJacobian
+ \node [endPoint, join] (computeJacobian_EP)  {END};
+
+\node [bloc, left=of computeJacobian_JPositif,  text width = 20mm, xshift = 1.5cm)] (computeJacobian_loopIntPts) {loop over\\intPoints\\in loop\\Elements};
+
+\draw [norm]  ($(computeJacobian_invJ.south)!0.35!(computeJacobian_EP.north)$) -| (computeJacobian_loopIntPts.south);
+\draw [norm] (computeJacobian_loopIntPts.north) |- (computeJacobian_JxW.west);
+
+\node [endPoint, right=of computeJacobian_JPositif,  text width = 20mm, xshift = -1.5cm] (computeJacobian_fatalError) {Fatal Error};
+\draw [norm]  (computeJacobian_JPositif.east) -- (computeJacobian_fatalError.west);
+
+\end{tikzpicture}

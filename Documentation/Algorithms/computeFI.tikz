@@ -1,0 +1,37 @@
+﻿\begin{tikzpicture} [flowChart]
+
+% Start of computeFI
+\node [endPoint]  (computeFI_SP)  {Compute Internal Forces};
+
+\node [bloc, join] (computeFI_JxW) {
+\vspace{-0.3cm}
+\[
+\F_{I1}^e = -\int_{\Omega}  {\N_{I,x_j}\Sig_{ji}d\Omega}
+\]
+};
+
+\node [test, join] (computeFI_Axi) {Axi ?};
+\path (computeFI_Axi.east)  to node [above right]  {Yes}  (computeFI_Axi);
+\path (computeFI_Axi.south)  to node [below left]  {No}  (computeFI_Axi);
+
+\node [bloc, join, yshift = -0.5cm] (computeFI_Assemble) {
+Assemblage
+};
+
+% End of computeFI
+ \node [endPoint, join] (computeFI_EP)  {END};
+
+\node [bloc, left=of computeFI_Axi,  text width = 20mm, xshift = 1.5cm, yshift = 0.5cm] (computeFI_loopIntPts) {loop over\\intPoints\\in loop\\Elements};
+\draw [norm]  ($(computeFI_Axi.south)!0.35!(computeFI_Assemble.north)$) -| (computeFI_loopIntPts.south);
+\draw [norm] (computeFI_loopIntPts.north) |- (computeFI_JxW.west);
+
+\node [bloc, right=of computeFI_Axi] (computeFI_AxiTerm) {
+\vspace{-0.3cm}
+\[
+\F_{I1}^e \minuseq \int_{\Omega} {\frac {\N_I\Sig_{33}}{R}d\Omega}
+\]
+};
+\draw [norm]  (computeFI_Axi.east) -- (computeFI_AxiTerm.west);
+\draw [norm]  (computeFI_AxiTerm.south) |- ($(computeFI_Axi.south)!0.35!(computeFI_Assemble.north)$);
+
+\end{tikzpicture}
