@@ -4,15 +4,11 @@
 
 ## 2020
 
-### November
+### November 2020
 
-#### 13/11/2020
+13/11/2020 - Add Changelog.md file using Markdown format
 
-- Add Changelog.md file using Markdown format
-
-#### 02/11/2020
-
-- First commit of DynELA v.3.0 files
+02/11/2020 - First commit of DynELA v.3.0 files
 
 
 
