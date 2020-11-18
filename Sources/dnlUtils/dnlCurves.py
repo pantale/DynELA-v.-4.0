@@ -148,7 +148,7 @@ class Curves:
                 symbolslist=cycle(self.symbols)
                 graphName = lineItems[0]
                 pylab.figure(figsize = (11.69,8.27)) # for a4 landscape
-                pylab.rc('axes', prop_cycle=(cycler('color', ['r', 'b', 'g', 'c' , 'm' , 'y' , 'k'])))
+                pylab.rc('axes', prop_cycle=(cycler('color', ['red', 'blue', 'purple', 'green', 'cyan' , 'magenta' , 'yellow' , 'black'])))
                 pylab.rc('text', usetex=True)
                 pylab.rcParams['xtick.labelsize'] = self.xlabelfontsize
                 pylab.rcParams['ytick.labelsize'] = self.ylabelfontsize
