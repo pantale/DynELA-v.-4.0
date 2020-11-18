@@ -10,32 +10,32 @@ The DynELA FEM code is developped under Linux (an Ubuntu 20.04 LTS is currently 
 
 ### Prerequisites:
 
-Compilation of the FEM code requires a number of libraries.
+Compilation of the DynELA Finite Element Code requires several libraries.
 
-Generation of Makefiles for DynELA compilation is based on the use of the CMake application. CMake is a cross-platform, open-source build system generator. It can be installed with the following command:
+Generation of Makefiles for the compilation of the DynELA Finite Element Code is based on the use of the CMake tool. CMake is a cross-platform, open-source build system generator. Under ubuntu it can be installed with the following command:
 
 	sudo apt install cmake
 
-DynELA is written in C++ and Python 3.x therefore it needs a C++ compiler and some Python 3.x libraries. Under Ubuntu this can be installed with the following command:
+DynELA is written in C++ and Python 3 therefore it needs a C++ compiler and some Python 3 libraries. Under ubuntu this can be installed with the following command:
 
 	sudo apt install build-essential swig zlib1g-dev liblapacke-dev python3-dev
 
-It also needs some Python 3.x modules to run properly and at least numpy, matplotlib:
+It also needs some Python 3 modules to run properly and at least numpy and matplotlib:
 
 	sudo apt install python3-numpy python3-matplotlib texlive dvipng texlive-latex-extra texlive-fonts-recommended
 
 ### Download and compilation procedure:
 
-Download and compilation is done using the following procedure:
+Downloading of the source code from this gitlab repository, compilation and installation of the software into a sub-directory can be done using the following procedure:
 
-	git clone https://github.com/pantale/DynELA.git
+	git clone https://git.enit.fr/opantale/dynela-v.-3.0.git
 	cd DynELA
 	mkdir Build
 	cd Build
 	cmake ../Sources
 	make
 
-There is no need to install the executable or something similar to use the FEM code. Modify the .bashrc file and add the following lines where _path_to_DynELA_ points to the top directory of your DynELA installation:
+After downloading and compilation, there is no need to install the executable or something similar to use the FEM code. You just have to modify the **.bashrc** file and add the following lines where _path_to_DynELA_ points to the top directory of your DynELA Finite Element Code installation:
 
 	export DYNELA="path_to_DynELA"
 	export PATH=$PATH:$DYNELA/bin
@@ -47,7 +47,7 @@ There is no need to install the executable or something similar to use the FEM c
 
 ## Testing and usage:
 
-Running one of the provided samples in Samples folder is done using the following command in one of the subdirectories:
+Testing of the installation can be done by running one of the provided samples. All samples of the DynELA Finite Element Code are located into the sub-directories of the Samples folder. Running a simulation is done using the following command in one of the Samples sub-directories:
 
 	python sample.py
 
@@ -57,7 +57,7 @@ Running the tests in the Samples directories can be done through the Makefiles c
 
 ## Postprocessing:
 
-DynELA now has a class for direct export of contourplot results using SVG vectorial format for a 2D or 3D mesh via the Python command interface. See the documentation for all instructions concerning SVG outputs and the examples included in the Samples directories.
+The DynELA Finite Element Code now has a class for direct export of contourplot results using SVG vectorial format for a 2D or 3D mesh and time-history curves through the Python command interface. See the documentation for all instructions concerning SVG and time-history outputs and the examples included in the Samples directories.
 
 The DynELA FEM code can generate VTK files for the results. I'm using the Paraview postprocessor to visualize those results. Paraview is available here: https://www.paraview.org/download
 
