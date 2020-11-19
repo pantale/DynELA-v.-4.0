@@ -1,5 +1,5 @@
 #
-# Makefile for running Abaqus samples
+# Makefile for running DynELA samples
 #
 #  DynELA Finite Element Code v.4.0
 #  by Olivier PANTALE

@@ -1,5 +1,5 @@
 #
-# DynELA for samples subdirectories
+# Makefile for samples subdirectories
 #
 #  DynELA Finite Element Code v.4.0
 #  by Olivier PANTALE
