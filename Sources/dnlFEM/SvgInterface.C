@@ -331,7 +331,15 @@ void SvgInterface::dataInfoWrite()
   int yInc = 22;
   String textVal;
   Vec3D pos(_dataInfosX, _dataInfosY, 0);
-  textWrite(pos, "DynELA FEM code v. 4.0", 20);
+
+  // Get data from config file
+  std::string _name, _version;
+  dynelaData->settings->getValue("DynELA", _name);
+  dynelaData->settings->getValue("Version", _version);
+  _name = _name + " v." + _version;
+
+  textWrite(pos, _name, 20);
+  //  textWrite(pos, "DynELA FEM code v. 4.0", 20);
   pos(1) += yInc;
   textWrite(pos, system.getDate(), 20);
   pos(1) += yInc;
@@ -389,7 +397,14 @@ void SvgInterface::write(String fileName, short _field)
 
   // Writes the title of application
   if (_titleDisplay)
-    textWrite(Vec3D(_titleX, _titleY, 0), "DynELA FEM code v. 4.0", 40);
+  {
+    // Get data from config file
+    std::string _name, _version;
+    dynelaData->settings->getValue("DynELA", _name);
+    dynelaData->settings->getValue("Version", _version);
+    _name = _name + " v." + _version;
+    textWrite(Vec3D(_titleX, _titleY, 0), _name, 40);
+  }
 
   // Tail write
   tailWrite();

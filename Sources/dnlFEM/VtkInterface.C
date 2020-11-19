@@ -82,8 +82,13 @@ void VtkInterface::close()
 void VtkInterface::headerWrite()
 //-----------------------------------------------------------------------------
 {
+  // Get data from config file
+  std::string _name, _version;
+  dynelaData->settings->getValue("DynELA", _name);
+  dynelaData->settings->getValue("Version", _version);
+
   _stream << "# vtk DataFile Version 4.0\n";
-  _stream << "DynELA v 4.0 Finite Element Model\n";
+  _stream << _name + " v." + _version + "\n";
   _stream << "ASCII\n";
   _stream << "DATASET UNSTRUCTURED_GRID\n";
 

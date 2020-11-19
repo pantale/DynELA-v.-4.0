@@ -356,9 +356,14 @@ void HistoryFile::close()
 void HistoryFile::headerWrite()
 //-----------------------------------------------------------------------------
 {
+  // Get data from config file
+  std::string _name, _version;
+  dynelaData->settings->getValue("DynELA", _name);
+  dynelaData->settings->getValue("Version", _version);
+
   if (_pfile == NULL)
     internalFatalError("HistoryFile::headerWrite", "File not open\n");
-  fprintf(_pfile, "#DynELA_plot history file\n");
+  fprintf(_pfile, "#%s v. %s history file\n", _name.c_str(), _version.c_str());
   fprintf(_pfile, "#plotted :");
   for (long i = 0; i < _items.getSize(); i++)
   {
