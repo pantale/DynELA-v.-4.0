@@ -172,7 +172,7 @@ void SvgInterface::meshWrite()
   {
     if (polygon->isVisible())
     {
-      _stream << polygon->getWhitePolygonSvgCode(_meshWidth);
+      _stream << polygon->getWhitePolygonSvgCode(_meshThickness);
     }
   }
   _stream << "</g>\n";
@@ -189,7 +189,7 @@ void SvgInterface::flatPolygonsWrite()
   {
     if (polygon->isVisible())
     {
-      _stream << polygon->getFlatPolygonSvgCode(colorMap, field, _meshDisplay, _meshWidth);
+      _stream << polygon->getFlatPolygonSvgCode(colorMap, field, _meshDisplay, _meshThickness);
     }
   }
   _stream << "</g>\n";
@@ -207,7 +207,7 @@ void SvgInterface::interpolatedPolygonsWrite()
     if (polygon->isVisible())
     {
       _stream << "<g>\n";
-      _stream << polygon->getInterpolatedPolygonSvgCode(colorMap, _patchDecompLevel, field, _meshDisplay, _meshWidth);
+      _stream << polygon->getInterpolatedPolygonSvgCode(colorMap, _patchDecompLevel, field, _meshDisplay, _meshThickness);
       _stream << "</g>\n";
     }
   }
@@ -483,8 +483,8 @@ void SvgInterface::setMeshDisplay(bool display)
 }
 
 //-----------------------------------------------------------------------------
-void SvgInterface::setMeshWidth(double width)
+void SvgInterface::setMeshThickness(double thickness)
 //-----------------------------------------------------------------------------
 {
-  _meshWidth = width;
+  _meshThickness = thickness;
 }

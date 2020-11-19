@@ -51,7 +51,7 @@ private:
   const Vec3D _svgBottomLeft = Vec3D(0, 0, 0);
   const Vec3D _svgTopRight = Vec3D(1600, 1600, 0);
   double _height = 16;
-  double _meshWidth = 1;
+  double _meshThickness = 1;
   double _scale = 1;
   double _scaleRatio = 0.95;
   double _width = 16;
@@ -101,7 +101,7 @@ public:
   void setLegendDisplay(bool display);
   void setLegendPosition(int x, int y);
   void setMeshDisplay(bool display);
-  void setMeshWidth(double width);
+  void setMeshThickness(double thickness);
   void setPatchLevel(int level);
   void setTitleDisplay(bool display);
   void setTitlePosition(int x, int y);
