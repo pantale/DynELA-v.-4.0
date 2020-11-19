@@ -1,5 +1,8 @@
 #
-# DynELA Finite Element Code CMakeList
+#  DynELA Finite Element Code v.4.0
+#  by Olivier PANTALE
+#
+#  (c) Copyright 1997-2020
 #
 #@!CODEFILE = DynELA-CMakeList
 #

@@ -1,6 +1,6 @@
 /***************************************************************************
  *                                                                         *
- *  DynELA Finite Element Code v 3.0                                       *
+ *  DynELA Finite Element Code v.4.0                                       *
  *  by Olivier PANTALE                                                     *
  *                                                                         *
  *  (c) Copyright 1997-2020                                                *

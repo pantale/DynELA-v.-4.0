@@ -1,7 +1,7 @@
 # Configuration file for DynELA FEM code
 
 # Name of the program
-DynELA = Explicit Solver v. 3.0
+DynELA = Explicit Solver v. 4.0
 
 # Default Parameters for the Solver
 ComputeTimeStepFrequency = 10

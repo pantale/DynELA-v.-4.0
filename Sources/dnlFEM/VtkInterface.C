@@ -1,6 +1,6 @@
 /***************************************************************************
  *                                                                         *
- *  DynELA Finite Element Code v 3.0                                       *
+ *  DynELA Finite Element Code v.4.0                                       *
  *  by Olivier PANTALE                                                     *
  *                                                                         *
  *  (c) Copyright 1997-2020                                                *
@@ -82,8 +82,8 @@ void VtkInterface::close()
 void VtkInterface::headerWrite()
 //-----------------------------------------------------------------------------
 {
-  _stream << "# vtk DataFile Version 3.0\n";
-  _stream << "DynELA v 3.0 Finite Element Model\n";
+  _stream << "# vtk DataFile Version 4.0\n";
+  _stream << "DynELA v 4.0 Finite Element Model\n";
   _stream << "ASCII\n";
   _stream << "DATASET UNSTRUCTURED_GRID\n";
 

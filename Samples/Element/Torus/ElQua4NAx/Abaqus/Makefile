@@ -1,7 +1,10 @@
 #
-# DynELA Finite Element Code Makefile
+# Makefile for running Abaqus samples
 #
-# (c) by Olivier Pantalé 2020
+#  DynELA Finite Element Code v.4.0
+#  by Olivier PANTALE
+#
+#  (c) Copyright 1997-2020
 #
 # -------------------------------------------------------------------------------
 # Beginning of the private area for the Makefile

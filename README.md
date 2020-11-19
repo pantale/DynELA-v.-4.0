@@ -1,8 +1,8 @@
-# DynELA Finite Element Code v.3.0
+# DynELA Finite Element Code v.4.0
 
 <img src="Documentation/Figures/Taylor3D.png" width="50%" alt="Taylor impact test" align="right"/>
 
-This repository contains the DynELA Finite Element Code v.3.0. The DynELA Finite Element Code is an Explicit FEM code written in C++ using a Python's interface for creating the Finite Element Models. This is a new version of the early proposed v.2 code written between 1996 and 2010. The previous version has been included into the CAE Linux distribution some year ago and the corresponding work has been published in some Scientific Journals (Advances in Engineering Software, Journal of Computational and Applied Mathematics;...). The aim of v.3.0 is to provide a new version of the code with enhancements concerning the constitutive laws, a new programming interface based on Python 3 formalism, along with some documentation.
+This repository contains the DynELA Finite Element Code v.4.0. The DynELA Finite Element Code is an Explicit FEM code written in C++ using a Python's interface for creating the Finite Element Models. This is a new version of the early proposed v.2 code written between 1996 and 2010. The previous version has been included into the CAE Linux distribution some year ago and the corresponding work has been published in some Scientific Journals (Advances in Engineering Software, Journal of Computational and Applied Mathematics;...). The aim of v.4.0 is to provide a new version of the code with enhancements concerning the constitutive laws, a new programming interface based on Python 3 formalism, along with some documentation.
 
 ## Download and installation procedure:
 
@@ -28,7 +28,7 @@ It also needs some Python 3 modules to run properly and at least numpy and matpl
 
 Downloading of the source code from this gitlab repository, compilation and installation of the software into a sub-directory can be done using the following procedure:
 
-	git clone https://git.enit.fr/opantale/dynela-v.-3.0.git
+	git clone https://git.enit.fr/opantale/dynela-v.-4.0.git
 	cd DynELA
 	mkdir Build
 	cd Build
