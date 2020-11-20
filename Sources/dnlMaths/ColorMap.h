@@ -56,8 +56,8 @@ private:
   DiscreteFunction _blueComponent;  //!< Discrete function associated to the blue channel
   DiscreteFunction _greenComponent; //!< Discrete function associated to the green channel
   DiscreteFunction _redComponent;   //!< Discrete function associated to the red channel
-  double _min;                      //!< min of the colors
   double _max;                      //!< max of the colors
+  double _min;                      //!< min of the colors
   int _levels = 16;                 //!< Number of levels
   short _currentColorMap = DeepCM;  //!< Current color map
   void clearColorMap();
@@ -66,14 +66,15 @@ private:
 public:
   ColorMap();
   ~ColorMap();
-
-  double getMax();
-  double getMin();
+#ifndef SWIG
   int getIntColor(double value);
-  int getLevels();
   String getStringColor(double value, bool steps = false);
   Vec3D getVec3DColor(double value, bool steps = false);
   void getBounds(double &min, double &max, int &levels);
+#endif
+  double getMax();
+  double getMin();
+  int getLevels();
   void setBounds(double min, double max);
   void setColorMap();
   void setDeepColorMap();

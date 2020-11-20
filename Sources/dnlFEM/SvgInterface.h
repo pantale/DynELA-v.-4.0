@@ -42,14 +42,15 @@ struct SvgRotate
 class SvgInterface
 {
 private:
+  bool _autoRangeValues = true;
   bool _dataInfosDisplay = false;
   bool _initialized = false;
   bool _legendDisplay = true;
   bool _meshDisplay = true;
   bool _rotate = false;
   bool _titleDisplay = true;
-  const Vec3D _svgBottomLeft = Vec3D(0, 0, 0);
-  const Vec3D _svgTopRight = Vec3D(1600, 1600, 0);
+  const Vec3D _svgTopRight = Vec3D(0, 0, 0);
+  const Vec3D _svgBottomRight = Vec3D(1600, 1600, 0);
   double _height = 16;
   double _meshThickness = 1;
   double _scale = 1;
@@ -73,6 +74,7 @@ private:
   void filledRectangleWrite(int x1, int y1, int x2, int y2, String col);
   void flatPolygonsWrite();
   void headerWrite();
+  void initDrawing();
   void initSvgFile(String fileName);
   void interpolatedPolygonsWrite();
   void legendWrite();
@@ -93,9 +95,9 @@ public:
   SvgInterface(const SvgInterface &SvgInterface);
   ~SvgInterface();
 
-  void initDrawing();
   void resetView();
   void rotate(Vec3D axis, double angle);
+  void setAutoRangeValues(bool autoRangeValues);
   void setInfoDisplay(bool display);
   void setInfoPosition(int x, int y);
   void setLegendDisplay(bool display);

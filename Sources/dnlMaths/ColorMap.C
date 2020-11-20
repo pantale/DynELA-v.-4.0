@@ -363,7 +363,7 @@ int ColorMap::getIntColor(double value)
 
   // If more than max
   if (value > _max)
-    return -1;
+    return _levels;
 
   if (_max == _min)
     return 0;

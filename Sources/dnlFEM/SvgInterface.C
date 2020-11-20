@@ -86,7 +86,7 @@ void SvgInterface::headerWrite()
   _stream << "<svg\n";
   _stream << " width=\"" << _width << "cm\"\n";
   _stream << " height=\"" << _height << "cm\"\n";
-  _stream << " viewBox=\"" << _svgBottomLeft(0) << " " << _svgBottomLeft(1) << " " << _svgTopRight(0) << " " << _svgTopRight(1) << "\"\n";
+  _stream << " viewBox=\"" << _svgTopRight(0) << " " << _svgTopRight(1) << " " << _svgBottomRight(0) << " " << _svgBottomRight(1) << "\"\n";
   _stream << " version=\"1.1\">\n";
 }
 
@@ -126,11 +126,11 @@ void SvgInterface::initDrawing()
 
   // Compute _scale factor
   Vec3D delta = dynelaData->drawing.topRight - dynelaData->drawing.bottomLeft;
-  Vec3D svgDelta = _svgTopRight - _svgBottomLeft;
+  Vec3D svgDelta = _svgBottomRight - _svgTopRight;
   _scale = _scaleRatio * dnlMin(svgDelta(0), svgDelta(1)) / dnlMax(delta(0), delta(1));
 
   // Compute center
-  _svgCenter = (_svgTopRight + _svgBottomLeft) / 2;
+  _svgCenter = (_svgBottomRight + _svgTopRight) / 2;
   dynelaData->drawing.worldCenter = _svgCenter;
   dynelaData->drawing.worldCenter(2) = 0;
 
@@ -372,15 +372,20 @@ void SvgInterface::write(String fileName, short _field)
   }
   else
   {
-    // Get bounds values for field
-    double max, min;
-    dynelaData->getNodalValuesRange(field, min, max);
+    if (_autoRangeValues)
+    {
+      // max and min values or range
+      double max, min;
 
-    // Create colorMap
-    colorMap.setBounds(min, max);
-    field = field;
+      // Get bounds values for field
+      dynelaData->getNodalValuesRange(field, min, max);
 
-    if (max - min > 1e-6)
+      // Create colorMap
+      colorMap.setBounds(min, max);
+    }
+    //field = field;
+
+    if (colorMap.getMax() - colorMap.getMin() > 1e-6)
       interpolatedPolygonsWrite();
     else
     {
@@ -448,7 +453,6 @@ void SvgInterface::setPatchLevel(int level)
   if (level < 1)
   {
     std::cout << "setPatchLevel -> increased to level 1\n";
-
     level = 1;
   }
   _patchDecompLevel = level;
@@ -473,6 +477,13 @@ void SvgInterface::setInfoDisplay(bool display)
 //-----------------------------------------------------------------------------
 {
   _dataInfosDisplay = display;
+}
+
+//-----------------------------------------------------------------------------
+void SvgInterface::setAutoRangeValues(bool autoRangeValues)
+//-----------------------------------------------------------------------------
+{
+  _autoRangeValues = autoRangeValues;
 }
 
 //-----------------------------------------------------------------------------
