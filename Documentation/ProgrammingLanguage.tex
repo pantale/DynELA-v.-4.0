@@ -349,7 +349,7 @@ ramp = dnl.RampFunction("constantFunction")
 ramp.set(dnl.RampFunction.Constant, 0, stopTime)
 \end{PythonListing}
 
-\section{Fields}
+\section{Fields}\label{ProgrammingLanguage:Section:Fields}
 
 \subsection{Nodal fields}
 
@@ -472,5 +472,108 @@ model.parallel.setCores(2)
 model.solve()
 \end{PythonListing}
 
-\section{Vectorial SVG contourplots}
+\section{Vectorial SVG meshes and contourplots}
+Since \DynELA~version 3.0, it is possible to export SVG files (Scalable Vector Graphics) from the Python command language to produce high quality figures (and of course reproducible results, as everything is generated from script). One can then produce some mesh exports as presented in Figure \ref{fig:PL!SVG!Mesh} or contourplots exports for a given data (here we used the von Mises field) as presented in Figure \ref{fig:PL!SVG!Contourplot}.
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[width=0.5\columnwidth]{Figures/ProgrammingLanguage/mesh}
+\par\end{centering}
+\caption{Export of a mesh in SVG format\label{fig:PL!SVG!Mesh}}
+\end{figure}
 
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[width=0.5\columnwidth]{Figures/ProgrammingLanguage/vonMisesCP}
+\par\end{centering}
+\caption{Export of a von Mises contourplot in SVG format\label{fig:PL!SVG!Contourplot}}
+\end{figure}
+
+As an illustration, the following commented piece of code has been used to produce both plots presented in Figures \ref{fig:PL!SVG!Mesh} and \ref{fig:PL!SVG!Contourplot}.
+\begin{PythonListing}
+svg = dnl.SvgInterface("SVG")       # Creates an instance of SvgInterface object
+svg.setLegendPosition(100, 280)     # Position the legend
+svg.rotate(dnl.Vec3D(0, 1, 0), 190) # Rotation around y axis
+svg.rotate(dnl.Vec3D(1, 0, 0), -70) # Rotation around x axis
+svg.rotate(dnl.Vec3D(0, 1, 0), -60) # Rotation around y axis
+svg.write(dnl.String("mesh.svg"))   # Exports the mesh
+svg.write(dnl.String("vonMises.svg"), dnl.Field.vonMises) # Exports the contourplot
+\end{PythonListing}
+
+More details concerning the syntax of the SvgInterface class are presented in the following subsections.
+
+\subsection{Initialization of an SVG object}
+Creation of a SVG file under \DynELA~is done using through the instantiation of an object \textsf{SvgInterface} object using the following syntax:
+\begin{PythonListing}
+svg = dnl.SvgInterface("SVG object")
+\end{PythonListing}
+Hereafter, \textsf{svg} is an instance of the object \textsf{SvgInterface}, and "\emph{SVG object}" is the associated name of the object created by the constructor of the \textsf{SvgInterface} class.
+
+Concerning \textsf{SvgInterface}, \DynELA~creates a window with the prescribed size $1600\times1600$, where the coordinates of the top-left corner are $(0, 0)$ and the coordinates of the bottom-right corner are $(1600, 1600)$. All drawing options where some coordinates are requested must conform to this definition.
+
+\subsection{Drawing options}
+
+\subsubsection{View orientation and rotations}
+\begin{description}
+\item [{resetView ( )}] : This resets the current view to the original one where $O,\overrightarrow{x},\overrightarrow{y}$ is the drawing plane and $\overrightarrow{z}$ is pointing forward.
+\item [{rotate (\emph{Vec3D}, \emph{float})}] : Defines the rotation of the structure around the axis $\overrightarrow{v}$ defined by a \emph{Vec3D} with an angle $\alpha$ defined by a \emph{float} value.
+\end{description}
+
+\subsubsection{Mesh and data output}
+\begin{description}
+\item [{setMeshDisplay (\emph{bool} = [true])}] : Set or unset the drawing of the mesh.
+\item [{setMeshThickness (\emph{float} = [1.0])}] : Defines the line thickness for drawing the mesh.
+\item [{setPatchLevel (\emph{int} = [1])}] : Defines the level of decomposition of the elements for drawing, \ie the number of recursive decomposition of the polygons [1 to 4]. The default value is usually sufficient for all plots, increasing it enhances the precision of the plot, but drastically increases also the size of the produced file.
+\item [{setAutoRangeValues (\emph{bool} = [true])}] : Set or unset the automatic computation of minimum and maximum values for fields range. This function must be switched to \emph{false} in addition to the function \textsf{setBounds} of the \textsf{colorMap} class (see \ref{sec:PL!SVG!ColorMap}).
+\end{description}
+
+\subsubsection{Legends and notations}
+\begin{description}
+\item [{setInfoDisplay (\emph{bool} = [false])}] : Set or unset the drawing of the bloc of informations.
+\item [{setInfoPosition (\emph{int}, \emph{int})}] : Defines the position of the bloc of informations on the current drawing (default position is $(50, 1200)$).
+\item [{setLegendDisplay (\emph{bool} = [true])}] :  Set or unset the drawing of the legend.
+\item [{setLegendPosition (\emph{int}, \emph{int})}] : Defines the position of the legend on the current drawing (default position is $(30, 30)$).
+\item [{setTitleDisplay (\emph{bool} = [true])}] :  Set or unset the drawing of the title.
+\item [{setTitlePosition (\emph{int}, \emph{int})}] : Defines the position of the title on the current drawing (default position is $(50, 1550)$).
+\end{description}
+
+\subsubsection{Color Map Options}\label{sec:PL!SVG!ColorMap}
+Color Map used for SVG plots can be changed to one of the predefined color-maps using the following syntax (ex: changing for a gray map):
+\begin{PythonListing}
+svg.colorMap.setGrayMap() # set the color map to Gay
+\end{PythonListing}
+The following 6 maps are available in \DynELA.
+\begin{description}
+\item [{setColorMap ( )}] : defines a classic color map.\\
+ \hspace*{0.2\columnwidth}\includegraphics{Figures/ProgrammingLanguage/ColorMap}
+\item [{setDeepColorMap ( )}] : defines a deep-color map (this is the \textsf{default} map).\\
+ \hspace*{0.2\columnwidth}\includegraphics{Figures/ProgrammingLanguage/DeepColorMap}
+\item [{setGrayMap ( )}] : defines a gray map.\\
+ \hspace*{0.2\columnwidth}\includegraphics{Figures/ProgrammingLanguage/GrayMap}
+\item [{setReverseColorMap ( )}] : defines a reversed classic color map (from red to blue).\\
+ \hspace*{0.2\columnwidth}\includegraphics{Figures/ProgrammingLanguage/ReverseColorMap}
+\item [{setReverseDeepColorMap ( )}] : defines a reversed deep-color map (from red to blue).\\
+ \hspace*{0.2\columnwidth}\includegraphics{Figures/ProgrammingLanguage/ReverseDeepColorMap}
+\item [{setReverseGrayMap ( )}] : defines a reversed gray map (from white to black).\\
+ \hspace*{0.2\columnwidth}\includegraphics{Figures/ProgrammingLanguage/ReverseGrayMap}
+\end{description}
+
+In \DynELA, maps are defined by a given range and number of isovalues. Those parameters can be defined using the following methods:
+\begin{description}
+\item [{setLevels (\emph{int} = [16]})] : maps are decomposed into the given number of colors, \ie isovalues levels.
+\item [{setBounds (\emph{float}, \emph{float})}] : maps are automatically ranged to fit the current field range. But this method allows to fix this range\footnote{In order to use this method it is mandatory to use the method \textsf{setAutoRangeValues} of the \textsf{SvgInterface} class and set it to \emph{false}.}. Out of bounds zones will be drawn in black for low values and white for high values.
+\end{description}
+
+On the other hand, the following methods returns some informations on the current map:
+\begin{description}
+\item [{getMax ( )}] : get the maximum value of the range.
+\item [{getMin ( )}] : get the minimum value of the range.
+\item [{getLevels ( )}] : get the current number of levels.
+\end{description}
+
+\subsection{Creation of the SVG file}
+Effective creation of the SVG file is done by calling the \textsf{write} method of the \textsf{SvgInterface} class with the following syntax:
+\begin{PythonListing}
+svg.write(dnl.String("mesh.svg")) # Without field, this draws only the mesh
+svg.write(dnl.String("temp.svg"), dnl.Field.temperature)
+\end{PythonListing}
+Here, on line number 1, "\emph{temp.svg}" is the name of the SVG file to create for exporting the mesh. On line number 2, "\emph{temp.svg}" is the name of the SVG file to create and \textsf{dnl.Field.temperature} is the name of the associated field to output (see \ref{ProgrammingLanguage:Section:Fields} for definitions).

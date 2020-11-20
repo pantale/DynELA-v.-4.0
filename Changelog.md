@@ -6,6 +6,8 @@
 
 ### November 2020
 
+20/11/2020 - Add SVG chapter in programming documentation
+
 19/11/2020 - Change to DynELA v.4.0
 
 13/11/2020 - Add Changelog.md file using Markdown format
