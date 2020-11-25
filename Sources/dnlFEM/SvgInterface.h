@@ -96,6 +96,7 @@ public:
   ~SvgInterface();
 
   void resetView();
+  void rotate(char axis, double angle);
   void rotate(Vec3D axis, double angle);
   void setAutoRangeValues(bool autoRangeValues);
   void setInfoDisplay(bool display);

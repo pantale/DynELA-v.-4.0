@@ -143,6 +143,26 @@ void SvgInterface::initDrawing()
 }
 
 //-----------------------------------------------------------------------------
+void SvgInterface::rotate(char axis, double angle)
+//-----------------------------------------------------------------------------
+{
+  switch (axis)
+  {
+  case 'X':
+    rotate(Vec3D(1, 0, 0), angle);
+    break;
+  case 'Y':
+    rotate(Vec3D(0, 1, 0), angle);
+    break;
+  case 'Z':
+    rotate(Vec3D(0, 0, 1), angle);
+    break;
+  default:
+    fatalError("SvgInterface::rotate(char axis, double angle)","Unknown Axis %c", axis);
+  }
+}
+
+//-----------------------------------------------------------------------------
 void SvgInterface::rotate(Vec3D axis, double angle)
 //-----------------------------------------------------------------------------
 {
