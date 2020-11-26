@@ -360,35 +360,34 @@ Nodal fields are defined at nodes and cover types defined in table \ref{tab:Prog
 	\item [{tensor}] : Access to all $9$ components of a tensor using \textsf{nameXX}, \textsf{nameXY},\ldots, \textsf{nameZZ} or the norm of the tensor using \textsf{name}.
 \end{description}
 \begin{table}[h]
-	\begin{center}\begin{tcolorbox}[width=.75\textwidth,myTab,tabularx={l|c|c|c|R}]
-			\multicolumn{1}{c|}{Name} & Type & Label & Loc & \multicolumn{1}{c}{Description} \\ \hline\hline
-			density & scalar & & IntPt &\\ \hline
-			displacementIncrement & vec3D & & node & \\ \hline
-			displacement & vec3D & & node & \\ \hline
-			energyIncrement & scalar & & IntPt & \\ \hline
-			energy & scalar & & IntPt & \\ \hline
-			gammaCumulate & scalar & & IntPt & \\ \hline
-			gamma & scalar & & IntPt & \\ \hline
-			internalEnergy & scalar & & IntPt & \\ \hline
-			mass & scalar & & node & \\ \hline
-			nodeCoordinate & vec3D & & node & \\ \hline
-			normal & vec3D & & node & \\ \hline
-			PlasticStrainInc & tensor & & IntPt & \\ \hline
-			plasticStrainRate & scalar & & IntPt & \\ \hline
-			plasticStrain & scalar & & IntPt & \\ \hline
-			PlasticStrain & tensor & & IntPt & \\ \hline
-			pressure & scalar & & IntPt & \\ \hline
-			speedIncrement & vec3D & & node & \\ \hline
-			speed & vec3D & & node & \\ \hline
-			StrainInc & tensor & & IntPt & \\ \hline
-			Strain & tensor & & IntPt & \\ \hline
-			Stress & tensor & & IntPt & \\ \hline
-			temperature & scalar & & IntPt & \\ \hline
-			vonMises & scalar & & IntPt & \\ \hline
-			yieldStress & scalar & & IntPt & 
+	\begin{center}\begin{tcolorbox}[width=.85\textwidth,myTab,tabularx={l|c|c|c|c|R}]
+			\multicolumn{1}{c|}{Name} & & Type & nb & Loc & \multicolumn{1}{c}{Description} \\ \hline\hline
+			density & $\rho$ & scalar & $1$ & IntPt &\\ \hline
+			displacementIncrement & $\Delta\overrightarrow{u}$ & vec3D & $3+1$ & node & \\ \hline
+			displacement & $\overrightarrow{u}$ & vec3D & $3+1$ & node & \\ \hline
+			energyIncrement && scalar & $1$ & IntPt & \\ \hline
+			energy && scalar & $1$ & IntPt & \\ \hline
+			gammaCumulate && scalar & $1$ & IntPt & \\ \hline
+			gamma & $\Gamma$ & scalar & $1$ & IntPt & \\ \hline
+			internalEnergy && scalar & $1$ & IntPt & \\ \hline
+			mass & $m$ & scalar & $1$ & node & \\ \hline
+			nodeCoordinate & $\overrightarrow{x}$ & vec3D & $3+1$ & node & \\ \hline
+			normal & $\overrightarrow{n}$ & vec3D & $3+1$ & node & \\ \hline
+			PlasticStrainInc && tensor & $9+1$ & IntPt & \\ \hline
+			plasticStrainRate && scalar & $1$ & IntPt & \\ \hline
+			plasticStrain && scalar & $1$ & IntPt & \\ \hline
+			PlasticStrain && tensor & $9+1$ & IntPt & \\ \hline
+			pressure & $p$ & scalar & $1$ & IntPt & \\ \hline
+			speedIncrement & $\Delta\overrightarrow{v}$ & vec3D & $3+1$ & node & \\ \hline
+			speed & $\overrightarrow{v}$ & vec3D & & node & \\ \hline
+			StrainInc && tensor & $9+1$ & IntPt & \\ \hline
+			Strain && tensor & $9+1$ & IntPt & \\ \hline
+			Stress & $\Sig$ & tensor & $9+1$ & IntPt & \\ \hline
+			temperature & $T$ & scalar & $1$ & IntPt & \\ \hline
+			vonMises & $\overline{\sigma}$ & scalar & $1$ & IntPt & \\ \hline
+			yieldStress & $\sigma^y$ & scalar & $1$ & IntPt & 
 	\end{tcolorbox}\end{center}\caption{Nodal fields\label{tab:Programming!NodalFields}}
 \end{table}
-
 
 \subsection{Element fields}
 
@@ -399,34 +398,34 @@ Element fields are defined at integration points and cover types defined in tabl
 	\item [{tensor}] : Access to all $9$ components of a tensor using \textsf{nameXX}, \textsf{nameXY},\ldots, \textsf{nameZZ} or the norm of the tensor using \textsf{name}.
 \end{description}
 \begin{table}[h]
-	\begin{center}\begin{tcolorbox}[width=.75\textwidth,myTab,tabularx={l|c|c|R}]
-			\multicolumn{1}{c|}{Name} & Type & Label & \multicolumn{1}{c}{Description} \\ \hline\hline
-			density & scalar & & \\ \hline
-			gammaCumulate & scalar  & & \\ \hline
-			gamma & scalar & & \\ \hline
-			internalEnergy & scalar & & \\ \hline
-			plasticStrainRate & scalar & & \\ \hline
-			plasticStrain & scalar & & \\ \hline
-			PlasticStrain & tensor & & \\ \hline
-			PlaticStrainInc & tensor & & \\ \hline
-			pressure & scalar & & \\ \hline
-			StrainInc & tensor & & \\ \hline
-			Strain & tensor & & \\ \hline
-			Stress & tensor & & \\ \hline
-			temperature & scalar & & \\ \hline
-			vonMises & scalar & & \\ \hline
-			yieldStress & scalar & &
+	\begin{center}\begin{tcolorbox}[width=.85\textwidth,myTab,tabularx={l|c|c|c|R}]
+			\multicolumn{1}{c|}{Name} && Type & nb & \multicolumn{1}{c}{Description} \\ \hline\hline
+			density & $\rho$ & scalar & $1$ & \\ \hline
+			gammaCumulate && scalar & $1$ & \\ \hline
+			gamma & $\Gamma$ & scalar & $1$ & \\ \hline
+			internalEnergy && scalar & $1$ & \\ \hline
+			plasticStrainRate && scalar & $1$ & \\ \hline
+			plasticStrain && scalar & $1$ & \\ \hline
+			PlasticStrain && tensor & $9+1$ & \\ \hline
+			PlaticStrainInc && tensor & $9+1$ & \\ \hline
+			pressure & $p$ & scalar & $1$ & \\ \hline
+			StrainInc && tensor & $9+1$ & \\ \hline
+			Strain && tensor & $9+1$ & \\ \hline
+			Stress & $\Sig$ & tensor & $9+1$ & \\ \hline
+			temperature & $T$ & scalar & $1$ & \\ \hline
+			vonMises & $\overline{\sigma}$ & scalar & $1$ & \\ \hline
+			yieldStress & $\sigma^y$ & scalar & $1$ &
 	\end{tcolorbox}\end{center}\caption{Element fields\label{tab:Programming!ElementlFields}}
 \end{table}
 
 \subsection{Global fields}
 
 \begin{table}[h]
-	\begin{center}\begin{tcolorbox}[width=.75\textwidth,myTab,tabularx={l|c|c|R}]
-			\multicolumn{1}{c|}{Name} & Type & Label & \multicolumn{1}{c}{Description} \\ \hline\hline
-			kineticEnergy & scalar & & \\ \hline
-			realTimeStep & scalar & & \\ \hline
-			timeStep & scalar & & 
+	\begin{center}\begin{tcolorbox}[width=.85\textwidth,myTab,tabularx={l|c|c|c|R}]
+			\multicolumn{1}{c|}{Name} && Type & nb & \multicolumn{1}{c}{Description} \\ \hline\hline
+			kineticEnergy & $E_c$ & scalar & $1$ & \\ \hline
+			realTimeStep & $\Delta t_r$ & scalar & $1$ & \\ \hline
+			timeStep &$\Delta t$& scalar & $1$ & 
 	\end{tcolorbox}\end{center}\caption{Global fields\label{tab:Programming!GlobalFields}}
 \end{table}
 
@@ -442,7 +441,7 @@ model.setSaveTimes(0, stopTime, stopTime/nbreSaves)
 
 \begin{PythonListing}
 dtHist = dnl.HistoryFile("dtHistory")
-dtHist.setFileName(dnl.String("dt.plot"))
+dtHist.setFileName("dt.plot")
 dtHist.add(dnl.Field.timeStep)
 dtHist.setSaveTime(stopTime/nbrePoints)
 model.add(dtHist)
@@ -473,7 +472,7 @@ model.solve()
 \end{PythonListing}
 
 \section{Vectorial SVG meshes and contourplots}
-Since \DynELA~version 3.0, it is possible to export SVG files (Scalable Vector Graphics) from the Python command language to produce high quality figures (and of course reproducible results, as everything is generated from script). One can then produce some mesh exports as presented in Figure \ref{fig:PL!SVG!Mesh} or contourplots exports for a given data (here we used the von Mises field) as presented in Figure \ref{fig:PL!SVG!Contourplot}.
+Since \DynELA~version 3.0, it is possible to export SVG files (Scalable Vector Graphics) from the Python command language to produce high quality figures (and of course reproducible results, as everything is generated from script). This can be done before running the Solver to export the initial mesh of the structure for example, or after the solver phase to produce contourplot results. One can then produce some mesh exports as presented in Figure \ref{fig:PL!SVG!Mesh} or contourplots exports for a given data (here we used the von Mises field) as presented in Figure \ref{fig:PL!SVG!Contourplot}.
 \begin{figure}[h]
 \begin{centering}
 \includegraphics[width=0.5\columnwidth]{Figures/ProgrammingLanguage/mesh}
@@ -492,11 +491,11 @@ As an illustration, the following commented piece of code has been used to produ
 \begin{PythonListing}
 svg = dnl.SvgInterface("SVG")       # Creates an instance of SvgInterface object
 svg.setLegendPosition(100, 280)     # Position the legend
-svg.rotate(dnl.Vec3D(0, 1, 0), 190) # Rotation around y axis
-svg.rotate(dnl.Vec3D(1, 0, 0), -70) # Rotation around x axis
-svg.rotate(dnl.Vec3D(0, 1, 0), -60) # Rotation around y axis
-svg.write(dnl.String("mesh.svg"))   # Exports the mesh
-svg.write(dnl.String("vonMises.svg"), dnl.Field.vonMises) # Exports the contourplot
+svg.rotate(dnl.Vec3D(0, 1, 0), 190) # Rotation 190 degree around Y axis
+svg.rotate(dnl.Vec3D(1, 0, 0), -70) # Rotation -70 degree around X axis
+svg.rotate('Y', -60)                # Rotation -60 degree around Y axis
+svg.write("mesh.svg")               # Exports the mesh
+svg.write("vonMises.svg", dnl.Field.vonMises) # Exports the contourplot
 \end{PythonListing}
 
 More details concerning the syntax of the SvgInterface class are presented in the following subsections.
@@ -506,7 +505,7 @@ Creation of a SVG file under \DynELA~is done using through the instantiation of 
 \begin{PythonListing}
 svg = dnl.SvgInterface("SVG object")
 \end{PythonListing}
-Hereafter, \textsf{svg} is an instance of the object \textsf{SvgInterface}, and "\emph{SVG object}" is the associated name of the object created by the constructor of the \textsf{SvgInterface} class.
+In this piece of code, \textsf{svg} is an instance of the object \textsf{SvgInterface} and "\emph{SVG object}" is the associated name of the object created by the constructor of the \textsf{SvgInterface} class.
 
 Concerning \textsf{SvgInterface}, \DynELA~creates a window with the prescribed size $1600\times1600$, where the coordinates of the top-left corner are $(0, 0)$ and the coordinates of the bottom-right corner are $(1600, 1600)$. All drawing options where some coordinates are requested must conform to this definition.
 
@@ -515,7 +514,8 @@ Concerning \textsf{SvgInterface}, \DynELA~creates a window with the prescribed s
 \subsubsection{View orientation and rotations}
 \begin{description}
 \item [{resetView ( )}] : This resets the current view to the original one where $O,\overrightarrow{x},\overrightarrow{y}$ is the drawing plane and $\overrightarrow{z}$ is pointing forward.
-\item [{rotate (\emph{Vec3D}, \emph{float})}] : Defines the rotation of the structure around the axis $\overrightarrow{v}$ defined by a \emph{Vec3D} with an angle $\alpha$ defined by a \emph{float} value.
+\item [{rotate (\emph{string}, \emph{float})}] : Defines the rotation of the global structure around one of the $3$ base axis referred by the \emph{string} value 'X', 'Y' or 'Z' with an angle $\alpha$ defined by a \emph{float} value.
+\item [{rotate (\emph{Vec3D}, \emph{float})}] : Defines the rotation of the global structure around the axis $\overrightarrow{v}$ defined by a \emph{Vec3D} with an angle $\alpha$ defined by a \emph{float} value.
 \end{description}
 
 \subsubsection{Mesh and data output}
@@ -573,7 +573,7 @@ On the other hand, the following methods returns some informations on the curren
 \subsection{Creation of the SVG file}
 Effective creation of the SVG file is done by calling the \textsf{write} method of the \textsf{SvgInterface} class with the following syntax:
 \begin{PythonListing}
-svg.write(dnl.String("mesh.svg")) # Without field, this draws only the mesh
-svg.write(dnl.String("temp.svg"), dnl.Field.temperature)
+svg.write("mesh.svg") # Without field, this draws only the mesh
+svg.write("temp.svg", dnl.Field.temperature)
 \end{PythonListing}
 Here, on line number 1, "\emph{temp.svg}" is the name of the SVG file to create for exporting the mesh. On line number 2, "\emph{temp.svg}" is the name of the SVG file to create and \textsf{dnl.Field.temperature} is the name of the associated field to output (see \ref{ProgrammingLanguage:Section:Fields} for definitions).
