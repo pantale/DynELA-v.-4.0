@@ -181,7 +181,7 @@ double HistoryFile::getStopTime()
 }
 
 //-----------------------------------------------------------------------------
-void HistoryFile::setFileName(String fileName)
+void HistoryFile::setFileName(std::string fileName)
 //-----------------------------------------------------------------------------
 {
   _fileName = fileName;

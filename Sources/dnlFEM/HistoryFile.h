@@ -119,7 +119,7 @@ public:
   void add(short field);
   void headerWrite();
   void save(double currentTime);
-  void setFileName(String filename);
+  void setFileName(std::string filename);
   void setSaveTime(double saveTime);
   void setSaveTime(double startTime, double stopTime, double saveTime);
 #ifndef SWIG
