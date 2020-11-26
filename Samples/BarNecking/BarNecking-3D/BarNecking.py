@@ -10154,13 +10154,13 @@ svg.setLegendPosition(100, 280)
 svg.rotate(dnl.Vec3D(0, 1, 0), 190)
 svg.rotate(dnl.Vec3D(1, 0, 0), -70)
 svg.rotate(dnl.Vec3D(0, 1, 0), -60)
-svg.write(dnl.String("mesh.svg"))
+svg.write("mesh.svg")
 
 model.solve()
 
-svg.write(dnl.String("temperatureCP.svg"),dnl.Field.temperature)
-svg.write(dnl.String("vonMisesCP.svg"),dnl.Field.vonMises)
-svg.write(dnl.String("plasticStrainCP.svg"),dnl.Field.plasticStrain)
+svg.write("temperatureCP.svg", dnl.Field.temperature)
+svg.write("vonMisesCP.svg", dnl.Field.vonMises)
+svg.write("plasticStrainCP.svg", dnl.Field.plasticStrain)
 
 # Plot the results as curves
 import dnlCurves as cu

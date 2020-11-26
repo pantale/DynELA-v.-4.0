@@ -160,8 +160,7 @@ svg = dnl.SvgInterface("SVG")
 #axis=dnl.Vec3D(1,1,0)
 #svg.initDrawing()
 svg.rotate(dnl.Vec3D(1,1,0),45)
-svg.write(dnl.String("temperaturesContour.svg"), dnl.Field.temperature)
-
+svg.write("temperaturesContour.svg", dnl.Field.temperature)
 
 # Plot the results as curves
 import dnlCurves as cu

@@ -184,8 +184,8 @@ model.solve()
 svg = dnl.SvgInterface("SVG")
 svg.setTitleDisplay(False)
 svg.setLegendPosition(350, 150)
-svg.write(dnl.String("temperatureCP.svg"),dnl.Field.temperature)
-svg.write(dnl.String("vonMisesCP.svg"),dnl.Field.vonMises)
+svg.write("temperatureCP.svg", dnl.Field.temperature)
+svg.write("vonMisesCP.svg", dnl.Field.vonMises)
 
 # Plot the results as curves
 import dnlCurves as cu

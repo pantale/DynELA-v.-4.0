@@ -373,7 +373,7 @@ void SvgInterface::dataInfoWrite()
 }
 
 //-----------------------------------------------------------------------------
-void SvgInterface::write(String fileName, short _field)
+void SvgInterface::write(std::string fileName, short _field)
 //-----------------------------------------------------------------------------
 {
   field = _field;

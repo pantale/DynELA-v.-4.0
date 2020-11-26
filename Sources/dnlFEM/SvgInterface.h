@@ -108,7 +108,7 @@ public:
   void setPatchLevel(int level);
   void setTitleDisplay(bool display);
   void setTitlePosition(int x, int y);
-  void write(String fileName, short field = -1);
+  void write(std::string fileName, short field = -1);
 };
 
 #endif
