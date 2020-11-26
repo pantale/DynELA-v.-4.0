@@ -439,13 +439,64 @@ model.setSaveTimes(0, stopTime, stopTime/nbreSaves)
 
 \subsection{History files}
 
+During the solving procedure, one can export time history datafiles that can be used to produce time-history plots. This kind of files are text files in CSV format directly exported from the DynELA solver. In order to control the production of those files, one have to create an instance of the \textsf{HistoryFile} class and add this instance to the current model. Those history-files can then be used to produce high-quality plots through the associated \textsf{Curves Utility} of the \DynELA~presented in chapter \ref{chap:CU!CU}, or use the produced data-file in any external plotting application.
+
+As an illustration, the following commented piece of code has been used to produce the CSV history file reported in Figure \ref{fig:PL!HF!Export}.
 \begin{PythonListing}
-dtHist = dnl.HistoryFile("dtHistory")
-dtHist.setFileName("dt.plot")
-dtHist.add(dnl.Field.timeStep)
-dtHist.setSaveTime(stopTime/nbrePoints)
-model.add(dtHist)
+hist = dnl.HistoryFile()              # Constructor of the hist object
+hist.setFileName("HistoryPlot.plot")  # Sets the filename of the history file
+hist.add(dnl.Field.timeStep)                 # First column will be timeStep value
+hist.add(histES, 0, dnl.Field.vonMises)      # Second one will be von Mises stress
+hist.add(histRad, dnl.Field.nodeCoordinateX) # Third one will be X node coordinate
+hist.setSaveTime(1e-6)                       # One data every 1E-6 s
+model.add(hist)                              # Add the time history to the solver
 \end{PythonListing}
+
+\begin{figure}[h]
+\begin{centering}
+\begin{BashListing}
+#DynELA FEM Code v. 4.0 history file
+#plotted :timeStep vonMises nodeCoordinateX 
+0.0000000E+00 6.2463483E-08 0.0000000E+00 3.2000000E+00 
+1.0623148E-06 6.2462797E-08 1.3439840E+03 3.5412151E+00 
+2.0617159E-06 6.2462515E-08 1.3643205E+03 3.7516529E+00 
+3.0611173E-06 6.2462676E-08 1.3748692E+03 3.9635932E+00 
+4.0605220E-06 6.2462901E-08 1.3662499E+03 4.1161636E+00 
+5.0599347E-06 6.2465035E-08 1.3539346E+03 4.2812566E+00 
+.....
+\end{BashListing}
+\par\end{centering}
+\caption{Export of a CSV history file\label{fig:PL!HF!Export}}
+\end{figure}
+
+In file reported in Figure \ref{fig:PL!HF!Export}, the first two lines are comments. Line $1$ shows the name and version of the \DynELA~while line $2$ shows the name of the fields from columns 2 to the end of the table (in this example, current time is in column 1, time-step $\Delta t$ is in column 2, von Mises stress $\overline{\sigma}$ at the center of the element referred by element-set \emph{histES} is in column 3 and nodal coordinate $x$ of the node defined in \emph{histRad} node-set is in the last column of the table). One data is more or less produced at each requested time ($t_i=10^{-6}s$), but this depends on the time-step increment $\Delta t$ of the Explicit solver.
+
+\subsubsection{Definition of data to save}
+
+\begin{description}
+\item [{add (\emph{ElementSet}, \emph{int}, \emph{field})}] : Add the output data \emph{field} defined at integration point \emph{int} for all elements defined in the element-set \emph{ElemenSet} to the current time-history plot.
+\item [{add (\emph{NodeSet}, \emph{field})}] : 
+\item [{add (\emph{ElementSet}, \emph{int}, \emph{field})}] : Add the output data \emph{field} for all nodes defined in the node-set \emph{NodeSet} to the current time-history plot.
+\item [{add (\emph{field})}] : Add the global \emph{field} value to the current time-history plot.
+\item [{setFileName (\emph{string})}] : Defines the name of the output CSV filename.
+\item [{setSaveTime (\emph{float})}] : Defines the frequency of data store during the computation.
+\item [{setSaveTime (\emph{float}[start], \emph{float}[stop], \emph{float}[freq])}] : Defines the start, stop and frequency of data store during the computation starting at \emph{start}, ending at \emph{stop} and with the frequency defined by \emph{freq}.
+\end{description}
+
+When data storage has been defined, it is mandatory to add the \textsf{HistoryFile} object created to the \textsf{model} to produce the output files during computation. this is done using the following syntax:
+\begin{PythonListing}
+model.add(hist)
+\end{PythonListing}
+where \emph{model} is the \textsf{model} to solve and \emph{hist} is the requested history-file object.
+
+\subsubsection{Check of data information}
+Data information defined in the previous subsection can be checked using one of the following commands:
+\begin{description}
+\item [{getSaveTime ( )}] : Returns the frequency of data store.
+\item [{getStartTime ( )}] : Returns the start-time of data store. 
+\item [{getStopTime ( )}] : Returns the end-time of data store.
+\item [{getFileName ( )}] : Returns the file name for data store.
+\end{description}
 
 \section{Solvers}
 
