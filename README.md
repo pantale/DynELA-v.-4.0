@@ -26,9 +26,8 @@ It also needs some Python 3 modules to run properly and at least numpy and matpl
 
 ### Download and compilation procedure:
 
-Downloading of the source code from this gitlab repository, compilation and installation of the software into a sub-directory can be done using the following procedure:
+Downloading of the source code from this **git** repository can be done using a **git clone** command. Then, compilation and installation of the software into a sub-directory can be done using the following procedure:
 
-	git clone https://git.enit.fr/opantale/dynela-v.-4.0.git
 	cd DynELA
 	mkdir Build
 	cd Build
