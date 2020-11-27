@@ -44,53 +44,53 @@ As the interpreter of the \DynELA~is based on Python 3 language, we can use all 
 
 \section{The Kernel library}
 
-\#include "LogFile.h"
+\#include 'LogFile.h'
 
-\#include "MacAddress.h"
+\#include 'MacAddress.h'
 
-\#include "Settings.h"
+\#include 'Settings.h'
 
-\#include "String.h"
+\#include 'String.h'
 
-\#include "System.h"
+\#include 'System.h'
 
-\#include "Timer.h"
+\#include 'Timer.h'
 
-\#include "Field.h"
+\#include 'Field.h'
 
 \section{The Maths library}
 
-\#include "DiscreteFunction.h"
+\#include 'DiscreteFunction.h'
 
-\#include "DiscreteFunctionSet.h"
+\#include 'DiscreteFunctionSet.h'
 
-\#include "Function.h"
+\#include 'Function.h'
 
-\#include "Matrices.h"
+\#include 'Matrices.h'
 
-\#include "Matrix.h"
+\#include 'Matrix.h'
 
-\#include "MatrixDiag.h"
+\#include 'MatrixDiag.h'
 
-\#include "PolynomialFunction.h"
+\#include 'PolynomialFunction.h'
 
-\#include "RampFunction.h"
+\#include 'RampFunction.h'
 
-\#include "SinusFunction.h"
+\#include 'SinusFunction.h'
 
-\#include "SymTensor2.h"
+\#include 'SymTensor2.h'
 
-\#include "Tensor2.h"
+\#include 'Tensor2.h'
 
-\#include "Tensor3.h"
+\#include 'Tensor3.h'
 
-\#include "Tensor4.h"
+\#include 'Tensor4.h'
 
-\#include "Vec3D.h"
+\#include 'Vec3D.h'
 
-\#include "Vector.h"
+\#include 'Vector.h'
 
-\#include "ColorMap.h"
+\#include 'ColorMap.h'
 
 \section{Model, Nodes and Elements}
 
@@ -102,7 +102,7 @@ Definition of a model in the \DynELA~is done by creating an instance of the \tex
 
 \begin{PythonListing}
 import dnlPython as dnl       # Imports the dnlPython library as dnl
-model = dnl.DynELA("Taylor")  # Creates the main Object model named Taylor
+model = dnl.DynELA('Taylor')  # Creates the main Object model named Taylor
 \end{PythonListing}
 
 In line 2 of the preceding piece of code, a reference name\footnote{The reference name is a string used to identify the object, this is completely optional but useful for debugging purposes for example as one can know the associated name to an object.} \textsf{Taylor} is associated to the model object during creation. Once the model is created, one can then define all nodes, elements, materials, constitutive laws, boundary conditions,\ldots
@@ -132,7 +132,7 @@ A check of the total number of nodes of the structure can be done using the \tex
 Manipulation of nodes, application of boundaries conditions, etc,\ldots is done through the definition of nodes sets. Such nodes sets are used to group nodes under a \textsf{NodeSet} object for further use. A \textsf{NodeSet} object contains a reference name and a list of nodes. Creation of a \textsf{NodeSet} is done using the \textsf{DynELA.NodeSet()} method that returns an new \textsf{NodeSet} instance. The \textsf{NodeSet} can be named during the creation by specifying its name as a string.
 
 \begin{PythonListing}
-nset = dnl.NodeSet("NS_All")
+nset = dnl.NodeSet('NS_All')
 \end{PythonListing}
 
 When the \textsf{NodeSet} has been created, one can now define the list of nodes constituting the \textsf{NodeSet} with the generic \textsf{DynELA.add()} method with the following formalism:
@@ -142,7 +142,7 @@ When the \textsf{NodeSet} has been created, one can now define the list of nodes
 Hereafter is some self explaining examples to illustrate this process.
 
 \begin{PythonListing}
-nset = dnl.NodeSet("NS_All")
+nset = dnl.NodeSet('NS_All')
 model.add(nset, 2)       # Add node number 2 to node set
 model.add(nset, 1, 4)    # Add nodes number 1-4 to node set
 model.add(nset, 1, 4, 2) # Add nodes number 1 and 3 to node set
@@ -179,7 +179,7 @@ The total number of elements of the structure can be checked using the \textsf{D
 Declaration of materials, boundaries conditions, etc\ldots is done through the definition of elements sets. Such elements sets are used to group elements under an \textsf{ElementSet} object for further use. An \textsf{ElementSet} object contains a reference to a name and a list of elements. Creation of an \textsf{ElementSet} is done using the \textsf{DynELA.ElementSet()} method that returns a new \textsf{ElementSet} instance. The \textsf{ElementSet} can be named during the creation by specifying its name as a string.
 
 \begin{PythonListing}
-eset = dnl.ElementSet("ES_All")
+eset = dnl.ElementSet('ES_All')
 \end{PythonListing}
 
 When the \textsf{ElementSet} has been created, one can now define the list of elements constituting the \textsf{ElementSet} with the generic \textsf{DynELA.add()} method according to the following formalism:
@@ -189,7 +189,7 @@ When the \textsf{ElementSet} has been created, one can now define the list of el
 Hereafter is some self explaining examples to illustrate this process.
 
 \begin{PythonListing}
-eset = dnl.ElementSet("ES_All")
+eset = dnl.ElementSet('ES_All')
 model.add(eset, 2)       # Add element number 2 to element set
 model.add(eset, 1, 4)    # Add elements number 1-4 to element set
 model.add(eset, 1, 4, 2) # Add elements number 1 and 3 to element set
@@ -243,7 +243,7 @@ Creation of a Material is done using the \textsf{DynELA.Material()} method. It i
 
 \begin{PythonListing}
 # Creates the material
-steel = dnl.Material("Steel")
+steel = dnl.Material('Steel')
 \end{PythonListing}
 
 \subsubsection{General properties of materials}
@@ -264,7 +264,7 @@ After creating an instance of the object \textsf{dnl.Material}, on can apply the
 
 \begin{PythonListing}
 # Creates the material
-steel = dnl.Material("Steel")
+steel = dnl.Material('Steel')
 # Apply all parameters
 steel.youngModulus = 206e9
 steel.poissonRatio = 0.3
@@ -280,7 +280,7 @@ And, the material can be affected to the elements of the model by the \textsf{Dy
 
 \begin{PythonListing}
 # Creates the material
-steel = dnl.Material("Steel")
+steel = dnl.Material('Steel')
 # Apply all parameters
 ...
 # Affect the material to the element set eset
@@ -305,7 +305,7 @@ Once the hardening law has been created, one have to link this hardening law to 
 
 \begin{PythonListing}
 # Creates the material
-steel = dnl.Material("Steel")
+steel = dnl.Material('Steel')
 # Creates the hardening law
 hardLaw = dnl.JohnsonCookLaw()
 # Attach hardening law to material
@@ -327,7 +327,7 @@ model.attachConstantBC(topBC, topNS)
 
 \begin{PythonListing}
 # Declaration of a ramp function to apply the load
-ramp = dnl.RampFunction("constantFunction")
+ramp = dnl.RampFunction('constantFunction')
 ramp.set(dnl.RampFunction.Constant, 0, stopTime)
 \end{PythonListing}
 
@@ -345,7 +345,7 @@ model.attachConstantBC(topSpeed, topNS)
 
 \begin{PythonListing}
 # Declaration of a ramp function to apply the load
-ramp = dnl.RampFunction("constantFunction")
+ramp = dnl.RampFunction('constantFunction')
 ramp.set(dnl.RampFunction.Constant, 0, stopTime)
 \end{PythonListing}
 
@@ -444,7 +444,7 @@ During the solving procedure, one can export time history datafiles that can be 
 As an illustration, the following commented piece of code has been used to produce the CSV history file reported in Figure \ref{fig:PL!HF!Export}.
 \begin{PythonListing}
 hist = dnl.HistoryFile()              # Constructor of the hist object
-hist.setFileName("HistoryPlot.plot")  # Sets the filename of the history file
+hist.setFileName('HistoryPlot.plot')  # Sets the filename of the history file
 hist.add(dnl.Field.timeStep)                 # First column will be timeStep value
 hist.add(histES, 0, dnl.Field.vonMises)      # Second one will be von Mises stress
 hist.add(histRad, dnl.Field.nodeCoordinateX) # Third one will be X node coordinate
@@ -502,7 +502,7 @@ Data information defined in the previous subsection can be checked using one of 
 
 \begin{PythonListing}
 # Declaration of the explicit solver
-solver = dnl.Explicit("Solver")
+solver = dnl.Explicit('Solver')
 solver.setTimes(0, stopTime)
 solver.setTimeStepSafetyFactor(1.0)
 model.add(solver)
@@ -545,13 +545,13 @@ Since \DynELA~version 3.0, it is possible to export SVG files (Scalable Vector G
 
 As an illustration, the following commented piece of code has been used to produce both plots presented in Figures \ref{fig:PL!SVG!Mesh} and \ref{fig:PL!SVG!Contourplot}.
 \begin{PythonListing}
-svg = dnl.SvgInterface("SVG")       # Creates an instance of SvgInterface object
+svg = dnl.SvgInterface('SVG')       # Creates an instance of SvgInterface object
 svg.setLegendPosition(100, 280)     # Position the legend
 svg.rotate(dnl.Vec3D(0, 1, 0), 190) # Rotation 190 degree around Y axis
 svg.rotate(dnl.Vec3D(1, 0, 0), -70) # Rotation -70 degree around X axis
 svg.rotate('Y', -60)                # Rotation -60 degree around Y axis
-svg.write("mesh.svg")               # Exports the mesh
-svg.write("vonMises.svg", dnl.Field.vonMises) # Exports the contourplot
+svg.write('mesh.svg')               # Exports the mesh
+svg.write('vonMises.svg', dnl.Field.vonMises) # Exports the contourplot
 \end{PythonListing}
 
 More details concerning the syntax of the SvgInterface class are presented in the following subsections.
@@ -559,9 +559,9 @@ More details concerning the syntax of the SvgInterface class are presented in th
 \subsection{Initialization of an SVG object}
 Creation of a SVG file under \DynELA~is done using through the instantiation of an object \textsf{SvgInterface} object using the following syntax:
 \begin{PythonListing}
-svg = dnl.SvgInterface("SVG object")
+svg = dnl.SvgInterface('SVG object')
 \end{PythonListing}
-In this piece of code, \textsf{svg} is an instance of the object \textsf{SvgInterface} and "\emph{SVG object}" is the associated name of the object created by the constructor of the \textsf{SvgInterface} class.
+In this piece of code, \textsf{svg} is an instance of the object \textsf{SvgInterface} and '\emph{SVG object}' is the associated name of the object created by the constructor of the \textsf{SvgInterface} class.
 
 Concerning \textsf{SvgInterface}, \DynELA~creates a window with the prescribed size $1600\times1600$, where the coordinates of the top-left corner are $(0, 0)$ and the coordinates of the bottom-right corner are $(1600, 1600)$. All drawing options where some coordinates are requested must conform to this definition.
 
@@ -629,7 +629,7 @@ On the other hand, the following methods returns some informations on the curren
 \subsection{Creation of the SVG file}
 Effective creation of the SVG file is done by calling the \textsf{write} method of the \textsf{SvgInterface} class with the following syntax:
 \begin{PythonListing}
-svg.write("mesh.svg") # Without field, this draws only the mesh
-svg.write("temp.svg", dnl.Field.temperature)
+svg.write('mesh.svg') # Without field, this draws only the mesh
+svg.write('temp.svg', dnl.Field.temperature)
 \end{PythonListing}
-Here, on line number 1, "\emph{temp.svg}" is the name of the SVG file to create for exporting the mesh. On line number 2, "\emph{temp.svg}" is the name of the SVG file to create and \textsf{dnl.Field.temperature} is the name of the associated field to output (see \ref{ProgrammingLanguage:Section:Fields} for definitions).
+Here, on line number 1, '\emph{temp.svg}' is the name of the SVG file to create for exporting the mesh. On line number 2, '\emph{temp.svg}' is the name of the SVG file to create and \textsf{dnl.Field.temperature} is the name of the associated field to output (see \ref{ProgrammingLanguage:Section:Fields} for definitions).

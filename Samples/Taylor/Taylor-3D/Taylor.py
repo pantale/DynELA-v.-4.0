@@ -30,7 +30,7 @@ Tm = 1540.0
 T0 = 20.0
 
 # Creates the main Object
-model = dnl.DynELA("Taylor")
+model = dnl.DynELA('Taylor')
 
 # Creates the Nodes
 model.createNode(1, 2.12199, 0, 2.39523)
@@ -5773,7 +5773,7 @@ model.createNode(5737, 1.95237, 16.4, 1.38582)
 model.createNode(5738, 2.04824, 16.4, 1.04668)
 model.createNode(5739, 2.13728, 16.4, 0.702231)
 model.createNode(5740, 2.21628, 16.4, 0.353293)
-print("Number of nodes created:", model.getNodesNumber())
+print('Number of nodes created:', model.getNodesNumber())
 
 # Creates the Elements
 model.setDefaultElement(dnl.Element.ElHex8N3D)
@@ -10232,15 +10232,15 @@ model.createElement(4452, 319, 318, 229, 228, 3367, 3368, 2898, 2897)
 model.createElement(4453, 318, 317, 230, 229, 3368, 3369, 2899, 2898)
 model.createElement(4454, 317, 316, 231, 230, 3369, 3370, 2900, 2899)
 model.createElement(4455, 316, 14, 12, 231, 3370, 673, 583, 2900)
-print("Number of elements created:", model.getElementsNumber())
+print('Number of elements created:', model.getElementsNumber())
 
-allNS = dnl.NodeSet("NS_All")
+allNS = dnl.NodeSet('NS_All')
 model.add(allNS, 1, 5740)
 
-allES = dnl.ElementSet("ES_All")
+allES = dnl.ElementSet('ES_All')
 model.add(allES, 1, 4455)
 
-bottomNS = dnl.NodeSet("NS_Bottom")
+bottomNS = dnl.NodeSet('NS_Bottom')
 model.add(bottomNS, 1)
 model.add(bottomNS, 2)
 model.add(bottomNS, 3)
@@ -10312,7 +10312,7 @@ model.add(bottomNS, 1091)
 model.add(bottomNS, 1092)
 model.add(bottomNS, 1093)
 
-axisXNS = dnl.NodeSet("NS_AxisX")
+axisXNS = dnl.NodeSet('NS_AxisX')
 model.add(axisXNS, 2)
 model.add(axisXNS, 3)
 model.add(axisXNS, 6)
@@ -11052,7 +11052,7 @@ model.add(axisXNS, 2658)
 model.add(axisXNS, 2659)
 model.add(axisXNS, 2660)
 
-axisZNS = dnl.NodeSet("NS_AxisY")
+axisZNS = dnl.NodeSet('NS_AxisY')
 model.add(axisZNS, 9)
 model.add(axisZNS, 10)
 model.add(axisZNS, 11)
@@ -11710,16 +11710,16 @@ model.add(axisZNS, 3098)
 model.add(axisZNS, 3099)
 model.add(axisZNS, 3100)
 
-histNS = dnl.NodeSet("NS_Hist")
+histNS = dnl.NodeSet('NS_Hist')
 model.add(histNS, 9)
 
-histES = dnl.ElementSet("ES_Hist")
+histES = dnl.ElementSet('ES_Hist')
 model.add(histES, 247)
 
-histRad = dnl.NodeSet("NS_HistRad")
+histRad = dnl.NodeSet('NS_HistRad')
 model.add(histRad, 2)
 
-histHei = dnl.NodeSet("NS_HistHei ")
+histHei = dnl.NodeSet('NS_HistHei ')
 model.add(histHei, 19)
 
 # Creates the hardening law
@@ -11727,7 +11727,7 @@ hardLaw = dnl.JohnsonCookLaw()
 hardLaw.setParameters(A, B, C, n, m, depsp0, Tm, T0)
 
 # Creates the material
-steel = dnl.Material("Steel")
+steel = dnl.Material('Steel')
 steel.setHardeningLaw(hardLaw)
 steel.youngModulus = young
 steel.poissonRatio = poisson
@@ -11757,7 +11757,7 @@ speedBC = dnl.BoundarySpeed('BC_speed')
 speedBC.setValue(0, -speed, 0)
 model.attachInitialBC(speedBC, allNS)
 
-solver = dnl.Explicit("Solver")
+solver = dnl.Explicit('Solver')
 solver.setTimes(0, stopTime)
 model.add(solver)
 solver.setTimeStepMethod(solver.PowerIteration)
@@ -11765,44 +11765,44 @@ solver.setTimeStepMethod(solver.PowerIteration)
 model.setSaveTimes(0, stopTime, stopTime/nbreSaves)
 
 # Declaration of the history files
-vonMisesHist = dnl.HistoryFile("vonMisesHistory")
-vonMisesHist.setFileName("vonMises.plot")
+vonMisesHist = dnl.HistoryFile('vonMisesHistory')
+vonMisesHist.setFileName('vonMises.plot')
 vonMisesHist.add(histES, 0, dnl.Field.vonMises)
 vonMisesHist.setSaveTime(stopTime / nbrePoints)
 model.add(vonMisesHist)
 
-plasticStrainHist = dnl.HistoryFile("plasticStrainHistory")
-plasticStrainHist.setFileName("plasticStrain.plot")
+plasticStrainHist = dnl.HistoryFile('plasticStrainHistory')
+plasticStrainHist.setFileName('plasticStrain.plot')
 plasticStrainHist.add(histES, 0, dnl.Field.plasticStrain)
 plasticStrainHist.setSaveTime(stopTime / nbrePoints)
 model.add(plasticStrainHist)
 
-temperatureHist = dnl.HistoryFile("temperatureHistory")
-temperatureHist.setFileName("temperature.plot")
+temperatureHist = dnl.HistoryFile('temperatureHistory')
+temperatureHist.setFileName('temperature.plot')
 temperatureHist.add(histES, 0, dnl.Field.temperature)
 temperatureHist.setSaveTime(stopTime / nbrePoints)
 model.add(temperatureHist)
 
-radiusHist = dnl.HistoryFile("radiusHistory")
-radiusHist.setFileName("radius.plot")
+radiusHist = dnl.HistoryFile('radiusHistory')
+radiusHist.setFileName('radius.plot')
 radiusHist.add(histRad, dnl.Field.nodeCoordinateZ)
 radiusHist.setSaveTime(stopTime / nbrePoints)
 model.add(radiusHist)
 
-heightHist = dnl.HistoryFile("heightHistory")
-heightHist.setFileName("height.plot")
+heightHist = dnl.HistoryFile('heightHistory')
+heightHist.setFileName('height.plot')
 heightHist.add(histHei, dnl.Field.nodeCoordinateY)
 heightHist.setSaveTime(stopTime / nbrePoints)
 model.add(heightHist)
 
-dtHist = dnl.HistoryFile("dtHistory")
-dtHist.setFileName("dt.plot")
+dtHist = dnl.HistoryFile('dtHistory')
+dtHist.setFileName('dt.plot')
 dtHist.add(dnl.Field.timeStep)
 dtHist.setSaveTime(stopTime / nbrePoints)
 model.add(dtHist)
 
-keHist = dnl.HistoryFile("keHistory")
-keHist.setFileName("ke.plot")
+keHist = dnl.HistoryFile('keHistory')
+keHist.setFileName('ke.plot')
 keHist.add(dnl.Field.kineticEnergy)
 keHist.setSaveTime(stopTime / nbrePoints)
 model.add(keHist)
@@ -11810,19 +11810,19 @@ model.add(keHist)
 # Parallel computation
 model.parallel.setCores(4)
 
-svg = dnl.SvgInterface("SVG")
+svg = dnl.SvgInterface('SVG')
 svg.setTitleDisplay(False)
 svg.setLegendPosition(100, 280)
 svg.rotate('Y', 190)
 svg.rotate('X', -70)
 svg.rotate('Y', -60)
-svg.write("mesh.svg")
+svg.write('mesh.svg')
 
 model.solve()
 
-svg.write("temperatureCP.svg", dnl.Field.temperature)
-svg.write("vonMisesCP.svg", dnl.Field.vonMises)
-svg.write("plasticStrainCP.svg", dnl.Field.plasticStrain)
+svg.write('temperatureCP.svg', dnl.Field.temperature)
+svg.write('vonMisesCP.svg', dnl.Field.vonMises)
+svg.write('plasticStrainCP.svg', dnl.Field.plasticStrain)
 
 # Plot the results as curves
 import dnlCurves as cu
