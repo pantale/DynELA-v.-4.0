@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Drawing.h
-  \brief Declaration file for the Drawing class
-
-  This file is the declaration file for the Drawing class.
-
-  \ingroup dnlFEM
-*/
-
 #include <Element.h>
 
 #include <Drawing.h>

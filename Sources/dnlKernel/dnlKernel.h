@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file dnlKernel.h
-  \brief Common includes for the dnlKernel library.
+  Common includes for the dnlKernel library.
 
   This file contains the list of include files from DynELA's dnlKernel library.
   \ingroup dnlKernel

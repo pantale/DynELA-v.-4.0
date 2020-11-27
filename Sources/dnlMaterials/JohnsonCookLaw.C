@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file JohnsonCookLaw.C
-  \brief Definition file for the JohnsonCookLaw class
+  Definition file for the JohnsonCookLaw class
 
   This file is the definition file for the JohnsonCookLaw class.
 

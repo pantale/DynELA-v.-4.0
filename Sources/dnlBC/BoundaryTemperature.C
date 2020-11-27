@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodeSet.h
-  \brief Declaration file for the NodeSet class
+  Declaration file for the NodeSet class
 
   This file is the declaration file for the NodeSet class.
 
@@ -25,7 +25,7 @@
 #include <NodalField.h> */
 
 //constructeur par defaut de la classe BoundaryTemperature
-/*!
+/*
   Cette methode est le constructeur par defaut de la classe BoundaryTemperature. En pratique, ici, on ne fait rien de plus que les allocations de memoire necessaires.
 
   \since DynELA 0.9.1
@@ -44,7 +44,7 @@ BoundaryTemperature::BoundaryTemperature(double newTemperature)
 }
 
 //constructeur par recopie de la classe BoundaryTemperature
-/*!
+/*
   Cette methode est le constructeur par recopie de la classe BoundaryTemperature.
   \warning La recopie n'est pas prevue ici, cette methode genere une erreur d'execution
 
@@ -59,7 +59,7 @@ BoundaryTemperature::BoundaryTemperature(const BoundaryTemperature &X)
 }
 
 //destructeur de la classe BoundaryTemperature
-/*!
+/*
   Cette methode est le destructeur de la classe BoundaryTemperature.
 
   \since DynELA 0.9.1

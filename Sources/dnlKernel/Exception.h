@@ -9,23 +9,19 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file Exception.h
-  \brief Definition of the Exception class.
-
-  This file defines all the Exception class.
-  \ingroup dnlKernel
-*/
-
 #ifndef __dnlKernel_Exception_h__
 #define __dnlKernel_Exception_h__
 
 #include <iostream>
 
-/*!
-  \brief Treatment of C++ exceptions
-  \ingroup dnlKernel
-*/
+//-----------------------------------------------------------------------------
+// Class : Exception
+// 
+// Used to manage Exception for SVG files
+// 
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class Exception
 {
 
@@ -93,5 +89,7 @@ namespace StandardExceptions
   {                       \
   }
 #endif
+
+# endif // from #if !defined(SWIG)
 
 #endif

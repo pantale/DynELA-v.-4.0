@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file ElQua4NAx.C
-  \brief Definition file for the ElQua4NAx class
+  Definition file for the ElQua4NAx class
 
   This file is the definition file for the ElQua4NAx class.
   \ingroup dnlElements
@@ -303,7 +303,7 @@ void ElQua4NAx::getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3
 //Cette methode calcule la longueur caracteristique d'un element à partir de la definition de la geometrie de cet element.
 //La relation utilisee pour ce calcul est donnee par:
 //\f[ l=\frac{x_{31}*y_{42}+x_{24}*y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}} \f] avec \f$ x_{ij} \f$ distance horizontale entre les points i et j et \f$ y_{ij} \f$ distance verticale entre les points i et j.
-//\return longueur caracteristique de l'element
+//Return : longueur caracteristique de l'element
 */
 //-----------------------------------------------------------------------------
 double ElQua4NAx::getCharacteristicLength()

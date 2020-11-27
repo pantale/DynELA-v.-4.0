@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file Node.C
-  \brief Definition file for the Node class
+  Definition file for the Node class
 
   This file is the definition file for the Node class.
 
@@ -28,9 +28,9 @@
 #include <Element.h>
 #include <IntegrationPoint.h>
 
-/*!
+/*
   \file Node.C
-  \brief fichier .C de definition des noeuds du maillage
+  fichier .C de definition des noeuds du maillage
   \ingroup femLibrary
 
   Ce fichier sert à la definition des noeuds du maillage elements finis sur DynELA.

@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file SvgInterface.h
-  \brief Declaration file for the SvgInterface class
-
-  This file is the declaration file for the SvgInterface class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_SvgInterface_h__
 #define __dnlFEM_SvgInterface_h__
 
@@ -39,6 +28,13 @@ struct SvgRotate
   double angle;
 };
 
+//-----------------------------------------------------------------------------
+// Class : SvgInterface
+// 
+// Used to export SVG files
+// 
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class SvgInterface
 {
 private:
@@ -68,6 +64,7 @@ private:
   String _fileName;
   Vec3D _svgCenter;
 
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   void closeSvgFile();
   void dataInfoWrite();
@@ -85,10 +82,14 @@ private:
   void textWrite(Vec3D location, String text, int size = 30, String color = "black");
 #endif
 
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
 public:
   ColorMap colorMap;
   short field;
-  String name = "_noname_"; // Name of the SVG interface
+  String name = "SvgInterface::_noname_"; // Default name of the SVG interface
 
   // constructeurs
   SvgInterface(char *newName = NULL);

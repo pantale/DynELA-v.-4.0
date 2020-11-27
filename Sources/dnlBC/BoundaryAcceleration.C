@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodeSet.h
-  \brief Declaration file for the NodeSet class
+  Declaration file for the NodeSet class
 
   This file is the declaration file for the NodeSet class.
 

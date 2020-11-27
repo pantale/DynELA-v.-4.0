@@ -9,22 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-\file ElementPlane.h
-\brief Declaration file for the ElementPlane class
-
-This file is the declaration file for the ElementPlane class.
-
-\ingroup dnlElements
-*/
-
 #ifndef __dnlElements_ElTet10n3D_h__
 #define __dnlElements_ElTet10n3D_h__
 
 #include <Element3D.h>
 
+//-----------------------------------------------------------------------------
+// Class : ElTet10N3D
+//
+// Used to manage Elements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class ElTet10N3D : public Element3D
 {
 
@@ -36,6 +32,14 @@ public:
   ElTet10N3D(long elementNumber = 1);
   ElTet10N3D(const ElTet10N3D &el);
   ~ElTet10N3D();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void getShapeFunctionAtPoint(Vector &shapeFunctions, const Vec3D &point) const;
   void getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3D &point) const;

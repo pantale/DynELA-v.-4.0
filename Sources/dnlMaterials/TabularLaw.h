@@ -9,34 +9,35 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file TabularLaw.h
-  \brief Declaration file for the TabularLaw class
-
-  This file is the declaration file for the TabularLaw class.
-
-  \ingroup dnlMaterials
-*/
-
 #ifndef __dnlMaterials_TabularLaw_h__
 #define __dnlMaterials_TabularLaw_h__
 
 #include <HardeningLaw.h>
 
-//class Element;
-
+//-----------------------------------------------------------------------------
+// Class : HardeningLaw
+//
+// Used to manage HardeningLaw
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class TabularLaw : public HardeningLaw
 {
-
   DiscreteFunction *_function = NULL;
 
 public:
   // constructeurs
-  TabularLaw(/*long number = 1*/);
+  TabularLaw();
   TabularLaw(const TabularLaw &mat);
   ~TabularLaw();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   int getNumberOfParameters();
   const char *getParameterName(int parameter);

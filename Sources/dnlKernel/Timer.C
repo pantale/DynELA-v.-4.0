@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Timer.C
-  \brief Definition of the Timer class.
+  Definition of the Timer class.
 
   This file defines all the Timer class.
   \ingroup dnlKernel
@@ -21,13 +21,13 @@
 #include <iostream>
 #include <fstream>
 
-/*!
-  \brief Default constructor of the Timer class.
+/*
+  Default constructor of the Timer class.
 
   This method is the default constructor of the Timer class. All timers are initialized to _current time by default.
   The requested parameter \ref timerName is used to define the name of the timer and/or the inheritance in the timers tree.
   If \ref timerName contains ":" then father name is on the left and child name is on the right of the ":" character.
-  \param timerName defines the default name of the timer
+  - timerName defines the default name of the timer
 */
 //-----------------------------------------------------------------------------
 Timer::Timer(const char *timerName)
@@ -49,8 +49,8 @@ Timer::Timer(const char *timerName)
   _start = _stop = _current = _initial;
 }
 
-/*!
-  \brief Sets cumulate flag of the timer.
+/*
+  Sets cumulate flag of the timer.
 */
 //-----------------------------------------------------------------------------
 void Timer::setCumulate(bool cum)
@@ -59,8 +59,8 @@ void Timer::setCumulate(bool cum)
   _cumulate = cum;
 }
 
-/*!
-  \brief Get the value of the cumulate flag of the timer.
+/*
+  Get the value of the cumulate flag of the timer.
 */
 //-----------------------------------------------------------------------------
 bool Timer::getCumulate()
@@ -69,8 +69,8 @@ bool Timer::getCumulate()
   return _cumulate;
 }
 
-/*!
-  \brief Store the _current time as the _start time
+/*
+  Store the _current time as the _start time
 
   This method stores the _current time as the _start time.
 */
@@ -82,8 +82,8 @@ void Timer::start()
   _start = std::chrono::high_resolution_clock::now();
 }
 
-/*!
-  \brief Store the _current time as the _stop time
+/*
+  Store the _current time as the _stop time
 
   This method stores the _current time as the _stop time.
 */
@@ -100,11 +100,11 @@ void Timer::stop()
   _run = false;
 }
 
-/*!
-  \brief get the current elaspsed time
+/*
+  get the current elaspsed time
 
   This method computes the _current CPU, i.e. the _current time - _initial time.
-  \return the delay between _current and _initial times
+  Return : the delay between _current and _initial times
 */
 //-----------------------------------------------------------------------------
 double Timer::getCurrent()
@@ -115,11 +115,11 @@ double Timer::getCurrent()
   return elapsed_seconds.count();
 }
 
-/*!
-  \brief Delay from _start to _stop times
+/*
+  Delay from _start to _stop times
 
   This method computes the delay from the _start time to the _stop time.
-  \return the delay between _stop and _start times
+  Return : the delay between _stop and _start times
 */
 //-----------------------------------------------------------------------------
 double Timer::getDelay()
@@ -129,11 +129,11 @@ double Timer::getDelay()
   return elapsed_seconds.count();
 }
 
-/*!
-  \brief Cumulative _totalTime for the timer
+/*
+  Cumulative _totalTime for the timer
 
   This method computes cumulative time. One has to define setCumulate(true).
-  \return the cumulative time
+  Return : the cumulative time
 */
 //-----------------------------------------------------------------------------
 double Timer::getTotal()
@@ -142,9 +142,9 @@ double Timer::getTotal()
   return _totalTime;
 }
 
-/*!
-  \brief Number of calls to the timer
-  \return the number of calls to the timer
+/*
+  Number of calls to the timer
+  Return : the number of calls to the timer
 */
 //-----------------------------------------------------------------------------
 long Timer::getCalls()
@@ -153,9 +153,9 @@ long Timer::getCalls()
   return _calls;
 }
 
-/*!
-  \brief Timer is running ?
-  \return true if timer is running
+/*
+  Timer is running ?
+  Return : true if timer is running
 */
 //-----------------------------------------------------------------------------
 bool Timer::running()
@@ -164,9 +164,9 @@ bool Timer::running()
   return _run;
 }
 
-/*!
-  \brief Name of the timer
-  \return the name of the timer
+/*
+  Name of the timer
+  Return : the name of the timer
 */
 //-----------------------------------------------------------------------------
 String Timer::getName()
@@ -175,9 +175,9 @@ String Timer::getName()
   return _timerName;
 }
 
-/*!
-  \brief Father's name of the timer
-  \return the father's name of the timer
+/*
+  Father's name of the timer
+  Return : the father's name of the timer
 */
 //-----------------------------------------------------------------------------
 String Timer::getFather()
@@ -186,8 +186,8 @@ String Timer::getFather()
   return _fatherName;
 }
 
-/*!
-  \brief Gets the flag associated to a timer
+/*
+  Gets the flag associated to a timer
 */
 //-----------------------------------------------------------------------------
 bool Timer::getFlag()
@@ -196,8 +196,8 @@ bool Timer::getFlag()
   return _flag;
 }
 
-/*!
-  \brief Sets the flag associated to a timer
+/*
+  Sets the flag associated to a timer
 */
 //-----------------------------------------------------------------------------
 void Timer::setFlag(bool flag)
@@ -206,8 +206,8 @@ void Timer::setFlag(bool flag)
   _flag = flag;
 }
 
-/*!
-  \brief Gets the level associated to a timer
+/*
+  Gets the level associated to a timer
 */
 //-----------------------------------------------------------------------------
 void Timer::setLevel(short level)
@@ -216,8 +216,8 @@ void Timer::setLevel(short level)
   _level = level;
 }
 
-/*!
-  \brief Sets the level associated to a timer
+/*
+  Sets the level associated to a timer
 */
 //-----------------------------------------------------------------------------
 short Timer::getLevel()
@@ -226,10 +226,10 @@ short Timer::getLevel()
   return _level;
 }
 
-/*!
-  \brief Access to a timer in the Timers list
-  \param index index of the timer in the list of timers
-  \return the requested timer
+/*
+  Access to a timer in the Timers list
+  - index index of the timer in the list of timers
+  Return : the requested timer
 */
 //-----------------------------------------------------------------------------
 Timer *Timers::timer(int index)
@@ -240,10 +240,10 @@ Timer *Timers::timer(int index)
   return timers(index);
 }
 
-/*!
-  \brief Access to a timer in the Timers list
-  \param timerName name of the timer in the list of timers
-  \return the requested timer
+/*
+  Access to a timer in the Timers list
+  - timerName name of the timer in the list of timers
+  Return : the requested timer
 */
 //-----------------------------------------------------------------------------
 Timer *Timers::timer(const char *timerName)
@@ -261,9 +261,9 @@ Timer *Timers::timer(const char *timerName)
   return newTimer;
 }
 
-/*!
-  \brief Add a timer in the Timers list
-  \param newTimer name of the new timer to add to the list of timers
+/*
+  Add a timer in the Timers list
+  - newTimer name of the new timer to add to the list of timers
 */
 //-----------------------------------------------------------------------------
 void Timers::add(Timer *newTimer)
@@ -272,8 +272,8 @@ void Timers::add(Timer *newTimer)
   timers << newTimer;
 }
 
-/*!
-  \brief Sets all flags of all timers
+/*
+  Sets all flags of all timers
 */
 //-----------------------------------------------------------------------------
 void Timers::setFlags(bool flag)
@@ -285,13 +285,13 @@ void Timers::setFlags(bool flag)
   }
 }
 
-/*!
-  \brief Converts time in human deadable format
+/*
+  Converts time in human deadable format
 
   This methods returns a string in human readable format of the time given as argument expressed in seconds.
   Depending of the value, this is converted into µs; ms, s, minutes, hours,...
-  \param value the value to convert into human readable format
-  \return the string of human readable value
+  - value the value to convert into human readable format
+  Return : the string of human readable value
 */
 //-----------------------------------------------------------------------------
 String Timers::conv(const double value)
@@ -337,11 +337,11 @@ String Timers::conv(const double value)
   return str.convert(value) + " s";
 }
 
-/*!
-  \brief Saves a report of all CPU times in a file
+/*
+  Saves a report of all CPU times in a file
 
   This methods saves a report of all CPU times ins a txt file
-  \param filename name of the file to produce
+  - filename name of the file to produce
 */
 //-----------------------------------------------------------------------------
 void Timers::saveReport(const char *filename)
@@ -414,8 +414,8 @@ void Timers::saveReport(const char *filename)
   _stream.close();
 }
 
-/*!
-  \brief Stop all timers
+/*
+  Stop all timers
 */
 //-----------------------------------------------------------------------------
 void Timers::stop()
@@ -430,10 +430,10 @@ void Timers::stop()
   }
 }
 
-/*!
-  \brief Get the total cumulated time of all childs
-  \param father name of the father process
-  \return the cumulated time of all timers in the same level
+/*
+  Get the total cumulated time of all childs
+  - father name of the father process
+  Return : the cumulated time of all timers in the same level
 */
 //-----------------------------------------------------------------------------
 double Timers::getTotalChilds(const char *father)

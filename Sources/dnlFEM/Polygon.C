@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Polygon.h
-  \brief Declaration file for the Polygon class
-
-  This file is the declaration file for the Polygon class.
-
-  \ingroup dnlFEM
-*/
-
 #include <Tensor2.h>
 #include <Polygon.h>
 #include <Field.h>
@@ -415,14 +404,12 @@ void PolygonPatches::createSubPatch2(int points, Vec3D *coords, double *valuesR,
 
         if (dnlBetweenValuesExclude(val, dnlMin(valuesR[i1], valuesR[i2]), dnlMax(valuesR[i1], valuesR[i2])))
         {
-
           crds[cur_ps_l] = (val * (coords[i2] - coords[i1]) + valuesR[i2] * coords[i1] - valuesR[i1] * coords[i2]) / (valuesR[i2] - valuesR[i1]);
           cur_ps_l++;
         }
 
         if (dnlBetweenValuesExclude(val_1, dnlMin(valuesR[i1], valuesR[i2]), dnlMax(valuesR[i1], valuesR[i2])))
         {
-
           crds[cur_ps_l] = (val_1 * (coords[i2] - coords[i1]) + valuesR[i2] * coords[i1] - valuesR[i1] * coords[i2]) / (valuesR[i2] - valuesR[i1]);
           cur_ps_l++;
         }
@@ -674,7 +661,7 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
             }
           }
     if (ddmin >= 100000.)
-      fprintf(stderr, "ERREUR Reordonne_pts\n");
+      fprintf(stderr, "ERREUR PolygonPatches::reorderPoints\n");
     for (i = 0; i < 5; i++)
       temp[i] = coords[i];
     for (i = 0; i < 5; i++)
@@ -712,7 +699,7 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
               }
             }
     if (ddmin >= 100000.)
-      fprintf(stderr, "ERREUR Reordonne_pts\n");
+      fprintf(stderr, "ERREUR PolygonPatches::reorderPoints\n");
     for (i = 0; i < 6; i++)
       temp[i] = coords[i];
     for (i = 0; i < 6; i++)
@@ -751,7 +738,7 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
                 }
               }
     if (ddmin >= 100000.)
-      fprintf(stderr, "ERREUR Reordonne_pts\n");
+      fprintf(stderr, "ERREUR PolygonPatches::reorderPoints\n");
     for (i = 0; i < 7; i++)
       temp[i] = coords[i];
     for (i = 0; i < 7; i++)
@@ -791,7 +778,7 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
                   }
                 }
     if (ddmin >= 100000.)
-      fprintf(stderr, "ERREUR Reordonne_pts\n");
+      fprintf(stderr, "ERREUR PolygonPatches::reorderPoints\n");
     for (i = 0; i < 8; i++)
       temp[i] = coords[i];
     for (i = 0; i < 8; i++)
@@ -799,6 +786,6 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
     break;
 
   default:
-    fatalError("ERREUR Reordonne_pts, cas %ld a implanter\n");
+    fatalError("ERREUR PolygonPatches::reorderPoints", "case %d is not implemented !\n", cur);
   }
 }

@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file Element2D.C
-  \brief Definition file for the Element2D class
+  Definition file for the Element2D class
 
   This file is the definition file for the Element2D class.
 
@@ -44,11 +44,11 @@ Element2D::~Element2D()
 }
 
 //Calcul du gradient des deformations F
-///*!
+///*
 //Cette methode effectue le calcul du gradient des deformations F au point d'integration à l'instant time. La relation utilisee pour ce calcul est donnee par:
 //\f[  F=1+\frac{\partial \overrightarrow{u}}{\partial \overrightarrow{X}} \f]
-//\param F Tensor de retour pour le gradient des deformations F
-//\param time valeur permettant de selectionner le champ pour le deplacement (0 reference, 1 courant).
+//- F Tensor de retour pour le gradient des deformations F
+//- time valeur permettant de selectionner le champ pour le deplacement (0 reference, 1 courant).
 //
 //-----------------------------------------------------------------------------
 void Element2D::computeDeformationGradient(Tensor2 &F, short time)

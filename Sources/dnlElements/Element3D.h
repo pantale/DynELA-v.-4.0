@@ -9,22 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-\file Element3D.h
-\brief Declaration file for the Element3D class
-
-This file is the declaration file for the Element3D class.
-
-\ingroup dnlElements
-*/
-
 #ifndef __dnlElements_Element3D_h__
 #define __dnlElements_Element3D_h__
 
 #include <Element.h>
 
+//-----------------------------------------------------------------------------
+// Class : Element3D
+//
+// Used to manage Elements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Element3D : public Element
 {
 
@@ -33,6 +29,14 @@ public:
   Element3D(long elementNumber = 1);
   Element3D(const Element3D &X);
   ~Element3D();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void getShapeFunctionAtPoint(Vector &shapeFunctions, const Vec3D &point) const = 0;
   void getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3D &point) const = 0;

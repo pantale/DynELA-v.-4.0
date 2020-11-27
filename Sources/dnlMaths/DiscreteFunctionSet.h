@@ -9,25 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file DiscreteFunctionSet.h
-  \brief Declaration file for the discrete function class
-
-  This file is the declaration file for the discrete function set class.
-  \ingroup dnlMaths
-*/
-
 #ifndef __dnlMaths_DiscreteFunctionSet_h__
 #define __dnlMaths_DiscreteFunctionSet_h__
 
 #include <DiscreteFunction.h>
 
-/*!
-  \brief This is a set of discrete functions.
-
-  This class is used to manage sets of discrete function set and group them. This is a usefull class for the \b DynELA \b curves application.
-  \ingroup dnlMaths
-*/
+//-----------------------------------------------------------------------------
+// Class : DiscreteFunctionSet
+//
+// Used to manage DiscreteFunctionSet
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class DiscreteFunctionSet
 {
   List<DiscreteFunction *> curves;
@@ -36,6 +29,14 @@ public:
   DiscreteFunctionSet();
   DiscreteFunctionSet(const DiscreteFunctionSet &X);
   ~DiscreteFunctionSet();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void read(String);
   void write(String);

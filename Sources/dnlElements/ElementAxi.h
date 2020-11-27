@@ -9,22 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-\file ElementAxi.h
-\brief Declaration file for the ElementAxi class
-
-This file is the declaration file for the ElementAxi class.
-
-\ingroup dnlElements
-*/
-
 #ifndef __dnlElements_ElementAxi_h__
 #define __dnlElements_ElementAxi_h__
 
 #include <ElementPlane.h>
 
+//-----------------------------------------------------------------------------
+// Class : ElementAxi
+//
+// Used to manage Elements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class ElementAxi : public ElementPlane
 {
 
@@ -32,6 +28,14 @@ public:
   ElementAxi(long elementNumber = 1);
   ElementAxi(const ElementAxi &X);
   ~ElementAxi();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void getShapeFunctionAtPoint(Vector &shapeFunctions, const Vec3D &point) const = 0;
   void getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3D &point) const = 0;

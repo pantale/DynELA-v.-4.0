@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodeSet.h
-  \brief Declaration file for the NodeSet class
+  Declaration file for the NodeSet class
 
   This file is the declaration file for the NodeSet class.
 
@@ -25,7 +25,7 @@
 #include <NodalField.h>
  */
 //constructeur par defaut de la classe BoundaryFlux
-/*!
+/*
   Cette methode est le constructeur par defaut de la classe BoundaryFlux. En pratique, ici, on ne fait rien de plus que les allocations de memoire necessaires.
 
   \since DynELA 0.9.1
@@ -44,7 +44,7 @@ BoundaryFlux::BoundaryFlux(double fr)
 }
 
 //constructeur par recopie de la classe BoundaryFlux
-/*!
+/*
   Cette methode est le constructeur par recopie de la classe BoundaryFlux.
   \warning La recopie n'est pas prevue ici, cette methode genere une erreur d'execution
 
@@ -59,7 +59,7 @@ BoundaryFlux::BoundaryFlux(const BoundaryFlux &X)
 }
 
 //destructeur de la classe BoundaryFlux
-/*!
+/*
   Cette methode est le destructeur de la classe BoundaryFlux.
 
   \since DynELA 0.9.1

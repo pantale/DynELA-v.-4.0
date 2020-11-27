@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file DiscreteFunctionSet.C
-  \brief Definition file for the discrete function set class
+  Definition file for the discrete function set class
 
   This file is the definition file for the discrete function set class.
   \ingroup dnlMaths
@@ -42,8 +42,8 @@ DiscreteFunctionSet::~DiscreteFunctionSet()
 }
 
 //Reads the set of discrete functions on the disk
-/*!
-  \param st name of the file to read from
+/*
+  - st name of the file to read from
 */
 //-----------------------------------------------------------------------------
 void DiscreteFunctionSet::read(String st)
@@ -140,8 +140,8 @@ void DiscreteFunctionSet::read(String st)
 }
 
 //Writes the set of discrete functions on the disk
-/*!
-  \param filename name of the file to write
+/*
+  - filename name of the file to write
 */
 //-----------------------------------------------------------------------------
 void DiscreteFunctionSet::write(String filename)
@@ -167,8 +167,8 @@ void DiscreteFunctionSet::write(String filename)
 }
 
 //Get a discrete function from the set by it's name
-/*!
-  \return The corresponding discrete function from the set
+/*
+  Return : The corresponding discrete function from the set
 */
 //-----------------------------------------------------------------------------
 DiscreteFunction *DiscreteFunctionSet::get(String name)
@@ -186,8 +186,8 @@ DiscreteFunction *DiscreteFunctionSet::get(String name)
 }
 
 //Get the ith discrete function from the set
-/*!
-  \return The corresponding discrete function from the set
+/*
+  Return : The corresponding discrete function from the set
 */
 //-----------------------------------------------------------------------------
 DiscreteFunction *DiscreteFunctionSet::get(long i)
@@ -225,8 +225,8 @@ void DiscreteFunctionSet::remove(String name)
 }
 
 //Number of discrete functions in the set
-/*!
-  \return Number of discrete functions in the set
+/*
+  Return : Number of discrete functions in the set
 */
 //-----------------------------------------------------------------------------
 long DiscreteFunctionSet::getSize()

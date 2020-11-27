@@ -9,24 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlBC_BoundaryConvection_h__
 #define __dnlBC_BoundaryConvection_h__
 
 #include <Boundary.h>
-/* #include <Vec3D.h>
-class Node; */
 
+//-----------------------------------------------------------------------------
+// Class : BoundaryConvection
+//
+// Used to manage BoundaryConvections in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class BoundaryConvection : public Boundary
 {
 
@@ -40,6 +34,14 @@ public:
   BoundaryConvection(double newhc, double newTf);
   BoundaryConvection(const BoundaryConvection &X);
   ~BoundaryConvection();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   // fonctions membres
   long getType() { return Boundary::Convection; }

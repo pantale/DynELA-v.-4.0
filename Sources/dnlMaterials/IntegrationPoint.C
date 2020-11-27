@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file IntegrationPoint.C
-  \brief Definition file for the IntegrationPoint class
+  Definition file for the IntegrationPoint class
 
   This file is the definition file for the IntegrationPoint class.
 

@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file SvgInterface.h
-  \brief Declaration file for the SvgInterface class
-
-  This file is the declaration file for the SvgInterface class.
-
-  \ingroup dnlFEM
-*/
-
 #include <SvgInterface.h>
 #include <List.h>
 #include <DynELA.h>
@@ -357,9 +346,7 @@ void SvgInterface::dataInfoWrite()
   dynelaData->settings->getValue("DynELA", _name);
   dynelaData->settings->getValue("Version", _version);
   _name = _name + " v." + _version;
-
   textWrite(pos, _name, 20);
-  //  textWrite(pos, "DynELA FEM code v. 4.0", 20);
   pos(1) += yInc;
   textWrite(pos, system.getDate(), 20);
   pos(1) += yInc;

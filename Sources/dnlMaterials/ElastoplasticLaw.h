@@ -9,22 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file ElastoplasticLaw.h
-  \brief Declaration file for the ElastoplasticLaw class
-
-  This file is the declaration file for the ElastoplasticLaw class.
-
-  \ingroup dnlMaterials
-*/
-
 #ifndef __dnlMaterials_ElastoplasticLaw_h__
 #define __dnlMaterials_ElastoplasticLaw_h__
 
 #include <HardeningLaw.h>
 
+//-----------------------------------------------------------------------------
+// Class : ElastoplasticLaw
+//
+// Used to manage ElastoplasticLaw
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class ElastoplasticLaw : public HardeningLaw
 {
 
@@ -36,6 +32,14 @@ public:
   ElastoplasticLaw();
   ElastoplasticLaw(const ElastoplasticLaw &law);
   ~ElastoplasticLaw();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   int getNumberOfParameters();
   const char *getParameterName(int parameter);

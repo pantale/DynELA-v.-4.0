@@ -9,24 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlBC_BoundaryAcceleration_h__
 #define __dnlBC_BoundaryAcceleration_h__
 
 #include <Boundary.h>
-/* #include <Vec3D.h>
-class Node; */
 
+//-----------------------------------------------------------------------------
+// Class : BoundaryAcceleration
+//
+// Used to manage BoundaryAcceleration in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class BoundaryAcceleration : public Boundary
 {
 
@@ -39,6 +33,14 @@ public:
   BoundaryAcceleration(const Vec3D &newAcceleration);
   BoundaryAcceleration(const BoundaryAcceleration &X);
   ~BoundaryAcceleration();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   Vec3D getValue();
   void setValue(const Vec3D &newAcceleration);

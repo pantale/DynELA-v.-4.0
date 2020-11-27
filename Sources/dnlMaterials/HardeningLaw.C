@@ -17,9 +17,9 @@
   Class HardeningLaw definition
 */
 
-/*!
+/*
   \file HardeningLaw.h
-  \brief fichier .h de definition de la classe generique des materiaux
+  fichier .h de definition de la classe generique des materiaux
   \ingroup femLibrary
 
   Ce fichier sert à la definition la classe generique des materiaux.

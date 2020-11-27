@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file String.C
-  \brief Management and manipulation of char strings
+  Management and manipulation of char strings
 
   This file contains the definition of strings for DynELA. The strings are part of a new class called String which allows most of the manipulations on the characters. All the methods of this class are documented.
   Since version v. 1.0.0, this class inherited from the \b std::string class of Standard Template Library.
@@ -22,8 +22,8 @@
 #include <strings.h>
 #include <iostream>
 
-/*!
-  \brief default constructor of the String class
+/*
+  default constructor of the String class
 
   Memory allocation for an empty string. This method is used to create the memory allocation for an empty string.
   \code
@@ -36,8 +36,8 @@ String::String()
 {
 }
 
-/*!
-  \brief constructor à from type char*
+/*
+  constructor à from type char*
 
   This constructor allows to allocate the memory space for a String and to initialize this string from a standard char* character string.
   \code
@@ -65,8 +65,8 @@ String::String(const String &st) // : std::string (st)
   assign(st);
 }
 
-/*!
-  \brief Default destructor
+/*
+  Default destructor
 */
 //-----------------------------------------------------------------------------
 String::~String()
@@ -74,8 +74,8 @@ String::~String()
 {
 }
 
-/*!
-  \brief constructor from std::string type
+/*
+  constructor from std::string type
 
   This constructor allows to allocate the memory space for a String and to initialize this string from a standard char* character string.
   \code
@@ -90,8 +90,8 @@ String &String::operator=(const char *st)
   return (*this);
 }
 
-/*!
-  \brief conversion of an integer numerical value into a String
+/*
+  conversion of an integer numerical value into a String
 
   This method converts a numerical value of type int into a string of characters.
 
@@ -100,8 +100,8 @@ String &String::operator=(const char *st)
   toto.convert(2);
   cout << toto << endl;
   \endcode
-  \param val numerical value to convert to a string
-  \return the character string back.
+  - val numerical value to convert to a string
+  Return : the character string back.
 */
 //-----------------------------------------------------------------------------
 String &String::convert(const int val, short leading)
@@ -118,8 +118,8 @@ String &String::convert(const int val, short leading)
   return *this;
 }
 
-/*!
-  \brief conversion of an integer numerical value into a String
+/*
+  conversion of an integer numerical value into a String
 
   This method converts a numerical value of type int into a string of characters.
 
@@ -128,8 +128,8 @@ String &String::convert(const int val, short leading)
   toto.convert(2);
   cout << toto << endl;
   \endcode
-  \param val numerical value to convert to a string
-  \return the character string back.
+  - val numerical value to convert to a string
+  Return : the character string back.
 */
 //-----------------------------------------------------------------------------
 String &String::convert(const long val, short leading)
@@ -146,8 +146,8 @@ String &String::convert(const long val, short leading)
   return *this;
 }
 
-/*!
-  \brief conversion of a real value into a String
+/*
+  conversion of a real value into a String
 
   This method allows to convert a real numerical value into a string of characters by specifying the type of conversion by a control string of characters.
   \code
@@ -155,9 +155,9 @@ String &String::convert(const long val, short leading)
   toto.convert(2.0,"%10.3E");
   cout << toto << endl;
   \endcode
-  \param val real value to convert to a String
-  \param st if we don't specify anything, we use a format like "%ld".
-  \return string of characters return
+  - val real value to convert to a String
+  - st if we don't specify anything, we use a format like "%ld".
+  Return : string of characters return
 */
 //-----------------------------------------------------------------------------
 String &String::convert(const double val, const char *st)
@@ -169,13 +169,13 @@ String &String::convert(const double val, const char *st)
   return *this;
 }
 
-/*!
-  \brief replacement of a character in a string
+/*
+  replacement of a character in a string
 
   This method searches and replaces a given character with another in a character string.
-  \param fromItem character to be replaced in the string
-  \param to spare character in the chain
-  \return to a new string with the substitution
+  - fromItem character to be replaced in the string
+  - to spare character in the chain
+  Return : to a new string with the substitution
 */
 //-----------------------------------------------------------------------------
 String &String::replace(const char fromItem, const char to)
@@ -194,13 +194,13 @@ String &String::replace(const char fromItem, const char to)
   return (*this);
 }
 
-/*!
-  \brief replacement of a substring in a string
+/*
+  replacement of a substring in a string
 
   This method searches and replaces a given substring with another in a character string.
-  \param fromItem sub-character string to be replaced in the string
-  \param to sub-chain of wildcard characters in the chain.
-  \return to a new string with the substitution
+  - fromItem sub-character string to be replaced in the string
+  - to sub-chain of wildcard characters in the chain.
+  Return : to a new string with the substitution
 */
 //-----------------------------------------------------------------------------
 String &String::replace(const String &fromItem, const String &to)
@@ -220,17 +220,17 @@ String &String::replace(const String &fromItem, const String &to)
   return (*this);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character substring from a character string. The position of the sub-chain is given by the value of the start length and the length of the sub-chain. The original string is not changed.
   \code
   String a = "ma chaine de caracteres";
   String b= a.subString(4,5); // b="haine"
   \endcode
-  \param startpos starting position in the character string
-  \param length length of chain to be extracted
-  \return under extracted character string
+  - startpos starting position in the character string
+  - length length of chain to be extracted
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String
@@ -242,8 +242,8 @@ String::subString(int startpos, int length) const
   return ret;
 }
 
-/*!
-  \brief search for a character in a string
+/*
+  search for a character in a string
 
   This method looks for a character in a character string from a given position in the string.
   \code
@@ -251,9 +251,9 @@ String::subString(int startpos, int length) const
   printf("%d\n",a.search('e',1); // renvoie 19 ('e' à la 19 eme position)
   printf("%d\n",a.search('e',20); // renvoie -1 (non trouve)
   \endcode
-  \param startpos search start position in the chain
-  \param c character to look for
-  \return the position of the character in the string, or value -1 if the character could not be found.
+  - startpos search start position in the chain
+  - c character to look for
+  Return : the position of the character in the string, or value -1 if the character could not be found.
 */
 //-----------------------------------------------------------------------------
 int String::search(char c, int startpos) const
@@ -265,8 +265,8 @@ int String::search(char c, int startpos) const
   return pos;
 }
 
-/*!
-  \brief search for a sub-string in a string
+/*
+  search for a sub-string in a string
 
   This method looks for a substring in a character string from a given position in the string.
   \code
@@ -274,9 +274,9 @@ int String::search(char c, int startpos) const
   printf("%d\n",a.search("de",20); // renvoie 10 (position dans la chaine)
   printf("%d\n",a.search("remove",20); // renvoie -1 (non trouve)
   \endcode
-  \param startpos search start position in the chain
-  \param substring substring to search to search to search
-  \return the position of the sub-chain in the chain, or value -1 if that sub-chain could not be found.
+  - startpos search start position in the chain
+  - substring substring to search to search to search
+  Return : the position of the sub-chain in the chain, or value -1 if that sub-chain could not be found.
 */
 //-----------------------------------------------------------------------------
 int String::search(const String &substring, int startpos) const
@@ -288,16 +288,16 @@ int String::search(const String &substring, int startpos) const
   return pos;
 }
 
-/*!
-  \brief deletion of part of a character string
+/*
+  deletion of part of a character string
 
   This method deletes a part of a character string from a given position and over a given length. The given string is modified
   \code
   String a = "ma chaine de caracteres";
   a.remove(4,5); // a="ma c de caracteres"
   \endcode
-  \param startpos starting position of the game to be deleted
-  \param length length of the part to be deleted
+  - startpos starting position of the game to be deleted
+  - length length of the part to be deleted
 */
 //-----------------------------------------------------------------------------
 void String::remove(int startpos, int length)
@@ -306,16 +306,16 @@ void String::remove(int startpos, int length)
   std::string::replace(startpos, length, "");
 }
 
-/*!
-  \brief deletion of part of a character string
+/*
+  deletion of part of a character string
 
   This method deletes a part of a specified character string in another string from a given starting position. The given string is modified
   \code
   String a = "ma chaine de caracteres";
   a.remove("chaine",0); // a="ma  de caracteres"
   \endcode
-  \param y sub-chain to be deleted
-  \param startpos starting position for the search in the channel
+  - y sub-chain to be deleted
+  - startpos starting position for the search in the channel
 */
 //-----------------------------------------------------------------------------
 void String::remove(const String &y, int startpos)
@@ -324,16 +324,16 @@ void String::remove(const String &y, int startpos)
   std::string::replace(find(y, startpos), y.length(), "");
 }
 
-/*!
-  \brief deletion of a character in a string
+/*
+  deletion of a character in a string
 
   This method deletes a specified character in another string from a given start position. The given string is modified
   \code
   String a = "ma chaine de caracteres";
   a.remove('c',0); // a="ma haine de caracteres"
   \endcode
-  \param y sub-chain to be deleted
-  \param startpos starting position for the search in the channel
+  - y sub-chain to be deleted
+  - startpos starting position for the search in the channel
 */
 //-----------------------------------------------------------------------------
 void String::remove(char c, int startpos)
@@ -342,17 +342,17 @@ void String::remove(char c, int startpos)
   std::string::replace(find(c, startpos), 1, "");
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character substring from a character string. The position of the sub-chain is given by the value of the start index and the length of the sub-chain.
   \code
   String a = "ma chaine de caracteres";
   String b= a.atItem(4,5); // b="haine"
   \endcode
-  \param first start position in the character string
-  \param len of chain to be extracted
-  \return under extracted character string
+  - first start position in the character string
+  - len of chain to be extracted
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::atItem(int first, int len) const
@@ -361,17 +361,17 @@ String String::atItem(int first, int len) const
   return subString(first, len);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character substring from a character string. The position of the sub-chain is given by the value of the start index and the length of the sub-chain.
   \code
   String a = "ma chaine de caracteres";
   String b= a(4,5); // b="haine"
   \endcode
-  \param first start position in the character string
-  \param len of chain to be extracted
-  \return under extracted character string
+  - first start position in the character string
+  - len of chain to be extracted
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String
@@ -381,16 +381,16 @@ String::operator()(int first, int len) const
   return subString(first, len);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string before a given position.
   \code
   String a = "ma chaine de caracteres";
   String b= a.beforeItem(4); // b="ma c"
   \endcode
-  \param pos end position in the character string
-  \return under extracted character string
+  - pos end position in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::beforeItem(int pos) const
@@ -399,16 +399,16 @@ String String::beforeItem(int pos) const
   return subString(0, pos);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string before a given position (including the character).
   \code
   String a = "ma chaine de caracteres";
   String b= a.throughItem(4); // b="ma ch"
   \endcode
-  \param pos end position in the character string
-  \return under extracted character string
+  - pos end position in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String
@@ -418,16 +418,16 @@ String::throughItem(int pos) const
   return subString(0, pos + 1);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string after a given position.
   \code
   String a = "ma chaine de caracteres";
   String b= a.afterItem(4); // b="haine de caracteres"
   \endcode
-  \param pos starting position in the character string
-  \return under extracted character string
+  - pos starting position in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::afterItem(int pos) const
@@ -436,16 +436,16 @@ String String::afterItem(int pos) const
   return subString(pos + 1, length() - (pos + 1));
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string after a given position (including the character).
   \code
   String a = "ma chaine de caracteres";
   String b= a.fromItem(4); // b="chaine de caracteres"
   \endcode
-  \param pos starting position in the character string
-  \return under extracted character string
+  - pos starting position in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::fromItem(int pos) const
@@ -454,18 +454,18 @@ String String::fromItem(int pos) const
   return subString(pos, length() - pos);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character substring from a character string. The position of the sub-chain is given by the first occurrence of a given string in parameters from a given position.
   \code
   String a = "ma chaine de caracteres";
   String b= a.atItem("haine",2); // b="haine"
   \endcode
-  \param y substring of characters to search for
-  \param startfirst starting position in the character string
-  \param len of chain to be extracted
-  \return under extracted character string
+  - y substring of characters to search for
+  - startfirst starting position in the character string
+  - len of chain to be extracted
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::atItem(const String &y, int startpos) const
@@ -477,8 +477,8 @@ String String::atItem(const String &y, int startpos) const
   return subString(first, y.length());
 }
 
-/*!
-  \brief extraction of a character from a string of characters
+/*
+  extraction of a character from a string of characters
 
   This method extracts a character from a character string. The position of the character is given by the first occurrence of this character given as a parameter from a given position.
   It's a bit silly like that !!!
@@ -486,10 +486,10 @@ String String::atItem(const String &y, int startpos) const
   String a = "ma chaine de caracteres";
   String b= a.atItem('h',2); // b="h"
   \endcode
-  \param y substring of characters to search for
-  \param startfirst starting position in the character string
-  \param len of chain to be extracted
-  \return under extracted character string
+  - y substring of characters to search for
+  - startfirst starting position in the character string
+  - len of chain to be extracted
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::atItem(char c, int startpos) const
@@ -500,17 +500,17 @@ String String::atItem(char c, int startpos) const
     return "";
   return subString(first, 1);
 }
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string before a position given by the first occurrence of a given string in the parameter of this method.
   \code
   String a = "ma chaine de caracteres";
   String b= a.beforeItem("chaine",2); // b="ma "
   \endcode
-  \param y subchain to search for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - y subchain to search for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::beforeItem(const String &y, int startpos) const
@@ -522,17 +522,17 @@ String String::beforeItem(const String &y, int startpos) const
   return subString(0, last);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character sub-chain in a character string before a position given by the first occurrence of a given character in the parameter of this method.
   \code
   String a = "ma chaine de caracteres";
   String b= a.beforeItem('c',2); // b="ma "
   \endcode
-  \param c character to look for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - c character to look for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::beforeItem(char c, int startpos) const
@@ -542,17 +542,17 @@ String String::beforeItem(char c, int startpos) const
   return subString(0, last);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string before a position given by the first occurrence of a given string in the parameter of this method. The searched substring is included.
   \code
   String a = "ma chaine de caracteres";
   String b= a.throughItem("chaine",2); // b="ma chaine"
   \endcode
-  \param y subchain to search for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - y subchain to search for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::throughItem(const String &y, int startpos) const
@@ -566,17 +566,17 @@ String String::throughItem(const String &y, int startpos) const
   return subString(0, last);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character sub-chain in a character string before a position given by the first occurrence of a given character in the parameter of this method. The search character is included.
   \code
   String a = "ma chaine de caracteres";
   String b= a.throughItem('c',2); // b="ma c"
   \endcode
-  \param c character to look for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - c character to look for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String
@@ -591,17 +591,17 @@ String::throughItem(char c, int startpos) const
   return subString(0, last);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character sub-chain in a character string after a position given by the first occurrence of a given string in the parameter of this method.
   \code
   String a = "ma chaine de caracteres";
   String b= a.afterItem("chaine",2); // b=" de caracteres"
   \endcode
-  \param y subchain to search for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - y subchain to search for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::afterItem(const String &y, int startpos) const
@@ -615,16 +615,16 @@ String String::afterItem(const String &y, int startpos) const
   return subString(first, length() - first);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string after a position given by the last occurrence of a given string in the parameter of this method.
   \code
   String a = "ma chaine de caracteres de truc";
   String b= a.afterItem("de"); // b=" truc"
   \endcode
-  \param y subchain to search for
-  \return under extracted character string
+  - y subchain to search for
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String
@@ -650,17 +650,17 @@ String::beforeLast(const String &y) const
   return atItem(0, pos - 1);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character sub-chain in a character string after a position given by the first occurrence of a given character in a parameter of this method.
   \code
   String a = "ma chaine de caracteres";
   String b= a.afterItem('c',2); // b="haine de caracteres"
   \endcode
-  \param c character to look for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - c character to look for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::afterItem(char c, int startpos) const
@@ -674,17 +674,17 @@ String String::afterItem(char c, int startpos) const
   return subString(first, length() - first);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a sub-character string in a character string after a position given by the first occurrence of a given string in the parameter of this method. The substring is included.
   \code
   String a = "ma chaine de caracteres";
   String b= a.fromItem("chaine",1); // b="chaine de caracteres"
   \endcode
-  \param y subchain to search for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - y subchain to search for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::fromItem(const String &y, int startpos) const
@@ -696,17 +696,17 @@ String String::fromItem(const String &y, int startpos) const
   return subString(first, length() - first);
 }
 
-/*!
-  \brief extraction of a substring of a character string
+/*
+  extraction of a substring of a character string
 
   This method extracts a character sub-chain in a character string after a position given by the first occurrence of a given character in a parameter of this method.
   \code
   String a = "ma chaine de caracteres";
   String b= a.fromItem('c',2); // b="chaine de caracteres"
   \endcode
-  \param c character to look for
-  \param startpos start position of search in the character string
-  \return under extracted character string
+  - c character to look for
+  - startpos start position of search in the character string
+  Return : under extracted character string
 */
 //-----------------------------------------------------------------------------
 String String::fromItem(char c, int startpos) const
@@ -719,8 +719,8 @@ String String::fromItem(char c, int startpos) const
 }
 
 //
-/*!
-  \brief fills in a string from a file
+/*
+  fills in a string from a file
 
   This method lists a string on a file and returns a String containing that string. Characters are read from the file up to the end-of-line character '\n'. If the end of the file is reached, this method returns 0, otherwise it returns 1, so this method is well named.
   \code
@@ -730,8 +730,8 @@ String String::fromItem(char c, int startpos) const
   while (s.scanFileLine(pfile)) cout << s << "\n";
   fclose(pfile);
   \endcode
-  \param pfile file to read
-  \return boolean specifying if there are any characters left to read in the file.
+  - pfile file to read
+  Return : boolean specifying if there are any characters left to read in the file.
 */
 //-----------------------------------------------------------------------------
 bool String::scanFileLine(FILE *pfile)
@@ -751,8 +751,8 @@ bool String::scanFileLine(FILE *pfile)
 }
 
 //
-/*!
-  \brief whiteout
+/*
+  whiteout
 
   This method removes the blanks at the beginning and end of a string as shown below:
   "hello" -> "hello"
@@ -772,13 +772,13 @@ void String::strip()
 }
 
 //
-/*!
-  \brief tests the presence of one chain in another and returns the position
+/*
+  tests the presence of one chain in another and returns the position
 
   This method looks for a string of characters in another one, taking into account or not the difference between upper and lower case letters. This method has been developed for bibView.
-  \param substring string to search for
-  \param cas boolean allowing to specify if we want sensitive search (true) or not (false)
-  \return the position of the sub-chain in the chain or -1 in case of a search failure.
+  - substring string to search for
+  - cas boolean allowing to specify if we want sensitive search (true) or not (false)
+  Return : the position of the sub-chain in the chain or -1 in case of a search failure.
 */
 //-----------------------------------------------------------------------------
 int String::containsWithCaseSub(const String &substring, bool cas) const
@@ -845,13 +845,13 @@ int String::containsWithCaseSub(const String &substring, bool cas) const
 }
 
 //teste la presence d'une chaine dans une autre
-/*!
-  \brief tests the presence of a chain in another chain.
+/*
+  tests the presence of a chain in another chain.
 
   This method looks for a string of characters in another one, taking into account or not the difference between upper and lower case letters. This method has been developed for bibView.
-  \param substring string to search for
-  \param case boolean allowing to specify if we want sensitive search (true) or not (false)
-  \return booleen: true if the subchain exists or false if not.
+  - substring string to search for
+  - case boolean allowing to specify if we want sensitive search (true) or not (false)
+  Return : booleen: true if the subchain exists or false if not.
 */
 //-----------------------------------------------------------------------------
 bool String::containsWithCase(const String &substring, bool cas) const
@@ -861,8 +861,8 @@ bool String::containsWithCase(const String &substring, bool cas) const
 }
 
 //
-/*!
-  \brief converts a string of characters into a char* type.
+/*
+  converts a string of characters into a char* type.
 
   This method converts a character string into a char* type.
   \code
@@ -879,12 +879,12 @@ const char *String::chars() const
 }
 
 //
-/*!
-  \brief tests the presence of a character in a chain
+/*
+  tests the presence of a character in a chain
 
   This method tests whether a string contains a given character.
-  \param c character to be searched
-  \return true if the character exists, false if it doesn't...
+  - c character to be searched
+  Return : true if the character exists, false if it doesn't...
 */
 //-----------------------------------------------------------------------------
 bool String::contains(char c, int startpos) const
@@ -896,13 +896,13 @@ bool String::contains(char c, int startpos) const
 }
 
 //
-/*!
-  \brief search for a character in a string
+/*
+  search for a character in a string
 
   This method looks for a substring of characters in an existing string and returns true, or the value false if the string does not exist.
-  \param startpos starting position for the search.
-  \param substring substring to search for
-  \return true or false depending on the search result.
+  - startpos starting position for the search.
+  - substring substring to search for
+  Return : true or false depending on the search result.
 */
 //-----------------------------------------------------------------------------
 bool String::contains(const String &substring, int startpos) const
@@ -914,11 +914,11 @@ bool String::contains(const String &substring, int startpos) const
 }
 
 //
-/*!
-  \brief writes a string of characters on the output stream
+/*
+  writes a string of characters on the output stream
   This method writes a string of characters to the ostream data stream. If the string is empty, "empty" is written to the output.
 
-  \param s written string
+  - s written string
 */
 //-----------------------------------------------------------------------------
 void String::dump(const String &s) const
@@ -928,11 +928,11 @@ void String::dump(const String &s) const
 }
 
 //
-/*!
-  \brief test if a string is empty
+/*
+  test if a string is empty
 
   This method tests if a string is empty.
-  \return true if the string is empty false if not.
+  Return : true if the string is empty false if not.
 */
 //-----------------------------------------------------------------------------
 bool String::empty() const
@@ -942,11 +942,11 @@ bool String::empty() const
 }
 
 //
-/*!
-  \brief test if a string is not empty
+/*
+  test if a string is not empty
 
   This method tests whether a string is not empty.
-  \return true if the string is non-empty false if not.
+  Return : true if the string is non-empty false if not.
 */
 //-----------------------------------------------------------------------------
 bool String::ok() const
@@ -956,11 +956,11 @@ bool String::ok() const
 }
 
 //
-/*!
-  \brief returns the first character of a String
+/*
+  returns the first character of a String
 
   This method returns the first character of a std::string
-  \return first character of the G-string
+  Return : first character of the G-string
 */
 //-----------------------------------------------------------------------------
 char String::firstchar() const
@@ -970,11 +970,11 @@ char String::firstchar() const
 }
 
 //
-/*!
-  \brief returns the last character of a String
+/*
+  returns the last character of a String
 
   This method returns the last character of a std::string
-  \return last character of the G-string
+  Return : last character of the G-string
 */
 //-----------------------------------------------------------------------------
 char String::lastchar() const
@@ -984,8 +984,8 @@ char String::lastchar() const
 }
 
 //
-/*!
-  \brief character conversion to lowercase
+/*
+  character conversion to lowercase
 
   This method converts the characters of a string into lowercase letters.
 */
@@ -1004,8 +1004,8 @@ void String::lowerCase()
 }
 
 //
-/*!
-  \brief character conversion in capital letters
+/*
+  character conversion in capital letters
 
   This method converts the characters of a string into uppercase letters.
 */
@@ -1024,8 +1024,8 @@ void String::upperCase()
 }
 
 //
-/*!
-  \brief converts a String into a real
+/*
+  converts a String into a real
 
   This method extracts from a String a real value at a given column.
   \code
@@ -1035,9 +1035,9 @@ void String::upperCase()
   b=s.getRealAtPos(1); // b=8.4
   c=s.getRealAtPos(2); // c=12.7e-6
   \endcode
-  \param pos specifies that you wish to extract the i-th value on the line
-  \param sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
-  \return actual return value converted
+  - pos specifies that you wish to extract the i-th value on the line
+  - sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
+  Return : actual return value converted
 */
 //-----------------------------------------------------------------------------
 double
@@ -1058,8 +1058,8 @@ String::getRealAtPos(int pos, String sep)
 }
 
 //
-/*!
-  \brief extract a real value from a std::string
+/*
+  extract a real value from a std::string
 
   This method extracts a real value from a String and reduces this string. If there are no more values to extract, this method returns false at the time of extraction of the last value of the line.
   \code
@@ -1070,9 +1070,9 @@ String::getRealAtPos(int pos, String sep)
   r=s.popReal(b); // b=8.4, r=true
   r=s.popReal(c); // c=12.7e-6, r=false
   \endcode
-  \param pos specifies that you wish to extract the i-th value on the line
-  \param sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
-  \return actual return value converted
+  - pos specifies that you wish to extract the i-th value on the line
+  - sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
+  Return : actual return value converted
 */
 //-----------------------------------------------------------------------------
 bool String::popReal(double &ret, String sep)
@@ -1098,8 +1098,8 @@ bool String::popReal(double &ret, String sep)
 }
 
 //
-/*!
-  \brief extracts an integer value from a std::string
+/*
+  extracts an integer value from a std::string
 
   This method extracts an integer value from a String and reduces this string. If there are no more values to extract, this method returns false at the time of extraction of the last value of the line.
   \code
@@ -1110,9 +1110,9 @@ bool String::popReal(double &ret, String sep)
   r=s.popInt(b); // b=8, r=true
   r=s.popInt(c); // c=12, r=false
   \endcode
-  \param pos specifies that you wish to extract the i-th value on the line
-  \param sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
-  \return actual return value converted
+  - pos specifies that you wish to extract the i-th value on the line
+  - sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
+  Return : actual return value converted
 */
 //-----------------------------------------------------------------------------
 bool String::popInt(long &val, String sep)
@@ -1126,13 +1126,13 @@ bool String::popInt(long &val, String sep)
 }
 
 //
-/*!
-  \brief extract a word from a string of characters
+/*
+  extract a word from a string of characters
 
   This method extracts a word from a string of characters. This method returns the value true if there are mosts left in the string, false otherwise.
-  \param ret word retrieved from the string
-  \param sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
-  \return true if the string contains other words, false if not...
+  - ret word retrieved from the string
+  - sep specifies the data separator on the line you want to use (default is a space if you don't specify anything).
+  Return : true if the string contains other words, false if not...
 */
 //-----------------------------------------------------------------------------
 bool String::popString(String &ret, String sep)

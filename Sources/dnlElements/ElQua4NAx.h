@@ -9,35 +9,37 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file ElQua4NAx.h
-  \brief Declaration file for the ElQua4NAx class
-
-  This file is the declaration file for the ElQua4NAx class.
-  \ingroup dnlElements
-*/
-
 #ifndef __dnlElements_ElQua4nAx_h__
 #define __dnlElements_ElQua4nAx_h__
 
 class ElementAxi;
 #include <ElementAxi.h>
 
-/*!
-  \brief Management and manipulation of 4 nodes Axisymmetric element
-
-  \ingroup dnlElements
-*/
+//-----------------------------------------------------------------------------
+// Class : ElQua4NAx
+//
+// Used to manage Elements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class ElQua4NAx : public ElementAxi
 {
 
 public:
-  static const ElementData _elementData; //!< Database storage for the Element
+  static const ElementData _elementData; // Database storage for the Element
 
 public:
   ElQua4NAx(long = 1);
   ElQua4NAx(const ElQua4NAx &);
   ~ElQua4NAx();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void getShapeFunctionAtPoint(Vector &, const Vec3D &) const;
   void getDerShapeFunctionAtPoint(Matrix &, const Vec3D &) const;

@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file PolynomialFunction.h
-  \brief Declaration file for the discrete function class
-
-  This file is the declaration file for the discrete function class. A discrete function is a function with the following form: \f[ y=f(x) \f] defined from a set of points.
-  Linear interpolation is used to obtain data between given points.
-  \ingroup dnlMaths
-*/
-
 #ifndef __dnlMaths_SinusFunction_h__
 #define __dnlMaths_SinusFunction_h__
 
@@ -34,6 +23,13 @@ struct SinusFragment
   char type;
 };
 
+//-----------------------------------------------------------------------------
+// Class : SinusFunction
+//
+// Used to manage SinusFunction
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class SinusFunction : public Function
 {
 private:
@@ -52,23 +48,28 @@ public:
   SinusFunction(char *newName = NULL);
   ~SinusFunction();
 
-  double getValue(double x);
-  long getNumberOfFragments();
-  void setSin(double coef, double pulse, double constant = 0);
-  void setCos(double coef, double pulse, double constant = 0);
-  void setConstant(double constant);
-  short getType(long i);
-  double getPulse(long i);
-  double getCoefficient(long i);
-  double getConstant(long i);
-  double getConstant();
-  double getSlope(double x);
-  void toGnuplot(String filename, double xmin, double xmax, double steps);
-  String convertToDynELASourceFile();
-
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   void print();
 #endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
+  double getCoefficient(long i);
+  double getConstant();
+  double getConstant(long i);
+  double getPulse(long i);
+  double getSlope(double x);
+  double getValue(double x);
+  long getNumberOfFragments();
+  short getType(long i);
+  String convertToDynELASourceFile();
+  void setConstant(double constant);
+  void setCos(double coef, double pulse, double constant = 0);
+  void setSin(double coef, double pulse, double constant = 0);
+  void toGnuplot(String filename, double xmin, double xmax, double steps);
 };
 
 #endif

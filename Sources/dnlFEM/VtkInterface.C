@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #include <VtkInterface.h>
 #include <List.h>
 #include <DynELA.h>
@@ -106,7 +95,9 @@ void VtkInterface::nodesWrite()
   _stream << "POINTS " << nbNodes << " float\n";
 
   for (long i = 0; i < nbNodes; i++)
-    _stream << dynelaData->model.nodes(i)->coordinates(0) << " " << dynelaData->model.nodes(i)->coordinates(1) << " " << dynelaData->model.nodes(i)->coordinates(2) << "\n";
+    _stream << dynelaData->model.nodes(i)->coordinates(0)
+            << " " << dynelaData->model.nodes(i)->coordinates(1) << " "
+            << dynelaData->model.nodes(i)->coordinates(2) << "\n";
 
   _stream << "\n";
 }
@@ -204,7 +195,9 @@ void VtkInterface::dataWrite()
       for (long j = 0; j < nbNodes; j++)
       {
         SymTensor2 t = dynelaData->model.nodes(j)->getNodalSymTensor(field);
-        _stream << t(0, 0) << " " << t(0, 1) << " " << t(0, 2) << " " << t(1, 0) << " " << t(1, 1) << " " << t(1, 2) << " " << t(2, 0) << " " << t(2, 1) << " " << t(2, 2) << "\n";
+        _stream << t(0, 0) << " " << t(0, 1) << " " << t(0, 2) << " "
+                << t(1, 0) << " " << t(1, 1) << " " << t(1, 2) << " "
+                << t(2, 0) << " " << t(2, 1) << " " << t(2, 2) << "\n";
       }
     }
   }

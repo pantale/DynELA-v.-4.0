@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodeSet.h
-  \brief Declaration file for the NodeSet class
+  Declaration file for the NodeSet class
 
   This file is the declaration file for the NodeSet class.
 
@@ -25,7 +25,7 @@
 #include <NodalField.h> */
 
 //constructeur par defaut de la classe BoundaryConvection
-/*!
+/*
   Cette methode est le constructeur par defaut de la classe BoundaryConvection. En pratique, ici, on ne fait rien de plus que les allocations de memoire necessaires.
 
   \since DynELA 0.9.1
@@ -53,7 +53,7 @@ BoundaryConvection::BoundaryConvection(const BoundaryConvection &X)
 }
 
 //destructeur de la classe BoundaryConvection
-/*!
+/*
   Cette methode est le destructeur de la classe BoundaryConvection.
 
   \since DynELA 0.9.1

@@ -9,20 +9,10 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file ColorMap.C
-  \brief Definition of the ColorMap class.
-
-  This file defines the ColorMap class used to produce svg outputs.
-  \ingroup dnlMaths
-*/
-
 #include <ColorMap.h>
 
-/*!
-  \brief Default constructor of the ColorMap class
-
-  The default constructor affects the default colormap to a deep color map
+/*
+  Default constructor of the ColorMap class
 */
 //-----------------------------------------------------------------------------
 ColorMap::ColorMap()
@@ -32,8 +22,8 @@ ColorMap::ColorMap()
   setDeepColorMap();
 }
 
-/*!
-  \brief Default destructor
+/*
+  Default destructor
 */
 //-----------------------------------------------------------------------------
 ColorMap::~ColorMap()
@@ -41,8 +31,8 @@ ColorMap::~ColorMap()
 {
 }
 
-/*!
-  \brief Clears the current color map
+/*
+  Clears the current color map
 */
 //-----------------------------------------------------------------------------
 void ColorMap::clearColorMap()
@@ -53,8 +43,8 @@ void ColorMap::clearColorMap()
   _blueComponent.flush();
 }
 
-/*!
-  \brief Creates an normal color map
+/*
+  Creates an normal color map
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setColorMap()
@@ -95,8 +85,8 @@ void ColorMap::setColorMap()
   _blueComponent.add(1.00, RED(2));
 }
 
-/*!
-  \brief Creates an reverse normal color map
+/*
+  Creates an reverse normal color map
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setReverseDeepColorMap()
@@ -147,8 +137,8 @@ void ColorMap::setReverseDeepColorMap()
   _blueComponent.add(1.00, DARKBLUE(2));
 }
 
-/*!
-  \brief Creates a deep normal color map
+/*
+  Creates a deep normal color map
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setDeepColorMap()
@@ -199,8 +189,8 @@ void ColorMap::setDeepColorMap()
   _blueComponent.add(1.00, DARKRED(2));
 }
 
-/*!
-  \brief Creates a reverse deep normal color map
+/*
+  Creates a reverse deep normal color map
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setReverseColorMap()
@@ -241,8 +231,8 @@ void ColorMap::setReverseColorMap()
   _blueComponent.add(1.00, BLUE(2));
 }
 
-/*!
-  \brief Creates a gray normal color map
+/*
+  Creates a gray normal color map
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setGrayMap()
@@ -266,8 +256,8 @@ void ColorMap::setGrayMap()
   _blueComponent.add(1.00, WHITE(2));
 }
 
-/*!
-  \brief Creates a reverse gray normal color map
+/*
+  Creates a reverse gray normal color map
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setReverseGrayMap()
@@ -293,8 +283,8 @@ void ColorMap::setReverseGrayMap()
   _blueComponent.add(1.00, BLACK(2));
 }
 
-/*!
-  \brief Reset and recomputes the colormap
+/*
+  Reset and recomputes the colormap
 */
 //-----------------------------------------------------------------------------
 void ColorMap::resetColorMap()
@@ -323,10 +313,10 @@ void ColorMap::resetColorMap()
   }
 }
 
-/*!
-  \brief Sets the bounds of the current color map
-  \param min min value of the colormap
-  \param max max value of the colormap
+/*
+  Sets the bounds of the current color map
+  - min : min value of the colormap
+  - max : max value of the colormap
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setBounds(double min, double max)
@@ -336,9 +326,9 @@ void ColorMap::setBounds(double min, double max)
   _max = max;
 }
 
-/*!
-  \brief Sets the number of levels of the current color map
-  \param levels number of levels of the colormap
+/*
+  Sets the number of levels of the current color map
+  - levels : number of levels of the colormap
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setLevels(int levels)
@@ -348,10 +338,10 @@ void ColorMap::setLevels(int levels)
   resetColorMap();
 }
 
-/*!
-  \brief get the color index of a value
-  \param value Color value from 0 to 1
-  \return the index level of the color in the colormap
+/*
+  get the color index of a value
+  - value Color value from 0 to 1
+  returns the index level of the color in the colormap
 */
 //-----------------------------------------------------------------------------
 int ColorMap::getIntColor(double value)
@@ -375,11 +365,11 @@ int ColorMap::getIntColor(double value)
   return int((value - _min) / (_max - _min) * _levels);
 }
 
-/*!
-  \brief get the color as RGB components
-  \param value Color value from 0 to 1
-  \param steps
-  \return the color in the colormap
+/*
+  get the color as RGB components
+  - value Color value from 0 to 1
+  - steps
+  returns the color in the colormap
 */
 //-----------------------------------------------------------------------------
 Vec3D ColorMap::getVec3DColor(double value, bool steps)
@@ -408,11 +398,11 @@ Vec3D ColorMap::getVec3DColor(double value, bool steps)
   return Vec3D(_redComponent.getValue(val), _greenComponent.getValue(val), _blueComponent.getValue(val));
 }
 
-/*!
-  \brief get the color as an hex string
-  \param value Color value from 0 to 1
-  \param steps
-  \return the color in the colormap
+/*
+  get the color as an hex string
+  - value Color value from 0 to 1
+  - steps
+  returns the color in the colormap
 */
 //-----------------------------------------------------------------------------
 String ColorMap::getStringColor(double value, bool steps)
@@ -431,11 +421,11 @@ String ColorMap::getStringColor(double value, bool steps)
   return code;
 }
 
-/*!
-  \brief get all the bounds of the colormap
-  \param min min value of the colormap
-  \param max max value of the colormap
-  \param levels levels number of levels of the colormap
+/*
+  get all the bounds of the colormap
+  - min min value of the colormap
+  - max max value of the colormap
+  - levels levels number of levels of the colormap
 */
 //-----------------------------------------------------------------------------
 void ColorMap::getBounds(double &min, double &max, int &levels)
@@ -446,8 +436,8 @@ void ColorMap::getBounds(double &min, double &max, int &levels)
   levels = _levels;
 }
 
-/*!
-  \brief get max value of the colormap
+/*
+  get max value of the colormap
 */
 //-----------------------------------------------------------------------------
 double ColorMap::getMax()
@@ -456,8 +446,8 @@ double ColorMap::getMax()
   return _max;
 }
 
-/*!
-  \brief get min value of the colormap
+/*
+  get min value of the colormap
 */
 //-----------------------------------------------------------------------------
 double ColorMap::getMin()
@@ -466,8 +456,8 @@ double ColorMap::getMin()
   return _min;
 }
 
-/*!
-  \brief get levels number value of the colormap
+/*
+  get levels number value of the colormap
 */
 //-----------------------------------------------------------------------------
 int ColorMap::getLevels()

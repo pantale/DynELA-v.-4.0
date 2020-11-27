@@ -9,14 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file Settings.h
-  \brief Definition of the Settings class.
-
-  This file defines the Settings class.
-  \ingroup dnlKernel
-*/
-
 #ifndef __dnlKernel_Settings_h__
 #define __dnlKernel_Settings_h__
 
@@ -26,6 +18,13 @@
 #include <sstream>
 #include <iostream>
 
+//-----------------------------------------------------------------------------
+// Class : Settings
+//
+// Used to manage Settings
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Settings
 {
     bool _isChanged;
@@ -44,6 +43,14 @@ class Settings
 public:
     Settings();
     ~Settings();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
     bool isChanged() const;
     bool loadFromFile(const std::string &filename);

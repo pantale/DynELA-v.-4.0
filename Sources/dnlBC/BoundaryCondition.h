@@ -9,25 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlBC_BoundaryCondition_h__
 #define __dnlBC_BoundaryCondition_h__
 
 #include <Boundary.h>
 
-/* class Boundary;
-class Node; */
-
+//-----------------------------------------------------------------------------
+// Class : BoundaryCondition
+//
+// Used to manage BoundaryConditions in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class BoundaryCondition
 {
 
@@ -40,6 +33,14 @@ public:
   BoundaryCondition();
   BoundaryCondition(const BoundaryCondition &X);
   ~BoundaryCondition();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   bool applyConstantOnCurrentFields(Node *node, double currentTime, double timeStep);
   bool applyConstantOnNewFields(Node *node, double currentTime, double timeStep);

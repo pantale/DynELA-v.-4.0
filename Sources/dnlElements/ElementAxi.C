@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file ElementAxi.C
-  \brief Definition file for the ElementAxi class
+  Definition file for the ElementAxi class
 
   This file is the definition file for the ElementAxi class.
 

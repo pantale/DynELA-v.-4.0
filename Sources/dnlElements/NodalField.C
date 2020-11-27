@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodalField.C
-  \brief Definition file for the NodalField class
+  Definition file for the NodalField class
 
   This file is the definition file for the NodalField class. A NodalField contains all Finite Element data for each node of the structure.
 

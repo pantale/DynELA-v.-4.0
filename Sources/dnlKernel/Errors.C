@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Errors.C
-  \brief Definition of the errors for the DynELA FEM code
+  Definition of the errors for the DynELA FEM code
 
   This file defines the errors and warning that are used in the DynELA FEM code.
   The functions defined in this files serves to display messages and warnings.
@@ -24,10 +24,10 @@
 #include <cstdio>
 #include <cstdlib>
 
-unsigned int totalWarningMessagesDisplayed = 1; //!< Total number of warnings actually displayed. This later is initialized to 1.
+unsigned int totalWarningMessagesDisplayed = 1; // Total number of warnings actually displayed. This later is initialized to 1.
 
-/*!
-  \brief Displays a warning message
+/*
+  Displays a warning message
 
   This function displays a warning message on the stderr flux. \n
   Each call to this function will increment the internal counter \ref totalWarningMessagesDisplayed. \n
@@ -38,7 +38,7 @@ unsigned int totalWarningMessagesDisplayed = 1; //!< Total number of warnings ac
   warning("duplicate::operation(int i)", "the value of i is negative\ni=%d\n", i);
   \endcode
 
-  \param function_name Warning message to be displayed given as const char *
+  - function_name Warning message to be displayed given as const char *
 */
 //-----------------------------------------------------------------------------
 void warning(const char *function_name, ...)
@@ -70,8 +70,8 @@ void warning(const char *function_name, ...)
                maxWarnings);
 }
 
-/*!
-  \brief Displays a warning message and ask the user if he wants to continue the execution of the program
+/*
+  Displays a warning message and ask the user if he wants to continue the execution of the program
 
   This function displays a warning message on the stderr flux and ask the user if he wants to continue the execution of the program. \n
   Each call to this function will increment the internal counter \ref totalWarningMessagesDisplayed. \n
@@ -81,7 +81,7 @@ void warning(const char *function_name, ...)
   \code
   warningQuestion("duplicate::operation(int i)", "the value of i is negative\ni=%d\n", i);
   \endcode
-  \param function_name Warning message to be displayed given as const char *
+  - function_name Warning message to be displayed given as const char *
 */
 //-----------------------------------------------------------------------------
 void warningQuestion(char *function_name, ...)
@@ -124,8 +124,8 @@ void warningQuestion(char *function_name, ...)
   }
 }
 
-/*!
-  \brief Displays an error message and stop the execution of the program.
+/*
+  Displays an error message and stop the execution of the program.
 
   This function displays an error message on the stderr flux and the execution of program is stopped.
 
@@ -134,7 +134,7 @@ void warningQuestion(char *function_name, ...)
   fatalError("duplicate::operation(int i)", "the value of i is negative\ni=%d\n", i);
   \endcode
 
-  \param function_name Error message to be displayed given as const char *
+  - function_name Error message to be displayed given as const char *
 */
 //-----------------------------------------------------------------------------
 void fatalError(const char *function_name, ...)
@@ -158,8 +158,8 @@ void fatalError(const char *function_name, ...)
   exit(-1);
 }
 
-/*!
-  \brief Displays an error message and stop the execution of the program.
+/*
+  Displays an error message and stop the execution of the program.
 
   This function displays an internal error message on the stderr flux and the execution of program is stopped.
   This function also displays a message asking to contact the main developper of the FEM code.
@@ -168,7 +168,7 @@ void fatalError(const char *function_name, ...)
   \code
   internalFatalError("duplicate::operation(int i)", "the value of i is negative\ni=%d\n", i);
   \endcode
-  \param function_name Error message to be displayed given as const char *
+  - function_name Error message to be displayed given as const char *
 */
 //-----------------------------------------------------------------------------
 void internalFatalError(const char *function_name, ...)

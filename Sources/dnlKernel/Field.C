@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Field.C
-  \brief Definition of the Finite Elements fields.
+  Definition of the Finite Elements fields.
 
   This file defines the Finite Elements fields.
   \ingroup dnlKernel
@@ -54,8 +54,8 @@ const char *const Field::vtkNames[] = {
     NAME_TENSOR2("DeviatoricStress"),
     NAME_TENSOR2("Stress"), "ENDFIELDS"};
 
-/*!
-  \brief Default constructor of the Field class.
+/*
+  Default constructor of the Field class.
 */
 //-----------------------------------------------------------------------------
 Field::Field()
@@ -65,8 +65,8 @@ Field::Field()
     fatalError("Field::Field", "Lists of fields doesn't contain the same number of elements");
 }
 
-/*!
-  \brief Default destructor of the Field class.
+/*
+  Default destructor of the Field class.
 */
 //-----------------------------------------------------------------------------
 Field::~Field()
@@ -74,10 +74,10 @@ Field::~Field()
 {
 }
 
-/*!
-  \brief Returns a string defining the VTK name of the field.
-  \param field identification number of the field.
-  \return identification name of the field
+/*
+  Returns a string defining the VTK name of the field.
+  - field identification number of the field.
+  Return : identification name of the field
 */
 //-----------------------------------------------------------------------------
 String Field::getVtklabel(short field)
@@ -86,10 +86,10 @@ String Field::getVtklabel(short field)
   return vtkNames[field];
 }
 
-/*!
-  \brief Returns the identification number of a given field specified by its name.
-  \param name identification name of the field.
-  \return identification number of the field
+/*
+  Returns the identification number of a given field specified by its name.
+  - name identification name of the field.
+  Return : identification number of the field
 */
 //-----------------------------------------------------------------------------
 short Field::getField(String name)
@@ -105,10 +105,10 @@ short Field::getField(String name)
   return -1;
 }
 
-/*!
-  \brief Returns the type of a given field specified by its identification number.
-  \param field identification number of the field.
-  \return 0 if the field is a scalar, 1 if the field is a Vec3D and 2 if it's a tensor.
+/*
+  Returns the type of a given field specified by its identification number.
+  - field identification number of the field.
+  Return : 0 if the field is a scalar, 1 if the field is a Vec3D and 2 if it's a tensor.
 */
 //-----------------------------------------------------------------------------
 short Field::getType(short field)

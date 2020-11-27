@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file ElHex8N3D.C
-  \brief Definition file for the ElHex8N3D class
+  Definition file for the ElHex8N3D class
 
   This file is the definition file for the ElHex8N3D class.
 

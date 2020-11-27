@@ -9,15 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file Tensor4.h
-  \brief Declaration file for the fourth order tensor class
-
-  This file is the declaration file for the fourth order tensor class. A fourth order tensor has the following form:
-  \f[ T = T_{ijkl} \f]
-  \ingroup dnlMaths
-*/
-
 #ifndef __dnlMaths_Tensor4_h__
 #define __dnlMaths_Tensor4_h__
 
@@ -30,79 +21,66 @@ class Vec3D;
 class Tensor2;
 class Tensor3;
 
-/*!
-  \brief Declaration of the fourth order tensor class
-
-  A fourth order tensor has the following form:
-  \f[ T = T_{ijkl} \f]
-  \ingroup dnlMaths
-*/
+//-----------------------------------------------------------------------------
+// Class : Tensor4
+//
+// Used to manage Tensor4
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Tensor4
 {
-  double v[81]; //!< Data storage for 81 double
+  double v[81]; // Data storage for 81 double
 
 public:
   // constructeurs
   Tensor4();
   ~Tensor4();
 
-  // operations sur les composantes
-  inline double operator()(short, short, short, short) const;
+  // Interface methods excluded from SWIG
 #ifndef SWIG
+  friend std::ifstream &operator>>(std::ifstream &, Tensor4 &);
+  friend std::ofstream &operator<<(std::ofstream &, const Tensor4 &);
+  friend std::ostream &operator<<(std::ostream &, const Tensor4 &);
+  friend Tensor4 operator*(const double &, const Tensor4 &);
   inline double &operator()(short, short, short, short);
-#endif
-  inline bool indexOK(short, short, short, short) const;
-
-  // operations d'affectation
-  inline void setToValue(const double);
-  void setToUnity();
-#ifndef SWIG
-  Tensor4 &operator=(const double &);
-  Tensor4 &operator=(const Tensor4 &);
-#endif
-
-  // operations de comparaison
-  bool operator==(const Tensor4 &) const;
-  bool operator!=(const Tensor4 &) const;
-
-  // operations arithmetiques de base entre tenseurs
-#ifndef SWIG
-  inline void operator+=(const Tensor4 &);
   inline void operator-=(const Tensor4 &);
   inline void operator*=(const double);
   inline void operator/=(const double);
+  inline void operator+=(const Tensor4 &);
+  Tensor4 &operator=(const double &);
+  Tensor4 &operator=(const Tensor4 &);
+  void print(std::ostream &) const;
+  void read(std::ifstream &);
+  void write(std::ofstream &) const;
 #endif
-  Tensor4 operator+(const Tensor4 &) const;
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
+  bool operator!=(const Tensor4 &) const;
+  bool operator==(const Tensor4 &) const;
+  inline bool indexOK(short, short, short, short) const;
+  inline double operator()(short, short, short, short) const;
+  inline void setToValue(const double);
+  Tensor2 operator*(const Tensor2 &t) const;
+  Tensor3 operator*(const Vec3D &vec) const;
   Tensor4 operator-(const Tensor4 &) const;
   Tensor4 operator*(const double &) const;
   Tensor4 operator/(const double &) const;
-#ifndef SWIG
-  friend Tensor4 operator*(const double &, const Tensor4 &);
-#endif
-
-  // multiplications particulieres
-  Tensor3 operator*(const Vec3D &vec) const;
-  Tensor2 operator*(const Tensor2 &t) const;
-  void numpyWrite(std::string, bool = false) const;
-  void numpyWriteZ(std::string, std::string, bool = false) const;
+  Tensor4 operator+(const Tensor4 &) const;
   void numpyRead(std::string);
   void numpyReadZ(std::string, std::string);
-
-  // gestion des flux entree et sortie
-#ifndef SWIG
-  friend std::ostream &operator<<(std::ostream &, const Tensor4 &);
-  friend std::ofstream &operator<<(std::ofstream &, const Tensor4 &);
-  friend std::ifstream &operator>>(std::ifstream &, Tensor4 &);
-  void write(std::ofstream &) const;
-  void read(std::ifstream &);
-  void print(std::ostream &) const;
-#endif
+  void numpyWrite(std::string, bool = false) const;
+  void numpyWriteZ(std::string, std::string, bool = false) const;
+  void setToUnity();
 };
 
 //------inline functions-------------------------------------------------------
 
-/*!
-  \brief tests if the couple of indexes is ok
+/*
+  tests if the couple of indexes is ok
 */
 //-----------------------------------------------------------------------------
 inline bool Tensor4::indexOK(short i, short j, short k, short l) const
@@ -119,10 +97,10 @@ inline bool Tensor4::indexOK(short i, short j, short k, short l) const
   return (false);
 }
 
-/*!
-  \brief Access to the values T[i,j,k,l] of a fourth order tensor
+/*
+  Access to the values T[i,j,k,l] of a fourth order tensor
 
-  \return Value of the fourth order tensor T[i,j,k,l]
+  Return : Value of the fourth order tensor T[i,j,k,l]
 */
 //-----------------------------------------------------------------------------
 inline double &Tensor4::operator()(short i, short j, short k, short l)
@@ -134,10 +112,10 @@ inline double &Tensor4::operator()(short i, short j, short k, short l)
   return v[dnlTensor4Ind(i, j, k, l, 3)];
 }
 
-/*!
-  \brief Access to the values T[i,j,k,l] of a fourth order tensor
+/*
+  Access to the values T[i,j,k,l] of a fourth order tensor
 
-  \return Value of the fourth order tensor T[i,j,k,l]
+  Return : Value of the fourth order tensor T[i,j,k,l]
 */
 //-----------------------------------------------------------------------------
 inline double Tensor4::operator()(short i, short j, short k, short l) const
@@ -149,15 +127,15 @@ inline double Tensor4::operator()(short i, short j, short k, short l) const
   return v[dnlTensor4Ind(i, j, k, l, 3)];
 }
 
-/*!
-  \brief Fill a fourth order tensor with a scalar value
+/*
+  Fill a fourth order tensor with a scalar value
 
   This method is a surdefinition of the = operator for the fourth order tensor class.
   \code
   Tensor4 t1;
   t1 = setToValue(1.0); // All components of the tensor are set to 1.0
   \endcode
-  \param val double value to give to all components of the fourth order tensor
+  - val double value to give to all components of the fourth order tensor
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::setToValue(const double val)
@@ -167,15 +145,15 @@ inline void Tensor4::setToValue(const double val)
     v[i] = val;
 }
 
-/*!
-  \brief Addition of 2 fourth order tensors
+/*
+  Addition of 2 fourth order tensors
 
   This method defines the addition of 2 fourth order tensors.
   \code
   Tensor4 t1,t2;
   t2 += t1; // sum of two fourth order tensors
   \endcode
-  \param tensor fourth order tensor to add
+  - tensor fourth order tensor to add
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator+=(const Tensor4 &tens)
@@ -186,15 +164,15 @@ inline void Tensor4::operator+=(const Tensor4 &tens)
     v[i] += tens.v[i];
 }
 
-/*!
-  \brief Difference of 2 fourth order tensors
+/*
+  Difference of 2 fourth order tensors
 
   This method defines the difference of 2 fourth order tensors.
   \code
   Tensor4 t1,t2;
   t2 -= t1; // difference of two fourth order tensors
   \endcode
-  \param tensor fourth order tensor to substract
+  - tensor fourth order tensor to substract
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator-=(const Tensor4 &tens)
@@ -205,8 +183,8 @@ inline void Tensor4::operator-=(const Tensor4 &tens)
     v[i] -= tens.v[i];
 }
 
-/*!
-  \brief Multiplication of a fourth order tensor by a scalar value
+/*
+  Multiplication of a fourth order tensor by a scalar value
 
   This method defines the multiplication of a fourth order tensor by a scalar value
   \code
@@ -214,7 +192,7 @@ inline void Tensor4::operator-=(const Tensor4 &tens)
   double l;
   t1 *= l; // multiplication by a scalar
   \endcode
-  \param val Scalar value to use for the multiplication
+  - val Scalar value to use for the multiplication
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator*=(const double val)
@@ -224,8 +202,8 @@ inline void Tensor4::operator*=(const double val)
     v[i] *= val;
 }
 
-/*!
-  \brief Division of a fourth order tensor by a scalar value
+/*
+  Division of a fourth order tensor by a scalar value
 
   This method defines the division of a fourth order tensor by a scalar value
   \code
@@ -233,7 +211,7 @@ inline void Tensor4::operator*=(const double val)
   double l;
   t1 /= l; // division by a scalar
   \endcode
-  \param val Scalar value to use for the division
+  - val Scalar value to use for the division
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator/=(const double val)

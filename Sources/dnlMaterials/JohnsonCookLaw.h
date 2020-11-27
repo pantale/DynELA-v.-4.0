@@ -9,25 +9,14 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file JohnsonCookLaw.h
-  \brief Declaration file for the JohnsonCookLaw class
-
-  This file is the declaration file for the JohnsonCookLaw class.
-
-  \ingroup dnlMaterials
-*/
-
 #ifndef __dnlMaterials_JohnsonCookLaw_h__
 #define __dnlMaterials_JohnsonCookLaw_h__
 
 #include <HardeningLaw.h>
 
-/*!
+/*
   \class JohnsonCookLaw
-  \brief Johnson-Cook hardening law.
+  Johnson-Cook hardening law.
 
   The general formulation of the Johnson-Cook constitutive law have the following form:
   \f[ \sigma^{y}=\left(_A+B\overline{\varepsilon^{p}}^{n}\right)\left[1+C\ln\left(\frac{\stackrel{\bullet}{\overline{\varepsilon^{p}}}}{\stackrel{\bullet}{\overline{\varepsilon_{0}}}}\right)\right]\left[1-\left(\frac{T-T_{0}}{T_{m}-T_{0}}\right)^{m}\right] \f]_______
@@ -52,6 +41,13 @@
   \see Material
   \since DynELA 3.0.0
 */
+//-----------------------------------------------------------------------------
+// Class : JohnsonCookLaw
+//
+// Used to manage JohnsonCookLaw
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class JohnsonCookLaw : public HardeningLaw
 {
   double A = 0.0;
@@ -67,6 +63,14 @@ public:
   JohnsonCookLaw();
   JohnsonCookLaw(const JohnsonCookLaw &law);
   ~JohnsonCookLaw();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   int getNumberOfParameters();
   const char *getParameterName(int parameter);

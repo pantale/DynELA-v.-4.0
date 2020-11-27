@@ -9,22 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodalField.h
-  \brief Declaration file for the NodalField class
-
-  This file is the declaration file for the NodalField class. A NodalField contains all Finite Element data for each node of the structure.
-
-  \ingroup dnlElements
-*/
-
 #ifndef __dnlElements_NodalField_h__
 #define __dnlElements_NodalField_h__
 
 #include <dnlMaths.h>
 
+//-----------------------------------------------------------------------------
+// Class : NodalField
+//
+// Used to manage Nodal fields in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class NodalField
 {
 
@@ -44,6 +40,7 @@ public:
   NodalField(const NodalField &X);
   ~NodalField();
 
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   friend std::ifstream &operator>>(std::ifstream &, NodalField &);
   friend std::ofstream &operator<<(std::ofstream &, const NodalField &);
@@ -51,6 +48,10 @@ public:
   NodalField &read(std::ifstream &);
   void print(std::ostream &) const;
   void write(std::ofstream &) const;
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
 #endif
 
   long objectSize();

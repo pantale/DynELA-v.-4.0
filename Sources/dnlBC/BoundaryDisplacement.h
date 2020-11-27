@@ -9,24 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlBC_BoundaryDisplacement_h__
 #define __dnlBC_BoundaryDisplacement_h__
 
 #include <Boundary.h>
-/* #include <Vec3D.h>
-class Node; */
 
+//-----------------------------------------------------------------------------
+// Class : BoundaryDisplacement
+//
+// Used to manage BoundaryDisplacements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class BoundaryDisplacement : public Boundary
 {
 
@@ -39,6 +33,14 @@ public:
   BoundaryDisplacement(const Vec3D &newDisplacement);
   BoundaryDisplacement(const BoundaryDisplacement &X);
   ~BoundaryDisplacement();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void applyConstantOnNewFields(Node *node, double currentTime, double timeStep);
   void applyConstantOnCurrentFields(Node *node, double currentTime, double timeStep);

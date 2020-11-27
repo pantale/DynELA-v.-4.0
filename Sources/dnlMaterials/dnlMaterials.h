@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file Defines.h
-  \brief Definition of the basic mathematical operators and constants.
+  Definition of the basic mathematical operators and constants.
 
   This file defines all the mathematical constants, tools and basic operators.
   \ingroup dnlMaterials

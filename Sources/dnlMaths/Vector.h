@@ -9,23 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Vector.h
-  \brief Declaration file for the vector class
-
-  This file is the declaration file for the vector class. A vector class is a vector with the following form:
-  \f[ \overrightarrow{_data}=\left[\begin{array}{c}
-  v_{1}\\
-  v_{2}\\
-  ...\\
-  v_{n}
-  \end{array}\right] \f]
-
-  \ingroup dnlMaths
-*/
-
 #ifndef __dnlMaths_Vector_h__
 #define __dnlMaths_Vector_h__
 
@@ -34,11 +17,7 @@
 #include <Errors.h>
 #include <Macros.h>
 
-/*
-  \enum OutVector
-  \brief enumeration de format d'affichage de vecteurs.
-  Cette enumeration permet de definir le format d'affichage des vecteurs. On a ainsi le choix entre outVectorTypeNormal qui correspond à un affichage conforme à Mathematica et outVectorTypeMupad qui correspond à un affichage au format Mupad.
-*/
+  // Interface methods excluded from SWIG
 #ifndef SWIG
 enum OutVector
 {
@@ -48,21 +27,13 @@ enum OutVector
 class Matrix;
 #endif
 
-/*!
-  \class Vector
-  \brief Declaration of the vector class
-
-  A vector class is a vector with the following form:
-  \f[ \overrightarrow{V}=\left[\begin{array}{c}
-  v_{1}\\
-  v_{2}\\
-  ...\\
-  v_{n}
-  \end{array}\right] \f]
-  This type of data structure is useful for storing three-dimensional coordinates (for example nodal coordinates, vectors forces,...).
-
-  \ingroup dnlMaths
-*/
+//-----------------------------------------------------------------------------
+// Class : Vector
+//
+// Used to manage Vector
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Vector
 {
   friend class Matrix;
@@ -78,33 +49,35 @@ class Vector
 public:
   Vector(long = 3, double = 0.0);
   Vector(const Vector &);
-#ifndef SWIG
-  Vector(int vectorLength, double firstValue, double secondValue, ...);
-#endif
   ~Vector();
 
-  bool operator!=(const Vector &) const;
-  bool operator==(const Vector &) const;
-  double operator()(long) const;
-  Vector operator-() const;
-  Vector operator-(const Vector &) const;
-  Vector operator*(const double) const;
-  Vector operator/(const double) const;
-  Vector operator+(const Vector &) const;
-
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   double &operator()(long);
+  friend std::ifstream &operator>>(std::ifstream &, Vector &);
+  friend std::ofstream &operator<<(std::ofstream &, const Vector &);
+  friend std::ostream &operator<<(std::ostream &, const Vector &);
   friend Vector operator*(const double, const Vector &);
   Vector &operator=(const double *);
   Vector &operator=(const Vector &);
   Vector &operator=(double);
+  Vector &read(std::ifstream &);
+  Vector(int vectorLength, double firstValue, double secondValue, ...);
   void operator-=(const Vector &);
   void operator*=(const double);
   void operator/=(const double);
   void operator+=(const Vector &);
+  void print(std::ostream &) const;
+  void write(std::ofstream &) const;
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
 #endif
 
   bool indexOK(long) const;
+  bool operator!=(const Vector &) const;
+  bool operator==(const Vector &) const;
   double distance(const Vector &) const;
   double dotProduct(const Vector &) const;
   double getNorm();
@@ -113,11 +86,17 @@ public:
   double maxValue();
   double minAbsoluteValue();
   double minValue();
+  double operator()(long) const;
   double squareDistance(const Vector &) const;
   long getSize() const;
   Matrix dyadicProduct();
   Matrix dyadicProduct(const Vector &);
   Vector getNormalized();
+  Vector operator-() const;
+  Vector operator-(const Vector &) const;
+  Vector operator*(const double) const;
+  Vector operator/(const double) const;
+  Vector operator+(const Vector &) const;
   Vector vectorialProduct(const Vector &) const;
   void gatherFrom(const Vector &, long *, int);
   void normalize();
@@ -126,21 +105,12 @@ public:
   void numpyWrite(std::string, bool = false) const;
   void numpyWriteZ(std::string, std::string, bool = false) const;
   void printOut();
-  void resizeVector(const long);
   void redim(const long);
+  void resizeVector(const long);
   void scatterFrom(const Vector &, long *, int);
   void setOutType(char);
   void setToValue(double);
   void swapWith(Vector &);
-
-#ifndef SWIG
-  friend std::ifstream &operator>>(std::ifstream &, Vector &);
-  friend std::ofstream &operator<<(std::ofstream &, const Vector &);
-  friend std::ostream &operator<<(std::ostream &, const Vector &);
-  Vector &read(std::ifstream &);
-  void print(std::ostream &) const;
-  void write(std::ofstream &) const;
-#endif
 };
 
 //------inline functions-------------------------------------------------------
@@ -161,9 +131,9 @@ inline bool Vector::indexOK(long i) const
 }
 
 //Access to the values _data[i] of 3D vector
-/*!
-  \param i indice inside of the vector
-  \return Value of the 3D vector _data[i]
+/*
+  - i indice inside of the vector
+  Return : Value of the 3D vector _data[i]
 */
 //-----------------------------------------------------------------------------
 inline double &Vector::operator()(long i)
@@ -176,9 +146,9 @@ inline double &Vector::operator()(long i)
 }
 
 //Access to the values _data[i] of 3D vector (Read only method)
-/*!
-  \param i indice inside of the vector
-  \return Value of the 3D vector _data[i]
+/*
+  - i indice inside of the vector
+  Return : Value of the 3D vector _data[i]
 */
 //-----------------------------------------------------------------------------
 inline double Vector::operator()(long i) const
@@ -191,9 +161,9 @@ inline double Vector::operator()(long i) const
 }
 
 //Size of the vector
-/*!
+/*
   This method returns the size of the vector.
-  \return Size of the vector
+  Return : Size of the vector
 */
 //-----------------------------------------------------------------------------
 inline long Vector::getSize() const
@@ -203,9 +173,9 @@ inline long Vector::getSize() const
 }
 
 //Selection of the output display type
-/*!
+/*
   This method allows you to select the type of display requested. The output type is defined by the variables listed in \ref OutVector.
-  \param outT Type of the output
+  - outT Type of the output
 */
 //-----------------------------------------------------------------------------
 inline void Vector::setOutType(char outT)

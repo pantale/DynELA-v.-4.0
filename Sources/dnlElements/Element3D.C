@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file Element3D.C
-  \brief Definition file for the Element3D class
+  Definition file for the Element3D class
 
   This file is the definition file for the Element3D class.
 

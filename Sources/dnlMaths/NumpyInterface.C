@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file Vec3D.h
-  \brief Declaration file for the 3D vector class
+  Declaration file for the 3D vector class
 
   This file is the declaration file for the 3D vector class. A 3D vector class is a vector with the following form:
   \f[ \overrightarrow{v}=\left[\begin{array}{c}

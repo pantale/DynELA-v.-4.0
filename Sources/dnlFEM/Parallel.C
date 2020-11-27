@@ -9,28 +9,11 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #include <Parallel.h>
 #include <DynELA.h>
 
 #pragma omp default none
 
-/* #include <List.h>
-#include <DynELA.h>
-#include <Node.h>
-#include <Element.h>
-#include <Field.h>
- */
 //-----------------------------------------------------------------------------
 Parallel::Parallel(char *newName)
 //-----------------------------------------------------------------------------

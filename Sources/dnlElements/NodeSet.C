@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodeSet.h
-  \brief Declaration file for the NodeSet class
+  Declaration file for the NodeSet class
 
   This file is the declaration file for the NodeSet class.
 
@@ -53,8 +53,8 @@ void NodeSet::setName(char *_name)
 }
 
 //Add a new node to the current NodeSet
-/*!
-  This method adds an existing node to a NodeSet. The node is directly specified by its pointer, no verification is performed by this method.  \param nd pointeur sur un noeud
+/*
+  This method adds an existing node to a NodeSet. The node is directly specified by its pointer, no verification is performed by this method.  - nd pointeur sur un noeud
 */
 //-----------------------------------------------------------------------------
 void NodeSet::add(Node *node)
@@ -64,9 +64,9 @@ void NodeSet::add(Node *node)
 }
 
 //Add new nodes to the current NodeSet
-/*!
+/*
    This method adds an existing NodeSet and a NodeSet.
-  \param NodeSet to be merged
+  - NodeSet to be merged
 */
 //-----------------------------------------------------------------------------
 void NodeSet::add(NodeSet *nodesSet)
@@ -79,9 +79,9 @@ void NodeSet::add(NodeSet *nodesSet)
 }
 
 //nombre de noeuds dans la liste
-/*!
+/*
   Cette methode renvoie le nombre de noeuds dans un NodeSet
-  \return nombre de noeuds de la liste
+  Return : nombre de noeuds de la liste
 
 */
 //-----------------------------------------------------------------------------
@@ -92,10 +92,10 @@ long NodeSet::getSize()
 }
 
 //recupere un pointeur sur le ieme noeud d'un node set
-/*!
+/*
   Cette methode renvoie un pointeur sur le ieme noeud d'une liste de noeuds contenue dans un NodeSet.
-  \param i place du noeud dans la liste.
-  \return pointeur sur le noeud
+  - i place du noeud dans la liste.
+  Return : pointeur sur le noeud
 
 */
 //-----------------------------------------------------------------------------
@@ -106,10 +106,10 @@ Node *NodeSet::getNode(long nodeNumber)
 }
 
 //recupere le numero du ieme noeud d'un node set
-/*!
+/*
   Cette methode renvoie le numero du ieme noeud d'une liste de noeuds contenue dans un NodeSet.
-  \param i place du noeud dans la liste.
-  \return pointeur sur le noeud
+  - i place du noeud dans la liste.
+  Return : pointeur sur le noeud
 
 */
 //-----------------------------------------------------------------------------

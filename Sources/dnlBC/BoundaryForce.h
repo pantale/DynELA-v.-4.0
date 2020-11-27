@@ -9,24 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlBC_BoundaryForce_h__
 #define __dnlBC_BoundaryForce_h__
 
 #include <Boundary.h>
-/* #include <Vec3D.h>
-class Node; */
 
+//-----------------------------------------------------------------------------
+// Class : BoundaryForce
+//
+// Used to manage BoundaryForces in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class BoundaryForce : public Boundary
 {
 
@@ -39,6 +33,14 @@ public:
   BoundaryForce(const Vec3D &newForce);
   BoundaryForce(const BoundaryForce &X);
   ~BoundaryForce();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   // fonctions membres
   long getType()

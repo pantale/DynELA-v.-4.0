@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-\file Element.h
-\brief Declaration file for the Element class
-
-This file is the declaration file for the Element class.
-
-\ingroup dnlElements
-*/
-
 #ifndef __dnlElements_Element_h__
 #define __dnlElements_Element_h__
 
@@ -29,6 +18,13 @@ This file is the declaration file for the Element class.
 class Node;
 class Model;
 
+//-----------------------------------------------------------------------------
+// Class : Element
+//
+// Used to manage Elements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Element
 {
     friend class Node;
@@ -61,26 +57,30 @@ public:
         ElTet10N3D
     };
 
-    //#ifndef SWIG
     enum
     {
         Bidimensional = 0,
         Axisymetric,
         Threedimensional
     };
-    //#endif
 
 public:
     Element(long elementNumber = 1);
     Element(const Element &element);
     virtual ~Element();
 
+  // Interface methods excluded from SWIG
 #ifndef SWIG
     friend std::ofstream &operator<<(std::ofstream &, const Element &);
     friend std::ifstream &operator>>(std::ifstream &, Element &);
     void write(std::ofstream &) const;
     Element &read(std::ifstream &);
 #endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
     bool operator==(const Element &) const;
     bool operator!=(const Element &) const;
     bool operator<(const Element &) const;
@@ -391,8 +391,8 @@ inline Vec3D Element::getLocalNodeCoords(short node) const
 }
 
 //Internal number. This method gives a direct access to the internal number of the current node.
-/*!
-  \return Internal number of the current node.
+/*
+  Return : Internal number of the current node.
 */
 //-----------------------------------------------------------------------------
 inline long &Element::internalNumber()

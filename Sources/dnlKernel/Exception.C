@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Exception.C
-  \brief Definition of the Exception class.
+  Definition of the Exception class.
 
   This file defines all the Exception class.
   \ingroup dnlKernel

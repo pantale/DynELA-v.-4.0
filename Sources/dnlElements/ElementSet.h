@@ -9,45 +9,20 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlElements_ElementSet_h__
 #define __dnlElements_ElementSet_h__
-
-//#include <upFemSolver.h>
-
-/*!
-  \file FiniteSet.h
-  \brief fichier .h de definition des groupes de noeuds et elements
-  \ingroup femLibrary
-
-  Ce fichier sert à la definition des groupes de noeuds et elements de la structure.
-
-*/
-
-/* #include <upFemSolver.h> */
 
 #include <String.h>
 #include <List.h>
 #include <Element.h>
 
-/*!
-  \brief Classe de gestion des groupes d'elements
-  \ingroup femLibrary
-  \class ElementSet FiniteSet.h
-
- Cette classe gere les groupes d'elements au niveau d'une structure sur DynELA. Elle comporte des methodes de creation de groupes d'elements (par ajout d'elements generalement), ainsi que des methodes de gestion de ces groupes d'elements.
-
-*/
+//-----------------------------------------------------------------------------
+// Class : ElementSet
+//
+// Used to manage Elements sets in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class ElementSet
 {
 public:
@@ -59,6 +34,14 @@ public:
   ElementSet(char *newName = NULL);
   ElementSet(const ElementSet &X);
   ~ElementSet();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void add(Element *element);
   void add(ElementSet *elementSet);

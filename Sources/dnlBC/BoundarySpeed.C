@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodeSet.h
-  \brief Declaration file for the NodeSet class
+  Declaration file for the NodeSet class
 
   This file is the declaration file for the NodeSet class.
 
@@ -26,7 +26,7 @@
 #include <Function.h> */
 
 //constructeur par defaut de la classe BoundarySpeed
-/*!
+/*
   Cette methode est le constructeur par defaut de la classe BoundarySpeed. En pratique, ici, on ne fait rien de plus que les allocations de memoire necessaires.
 
   \since DynELA 0.9.1
@@ -46,7 +46,7 @@ BoundarySpeed::BoundarySpeed(const Vec3D &newSpeed)
 }
 
 //constructeur par recopie de la classe BoundarySpeed
-/*!
+/*
   Cette methode est le constructeur par recopie de la classe BoundarySpeed.
   \warning La recopie n'est pas prevue ici, cette methode genere une erreur d'execution
 
@@ -74,11 +74,11 @@ void BoundarySpeed::applyInitial(Node *node, double currentTime, double timeStep
 }
 
 //Application d'une condition limite Imposee en vitesse sur un noeud
-/*!
+/*
   Cette methode applique des conditions aux limites imposees en vitesse sur un noeud. Deux cas se presentent selon la nature de la vitesse imposee (constante ou variable dans le temps).
   Dans le cas oe la vitesse imposee est constante dans le temps, on applique simplement dans la direction contrainte une acceleration nulle et une vitesse imposee constante egale a la vitesse de la CL.
   Dans le cas oe la CL est variable dans le temps, on utilise les relations suivantes \f[ \stackrel{\bullet }{v_{0}}=\frac{\overline{v}(t+\Delta t)-\overline{v}(t)}{\Delta t} \f] et  \f[  v_{0}=\overline{v}(t) \f] relations dans lesquelles  \f$ \overline{v}(t) \f$ represente la valeur de la vitesse imposee a l'instant t definie a partir de la fonction discrete.
-  \param node Noeud sur lequel la condition limite est appliquee
+  - node Noeud sur lequel la condition limite est appliquee
 
   \since DynELA 0.9.1
 */
@@ -208,7 +208,7 @@ void BoundarySpeed::applyConstantOnNewFields(Node *node, double currentTime, dou
 }
 
 //destructeur de la classe BoundarySpeed
-/*!
+/*
   Cette methode est le destructeur de la classe BoundarySpeed.
 
   \since DynELA 0.9.1

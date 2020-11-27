@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file ElastoplasticLaw.C
-  \brief Definition file for the ElastoplasticLaw class
+  Definition file for the ElastoplasticLaw class
 
   This file is the definition file for the ElastoplasticLaw class.
 

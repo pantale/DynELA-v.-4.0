@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Model.h
-  \brief Declaration file for the Model class
-
-  This file is the declaration file for the Model class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_Model_h__
 #define __dnlFEM_Model_h__
 
@@ -35,11 +24,13 @@ class NodeSet;
 class Solver;
 class Material;
 
-/*!
-  \class Model Model.h
-  \brief Classe de gestion et manipulation des modeles elements finis.
-  \ingroup femLibrary
-*/
+//-----------------------------------------------------------------------------
+// Class : class Model
+//
+//  Used to manage a FE Model in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Model
 {
   friend class DynELA;
@@ -63,7 +54,7 @@ public:
   ListIndex<Node *> nodes;          // List of the Nodes
   MatrixDiag massMatrix;            // Mass matrix
   Solver *solver = NULL;            // solveurs associes au modele
-  String name = "_noname_";         // Name of the model
+  String name = "Model::_noname_";  // Name of the model
   Vector internalForces;            // Vecteur des forces internes
 
 private:
@@ -79,6 +70,14 @@ public:
   Model(char *newName = NULL);
   Model(const Model &model);
   ~Model();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   bool checkTopology();
   bool initSolve();

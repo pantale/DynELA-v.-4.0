@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NumpyInterface.h
-  \brief Declaration file for the NumpyInterface class
+  Declaration file for the NumpyInterface class
 
   This file is the declaration file for the NumpyInterface class.
 

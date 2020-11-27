@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Node.h
-  \brief Declaration file for the Node class
-
-  This file is the declaration file for the Node class.
-
-  \ingroup dnlMaterials
-*/
-
 #ifndef __dnlMaterials_HardeningLaw_h__
 #define __dnlMaterials_HardeningLaw_h__
 
@@ -27,29 +16,21 @@
 
 class ElementSet;
 
-/*!
-  \file HardeningLaw.h
-  \brief fichier .h de definition de la classe generique des materiaux
-  \ingroup femLibrary
-
-  Ce fichier sert à la definition la classe generique des materiaux.
-
-*/
-
 class IntegrationPoint;
 class Element;
 class Material;
 
-/*!
-  \brief Classe virtuelle de gestion des materiaux
-  \ingroup femLibrary
-
-  Classe virtuelle de gestion des materiaux pour DynELA. Cette classe regroupe les parametres de base communs à tous les types de materiaux sur DynELA, comme le module de Young, le coefficient de Poisson, ou la densite d'un materiau. Pour pouvoir utiliser un materiau sur DynELA, on utilise alors une des classes derivees de celle-ci, ce qui permet alors de definir un comportement elastique, elasto-plastique, ou tout autre type de comportement.
-
-*/
+//-----------------------------------------------------------------------------
+// Class : HardeningLaw
+//
+// Used to manage HardeningLaw
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class HardeningLaw
 {
 public:
+  // This enum is excluded from SWIG
 #ifndef SWIG
   enum
   {
@@ -72,6 +53,14 @@ public:
   HardeningLaw();
   HardeningLaw(const HardeningLaw &);
   virtual ~HardeningLaw();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   int getType();
   bool isYield();

@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file NodeSet.h
-  \brief Declaration file for the NodeSet class
+  Declaration file for the NodeSet class
 
   This file is the declaration file for the NodeSet class.
 
@@ -25,7 +25,7 @@
 //#include <DynELA.h>
 
 //constructeur de la classe ElementSet
-/*!
+/*
   Cette methode construit un ElementSet vide.
 
 */
@@ -38,7 +38,7 @@ ElementSet::ElementSet(char *_name)
 }
 
 //constructeur par recopie de la classe ElementSet
-/*!
+/*
   Cette methode construit un ElementSet vide par recopie d'un autre.
   Elle n'est pas finalisee.
 
@@ -52,7 +52,7 @@ ElementSet::ElementSet(const ElementSet &X)
 }
 
 //destructeur de la classe ElementSet
-/*!
+/*
   Cette methode detruit un ElementSet.
 
 */
@@ -70,9 +70,9 @@ void ElementSet::setName(char *_name)
 }
 
 //ajoute un element à un ElementSet
-/*!
+/*
   Cette methode ajoute un element existant à un ElementSet. L'element est directement specifie par son pointeur, aucune verification n'est effectuee par cette methode.
-  \param element pointeur sur un element
+  - element pointeur sur un element
 
 */
 //-----------------------------------------------------------------------------
@@ -83,9 +83,9 @@ void ElementSet::add(Element *element)
 }
 
 //nombre d'elements dans la liste
-/*!
+/*
   Cette methode renvoie le nombre d'elements dans un ElementSet
-  \return nombre d'elements de la liste
+  Return : nombre d'elements de la liste
 
 */
 //-----------------------------------------------------------------------------
@@ -96,9 +96,9 @@ long ElementSet::getSize()
 }
 
 //ajoute un ElementSet à un ElementSet
-/*!
+/*
   Cette methode ajoute un ElementSet existant à un ElementSet.
-  \param elementSet ElementSet a fusionner
+  - elementSet ElementSet a fusionner
 */
 //-----------------------------------------------------------------------------
 void ElementSet::add(ElementSet *elementSet)
@@ -111,10 +111,10 @@ void ElementSet::add(ElementSet *elementSet)
 }
 
 //recupere un pointeur sur le ieme element d'un ElementSet
-/*!
+/*
   Cette methode renvoie un pointeur sur le ieme element d'une liste d'elements contenue dans un ElementSet.
-  \param item place de l'element dans la liste.
-  \return pointeur sur le element
+  - item place de l'element dans la liste.
+  Return : pointeur sur le element
 
 */
 //-----------------------------------------------------------------------------
@@ -125,10 +125,10 @@ Element *ElementSet::getElement(long item)
 }
 
 //recupere le numero du ieme noeud d'un node set
-/*!
+/*
   Cette methode renvoie le numero du ieme noeud d'une liste de noeuds contenue dans un NodeSet.
-  \param i place du noeud dans la liste.
-  \return pointeur sur le noeud
+  - i place du noeud dans la liste.
+  Return : pointeur sur le noeud
 
 */
 //-----------------------------------------------------------------------------

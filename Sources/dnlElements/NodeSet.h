@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlElements_NodeSet_h__
 #define __dnlElements_NodeSet_h__
 
@@ -27,6 +16,13 @@
 
 class Node;
 
+//-----------------------------------------------------------------------------
+// Class : NodeSet
+//
+// Used to manage ElNode sets in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class NodeSet
 {
 public:
@@ -37,6 +33,14 @@ public:
   NodeSet(char *newName = NULL);   // Constructor of the NodeSet class
   NodeSet(const NodeSet &nodeSet); // Copy constructor of the NodeSet class
   ~NodeSet();                      // Destructor of the NodeSet class
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void add(Node *node);
   void setName(char *_name);

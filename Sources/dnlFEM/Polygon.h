@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Polygon.h
-  \brief Declaration file for the Polygon class
-
-  This file is the declaration file for the Polygon class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_Polygon_h__
 #define __dnlFEM_Polygon_h__
 
@@ -30,6 +19,14 @@ class Node;
 
 #define PolygonMaxNodes 8
 
+//-----------------------------------------------------------------------------
+// Class : Polygon
+// 
+// Used to manage Polygons for SVG files
+// 
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class Polygon
 {
   friend bool compareCentersXYZ(Polygon *p1, Polygon *p2);
@@ -67,7 +64,16 @@ public:
   void resetCoordinates();
   void rotate(Tensor2 Mat);
 };
+#endif // from #if !defined(SWIG)
 
+//-----------------------------------------------------------------------------
+// Class : PolygonPatch
+// 
+// Used to manage PolygonPatch for SVG files
+// 
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class PolygonPatch
 {
 public:
@@ -81,7 +87,16 @@ public:
   PolygonPatch() {}
   ~PolygonPatch() {}
 };
+#endif // from #if !defined(SWIG)
 
+//-----------------------------------------------------------------------------
+// Class : PolygonPatches
+// 
+// Used to manage PolygonPatches for SVG files
+// 
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class PolygonPatches
 {
 private:
@@ -101,5 +116,6 @@ public:
 
   void createPatch(Polygon *polygon, ColorMap &map, short field);
 };
+#endif // from #if !defined(SWIG)
 
 #endif

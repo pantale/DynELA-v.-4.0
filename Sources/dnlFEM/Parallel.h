@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Parallel.h
-  \brief Declaration file for the Parallel class
-
-  This file is the declaration file for the Parallel class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_Parallel_h__
 #define __dnlFEM_Parallel_h__
 
@@ -28,9 +17,14 @@
 
 class Element;
 
-/* #include <iostream>
-#include <fstream>
- */
+//-----------------------------------------------------------------------------
+// Class : ElementsChunk
+//
+// Used to manage parallel element chunk
+//
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class ElementsChunk
 {
 public:
@@ -40,7 +34,15 @@ public:
   ElementsChunk() {}
   ~ElementsChunk() {}
 };
+#endif
 
+//-----------------------------------------------------------------------------
+// Class : class Parallel
+//
+//  Used to manage parallel computation in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Parallel
 {
 
@@ -54,16 +56,24 @@ private:
   void _deleteChunkList(ElementsChunk **chunkList);
 
 public:
-  String name = "_noname_";
+  String name = "Parallel::noname_";
 
   // constructeurs
   Parallel(char *newName = NULL);
   ~Parallel();
 
+  // Interface methods excluded from SWIG
+#ifndef SWIG
   ElementsChunk *getElementsOfCore(int core);
   ElementsChunk *getElementsOfCurrentCore();
-  int getCores();
   void dispatchElements(List<Element *> elementList);
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
+  int getCores();
   void setCores(int cores);
 };
 

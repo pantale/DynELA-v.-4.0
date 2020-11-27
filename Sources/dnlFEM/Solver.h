@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_Solver_h__
 #define __dnlFEM_Solver_h__
 
@@ -27,27 +16,13 @@
 
 class Model;
 
-/* #include <upFemSolver.h>
-class Model;
-extern String parsedFileName;
- */
-/*!
-  \file Solver.h
-  \brief fichier .h de definition des solveurs elements finis
-  \ingroup femSolver
-
-  Ce fichier sert à la definition de la classe Solver.
-
-*/
-
-/*!
-  \class Solver Solver.h
-  \brief Classe de definition et de manipulation des solveurs elements finis.
-  \ingroup femSolver
-
-  Cette classe sert à definir et à manipuler les solveurs disponibles au niveau d'un modele. Elle contient toutes les definitions de base concernant la gestion des temps de simulation (increment de temps, temps de debut, de fin ...) ainsi que la gestion complete des increments.
-
-*/
+//-----------------------------------------------------------------------------
+// Class : Solver
+//
+// Used to manage DynELA FEM Solvers
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Solver
 {
 protected:
@@ -74,12 +49,20 @@ public:
   long currentIncrement = 0; // Current increment
   long endIncrement = 0;     // Final increment
   long startIncrement = 0;   // Initial increment
-  String name = "_noname_";  // Name of the solver
+  String name = "Solver::_noname_";  // Name of the solver
 
 public:
   Solver(char *newName = NULL);
   Solver(const Solver &X);
   virtual ~Solver();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   bool timeAndIncrementsAreBetweenBounds();
   bool timeIsBetweenBounds();
@@ -94,7 +77,8 @@ public:
   void setTimes(double start_time, double end_time);
   void setTimeStepMethod(short method);
   void setTimeStepSafetyFactor(double safetyfactor);
-  // member functions
+  
+  // TrashBin here after
   /*
   bool timeOk ();
   double getEndTime() {return endTime;}

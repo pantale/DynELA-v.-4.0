@@ -9,29 +9,22 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file Function.h
-  \brief Declaration of the Function class.
-
-  This file declares the Function class.
-  \ingroup dnlMaths
-*/
-
 #ifndef __dnlMaths_Function_h__
 #define __dnlMaths_Function_h__
 
 #include <String.h>
 
-/*!
-  \brief Function class
-
-This class is used to store and manipulate information about Functions for the DynELA Finite Element code.
-  \ingroup dnlMaths
-*/
+//-----------------------------------------------------------------------------
+// Class : Function
+//
+// Used to manage Function
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Function
 {
 public:
-  String name; //!< name of the function
+  String name = "Function::_noname_"; // name of the function
 
 public:
   Function(char *newName = NULL);
@@ -40,8 +33,14 @@ public:
   virtual double getValue(double x) = 0;
   virtual double getSlope(double x) = 0;
   virtual String convertToDynELASourceFile() = 0;
+
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   virtual void print() = 0;
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
 #endif
 };
 

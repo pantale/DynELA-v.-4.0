@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Drawing.h
-  \brief Declaration file for the Drawing class
-
-  This file is the declaration file for the Drawing class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_Drawing_h__
 #define __dnlFEM_Drawing_h__
 
@@ -27,6 +16,14 @@
 
 class Polygon;
 
+//-----------------------------------------------------------------------------
+// Class : Drawing
+//
+// Used to manage Drawing for SVG files
+//
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class Drawing
 {
 private:
@@ -52,5 +49,6 @@ public:
   void rotate(Vec3D axis, double angle);
   void zBufferSort();
 };
+#endif // from #if !defined(SWIG)
 
 #endif

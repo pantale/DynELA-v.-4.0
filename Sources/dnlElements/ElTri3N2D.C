@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file ElementPlane.C
-  \brief Definition file for the ElementPlane class
+  Definition file for the ElementPlane class
 
   This file is the definition file for the ElementPlane class.
 
@@ -215,11 +215,11 @@ void ElTri3N2D::getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3
 }
 
 //Calcul de la longueur caracteristique d'un element
-/*!
+/*
 Cette methode calcule la longueur caracteristique d'un element à partir de la definition de la geometrie de cet element.
 La relation utilisee pour ce calcul est donnee par:
 \f[ l=\frac{x_{31}*y_{42}+x_{24}*y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}} \f] avec \f$ x_{ij} \f$ distance horizontale entre les points i et j et \f$ y_{ij} \f$ distance verticale entre les points i et j.
-\return longueur caracteristique de l'element
+Return : longueur caracteristique de l'element
 */
 /*
 //-----------------------------------------------------------------------------

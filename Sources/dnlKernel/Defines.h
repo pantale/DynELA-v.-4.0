@@ -9,16 +9,13 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file Defines.h
-  \brief Basic definies of the DynELA Finite Element code.
-
-  This file contains a set of defines used to set the basic options of the DynELA Finite Element code.
-  \ingroup dnlKernel
-*/
-
 #ifndef __dnlKernel_Defines_h__
 #define __dnlKernel_Defines_h__
+
+// SWIG option
+// Turn on this option if you want complete support
+// of DynELA Python interpreter
+#define CSWIG
 
 // Compilation defines for optimization
 //#define OPTIMIZE     // This option activates optimized algorithms of the DynELA code. This also desactivate the following options of the code \ref MEM_funct, \ref VERIF_bounds, \ref VERIF_math, \ref VERIF_alloc and \ref VERIF_assert.
@@ -31,18 +28,18 @@
 
 // turn off all verifs if OPTIMIZE is on
 #ifdef OPTIMIZE
-#ifdef VERIF_bounds
-#undef VERIF_bounds
-#endif
-#ifdef VERIF_alloc
-#undef VERIF_alloc
-#endif
-#ifdef VERIF_math
-#undef VERIF_math
-#endif
-#ifdef VERIF_assert
-#undef VERIF_assert
-#endif
+  #ifdef VERIF_bounds
+    #undef VERIF_bounds
+  #endif
+  #ifdef VERIF_alloc
+    #undef VERIF_alloc
+  #endif
+  #ifdef VERIF_math
+    #undef VERIF_math
+  #endif
+  #ifdef VERIF_assert
+    #undef VERIF_assert
+  #endif
 #endif
 
 #endif

@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Tensor.C
-  \brief Definition file for the fourth order tensor class
+  Definition file for the fourth order tensor class
 
   This file is the declaration file for the fourth order tensor class. A fourth order tensor has the following form:
   \f[ T = T_{ijkl} \f]
@@ -26,8 +26,8 @@
 #include <Vec3D.h>
 #include <NumpyInterface.h>
 
-/*!
-  \brief Constructor of the Tensor4 class
+/*
+  Constructor of the Tensor4 class
 
   This method is the default constructor of a fourth order tensor. All components are initialized to zero by default.
 */
@@ -39,8 +39,8 @@ Tensor4::Tensor4()
   setToValue(0.);
 }
 
-/*!
-  \brief Destructor of the Tensor4 class
+/*
+  Destructor of the Tensor4 class
 */
 //-----------------------------------------------------------------------------
 Tensor4::~Tensor4()
@@ -48,13 +48,13 @@ Tensor4::~Tensor4()
 {
 }
 
-/*!
-  \brief Send the content of a fourth order tensor to the output flux for display
+/*
+  Send the content of a fourth order tensor to the output flux for display
   \code
   Tensor4 t;
   std::cout << t << endl;
   \endcode
-  \param os Output flux
+  - os Output flux
 */
 //-----------------------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const Tensor4 &t1)
@@ -64,10 +64,10 @@ std::ostream &operator<<(std::ostream &os, const Tensor4 &t1)
   return os;
 }
 
-/*!
-  \brief Print the content of a fourth order tensor to the output flux for display
+/*
+  Print the content of a fourth order tensor to the output flux for display
 
-  \param os Output flux
+  - os Output flux
 */
 //-----------------------------------------------------------------------------
 void Tensor4::print(std::ostream &os) const
@@ -91,8 +91,8 @@ void Tensor4::print(std::ostream &os) const
   }
 }
 
-/*!
-  \brief Returns an identity tensor
+/*
+  Returns an identity tensor
 
   This method transforms the current tensor to an identity tensor.
   \code
@@ -115,15 +115,15 @@ void Tensor4::setToUnity()
               2.;
 }
 
-/*!
-  \brief Fill a fourth order tensor with a scalar value
+/*
+  Fill a fourth order tensor with a scalar value
 
   This method is a surdefinition of the = operator for the fourth order tensor class.
   \code
   Tensor4 t1;
   t1 = 1.0; // All components of the tensor are set to 1.0
   \endcode
-  \param val double value to give to all components of the fourth order tensor
+  - val double value to give to all components of the fourth order tensor
 */
 //-----------------------------------------------------------------------------
 Tensor4 &Tensor4::operator=(const double &val)
@@ -133,15 +133,15 @@ Tensor4 &Tensor4::operator=(const double &val)
   return *this;
 }
 
-/*!
-  \brief Copy the content of a fourth order tensor into a new one
+/*
+  Copy the content of a fourth order tensor into a new one
 
   This method is the so called = operator between two fourth order tensors. If the \ref MEM_funct is set, the \ref memcpy function is used for the copy.
   \code
   Tensor4 t1, t2;
   t1 = t2; // copy of the tensor
   \endcode
-  \param t1 Second fourth order tensor to use for the operation
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 Tensor4 &Tensor4::operator=(const Tensor4 &t1)
@@ -151,8 +151,8 @@ Tensor4 &Tensor4::operator=(const Tensor4 &t1)
   return *this;
 }
 
-/*!
-  \brief Addition of 2 fourth order tensors
+/*
+  Addition of 2 fourth order tensors
 
   This method defines the addition of 2 fourth order tensors.
   The result of this operation is also a fourth order tensor defined by:
@@ -161,7 +161,7 @@ Tensor4 &Tensor4::operator=(const Tensor4 &t1)
   Tensor4 t1,t2,t3;
   t3 = t1 + t2; // sum of 2 fourth order tensors
   \endcode
-  \param t1 Second fourth order tensor to use for the operation
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 Tensor4 Tensor4::operator+(const Tensor4 &t1) const
@@ -178,8 +178,8 @@ Tensor4 Tensor4::operator+(const Tensor4 &t1) const
   return t2;
 }
 
-/*!
-  \brief Difference of 2 fourth order tensors
+/*
+  Difference of 2 fourth order tensors
 
   This method defines the difference of 2 fourth order tensors.
   The result of this operation is also a fourth order tensor defined by:
@@ -188,7 +188,7 @@ Tensor4 Tensor4::operator+(const Tensor4 &t1) const
   Tensor4 t1,t2,t3;
   t3 = t1 - t2; // difference of 2 fourth order tensors
   \endcode
-  \param t1 Second fourth order tensor to use for the operation
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 Tensor4 Tensor4::operator-(const Tensor4 &t1) const
@@ -205,8 +205,8 @@ Tensor4 Tensor4::operator-(const Tensor4 &t1) const
   return t2;
 }
 
-/*!
-  \brief Multiplication of a fourth order tensor by a scalar value
+/*
+  Multiplication of a fourth order tensor by a scalar value
 
   This method defines the multiplication of a fourth order tensor by a scalar value
   The result of this operation is also a fourth order tensor defined by:
@@ -216,7 +216,7 @@ Tensor4 Tensor4::operator-(const Tensor4 &t1) const
   double l;
   t2 = t1 * l; // multiplication by a scalar
   \endcode
-  \param lambda Scalar value to use for the multiplication
+  - lambda Scalar value to use for the multiplication
 */
 //-----------------------------------------------------------------------------
 Tensor4 Tensor4::operator*(const double &lambda) const
@@ -230,8 +230,8 @@ Tensor4 Tensor4::operator*(const double &lambda) const
   return t2;
 }
 
-/*!
-  \brief Division of a fourth order tensor by a scalar value
+/*
+  Division of a fourth order tensor by a scalar value
 
   This method defines the division of a fourth order tensor by a scalar value
   The result of this operation is also a fourth order tensor defined by:
@@ -242,7 +242,7 @@ Tensor4 Tensor4::operator*(const double &lambda) const
   t2 = t1 / l; // division by a scalar
   \endcode
   \warning This is not a commutative operation, be also warn not to divide by zero.
-  \param lambda Scalar value to use for the multiplication
+  - lambda Scalar value to use for the multiplication
 */
 //-----------------------------------------------------------------------------
 Tensor4 Tensor4::operator/(const double &lambda) const
@@ -256,8 +256,8 @@ Tensor4 Tensor4::operator/(const double &lambda) const
   return t2;
 }
 
-/*!
-  \brief Multiplication of a fourth order tensor by a scalar value
+/*
+  Multiplication of a fourth order tensor by a scalar value
 
   This method defines the multiplication of a fourth order tensor by a scalar value
   The result of this operation is also a fourth order tensor defined by:
@@ -267,8 +267,8 @@ Tensor4 Tensor4::operator/(const double &lambda) const
   double l;
   t2 = l * t1; // multiplication by a scalar
   \endcode
-  \param lambda Scalar value to use for the multiplication
-  \param t1 Second fourth order tensor to use for the operation
+  - lambda Scalar value to use for the multiplication
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 Tensor4 operator*(const double &lambda, const Tensor4 &t1)
@@ -282,8 +282,8 @@ Tensor4 operator*(const double &lambda, const Tensor4 &t1)
   return t2;
 }
 
-/*!
-  \brief Multiplication of a fourth order tensor by a vector
+/*
+  Multiplication of a fourth order tensor by a vector
 
   This method defines the product of a fourth order tensor by a vector.
   The result of this operation is also a vector defined by:
@@ -294,7 +294,7 @@ Tensor4 operator*(const double &lambda, const Tensor4 &t1)
   Tensor 2 t2;
   t2 = t1 * v1; // product of the fourth order tensor by a vector
   \endcode
-  \param v1 Vector to use for the operation
+  - v1 Vector to use for the operation
 */
 //-----------------------------------------------------------------------------
 Tensor3 Tensor4::operator*(const Vec3D &v1) const
@@ -311,8 +311,8 @@ Tensor3 Tensor4::operator*(const Vec3D &v1) const
   return t3;
 }
 
-/*!
-  \brief Multiplication of a fourth order tensor by a tensor
+/*
+  Multiplication of a fourth order tensor by a tensor
 
   This method defines the product of a fourth order tensor by a tensor.
   The result of this operation is also a tensor defined by:
@@ -323,7 +323,7 @@ Tensor3 Tensor4::operator*(const Vec3D &v1) const
   Tensor 2 t2;
   t2 = t1 * v1; // product of the fourth order tensor by a tensor
   \endcode
-  \param t2 tensor to use for the operation
+  - t2 tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor4::operator*(const Tensor2 &t2) const
@@ -340,13 +340,13 @@ Tensor2 Tensor4::operator*(const Tensor2 &t2) const
   return t3;
 }
 
-/*!
-  \brief Test the equality of two fourth order tensors
+/*
+  Test the equality of two fourth order tensors
 
   This method tests the equality of two fourth order tensors.
   It returns \ref true if all components of the two fourth order tensors are equals, \ref false on other case.
-  \return \ref true or \ref false depending on the result of the test.
-  \param t1 Second fourth order tensor to use for the operation
+  Return : \ref true or \ref false depending on the result of the test.
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 bool Tensor4::operator==(const Tensor4 &t1) const
@@ -360,13 +360,13 @@ bool Tensor4::operator==(const Tensor4 &t1) const
   return true;
 }
 
-/*!
-  \brief Test the equality of two fourth order tensors
+/*
+  Test the equality of two fourth order tensors
 
   This method tests the equality of two fourth order tensors.
   It returns \ref false if all components of the two fourth order tensors are equals, \ref true on other case.
-  \return \ref true or \ref false depending on the result of the test.
-  \param t1 Second fourth order tensor to use for the operation
+  Return : \ref true or \ref false depending on the result of the test.
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 bool Tensor4::operator!=(const Tensor4 &t1) const
@@ -375,8 +375,8 @@ bool Tensor4::operator!=(const Tensor4 &t1) const
   return !(*this == t1);
 }
 
-/*!
-  \brief Writes a fourth order tensor in a binary flux for storage
+/*
+  Writes a fourth order tensor in a binary flux for storage
 
   This method is used to store the components of a fourth order tensor in a binary file.
   \code
@@ -384,7 +384,7 @@ bool Tensor4::operator!=(const Tensor4 &t1) const
   Tensor4 t;
   t.write(pfile);
   \endcode
-  \param ofs Output file stream to use for writting operation
+  - ofs Output file stream to use for writting operation
 */
 //-----------------------------------------------------------------------------
 void Tensor4::write(std::ofstream &ofs) const
@@ -393,8 +393,8 @@ void Tensor4::write(std::ofstream &ofs) const
   ofs.write((char *)v, 81 * sizeof(double));
 }
 
-/*!
-  \brief Reads a fourth order tensor in a binary flux from storage
+/*
+  Reads a fourth order tensor in a binary flux from storage
 
   This method is used to read the components of a fourth order tensor in a binary file.
   \code
@@ -402,7 +402,7 @@ void Tensor4::write(std::ofstream &ofs) const
   Tensor4 t;
   t.read(pfile);
   \endcode
-  \param ofs Input file stream to use for reading operation
+  - ofs Input file stream to use for reading operation
 */
 //-----------------------------------------------------------------------------
 void Tensor4::read(std::ifstream &ifs)
@@ -411,8 +411,8 @@ void Tensor4::read(std::ifstream &ifs)
   ifs.read((char *)v, 81 * sizeof(double));
 }
 
-/*!
-  \brief Writes a fourth order tensor in a binary flux for storage
+/*
+  Writes a fourth order tensor in a binary flux for storage
 
   This method is used to store the components of a fourth order tensor in a binary file.
   \code
@@ -420,8 +420,8 @@ void Tensor4::read(std::ifstream &ifs)
   Tensor4 t;
   pfile << t;
   \endcode
-  \param os Output file stream to use for writting operation
-  \param t1 Second fourth order tensor to use for the operation
+  - os Output file stream to use for writting operation
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 std::ofstream &operator<<(std::ofstream &os, const Tensor4 &t1)
@@ -431,8 +431,8 @@ std::ofstream &operator<<(std::ofstream &os, const Tensor4 &t1)
   return os;
 }
 
-/*!
-  \brief Reads a fourth order tensor from a binary flux for storage
+/*
+  Reads a fourth order tensor from a binary flux for storage
 
   This method is used to read the components of a fourth order tensor in a binary file.
   \code
@@ -440,8 +440,8 @@ std::ofstream &operator<<(std::ofstream &os, const Tensor4 &t1)
   Tensor4 t;
   pfile >> t;
   \endcode
-  \param os Input file stream to use for reading operation
-  \param t1 Second fourth order tensor to use for the operation
+  - os Input file stream to use for reading operation
+  - t1 Second fourth order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
 std::ifstream &operator>>(std::ifstream &is, Tensor4 &t1)
@@ -451,8 +451,8 @@ std::ifstream &operator>>(std::ifstream &is, Tensor4 &t1)
   return is;
 }
 
-/*!
-  \brief Saves the content of a Tensor4 into a NumPy file
+/*
+  Saves the content of a Tensor4 into a NumPy file
 
   This method saves the content of a Tensor4 object into a NumPy file defined by its filename. If the flag initialize is true, the current file will be concatenated.
   \code
@@ -470,8 +470,8 @@ void Tensor4::numpyWrite(std::string filename, bool initialize) const
   NumpyInterface::npySave(filename, &v[0], {3, 3, 3, 3}, mode);
 }
 
-/*!
-  \brief Saves the content of a Tensor4 into a NumPyZ file
+/*
+  Saves the content of a Tensor4 into a NumPyZ file
 
   This method saves the content of a vec3D object into a NumPyZ file defined by its filename. If the flag initialize is true, the current file will be concatenated.
   \code
@@ -489,8 +489,8 @@ void Tensor4::numpyWriteZ(std::string filename, std::string name, bool initializ
   NumpyInterface::npzSave(filename, name, &v[0], {3, 3, 3, 3}, mode);
 }
 
-/*!
-  \brief Read the content of a Tensor4 from a NumPy file
+/*
+  Read the content of a Tensor4 from a NumPy file
 
   This method reads the content of a vec3D object from a NumPy file defined by its filename.
   \code
@@ -510,8 +510,8 @@ void Tensor4::numpyRead(std::string filename)
   memcpy(v, arr.data<double *>(), arr.num_vals * arr.word_size);
 }
 
-/*!
-  \brief Read the content of a Tensor4 from a NumPyZ file
+/*
+  Read the content of a Tensor4 from a NumPyZ file
 
   This method reads the content of a vec3D object from a NumPyZ file defined by its filename.
   \code

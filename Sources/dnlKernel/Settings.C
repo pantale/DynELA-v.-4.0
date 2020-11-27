@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Settings.C
-  \brief Definition of the Settings class.
+  Definition of the Settings class.
 
   This file defines the Settings class.
   \ingroup dnlKernel

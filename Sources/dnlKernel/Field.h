@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Field.h
-  \brief Declaration of the Finite Elements fields.
+  Declaration of the Finite Elements fields.
 
   This file declares the Finite Elements fields.
   \ingroup dnlKernel
@@ -25,16 +25,23 @@
 #define FIELD_VEC3D(NAME) NAME, NAME##X, NAME##Y, NAME##Z
 #define FIELD_TENSOR2(NAME) NAME, NAME##XX, NAME##XY, NAME##XZ, NAME##YX, NAME##YY, NAME##YZ, NAME##ZX, NAME##ZY, NAME##ZZ
 
-/*!
-  \brief Informations about nodal and element fields
+/*
+  Informations about nodal and element fields
 
 This class is used to store and manipulate information about nodal and element fields for the DynELA Finite Element code.
   \ingroup dnlKernel
 */
+//-----------------------------------------------------------------------------
+// Class : Explicit
+//
+// Used to manage DynELA FEM Solvers for Explicit solve
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Field
 {
 public:
-  static const char *const vtkNames[]; //!< List of names associated to the fields for the VTK output file
+  static const char *const vtkNames[]; // List of names associated to the fields for the VTK output file
 
 public:
   enum FieldLabel
@@ -45,23 +52,23 @@ public:
     FIELD_VEC3D(nodeCoordinate),        // Coordinates of a node
     FIELD_VEC3D(speed),                 // Speed of a node
     FIELD_VEC3D(speedIncrement),        // Increment of the speed of a node
-    density,                            //!< Material density
-    plasticStrainRate,                  //!< Equivalent plastic strain rate
-    energy,                             //!< Total energy
-    energyIncrement,                    //!< Increment of the total energy
-    internalEnergy,                     //!< Internal energy
-    plasticStrain,                      //!< Equivalent plastic strain
-    gamma,                              //!< Gamma radial return value
-    gammaCumulate,                      //!< Cumulative value of gamma values
-    initialTemperature,                 //!< Initial temperature
-    mass,                               //!< Nodal Mass
-    vonMises,                           //!< von Mises equivalent stress
-    pressure,                           //!< Pressure
-    temperature,                        //!< Temperature
-    timeStep,                           //!< TimeStep
-    realTimeStep,                       //!< Real timeStep taking into account the reducing due to saves
-    kineticEnergy,                      //!< Kinetic energy of the current model
-    yieldStress,                        //!< Maximum yield Stress of the point
+    density,                            // Material density
+    plasticStrainRate,                  // Equivalent plastic strain rate
+    energy,                             // Total energy
+    energyIncrement,                    // Increment of the total energy
+    internalEnergy,                     // Internal energy
+    plasticStrain,                      // Equivalent plastic strain
+    gamma,                              // Gamma radial return value
+    gammaCumulate,                      // Cumulative value of gamma values
+    initialTemperature,                 // Initial temperature
+    mass,                               // Nodal Mass
+    vonMises,                           // von Mises equivalent stress
+    pressure,                           // Pressure
+    temperature,                        // Temperature
+    timeStep,                           // TimeStep
+    realTimeStep,                       // Real timeStep taking into account the reducing due to saves
+    kineticEnergy,                      // Kinetic energy of the current model
+    yieldStress,                        // Maximum yield Stress of the point
     FIELD_TENSOR2(Strain),              // Strain tensor
     FIELD_TENSOR2(StrainInc),           // Increment of the Strain tensor
     FIELD_TENSOR2(PlasticStrain),       // Plastic Strain tensor
@@ -75,13 +82,21 @@ public:
   Field();
   ~Field();
 
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
   short getField(String name);
   short getType(short field);
   String getVtklabel(short field);
 };
 
 // Specific documentation zone of the file for Doxygen
-/*! \var Field::displacement
+/* \var Field::displacement
      Displacement of a node
     \var Field::displacementX
      Displacement of a node along the X direction

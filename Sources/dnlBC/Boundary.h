@@ -9,26 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlBC_Boundary_h__
 #define __dnlBC_Boundary_h__
 
 #include <dnlElements.h>
 
-/* class Node;
-class NodeSet;
-class Function; */
-
+//-----------------------------------------------------------------------------
+// Class : Boundary
+//
+// Used to manage Boundary in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Boundary
 {
 public:
@@ -56,6 +48,14 @@ public:
   Boundary(char *newName = NULL);
   Boundary(const Boundary &X);
   virtual ~Boundary();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   virtual long getType() = 0;
   virtual void applyInitial(Node *node, double currentTime, double timeStep) = 0;

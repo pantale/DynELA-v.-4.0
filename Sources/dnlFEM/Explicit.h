@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Explicit.h
-  \brief Declaration file for the Explicit class
-
-  This file is the declaration file for the Explicit class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_Explicit_h__
 #define __dnlFEM_Explicit_h__
 
@@ -27,12 +16,13 @@
 
 #define defaultSpectralRadius 0.8182
 
-/*!
-  \brief Classe de definition et de manipulation des solveurs elements finis.
-  \ingroup dnlFEM
-
-  Cette classe sert à definir et à manipuler les solveurs disponibles au niveau d'un modele. Elle contient toutes les definitions de base concernant la gestion des temps de simulation (increment de temps, temps de debut, de fin ...) ainsi que la gestion complete des increments.
-*/
+//-----------------------------------------------------------------------------
+// Class : Explicit
+//
+// Used to manage DynELA FEM Solvers for Explicit solve
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Explicit : public Solver
 {
 
@@ -51,6 +41,14 @@ public:
   Explicit(char *newName = NULL);
   Explicit(const Explicit &X);
   ~Explicit();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void computeDensity();
   void computePredictions();

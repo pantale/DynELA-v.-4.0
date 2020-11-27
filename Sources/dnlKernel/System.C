@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file System.C
-  \brief System working environment
+  System working environment
 
   This class contains a set of methods dedicated to the System working environment.
   \ingroup dnlKernel
@@ -26,8 +26,8 @@
 #include <pwd.h>
 #include <libgen.h>
 
-/*!
-  \brief Execution of a system command
+/*
+  Execution of a system command
 
   This method executes an external command. Launching a new process through the \b system() command.
   The new program is a new process totally independent from the current application.
@@ -35,8 +35,8 @@
    Do you know System?). As this command is simple, the working environment for the execution of the new process is /bin/sh. An error message is generated if a problem is encountered during execution.
   For more complex situations, it will be necessary to use the "classic" fork() and exec() program launch methods. But this inevitably leads to threads problems and that's another story actually ;-0
 
-  \param commandToExecute string of type \b String defining the system command to run
-  \return value indicating whether the command execution ran smoothly. A value of 0 is returned if everything works well, another value is returned if a problem was encountered during execution.
+  - commandToExecute string of type \b String defining the system command to run
+  Return : value indicating whether the command execution ran smoothly. A value of 0 is returned if everything works well, another value is returned if a problem was encountered during execution.
 */
 //-----------------------------------------------------------------------------
 int System::execute(const String &commandToExecute)
@@ -58,12 +58,12 @@ int System::execute(const String &commandToExecute)
   return status;
 }
 
-/*!
-  \brief retrieve the value associated with an environment variable
+/*
+  retrieve the value associated with an environment variable
 
   This method retrieves the value associated with a System environment variable. If this variable is not defined, this method returns the following string "cannot get environment value". The returned value is of type String.
-  \param envname environment variable name
-  \return value associated with the environment variable in the form of String
+  - envname environment variable name
+  Return : value associated with the environment variable in the form of String
 */
 //-----------------------------------------------------------------------------
 String System::getEnvironmentValue(const String &envname)
@@ -87,12 +87,12 @@ String System::getEnvironmentValue(const String &envname)
   return (s);
 }
 
-/*!
-  \brief tests for the presence of a defined environment variable
+/*
+  tests for the presence of a defined environment variable
 
   This method tests the definition of an environment variable. It returns a boolean value that indicates the state of definition of this environment variable.
-  \param envname name of the environment variable
-  \return  \c true if the environment variable is set on the system, \c false if not.
+  - envname name of the environment variable
+  Return :  \c true if the environment variable is set on the system, \c false if not.
 */
 //-----------------------------------------------------------------------------
 bool System::existEnvironmentValue(const String &envname)
@@ -108,11 +108,11 @@ bool System::existEnvironmentValue(const String &envname)
   return false;
 }
 
-/*!
-  \brief returns the user's login
+/*
+  returns the user's login
 
   This method returns the login of the system user in the form of a string.
-  \return the user's login or "unknown user" if this information cannot be given.
+  Return : the user's login or "unknown user" if this information cannot be given.
 */
 //-----------------------------------------------------------------------------
 String System::getLogin()
@@ -133,11 +133,11 @@ String System::getLogin()
   return (pwd->pw_name);
 }
 
-/*!
-  \brief returns the machine name
+/*
+  returns the machine name
 
   This method returns the name of the machine on which the application is running.
-  \return machine name or "unknown host" if this information cannot be given.
+  Return : machine name or "unknown host" if this information cannot be given.
 */
 //-----------------------------------------------------------------------------
 String System::getHostname()
@@ -161,12 +161,12 @@ String System::getHostname()
   return (s);
 }
 
-/*!
-  \brief returns the current date and time
+/*
+  returns the current date and time
 
   This method returns the current date and time at the system level.
-  \param full this boolean value defines the nature of the result returned. If the value is true then the format is the full format of the form (Fri Jan 25 15:08:24 2002) if the value is false then the format returned is the short format of the form (Jan 25, 2002). The default value if nothing is accurate is true.
-  \return current date and time or "unknown date" if this information cannot be given.
+  - full this boolean value defines the nature of the result returned. If the value is true then the format is the full format of the form (Fri Jan 25 15:08:24 2002) if the value is false then the format returned is the short format of the form (Jan 25, 2002). The default value if nothing is accurate is true.
+  Return : current date and time or "unknown date" if this information cannot be given.
 */
 //-----------------------------------------------------------------------------
 String System::getDate(bool full)
@@ -204,11 +204,11 @@ String System::getDate(bool full)
   return (s);
 }
 
-/*!
-  \brief returns the current time
+/*
+  returns the current time
 
   This method returns the current time to the system level.
-  \return value of the current time as a String (format: 14:23:26)
+  Return : value of the current time as a String (format: 14:23:26)
 */
 //-----------------------------------------------------------------------------
 String System::getUnixTime()
@@ -224,11 +224,11 @@ String System::getUnixTime()
 }
 
 //
-/*!
-  \brief returns the name of the current directory
+/*
+  returns the name of the current directory
 
   This method returns the name of the current directory from which the execution was started.
-  \return current directory or "unknown pathname" if this information cannot be given.
+  Return : current directory or "unknown pathname" if this information cannot be given.
 */
 //-----------------------------------------------------------------------------
 String System::getPathName()
@@ -269,11 +269,11 @@ String System::getExecutionPath()
   return path;
 }
 
-/*!
-  \brief sends the host back from the machine
+/*
+  sends the host back from the machine
 
   This method returns the host of the machine on which the program is executed. The host is an integer value usually given in hexadecimal form 0xFFFFFFFFFFFFFF on 32 bits. This number is unique per machine.
-  \return hostId of the machine.
+  Return : hostId of the machine.
 */
 //-----------------------------------------------------------------------------
 long System::getHostId()

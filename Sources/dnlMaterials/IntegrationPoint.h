@@ -9,30 +9,20 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file IntegrationPoint.h
-  \brief Declaration file for the IntegrationPoint class
-
-  This file is the declaration file for the IntegrationPoint class.
-
-  \ingroup dnlElements
-*/
-
 #ifndef __dnlElements_IntegrationPoint_h__
 #define __dnlElements_IntegrationPoint_h__
 
 #include <dnlMaths.h>
 
 struct IntegrationPointData;
-
-/**Classe de gestion des donnees aux points d'integration.
-Cette classe sert à definir les donnees scalaires et tensorielles que l'on a au niveau de chaque point d'integration d'un element. Cette classe ne comporte pas de mecanismes de gestion ou de calcul, elle ne sert que de stockage de donnees (la classe "Element" et ses classes derivees dont elle depend gerent tous les calculs relatifs au modele d'integration).
-see Element
-version DynELA v.0.9.0
-author Olivier PANTALE
-*/
+//-----------------------------------------------------------------------------
+// Class : IntegrationPointBase
+// 
+// Used to manage IntegrationPointBase
+// 
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG) || defined(CSWIG)
 class IntegrationPointBase
 {
 
@@ -52,7 +42,16 @@ public:
   virtual void flush() = 0;
   void baseFlush();
 };
+#endif
 
+//-----------------------------------------------------------------------------
+// Class : UnderIntegrationPoint
+// 
+// Used to manage UnderIntegrationPoint
+// 
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG) || defined(CSWIG)
 class UnderIntegrationPoint : public IntegrationPointBase
 {
 
@@ -61,7 +60,16 @@ public:
   ~UnderIntegrationPoint();
   void flush();
 };
+#endif
 
+//-----------------------------------------------------------------------------
+// Class : IntegrationPoint
+//
+// Used to manage IntegrationPoint
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG) || defined(CSWIG)
 class IntegrationPoint : public IntegrationPointBase
 {
 
@@ -86,9 +94,7 @@ public:
   IntegrationPoint(int dimension, int numberOfNodes);
   ~IntegrationPoint();
 
-  void flush();
-
-  // gestion des flux entree et sortie
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   friend std::ifstream &operator>>(std::ifstream &, IntegrationPoint &intPoint);
   friend std::ofstream &operator<<(std::ofstream &, const IntegrationPoint &intPoint);
@@ -97,6 +103,10 @@ public:
   void print(std::ostream &) const;
   void write(std::ofstream &) const;
 #endif
+
+  void flush();
 };
+
+#endif
 
 #endif

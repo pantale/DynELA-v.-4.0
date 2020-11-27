@@ -9,22 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-\file ElTet4N3D.h
-\brief Declaration file for the ElTet4N3D class
-
-This file is the declaration file for the ElTet4N3D class.
-
-\ingroup dnlElements
-*/
-
 #ifndef __dnlElements_ElTet4n3D_h__
 #define __dnlElements_ElTet4n3D_h__
 
 #include <Element3D.h>
 
+//-----------------------------------------------------------------------------
+// Class : ElTet4N3D
+//
+// Used to manage Elements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class ElTet4N3D : public Element3D
 {
 
@@ -36,6 +32,14 @@ public:
   ElTet4N3D(long elementNumber = 1);
   ElTet4N3D(const ElTet4N3D &element);
   ~ElTet4N3D();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void getShapeFunctionAtPoint(Vector &shapeFunctions, const Vec3D &point) const;
   void getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3D &point) const;

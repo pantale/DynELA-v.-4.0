@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file ElTet10N3D.C
-  \brief Definition file for the ElTet10N3D class
+  Definition file for the ElTet10N3D class
 
   This file is the definition file for the ElTet10N3D class.
 

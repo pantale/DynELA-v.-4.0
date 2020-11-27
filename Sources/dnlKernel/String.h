@@ -9,27 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*!
-  \file String.h
-  \brief Management and manipulation of char strings
-
-  This file contains the definition of strings for DynELA. The strings are part of a new class called String which allows most of the manipulations on the characters. All the methods of this class are documented.
-  Since version v. 1.0.0, this class inherited from the \b std::string class of Standard Template Library.
-  \ingroup dnlKernel
-*/
-
 #ifndef __dnlKernel_String_h__
 #define __dnlKernel_String_h__
 
 #include <string>
 
-/*!
-  \brief Management and manipulation of char strings
-
-  This class is used to implement strings on DynELA. It is inspired by the examples given by B. Stroutrup in his book on C++. Additional functions have been added to what is given in this book.
-  Since version v. 1.0.0, this class inherited from the \b std::string class of Standard Template Library.
-  \ingroup dnlKernel
-*/
+//-----------------------------------------------------------------------------
+// Class : String
+//
+// Used to manage String
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class String : public std::string
 {
 
@@ -39,6 +30,14 @@ public:
   String(const std::string &);
   String(const String &);
   ~String();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
 #ifndef SWIG
   String &operator=(const char *);

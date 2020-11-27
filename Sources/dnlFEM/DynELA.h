@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file DynELA.h
-  \brief Declaration file for the DynELA class
-
-  This file is the declaration file for the DynELA class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_DynELA_h__
 #define __dnlFEM_DynELA_h__
 
@@ -42,11 +31,13 @@ class NodeSet;
 extern DynELA *dynelaData;
 #endif
 
-/*!
-  \class DynELA DynELA.h
-  \brief Classe de definition et de manipulation des structures elements finis.
-  \ingroup dnlFEM
-*/
+//-----------------------------------------------------------------------------
+// Class : DynELA
+//
+// Used to manage A DynELA model - This is a High level class
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class DynELA
 {
   friend class Drawing;      // To allow Drawing class to access private data
@@ -63,20 +54,25 @@ private:
   String _VTKresultFileName;          // Current result file name
 
 public:
-  double endSaveTime = 0.0;       // Final save time
-  double nextSaveTime = 0.0;      // Next save time
-  double saveTimeIncrement = 0.0; // Increment of save time
-  double startSaveTime = 0.0;     // Start save time
-  Drawing drawing;                //
-  Model model;                    //
-  Parallel parallel;              // Parallel computation
-  Settings *settings = NULL;      // Settings
-  String name = "_noname_";       // name of the object
-  Timers cpuTimes;                // Store the CPU Times
-  VtkInterface *dataFile = NULL;  // Interface for results
+  double endSaveTime = 0.0;         // Final save time
+  double nextSaveTime = 0.0;        // Next save time
+  double saveTimeIncrement = 0.0;   // Increment of save time
+  double startSaveTime = 0.0;       // Start save time
+  Drawing drawing;                  //
+  Model model;                      //
+  Parallel parallel;                // Parallel computation
+  Settings *settings = NULL;        // Settings
+  String name = "DynELA::_noname_"; // name of the object
+  Timers cpuTimes;                  // Store the CPU Times
+  VtkInterface *dataFile = NULL;    // Interface for results
 
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   LogFile logFile; // Log file
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
 #endif
 
 public:

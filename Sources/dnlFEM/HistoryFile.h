@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file HistoryFile.h
-  \brief Declaration file for the HistoryFile class
-
-  This file is the declaration file for the HistoryFile class.
-
-  \ingroup dnlFEM
-*/
-
 #ifndef __dnlFEM_HistoryFile_h__
 #define __dnlFEM_HistoryFile_h__
 
@@ -31,6 +20,14 @@ class Model;
 class Node;
 class NodeSet;
 
+//-----------------------------------------------------------------------------
+// Class : HistoryFileItem
+// 
+// Used to manage data inside of HistoryFile class
+// 
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class HistoryFileItem
 {
   friend class HistoryFile;
@@ -46,7 +43,16 @@ public:
 
   virtual double getValue() = 0;
 };
+#endif
 
+//-----------------------------------------------------------------------------
+// Class : HistoryFileNodeItem
+//
+// Specialized class for Node Item
+//
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class HistoryFileNodeItem : public HistoryFileItem
 {
   friend class HistoryFile;
@@ -61,7 +67,16 @@ public:
 
   double getValue();
 };
+#endif
 
+//-----------------------------------------------------------------------------
+// Class : HistoryFileElementItem
+//
+// Specialized class for NoElementde Item
+//
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class HistoryFileElementItem : public HistoryFileItem
 {
   friend class HistoryFile;
@@ -77,7 +92,16 @@ public:
 
   double getValue();
 };
+#endif
 
+//-----------------------------------------------------------------------------
+// Class : HistoryFileGlobalItem
+//
+// Specialized class for Global Item
+//
+// This class is excluded from SWIG
+//-----------------------------------------------------------------------------
+#if !defined(SWIG)
 class HistoryFileGlobalItem : public HistoryFileItem
 {
   friend class HistoryFile;
@@ -89,7 +113,15 @@ public:
 
   double getValue();
 };
+#endif
 
+//-----------------------------------------------------------------------------
+// Class : HistoryFile
+//
+// Time history files management class
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class HistoryFile
 {
 private:
@@ -102,7 +134,7 @@ private:
   String _fileName;
 
 public:
-  String name;
+  String name = "HistoryFile::_noname_";
 
 public:
   // constructor
@@ -110,22 +142,28 @@ public:
   HistoryFile(const HistoryFile &X);
   ~HistoryFile();
 
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+  void close();
+  void headerWrite();
+  void open();
+  void save(double currentTime);
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
   double getSaveTime();
   double getStartTime();
   double getStopTime();
   String getFileName();
+#endif
+
   void add(ElementSet *elementSet, short intPt, short field);
   void add(NodeSet *nodeSet, short field);
   void add(short field);
-  void headerWrite();
-  void save(double currentTime);
   void setFileName(std::string filename);
   void setSaveTime(double saveTime);
   void setSaveTime(double startTime, double stopTime, double saveTime);
-#ifndef SWIG
-  void open();
-  void close();
-#endif
 };
 
 #endif

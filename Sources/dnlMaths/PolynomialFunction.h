@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file PolynomialFunction.h
-  \brief Declaration file for the discrete function class
-
-  This file is the declaration file for the discrete function class. A discrete function is a function with the following form: \f[ y=f(x) \f] defined from a set of points.
-  Linear interpolation is used to obtain data between given points.
-  \ingroup dnlMaths
-*/
-
 #ifndef __dnlMaths_PolynomialFunction_h__
 #define __dnlMaths_PolynomialFunction_h__
 
@@ -32,6 +21,13 @@ struct PolynomialFragment
   double value;
 };
 
+//-----------------------------------------------------------------------------
+// Class : PolynomialFunction
+//
+// Used to manage PolynomialFunction
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class PolynomialFunction : public Function
 {
 private:
@@ -42,20 +38,25 @@ public:
   PolynomialFunction(char *newName = NULL);
   ~PolynomialFunction();
 
-  double getValue(double x);
-  void setFunction(long i, double val);
-  double get(long i);
-  double getSlope(double x);
-  long getNumberOfFragments();
-  double getFactor(long i);
-  double getCoefficient(long i);
-  void toGnuplot(String filename, double xmin, double xmax, double steps);
-  void flush();
-  String convertToDynELASourceFile();
-
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   void print();
 #endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
+  double get(long i);
+  double getCoefficient(long i);
+  double getFactor(long i);
+  double getSlope(double x);
+  double getValue(double x);
+  long getNumberOfFragments();
+  String convertToDynELASourceFile();
+  void flush();
+  void setFunction(long i, double val);
+  void toGnuplot(String filename, double xmin, double xmax, double steps);
 };
 
 #endif

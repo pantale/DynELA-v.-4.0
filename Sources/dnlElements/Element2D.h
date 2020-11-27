@@ -9,22 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-\file Element2D.h
-\brief Declaration file for the Element2D class
-
-This file is the declaration file for the Element2D class.
-
-\ingroup dnlElements
-*/
-
 #ifndef __dnlElements_Element2D_h__
 #define __dnlElements_Element2D_h__
 
 #include <ElementPlane.h>
 
+//-----------------------------------------------------------------------------
+// Class : Element2D
+//
+// Used to manage Elements in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Element2D : public ElementPlane
 {
 
@@ -32,6 +28,14 @@ public:
   Element2D(long elementNumber = 1);
   Element2D(const Element2D &X);
   ~Element2D();
+
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
 
   void getShapeFunctionAtPoint(Vector &shapeFunctions, const Vec3D &point) const = 0;
   void getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3D &point) const = 0;

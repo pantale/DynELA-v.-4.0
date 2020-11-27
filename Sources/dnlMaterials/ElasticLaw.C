@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file ElasticLaw.C
-  \brief Definition file for the ElasticLaw class
+  Definition file for the ElasticLaw class
 
   This file is the definition file for the ElasticLaw class.
 

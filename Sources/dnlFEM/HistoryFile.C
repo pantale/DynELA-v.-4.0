@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file HistoryFile.h
-  \brief Declaration file for the HistoryFile class
-
-  This file is the declaration file for the HistoryFile class.
-
-  \ingroup dnlFEM
-*/
-
 #include <HistoryFile.h>
 #include <Node.h>
 #include <Element.h>
@@ -301,10 +290,6 @@ void HistoryFile::add(short field)
 void HistoryFile::save(double currentTime)
 //-----------------------------------------------------------------------------
 {
-  // if end of save time
-  /*   if ((_stopTime > 0.0) && (currentTime > _stopTime))
-    return;
- */
   // If file has not been initialized
   if (_pfile == NULL)
   {

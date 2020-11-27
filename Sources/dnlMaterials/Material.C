@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file Material.C
-  \brief Definition file for the Material class
+  Definition file for the Material class
 
   This file is the definition file for the Material class.
 

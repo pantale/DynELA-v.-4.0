@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file Element.C
-  \brief Definition file for the Element class
+  Definition file for the Element class
 
   This file is the definition file for the Element class.
 

@@ -9,22 +9,8 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*
-  Class Matrices definition
-*/
-
 #ifndef __dnlMaths_Matrices_h__
 #define __dnlMaths_Matrices_h__
-/*!
-  \file Matrices.h
-  \brief fichier .h de definition des matrices generales
-  \ingroup dnlMaths
-
-  Ce fichier set à la definition de la classe Matrice qui sert de classe de base pour toutes les matrices de DynELA. Cette classe de base sert à stocker les informations communes à tous les types de matrices tels que la taille de la matrice (nombre de lignes et de colonnes)...
-
-*/
 
 #include <ostream>
 #include <iostream>
@@ -36,11 +22,7 @@
 
 #define Ind(i, j, __rows, __cols) ((i) * (__cols) + (j))
 
-/*
-  \enum OutMatrix
-  \brief enumeration de format d'affichage de matrices.
-  Cette enumeration permet de definir le format d'affichage des matrices. On a ainsi le choix entre outMatrixTypeNormal qui correspond à un affichage conforme à Mathematica et outMatrixTypeMupad qui correspond à un affichage au format Mupad.
-*/
+  // Interface methods excluded from SWIG
 #ifndef SWIG
 enum OutMatrix
 {
@@ -49,14 +31,13 @@ enum OutMatrix
 };
 #endif
 
-/*!
-  \class Matrices Matrices.h
-  \brief classe de base pour les matrices
-  \ingroup dnlMaths
-
-  Cette classe sert à la definition definition generale des matrices, elle sert de classe de base pour toutes les matrices de DynELA. Cette classe de base sert à stocker les informations communes à tous les types de matrices tels que la taille de la matrice (nombre de lignes et de colonnes)...
-
-*/
+//-----------------------------------------------------------------------------
+// Class : Matrices
+//
+// Used to manage Matrices
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Matrices
 {
 
@@ -70,6 +51,14 @@ public:
   Matrices(const Matrices &mat);
   virtual ~Matrices();
 
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
   long rows() const;
   long columns() const;
   void setOutType(char outT);
@@ -79,7 +68,7 @@ public:
 //------inline functions-------------------------------------------------------
 
 //constructeur par defaut
-/*!
+/*
   Cette methode est le constructeur par defaut de la classe Matrices. Ce constructeur ne fait rien d'autre que creer l'objet.
 */
 //-----------------------------------------------------------------------------
@@ -90,7 +79,7 @@ inline Matrices::Matrices()
 }
 
 //constructeur par recopie
-/*!
+/*
   Cette methode est le constructeur par recopie de la classe Matrices. Ce constructeur ne fait rien d'autre que creer l'objet.
 */
 //-----------------------------------------------------------------------------
@@ -101,7 +90,7 @@ inline Matrices::Matrices(const Matrices &mat)
 }
 
 //destructeur
-/*!
+/*
   Cette methode est le destructeur de la classe Matrices.
 */
 //-----------------------------------------------------------------------------
@@ -111,7 +100,7 @@ inline Matrices::~Matrices()
 }
 
 //nombre de lignes de la matrice
-/*!
+/*
   Cette methode calcule et retourne le nombre de lignes de la matrice.
   \nombre de lignes de la matrice
 */
@@ -123,7 +112,7 @@ inline long Matrices::rows() const
 }
 
 //nombre de colonnes de la matrice
-/*!
+/*
   Cette methode calcule et retourne le nombre de colonnes de la matrice.
   \nombre de colonnes de la matrice
 */
@@ -135,7 +124,7 @@ inline long Matrices::columns() const
 }
 
 //selection du type d'affichage
-/*!
+/*
   Cette methode permet de selectionner le type d'affichage demande. Le type de sortie est defini par les variables enumerees dans \ref OutMatrix.
 
 */

@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file MacAddress.C
-  \brief Definition of the Mac Address class.
+  Definition of the Mac Address class.
 
   This file defines the Mac Address class.
   \ingroup dnlKernel
@@ -23,8 +23,8 @@
 #include <netpacket/packet.h>
 #include <stdio.h>
 
-/*!
-  \brief default constructor of the MacAddresses class
+/*
+  default constructor of the MacAddresses class
   */
 //-----------------------------------------------------------------------------
 MacAddresses::MacAddresses()
@@ -60,10 +60,10 @@ MacAddresses::MacAddresses()
     freeifaddrs(ifaddr);
 }
 
-/*!
-  \brief Returns a string containing the ith MacAddress of the computer
+/*
+  Returns a string containing the ith MacAddress of the computer
 
-  \param num ith mac adress of the computer
+  - num ith mac adress of the computer
   \returns the mac adress of the computer
   */
 //-----------------------------------------------------------------------------
@@ -85,10 +85,10 @@ String MacAddresses::getAddress(int num)
     return address;
 }
 
-/*!
-  \brief Returns a string containing the ith interface of the computer
+/*
+  Returns a string containing the ith interface of the computer
 
-  \param num ith interface of the computer
+  - num ith interface of the computer
   \returns the interface of the computer
   */
 //-----------------------------------------------------------------------------
@@ -100,8 +100,8 @@ String MacAddresses::getInterface(int num)
     return macs(num)->interface;
 }
 
-/*!
-  \brief Returns the number of MacAddresses
+/*
+  Returns the number of MacAddresses
 
   \returns the number of MacAddresses
   */

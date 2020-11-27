@@ -9,33 +9,12 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file NodeSet.h
-  \brief Declaration file for the NodeSet class
-
-  This file is the declaration file for the NodeSet class.
-
-  \ingroup dnlFEM
-*/
-
 #include <DynELA.h>
 #include <Model.h>
 #include <Element.h>
 #include <HistoryFile.h>
 #include <Solver.h>
 #include <BoundaryCondition.h>
-
-/* #include <Node.h>
-#include <Element.h>
-#include <NodeSet.h>
-#include <ElementSet.h>
-#include <NodalField.h>
-#include <Solver.h>
-#include <BoundaryCondition.h>
-#include <HistoryFile.h>
-#include <Parallel.h> */
 
 //-----------------------------------------------------------------------------
 Model::Model(char *newName)
@@ -80,10 +59,10 @@ Model::~Model()
 }
 
 //Ajout d'un noeud à la grille courante
-/*!
+/*
   Cette methode ajoute un noeud à la grille courante. Cette methode effectue des verifications de base comme par exemple la presence d'un noeud portant le meme numero que le nouveau noeud dans la liste. En cas de doublon, cette methode stoppe le processus de construction et renvoie une erreur.
-  \param newNode pointeur sur le nouveau noeud à ajouter à la grille
-  \return true si l'ajout du noeud est correct
+  - newNode pointeur sur le nouveau noeud à ajouter à la grille
+  Return : true si l'ajout du noeud est correct
 */
 //-----------------------------------------------------------------------------
 bool Model::add(Node *newNode)
@@ -192,12 +171,12 @@ void Model::create(Element *newElement, long *listOfNodes)
 }
 
 //Add new nodes to the current NodeSet
-/*!
+/*
   This method adds a set of existing nodes and a NodeSet. The nodes are specified by their identification numbers given in a variation range (start number, end number and increment). The nodes are then searched in the current grid of the current model of the structure.
   \warning Les noeuds ajoutes doivent etre presents dans la grille courante du modele courant.
-  \param sNumber of start number in the list
-  \param eNumber of end number in the list
-  \param inc increment on the numbers (default = 1)
+  - sNumber of start number in the list
+  - eNumber of end number in the list
+  - inc increment on the numbers (default = 1)
 */
 //-----------------------------------------------------------------------------
 void Model::add(NodeSet *nodeSet, long startNumber, long endNumber, long increment)
@@ -245,12 +224,12 @@ void Model::add(NodeSet *nodeSet, long startNumber, long endNumber, long increme
 }
 
 //ajoute un ensemble d'elements à un ElementSet
-/*!
+/*
   Cette methode ajoute un ensemble d'elements existant à un ElementSet. Les elements sont specifies par leurs numeros d'identification donne dans un intervalle de variation (numero de debut, numero de fin et increment). Les elements sont alors recherches dans la grille courante du modele courant de la structure.
   \warning Les elements ajoutes doivent etre presents dans la grille courante du modele courant.
-  \param startNumber numero de depart dans la liste
-  \param endNumber numero de fin dans la liste
-  \param increment increment sur les numeros (par defaut = 1)
+  - startNumber numero de depart dans la liste
+  - endNumber numero de fin dans la liste
+  - increment increment sur les numeros (par defaut = 1)
 
 */
 //-----------------------------------------------------------------------------
@@ -301,10 +280,10 @@ void Model::add(ElementSet *elementSet, long startNumber, long endNumber, long i
 }
 
 //recherche d'un noeud dans la structure en fonction de son numero
-/*!
+/*
   Cette methode recherche un noeud dans la structure en fonction de son numero et renvoie un pointeur sur celui-ci, ou NULL si celui-ci n'existe pas dans la structure. Le noeud est recherche sur la grille courante du modele courant.
-  \param nodeNumber numero du noeud à rechercher
-  \return pointeur sur le noeud trouve ou NULL en cas d'echec de recherche
+  - nodeNumber numero du noeud à rechercher
+  Return : pointeur sur le noeud trouve ou NULL en cas d'echec de recherche
   \date 2002
 
 */
@@ -324,10 +303,10 @@ Node *Model::getNodeByNum(long nodeNumber)
 }
 
 //recherche d'un element dans la structure en fonction de son numero
-/*!
+/*
   Cette methode recherche un element dans la structure en fonction de son numero et renvoie un pointeur sur celui-ci, ou NULL si celui-ci n'existe pas dans la structure. L'element est recherche sur la grille courante du modele courant.
-  \param elementNumber numero de l'element à rechercher
-  \return pointeur sur l'element trouve ou NULL en cas d'echec de recherche
+  - elementNumber numero de l'element à rechercher
+  Return : pointeur sur l'element trouve ou NULL en cas d'echec de recherche
   \date 2002
 
 */
@@ -634,11 +613,11 @@ double Model::getTotalKineticEnergy()
 }
 
 //Calcul du time step de minimal de la grille (Courant)
-/*!
+/*
   Cette methode calcule le time step minimal de la grille à partir de la definition de la geometrie des elements et de la vitesse de propagation du son dans les elements de la structure. Cette relation est basee sur le critere de stabilite de Courant.
   La relation utilisee pour ce calcul est donnee par:
   \f[ \Delta t = \Delta t_{crit} \f] avec \f[ \Delta t_{crit}=\frac{l}{C_s} \f] calcule pour tous les elements de la grille dans laquelle \f$ l \f$ est la longueur caracteristique de l'element calculee par Element::getCharacteristicLength() et \f$ C_s \f$ est la vitesse de propagation d'une onde longitudinale dans l'element calculee par la methode Element::getElongationWaveSpeed().
-  \return valeur numerique de la valeur du timeStep critique de la grille
+  Return : valeur numerique de la valeur du timeStep critique de la grille
 */
 //-----------------------------------------------------------------------------
 double Model::computeCourantTimeStep()
@@ -734,7 +713,7 @@ bool Model::solve(double solveUpToTime)
 }
 
 //Calcule le determinant du Jacobien de tous les elements de la grille
-/*!
+/*
   Cette methode calcule le Jacobien de tous les elements de la grille.
 */
 /*//-----------------------------------------------------------------------------
@@ -1259,13 +1238,13 @@ void Model::starterWrite(String name)
 //}
 
 //Cree un element et l'ajoute à la grille courante
-/*!
+/*
   Cette methode cree un element et l'ajoute à la grille courante.
 
   Elle cree les noeuds de l'element en verifiant que ces noeuds sont bien presents sur la grille courante. Dans le cas contraire, une erreur est generee. Le numero de l'element doit avoir ete cree avec l'element. Cette methode ajoute alors les noeuds en fonction des noeuds presents sur la grille.
 
-  \param pel pointeur sur le nouvel element que l'on vient de generer.
-  \param nNodes liste des numeros de noeuds qui composent l'element
+  - pel pointeur sur le nouvel element que l'on vient de generer.
+  - nNodes liste des numeros de noeuds qui composent l'element
 
 
 //-----------------------------------------------------------------------------

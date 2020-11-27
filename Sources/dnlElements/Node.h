@@ -9,17 +9,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file Node.h
-  \brief Declaration file for the Node class
-
-  This file is the declaration file for the Node class.
-
-  \ingroup dnlElements
-*/
-
 #ifndef __dnlElements_Node_h__
 #define __dnlElements_Node_h__
 
@@ -30,12 +19,13 @@ class NodalField;
 class BoundaryCondition;
 class Element;
 
-/*!
-  \class Node
-  \brief Declaration of the Node class
-
-  \ingroup dnlElements
-*/
+//-----------------------------------------------------------------------------
+// Class : Node
+//
+// Used to manage Nodes in DynELA
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class Node
 {
   friend class ListIndex<Node *>; // To be able to use ListIndex
@@ -60,6 +50,20 @@ public:
   Node(const Node &X);
   ~Node();
 
+  // Interface methods excluded from SWIG
+#ifndef SWIG
+  friend std::ifstream &operator>>(std::ifstream &, Node &);
+  friend std::ofstream &operator<<(std::ofstream &, const Node &);
+  Node &read(std::ifstream &);
+  friend std::ostream &operator<<(std::ostream &, Node &);
+  void print(std::ostream &) const;
+  void write(std::ofstream &) const;
+#endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
   /*   bool operator<(const Node &node) const;
   bool operator>(const Node &node) const;
  */
@@ -74,15 +78,6 @@ public:
   Vec3D getNodalVec3D(short field);
   void swapNodalFields();
   void copyNodalFieldToNew();
-
-#ifndef SWIG
-  friend std::ifstream &operator>>(std::ifstream &, Node &);
-  friend std::ofstream &operator<<(std::ofstream &, const Node &);
-  Node &read(std::ifstream &);
-  friend std::ostream &operator<<(std::ostream &, Node &);
-  void print(std::ostream &) const;
-  void write(std::ofstream &) const;
-#endif
 
   /**Attach an element. This method is used to add a new reference to an element in the list of the elements connected to the current point. There is no limit in the number of elements connected to the current node, so there is no verification procedure to see if this is correct for the structure.*/
   /*
@@ -127,8 +122,8 @@ inline long Node::NoElements ()
 */
 
 //Internal number. This method gives a direct access to the internal number of the current node.
-/*!
-  \return Internal number of the current node.
+/*
+  Return : Internal number of the current node.
 */
 //-----------------------------------------------------------------------------
 inline long &Node::internalNumber()

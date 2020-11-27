@@ -9,23 +9,18 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*!
-  \file PolynomialFunction.h
-  \brief Declaration file for the discrete function class
-
-  This file is the declaration file for the discrete function class. A discrete function is a function with the following form: \f[ y=f(x) \f] defined from a set of points.
-  Linear interpolation is used to obtain data between given points.
-  \ingroup dnlMaths
-*/
-
 #ifndef __dnlMaths_RampFunction_h__
 #define __dnlMaths_RampFunction_h__
 
-//#include <dnlKernel.h>
 #include <Function.h>
 
+//-----------------------------------------------------------------------------
+// Class : RampFunction
+//
+// Used to manage RampFunction
+//
+// This class is included in SWIG
+//-----------------------------------------------------------------------------
 class RampFunction : public Function
 {
 private:
@@ -48,16 +43,21 @@ public:
   RampFunction(char *newName = NULL);
   ~RampFunction();
 
-  double getValue(double x);
-  double getSlope(double x);
-  void setFunction(short newType, double newMin, double newMax);
-  short getType(long i);
-  void toGnuplot(String filename, long steps = 250);
-  String convertToDynELASourceFile();
-
+  // Interface methods excluded from SWIG
 #ifndef SWIG
   void print();
 #endif
+
+  // Interface methods excluded from basic SWIG support
+#if !defined(SWIG) || defined(CSWIG)
+#endif
+
+  double getSlope(double x);
+  double getValue(double x);
+  short getType(long i);
+  String convertToDynELASourceFile();
+  void setFunction(short newType, double newMin, double newMax);
+  void toGnuplot(String filename, long steps = 250);
 };
 
 #endif

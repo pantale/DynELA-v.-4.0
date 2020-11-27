@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file TabularLaw.C
-  \brief Definition file for the TabularLaw class
+  Definition file for the TabularLaw class
 
   This file is the definition file for the TabularLaw class.
 

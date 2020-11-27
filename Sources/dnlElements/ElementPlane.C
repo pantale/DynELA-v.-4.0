@@ -11,9 +11,9 @@
 
 // TODOCXYFILE
 
-/*!
+/*
   \file ElementPlane.C
-  \brief Definition file for the ElementPlane class
+  Definition file for the ElementPlane class
 
   This file is the definition file for the ElementPlane class.
 

@@ -9,9 +9,9 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*!
+/*
   \file Function.C
-  \brief Defines of the Function class.
+  Defines of the Function class.
 
   This file defines the Function class.
   \ingroup dnlMaths
@@ -19,9 +19,9 @@
 
 #include <Function.h>
 
-/*!
-  \brief Default constructor of the Function class
-  \param newName name of the function
+/*
+  Default constructor of the Function class
+  - newName name of the function
 */
 //-----------------------------------------------------------------------------
 Function::Function(char *newName)
@@ -31,8 +31,8 @@ Function::Function(char *newName)
     name = newName;
 }
 
-/*!
-  \brief Default destructor of the Function class
+/*
+  Default destructor of the Function class
 */
 //-----------------------------------------------------------------------------
 Function::~Function()
