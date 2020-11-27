@@ -47,18 +47,19 @@ class Parallel
 {
 
 private:
-  int _cores = 1;
-  int _maxThreads = 1;
+  int _cores = 1;                  // Number of cores
+  int _maxThreads = 1;             // Maximum number of threads
   ElementsChunk **_elementsChunks; // Elements chunks
 
+public:
+  String name = "Parallel::noname_"; // Name of the object
+
 private:
-  ElementsChunk **_initChunkList();
-  void _deleteChunkList(ElementsChunk **chunkList);
+  ElementsChunk **_initChunkList();                 // Initialize the list of elements
+  void _deleteChunkList(ElementsChunk **chunkList); // Delete the chunk list
 
 public:
-  String name = "Parallel::noname_";
-
-  // constructeurs
+  // Constructors and destructors of the Parallel class
   Parallel(char *newName = NULL);
   ~Parallel();
 
@@ -73,6 +74,7 @@ public:
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
+  // Interface methods included in SWIG support
   int getCores();
   void setCores(int cores);
 };

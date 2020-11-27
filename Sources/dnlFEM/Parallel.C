@@ -13,7 +13,9 @@
 #include <DynELA.h>
 
 #pragma omp default none
-
+/*
+  Constructor of the Parallel class
+*/
 //-----------------------------------------------------------------------------
 Parallel::Parallel(char *newName)
 //-----------------------------------------------------------------------------
@@ -28,6 +30,9 @@ Parallel::Parallel(char *newName)
   _elementsChunks = _initChunkList();
 }
 
+/*
+  Destructor of the Parallel class
+*/
 //-----------------------------------------------------------------------------
 Parallel::~Parallel()
 //-----------------------------------------------------------------------------
@@ -35,6 +40,9 @@ Parallel::~Parallel()
   _deleteChunkList(_elementsChunks);
 }
 
+/*
+  Init the list of elements by chunk
+*/
 //-----------------------------------------------------------------------------
 ElementsChunk **Parallel::_initChunkList()
 //-----------------------------------------------------------------------------
@@ -48,6 +56,9 @@ ElementsChunk **Parallel::_initChunkList()
   return _chunk;
 }
 
+/*
+  Delete the list of elements by chunk
+*/
 //-----------------------------------------------------------------------------
 void Parallel::_deleteChunkList(ElementsChunk **chunkList)
 //-----------------------------------------------------------------------------
@@ -60,6 +71,10 @@ void Parallel::_deleteChunkList(ElementsChunk **chunkList)
   delete _elementsChunks;
 }
 
+/*
+  Set the number of cores to use for parallel solving
+  - cores : Number of cores to use
+*/
 //-----------------------------------------------------------------------------
 void Parallel::setCores(int cores)
 //-----------------------------------------------------------------------------
@@ -89,7 +104,8 @@ void Parallel::dispatchElements(List<Element *> elements)
   }
 
   dynelaData->logFile << "Parallel computation elements dispatch\n";
-  // display cores
+
+  // display list of elements/cores
   for (int core = 0; core < _cores; core++)
   {
     printf("CPU core %d - %ld elements\n", core + 1, _elementsChunks[core]->elements.getSize());

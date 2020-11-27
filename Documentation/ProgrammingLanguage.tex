@@ -509,7 +509,12 @@ model.add(solver)
 \end{PythonListing}
 
 \subsection{Parallel solver}
-
+In \DynELA~it is possible to control the number of cores to use for the solver through the \textsf{Parallel} class. If no options are given to the parallel solver, it assumes that only $1$ core will be used for the computation. There are currently few options in the parallel class and the following ones can be used to control the parallelization of the Explicit solver:
+\begin{description}
+\item [{setCores (\emph{int})}] : Set the number of cores to use for the solver.
+\item [{getCores ( )}] : Get the number of cores used by the solver. 
+\end{description}
+The control of the number of cores to use in an explicit solve is done using the following syntax, where \textsf{model} refers to the DynELA Finite Element Model.
 \begin{PythonListing}
 # Parallel solver with two cores
 model.parallel.setCores(2)
