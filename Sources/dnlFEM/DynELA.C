@@ -710,6 +710,16 @@ void DynELA::writeVTKFile()
   _VTKresultFileIndex++;
 }
 
+//-----------------------------------------------------------------------------
+bool DynELA::initSolve()
+//-----------------------------------------------------------------------------
+{
+  // Run the init solve of this model
+  model.initSolve();
+
+  return true;
+}
+
 //lancement du solveur general
 /*
   Cette methode lance la procedure de solveur general de la structure. Elle prend en compte tous les types de solveurs possible et gere aussi bien la resolution mono-modele que la resolution multi-modele. C'est le point d'entree de tout solveur.
@@ -724,10 +734,9 @@ void DynELA::solve()
 
   // Display start of solve phase
   std::cout << "\nProcessing DynELA ...\n";
-  logFile.separatorWrite("DynELA Solver Initialization phase");
 
   // Run the init solve of this model
-  model.initSolve();
+  initSolve();
 
   // Get the end time of the structure and display it
   double endOfComputationTime = model.getEndSolveTime();

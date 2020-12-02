@@ -42,6 +42,7 @@ private:
   int _powerIterationMaxIterations = 1000; // Max number of iterations for the Power Iteration Agorithm
   short _numberOfDimensions = 0;           // Number of dimensions of the model
   Vector _powerIterationEV;
+  bool _initSolveDone = false;
 
 public:
   double currentTime = 0.0;         // Temps actuel du modele

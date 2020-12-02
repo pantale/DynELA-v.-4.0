@@ -108,6 +108,7 @@ public:
   void translate(Vec3D translateVector, NodeSet *nodeSet = NULL);
   void writeResultFile();
   void writeVTKFile();
+  bool initSolve ();
 
   //  void displayOnline();
 

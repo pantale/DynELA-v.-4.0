@@ -361,6 +361,14 @@ bool Model::checkTopology()
 bool Model::initSolve()
 //-----------------------------------------------------------------------------
 {
+  // If the init solve has already beeen done, return
+  if (_initSolveDone){
+    std::cout << "Already Done Model::iniSolve !\n";
+    return true;
+  }
+  // Write to log file
+  dynelaData->logFile.separatorWrite("DynELA Solver Initialization phase");
+
   // Log initialization of the model
   dynelaData->logFile << "\nInitializing model : " << name << "\n";
 
@@ -503,6 +511,9 @@ bool Model::initSolve()
 
   // Dispatch elements to cores
   dynelaData->parallel.dispatchElements(elements);
+
+  // Remember that the initSolve has been done
+  _initSolveDone = true;
 
   return (true);
 }

@@ -4,6 +4,10 @@
 
 ## 2020
 
+### December 2020
+
+02/12/2020 - Separate Solve and initSolve in DynELA to be able to modify directly fields before computation
+
 ### November 2020
 
 27/11/2020 - Add option in source files for reduced SWIG interface
