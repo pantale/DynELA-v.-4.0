@@ -206,7 +206,7 @@ const ElementData ElTet4N3D::_elementData = {
         //
     },*/
     // Check element
-    10010110
+    Element::ElTet4N3D
     // END
 };
 
@@ -219,7 +219,7 @@ ElTet4N3D::ElTet4N3D(long elementNumber) : Element3D(elementNumber)
     stiffnessMatrix.redim(12, 12);
 
     // Check the data structure
-    if (_elementData.CheckElementData != 10010110)
+    if (_elementData.CheckElementData != Element::ElTet4N3D)
         fatalError("ElTet4N3D::ElTet4N3D", "Element Data currupted");
 }
 

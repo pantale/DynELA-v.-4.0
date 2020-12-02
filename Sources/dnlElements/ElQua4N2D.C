@@ -238,7 +238,7 @@ const ElementData ElQua4N2D::_elementData = {
         //
     },*/
     // Check element
-    10010110
+    Element::ElQua4N2D
     // END
 };
 
@@ -251,7 +251,7 @@ ElQua4N2D::ElQua4N2D(long elementNumber) : Element2D(elementNumber)
     stiffnessMatrix.redim(8, 8);
 
     // Check the data structure
-    if (_elementData.CheckElementData != 10010110)
+    if (_elementData.CheckElementData != Element::ElQua4N2D)
         fatalError("ElQua4N2D::ElQua4N2D", "Element Data currupted");
 }
 

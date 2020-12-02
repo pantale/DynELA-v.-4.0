@@ -46,7 +46,7 @@ public:
     Material *material;
     Matrix stiffnessMatrix;
 
-    enum
+    enum // Enum defining the list of element names
     {
         ElGeneric = 0,
         ElQua4N2D,
@@ -57,7 +57,7 @@ public:
         ElTet10N3D
     };
 
-    enum
+    enum // Enum defining the list of element types
     {
         Bidimensional = 0,
         Axisymetric,
@@ -69,7 +69,7 @@ public:
     Element(const Element &element);
     virtual ~Element();
 
-  // Interface methods excluded from SWIG
+    // Interface methods excluded from SWIG
 #ifndef SWIG
     friend std::ofstream &operator<<(std::ofstream &, const Element &);
     friend std::ifstream &operator>>(std::ifstream &, Element &);
@@ -77,7 +77,7 @@ public:
     Element &read(std::ifstream &);
 #endif
 
-  // Interface methods excluded from basic SWIG support
+    // Interface methods excluded from basic SWIG support
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 

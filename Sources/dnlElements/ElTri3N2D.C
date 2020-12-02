@@ -153,7 +153,7 @@ const ElementData ElTri3N2D::_elementData = {
         //
     },*/
     // Check element
-    10010110
+    Element::ElTri3N2D
     // END
 };
 
@@ -166,7 +166,7 @@ ElTri3N2D::ElTri3N2D(long elementNumber) : Element2D(elementNumber)
     stiffnessMatrix.redim(8, 8);
 
     // Check the data structure
-    if (_elementData.CheckElementData != 10010110)
+    if (_elementData.CheckElementData != Element::ElTri3N2D)
         fatalError("ElTri3N2D::ElTri3N2D", "Element Data currupted");
 }
 

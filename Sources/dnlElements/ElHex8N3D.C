@@ -527,7 +527,7 @@ const ElementData ElHex8N3D::_elementData = {
         //
     },*/
     // Check element
-    10010110
+    Element::ElHex8N3D
     // END
 };
 
@@ -540,7 +540,7 @@ ElHex8N3D::ElHex8N3D(long elementNumber) : Element3D(elementNumber)
     stiffnessMatrix.redim(24, 24);
 
     // Check the data structure
-    if (_elementData.CheckElementData != 10010110)
+    if (_elementData.CheckElementData != Element::ElHex8N3D)
         fatalError("ElHex8N3D::ElHex8N3D", "Element Data currupted");
 }
 

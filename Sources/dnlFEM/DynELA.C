@@ -722,9 +722,6 @@ void DynELA::solve()
   dynelaData->settings->getValue("DisplayProgress", _displayTimeIncrement);
   dynelaData->settings->getValue("DisplayProgress", _nextDisplayTime);
 
-  // Start Solver timer
-  cpuTimes.timer("Solver")->start();
-
   // Display start of solve phase
   std::cout << "\nProcessing DynELA ...\n";
   logFile.separatorWrite("DynELA Solver Initialization phase");
@@ -742,8 +739,14 @@ void DynELA::solve()
   // Write start on computation into log file
   logFile.separatorWrite("DynELA Solver phase");
 
+  // Start Solver timer
+  cpuTimes.timer("Solver")->start();
+
   // Run the Explicit Solver
   bool solvedIsOK = model.solve(endOfComputationTime);
+
+  // Stop the timer for the solver
+  cpuTimes.timer("Solver")->stop();
 
   // Test if solve was Ok or not
   if (solvedIsOK == false)
@@ -755,9 +758,6 @@ void DynELA::solve()
 
   // Write the final result file
   writeVTKFile();
-
-  // Stop the timer for the solver
-  cpuTimes.timer("Solver")->stop();
 
   // Stop all time logs
   cpuTimes.stop();

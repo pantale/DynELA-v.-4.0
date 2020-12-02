@@ -22,7 +22,6 @@ struct IntegrationPointData;
 // 
 // This class is included in SWIG
 //-----------------------------------------------------------------------------
-#if !defined(SWIG) || defined(CSWIG)
 class IntegrationPointBase
 {
 
@@ -42,7 +41,6 @@ public:
   virtual void flush() = 0;
   void baseFlush();
 };
-#endif
 
 //-----------------------------------------------------------------------------
 // Class : UnderIntegrationPoint
@@ -51,7 +49,6 @@ public:
 // 
 // This class is included in SWIG
 //-----------------------------------------------------------------------------
-#if !defined(SWIG) || defined(CSWIG)
 class UnderIntegrationPoint : public IntegrationPointBase
 {
 
@@ -60,7 +57,6 @@ public:
   ~UnderIntegrationPoint();
   void flush();
 };
-#endif
 
 //-----------------------------------------------------------------------------
 // Class : IntegrationPoint
@@ -69,7 +65,6 @@ public:
 //
 // This class is included in SWIG
 //-----------------------------------------------------------------------------
-#if !defined(SWIG) || defined(CSWIG)
 class IntegrationPoint : public IntegrationPointBase
 {
 
@@ -106,7 +101,5 @@ public:
 
   void flush();
 };
-
-#endif
 
 #endif
