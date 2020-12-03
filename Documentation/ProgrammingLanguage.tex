@@ -111,14 +111,14 @@ In line 2 of the preceding piece of code, a reference name\footnote{The referenc
 
 \subsubsection{Definition of the nodes}
 
-In the \DynELA, creation of nodes is done by calling the \textsf{DynELA.createNode()} method. Therefore, a node is created by calling the \textsf{createNode()} method and giving the new node number and the $x$, $y$ and $z$ coordinates of the new node as presented just below.
+In the \DynELA, creation of nodes is done by calling the \textsf{DynELA.createNode()} method. Therefore, a node is created by calling the \textsf{createNode()} method and giving the new node number and the $x$, $y$ and $z$ coordinates of the new node as presented just below.\index[PL]{DynELA!createNode(int, float, float, float)}
 
 \begin{PythonListing}
 model.createNode(1, 0.0, 0.0, 0.0)  # Creates node 1, coordinates [0.0, 0.0, 0.0]
 model.createNode(2, 1.0, 2.0, -1.0) # Creates node 2, coordinates [1.0, 2.0, -1.0]
 \end{PythonListing}
 
-An alternative method can be used if the coordinates of the node are already stored into a Vec3D object as presented hereafter.
+An alternative method can be used if the coordinates of the node are already stored into a Vec3D object as presented hereafter.\index[PL]{DynELA!createNode(int, Vec3D)}
 
 \begin{PythonListing}
 vect = dnl.Vec3D(1.0, 2.0, -1.0) # Creates a Vec3D object [1.0, 2.0, -1.0]
@@ -129,7 +129,7 @@ A check of the total number of nodes of the structure can be done using the \tex
 
 \subsubsection{Definition of the Nodes sets}
 
-Manipulation of nodes, application of boundaries conditions, etc,\ldots is done through the definition of nodes sets. Such nodes sets are used to group nodes under a \textsf{NodeSet} object for further use. A \textsf{NodeSet} object contains a reference name and a list of nodes. Creation of a \textsf{NodeSet} is done using the \textsf{DynELA.NodeSet()} method that returns an new \textsf{NodeSet} instance. The \textsf{NodeSet} can be named during the creation by specifying its name as a string.
+Manipulation of nodes, application of boundaries conditions, etc,\ldots is done through the definition of nodes sets. Such nodes sets are used to group nodes under a \textsf{NodeSet} object for further use. A \textsf{NodeSet} object contains a reference name and a list of nodes. Creation of a \textsf{NodeSet} is done using the \textsf{DynELA.NodeSet()} method that returns an new \textsf{NodeSet} instance. The \textsf{NodeSet} can be named during the creation by specifying its name as a string.\index[PL]{NodeSet(string)}
 
 \begin{PythonListing}
 nset = dnl.NodeSet('NS_All')
@@ -156,7 +156,7 @@ Creation of elements is done by calling the \textsf{DynELA.createElement()} meth
 
 \textsf{DynELA.createElement(elementNumber, node1, node2,\ldots)}
 
-Before creating the very first element of the structure, it is necessary to define the element shape using the \textsf{DynELA.setDefaultElement()} method. An example of element creation combining the two preceding methods is presented hereafter.
+Before creating the very first element of the structure, it is necessary to define the element shape using the \textsf{DynELA.setDefaultElement()} method. An example of element creation combining the two preceding methods is presented hereafter.\index[PL]{DynELA!setDefaultElement(Element)}\index[PL]{DynELA!createElement(int, int, int,...)}
 
 \begin{PythonListing}
 model.setDefaultElement(dnl.Element.ElQua4N2D) # Defines the default element
@@ -432,10 +432,15 @@ Element fields are defined at integration points and cover types defined in tabl
 \section{Data Output during computation}
 
 \subsection{VTK Data files}
+The \DynELA~is able to export results in VTK (The Visualization Toolkit\footnote{See : https://vtk.org}) ASCII files. Those files can be used to visualize the results of computations using the Paraview post-processing software\footnote{See : https://www.paraview.org}.
 
+Those VTK files are automatically created during the solving phase. Controlling the instant of file save is done using the following syntax:\index[PL]{DynELA!setSaveTimes(float, float, float)}
 \begin{PythonListing}
-model.setSaveTimes(0, stopTime, stopTime/nbreSaves)
+model.setSaveTimes(startTime, stopTime, incrementTime)
 \end{PythonListing}
+where \textsf{startTime}, \textsf{stopTime}, \textsf{incrementTime} are $3$ times defining respectively the times of the first file, the last one and the period of time between subsequent frames.
+
+At any time, it is possible to export a VTK file using the method \textsf{writeVTKFile( )}\index[PL]{DynELA!writeVTKFile( )} of the \textsf{DynELA} class.
 
 \subsection{History files}
 
@@ -474,16 +479,15 @@ In file reported in Figure \ref{fig:PL!HF!Export}, the first two lines are comme
 \subsubsection{Definition of data to save}
 
 \begin{description}
-\item [{add (\emph{ElementSet}, \emph{int}, \emph{field})}] : Add the output data \emph{field} defined at integration point \emph{int} for all elements defined in the element-set \emph{ElemenSet} to the current time-history plot.
-\item [{add (\emph{NodeSet}, \emph{field})}] : 
-\item [{add (\emph{ElementSet}, \emph{int}, \emph{field})}] : Add the output data \emph{field} for all nodes defined in the node-set \emph{NodeSet} to the current time-history plot.
-\item [{add (\emph{field})}] : Add the global \emph{field} value to the current time-history plot.
-\item [{setFileName (\emph{string})}] : Defines the name of the output CSV filename.
-\item [{setSaveTime (\emph{float})}] : Defines the frequency of data store during the computation.
-\item [{setSaveTime (\emph{float}[start], \emph{float}[stop], \emph{float}[freq])}] : Defines the start, stop and frequency of data store during the computation starting at \emph{start}, ending at \emph{stop} and with the frequency defined by \emph{freq}.
+\item [{add (\emph{ElementSet}, \emph{int}, \emph{field})}] : Add the output data \emph{field} defined at integration point \emph{int} for all elements defined in the element-set \emph{ElemenSet} to the current time-history plot.\index[PL]{HistoryFile!add(ElementSet)}
+\item [{add (\emph{NodeSet}, \emph{Field})}] : Add the output data \emph{Field} for all nodes defined in the node-set \emph{NodeSet} to the current time-history plot.\index[PL]{HistoryFile!add(NodeSet)}
+\item [{add (\emph{Field})}] : Add the global \emph{Field} value to the current time-history plot.\index[PL]{HistoryFile!add(Field)}
+\item [{setFileName (\emph{string})}] : Defines the name of the output CSV filename.\index[PL]{HistoryFile!setFileName(string)}
+\item [{setSaveTime (\emph{float})}] : Defines the frequency of data store during the computation.\index[PL]{HistoryFile!setSaveTime(float)}
+\item [{setSaveTime (\emph{float}[start], \emph{float}[stop], \emph{float}[freq])}] : Defines the start, stop and frequency of data store during the computation starting at \emph{start}, ending at \emph{stop} and with the frequency defined by \emph{freq}.\index[PL]{HistoryFile!setSaveTime(float, float, float)}
 \end{description}
 
-When data storage has been defined, it is mandatory to add the \textsf{HistoryFile} object created to the \textsf{model} to produce the output files during computation. this is done using the following syntax:
+When data storage has been defined, it is mandatory to add the \textsf{HistoryFile} object created to the \textsf{model} to produce the output files during computation. this is done using the following syntax:\index[PL]{DynELA!add(HistoryFile)}
 \begin{PythonListing}
 model.add(hist)
 \end{PythonListing}
@@ -492,10 +496,10 @@ where \emph{model} is the \textsf{model} to solve and \emph{hist} is the request
 \subsubsection{Check of data information}
 Data information defined in the previous subsection can be checked using one of the following commands:
 \begin{description}
-\item [{getSaveTime ( )}] : Returns the frequency of data store.
-\item [{getStartTime ( )}] : Returns the start-time of data store. 
-\item [{getStopTime ( )}] : Returns the end-time of data store.
-\item [{getFileName ( )}] : Returns the file name for data store.
+\item [{getSaveTime ( )}] : Returns the frequency of data store.\index[PL]{HistoryFile!getSaveTime( )}
+\item [{getStartTime ( )}] : Returns the start-time of data store. \index[PL]{HistoryFile!getStartTime( )}
+\item [{getStopTime ( )}] : Returns the end-time of data store.\index[PL]{HistoryFile!getStopTime( )}
+\item [{getFileName ( )}] : Returns the file name for data store.\index[PL]{HistoryFile!getFileName( )}
 \end{description}
 
 \section{Solvers}
@@ -509,18 +513,18 @@ In this example, we create an explicit solver named solver at line $1$, defines 
 
 The Explicit class contains some useful methods as reported here after:
 \begin{description}
-\item [{setComputeTimeStepFrequency(\emph{int})}] : Defines the frequency (\ie every how many increments) of re-computing the critical time step of the model.
-\item [{setIncrements(\emph{int}, \emph{int})}] : Defines the start and stop increments for the solver.
-\item [{setTimes(\emph{float} , \emph{float})}] : Defines start and stop time of the current job.
-\item [{setTimeStepMethod(\emph{method} )}] : Defines the method used to compute the time-step which can be one of the three following methods: \textsf{Courant}, \textsf{PowerIteration} or \textsf{PowerIterationUnder}.
-\item [{setTimeStepSafetyFactor(\emph{float} safetyfactor )}] : Defines the time-step safety factor (normally within the range  $[0:1]$).
+\item [{setComputeTimeStepFrequency(\emph{int})}] : Defines the frequency (\ie every how many increments) of re-computing the critical time step of the model.\index[PL]{Solver!setComputeTimeStepFrequency(int)}
+\item [{setIncrements(\emph{int}, \emph{int})}] : Defines the start and stop increments for the solver.\index[PL]{Solver!setIncrements(int, int)}
+\item [{setTimes(\emph{float}, \emph{float})}] : Defines start and stop time of the current job.\index[PL]{Solver!setTimes(float, float)}
+\item [{setTimeStepMethod(\emph{method} )}] : Defines the method used to compute the time-step which can be one of the three following methods: \textsf{Courant}, \textsf{PowerIteration} or \textsf{PowerIterationUnder}.\index[PL]{Solver!setTimeStepMethod(method)}
+\item [{setTimeStepSafetyFactor(\emph{float} safetyfactor )}] : Defines the time-step safety factor (normally within the range  $[0:1]$).\index[PL]{Solver!setTimeStepSafetyFactor(float)}
 \end{description}
 
 \subsection{Parallel solver}
 In \DynELA~it is possible to control the number of cores to use for the solver through the \textsf{Parallel} class. If no options are given to the parallel solver, it assumes that only $1$ core will be used for the computation. There are currently few options in the parallel class and the following ones can be used to control the parallelization of the Explicit solver:
 \begin{description}
-\item [{setCores (\emph{int})}] : Set the number of cores to use for the solver.
-\item [{getCores ( )}] : Get the number of cores used by the solver. 
+\item [{setCores (\emph{int})}] : Set the number of cores to use for the solver.\index[PL]{parallel!setCores(int)}
+\item [{getCores ( )}] : Get the number of cores used by the solver.\index[PL]{parallel!getCores( )}
 \end{description}
 The control of the number of cores to use in an explicit solve is done using the following syntax, where \textsf{model} refers to the DynELA Finite Element Model.
 \begin{PythonListing}
@@ -538,8 +542,8 @@ At the beginning of the solving procedure, a call to the \textsf{initSolve} meth
 
 Commands available for running the solver are the following ones:
 \begin{description}
-\item [{initSolve ( )}] : Runs the init solve of the \DynELA.
-\item [{solve ( )}] : Runs the solver of the \DynELA.
+\item [{initSolve ( )}] : Runs the init solve of the \DynELA.\index[PL]{DynELA!initSolve( )}
+\item [{solve ( )}] : Runs the solver of the \DynELA.\index[PL]{DynELA!solve( )}
 \end{description}
 
 
@@ -585,27 +589,27 @@ Concerning \textsf{SvgInterface}, \DynELA~creates a window with the prescribed s
 
 \subsubsection{View orientation and rotations}
 \begin{description}
-\item [{resetView ( )}] : This resets the current view to the original one where $O,\overrightarrow{x},\overrightarrow{y}$ is the drawing plane and $\overrightarrow{z}$ is pointing forward.
-\item [{rotate (\emph{string}, \emph{float})}] : Defines the rotation of the global structure around one of the $3$ base axis referred by the \emph{string} value 'X', 'Y' or 'Z' with an angle $\alpha$ defined by a \emph{float} value.
-\item [{rotate (\emph{Vec3D}, \emph{float})}] : Defines the rotation of the global structure around the axis $\overrightarrow{v}$ defined by a \emph{Vec3D} with an angle $\alpha$ defined by a \emph{float} value.
+\item [{resetView ( )}] : This resets the current view to the original one where $O,\overrightarrow{x},\overrightarrow{y}$ is the drawing plane and $\overrightarrow{z}$ is pointing forward.\index[PL]{SvgInterface!resetView( )}
+\item [{rotate (\emph{string}, \emph{float})}] : Defines the rotation of the global structure around one of the $3$ base axis referred by the \emph{string} value 'X', 'Y' or 'Z' with an angle $\alpha$ defined by a \emph{float} value.\index[PL]{SvgInterface!rotate(string, float)}
+\item [{rotate (\emph{Vec3D}, \emph{float})}] : Defines the rotation of the global structure around the axis $\overrightarrow{v}$ defined by a \emph{Vec3D} with an angle $\alpha$ defined by a \emph{float} value.\index[PL]{SvgInterface!rotate(Vec3D, float)}
 \end{description}
 
 \subsubsection{Mesh and data output}
 \begin{description}
-\item [{setMeshDisplay (\emph{bool} = [true])}] : Set or unset the drawing of the mesh.
-\item [{setMeshThickness (\emph{float} = [1.0])}] : Defines the line thickness for drawing the mesh.
-\item [{setPatchLevel (\emph{int} = [1])}] : Defines the level of decomposition of the elements for drawing, \ie the number of recursive decomposition of the polygons [1 to 4]. The default value is usually sufficient for all plots, increasing it enhances the precision of the plot, but drastically increases also the size of the produced file.
-\item [{setAutoRangeValues (\emph{bool} = [true])}] : Set or unset the automatic computation of minimum and maximum values for fields range. This function must be switched to \emph{false} in addition to the function \textsf{setBounds} of the \textsf{colorMap} class (see \ref{sec:PL!SVG!ColorMap}).
+\item [{setMeshDisplay (\emph{bool} = [true])}] : Set or unset the drawing of the mesh.\index[PL]{SvgInterface!setMeshDisplay(bool)}
+\item [{setMeshThickness (\emph{float} = [1.0])}] : Defines the line thickness for drawing the mesh.\index[PL]{SvgInterface!setMeshThickness(float)}
+\item [{setPatchLevel (\emph{int} = [1])}] : Defines the level of decomposition of the elements for drawing, \ie the number of recursive decomposition of the polygons [1 to 4]. The default value is usually sufficient for all plots, increasing it enhances the precision of the plot, but drastically increases also the size of the produced file.\index[PL]{SvgInterface!setPatchLevel(int)}
+\item [{setAutoRangeValues (\emph{bool} = [true])}] : Set or unset the automatic computation of minimum and maximum values for fields range. This function must be switched to \emph{false} in addition to the function \textsf{setBounds} of the \textsf{colorMap} class (see \ref{sec:PL!SVG!ColorMap}).\index[PL]{SvgInterface!setAutoRangeValues(bool)}
 \end{description}
 
 \subsubsection{Legends and notations}
 \begin{description}
-\item [{setInfoDisplay (\emph{bool} = [false])}] : Set or unset the drawing of the bloc of informations.
-\item [{setInfoPosition (\emph{int}, \emph{int})}] : Defines the position of the bloc of informations on the current drawing (default position is $(50, 1200)$).
-\item [{setLegendDisplay (\emph{bool} = [true])}] :  Set or unset the drawing of the legend.
-\item [{setLegendPosition (\emph{int}, \emph{int})}] : Defines the position of the legend on the current drawing (default position is $(30, 30)$).
-\item [{setTitleDisplay (\emph{bool} = [true])}] :  Set or unset the drawing of the title.
-\item [{setTitlePosition (\emph{int}, \emph{int})}] : Defines the position of the title on the current drawing (default position is $(50, 1550)$).
+\item [{setInfoDisplay (\emph{bool} = [false])}] : Set or unset the drawing of the bloc of informations.\index[PL]{SvgInterface!setInfoDisplay(bool)}
+\item [{setInfoPosition (\emph{int}, \emph{int})}] : Defines the position of the bloc of informations on the current drawing (default position is $(50, 1200)$).\index[PL]{SvgInterface!setInfoPosition(int, int)}
+\item [{setLegendDisplay (\emph{bool} = [true])}] :  Set or unset the drawing of the legend.\index[PL]{SvgInterface!setLegendDisplay(bool)}
+\item [{setLegendPosition (\emph{int}, \emph{int})}] : Defines the position of the legend on the current drawing (default position is $(30, 30)$).\index[PL]{SvgInterface!setLegendPosition(int, int)}
+\item [{setTitleDisplay (\emph{bool} = [true])}] :  Set or unset the drawing of the title.\index[PL]{SvgInterface!setTitleDisplay(bool)}
+\item [{setTitlePosition (\emph{int}, \emph{int})}] : Defines the position of the title on the current drawing (default position is $(50, 1550)$).\index[PL]{SvgInterface!setTitlePosition(int, int)}
 \end{description}
 
 \subsubsection{Color Map Options}\label{sec:PL!SVG!ColorMap}
@@ -643,7 +647,7 @@ On the other hand, the following methods returns some informations on the curren
 \end{description}
 
 \subsection{Creation of the SVG file}
-Effective creation of the SVG file is done by calling the \textsf{write} method of the \textsf{SvgInterface} class with the following syntax:
+Effective creation of the SVG file is done by calling the \textsf{write} method of the \textsf{SvgInterface} class with the following syntax:\index[PL]{SvgInterface!write(string)}\index[PL]{SvgInterface!write(string, Field)}
 \begin{PythonListing}
 svg.write('mesh.svg') # Without field, this draws only the mesh
 svg.write('temp.svg', dnl.Field.temperature)

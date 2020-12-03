@@ -20,6 +20,11 @@ TOP      = DynELA.pdf
 FIGURES_FOLDERS = Figures
 FIGURES         = $(wildcard Figures/*)
 
+# Define how to create indexes
+define makeIndexes
+	-makeindex $(ROOT).0dx -o $(ROOT).0nd
+endef
+
 #@!BEGIN = COMMON
 # -------------------------------------------------------------------------------
 # There's nothing to touch here next in the Makefile
@@ -56,12 +61,14 @@ $(TOP) : $(SOURCES) $(FIGURES)
 	$(BIBTEX) $(ROOT).aux
 	# Run pass 2
 	$(TEX2PDF) $(MAINTOP)
+	# Run the indexes
+	$(call makeIndexes)
 	# Run pass 3
 	$(TEX2PDF) $(MAINTOP)
 
 # Clean the LateX temp files
 clean: 
-	rm -rf *.aux *.log *.nav *.out *.toc *.vrb *.bbl *.blg *.snm *.mtc* *.idx *.maf *.ptc *.brf *.lof *.lot
+	rm -rf *.aux *.log *.nav *.out *.toc *.vrb *.bbl *.blg *.snm *.mtc* *.idx *.maf *.ptc *.brf *.lof *.lot *.ilg *.ind
 
 # Clean the target to force compilation again
 forceClean:
