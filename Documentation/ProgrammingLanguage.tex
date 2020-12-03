@@ -499,14 +499,22 @@ Data information defined in the previous subsection can be checked using one of 
 \end{description}
 
 \section{Solvers}
-
+The \DynELA~currently have only one FEM solver: an Explicit solver based on a Chung-Hulbert algorithm. Declaration of such a solver is done by creating an instance of the \textsf{Explicit} solver class, using the following syntax:
 \begin{PythonListing}
-# Declaration of the explicit solver
-solver = dnl.Explicit('Solver')
-solver.setTimes(0, stopTime)
-solver.setTimeStepSafetyFactor(1.0)
-model.add(solver)
+solver = dnl.Explicit('Solver') # Declaration of the explicit solver
+solver.setTimes(0, stopTime)    # Definition of start and end time
+model.add(solver)               # Link solver to the current model
 \end{PythonListing}
+In this example, we create an explicit solver named solver at line $1$, defines the starting and ending times of the computation at line $2$ and attach the created solver to the current FEM model at line $3$.
+
+The Explicit class contains some useful methods as reported here after:
+\begin{description}
+\item [{setComputeTimeStepFrequency(\emph{int})}] : Defines the frequency (\ie every how many increments) of re-computing the critical time step of the model.
+\item [{setIncrements(\emph{int}, \emph{int})}] : Defines the start and stop increments for the solver.
+\item [{setTimes(\emph{float} , \emph{float})}] : Defines start and stop time of the current job.
+\item [{setTimeStepMethod(\emph{method} )}] : Defines the method used to compute the time-step which can be one of the three following methods: \textsf{Courant}, \textsf{PowerIteration} or \textsf{PowerIterationUnder}.
+\item [{setTimeStepSafetyFactor(\emph{float} safetyfactor )}] : Defines the time-step safety factor (normally within the range  $[0:1]$).
+\end{description}
 
 \subsection{Parallel solver}
 In \DynELA~it is possible to control the number of cores to use for the solver through the \textsf{Parallel} class. If no options are given to the parallel solver, it assumes that only $1$ core will be used for the computation. There are currently few options in the parallel class and the following ones can be used to control the parallelization of the Explicit solver:
@@ -521,11 +529,19 @@ model.parallel.setCores(2)
 \end{PythonListing}
 
 \subsection{Solving procedure}
-
+Running solver is done through the \textsf{solve} method of the \textsf{DynELA} class using the following syntax:
 \begin{PythonListing}
 # Run the main solver
 model.solve()
 \end{PythonListing}
+At the beginning of the solving procedure, a call to the \textsf{initSolve} method of the same \textsf{DynELA} class is performed. It is also possible make a explicit call to the \textsf{initSolve} method (\ie separated from the one hidden in the solve method). This is useful if someone wants to modify values of different fields before running the solver for example\footnote{With such an approach, it is possible for example to modify all the fields of all points of the structure and to input the ones coming from another FEM code for example. It is also possible to modify for example only the temperature of all nodes of the structure thanks to an analytical model and run the solver on the basis of those new temperatures, \ie to make an hybrid FEM/analytical simulation.}.
+
+Commands available for running the solver are the following ones:
+\begin{description}
+\item [{initSolve ( )}] : Runs the init solve of the \DynELA.
+\item [{solve ( )}] : Runs the solver of the \DynELA.
+\end{description}
+
 
 \section{Vectorial SVG meshes and contourplots}
 Since \DynELA~version 3.0, it is possible to export SVG files (Scalable Vector Graphics) from the Python command language to produce high quality figures (and of course reproducible results, as everything is generated from script). This can be done before running the Solver to export the initial mesh of the structure for example, or after the solver phase to produce contourplot results. One can then produce some mesh exports as presented in Figure \ref{fig:PL!SVG!Mesh} or contourplots exports for a given data (here we used the von Mises field) as presented in Figure \ref{fig:PL!SVG!Contourplot}.
