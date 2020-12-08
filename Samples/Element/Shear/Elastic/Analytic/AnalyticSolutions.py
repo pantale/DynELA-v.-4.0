@@ -17,25 +17,25 @@ def fi(x):
 
 def alpha1(fi):
     return 2.0*np.cos(2*fi)*(2.0*fi-2.0*np.tan(2.0*fi)*np.log(np.cos(fi))-np.tan(fi))
-    
+
 def alpha2(fi):
-    return 4.0*(np.cos(2.0*fi)*np.log(np.cos(fi))+fi*np.sin(2.0*fi)-np.sin(fi)**2)    
+    return 4.0*(np.cos(2.0*fi)*np.log(np.cos(fi))+fi*np.sin(2.0*fi)-np.sin(fi)**2)
 
 def s12GN(x):
     return shearModulus*(alpha1(fi(x)))
-    
+
 def s11GN(x):
     return shearModulus*(alpha2(fi(x)))
-    
+
 def s22GN(x):
     return -shearModulus*(alpha2(fi(x)))
-    
+
 def s33GN(x):
     return 0.0*x
-    
+
 def s11Jaumann(x):
     return shearModulus*(1.0-np.cos(100*x))
-  
+
 def s22Jaumann(x):
     return shearModulus*(np.cos(100*x)-1.0)
 
@@ -44,7 +44,7 @@ def s33Jaumann(x):
 
 def s12Jaumann(x):
     return shearModulus*np.sin(100*x)
-  
+
 x=np.linspace(0, 0.1, num=101, endpoint=True)
 
 s11J=s11Jaumann(x)
@@ -72,7 +72,7 @@ np.savetxt("Jaumann_s12.plot", np.transpose(tab), delimiter=" ", header="DynELA_
 
 tab=np.asarray([x/10,sJ])
 np.savetxt("Jaumann_mises.plot", np.transpose(tab), delimiter=" ", header="DynELA_plot history file\nplotted :Analytic-vonMises", comments = '#')
- 
+
 tab=np.asarray([x/10,s11G])
 np.savetxt("GreenNaghdi_s11.plot", np.transpose(tab), delimiter=" ", header="DynELA_plot history file\nplotted :Analytic-StressXX", comments = '#')
 

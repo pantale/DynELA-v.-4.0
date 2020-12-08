@@ -10,4 +10,4 @@ Created on Thu Nov  7 14:14:48 2019
 import AbaqusExtract
 
 # Extract data from datafile
-AbaqusExtract.AbaqusExtract('Extract.ex')  
+AbaqusExtract.AbaqusExtract('Extract.ex')

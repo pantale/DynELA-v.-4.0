@@ -16,9 +16,9 @@
 
 //-----------------------------------------------------------------------------
 // Class : Exception
-// 
+//
 // Used to manage Exception for SVG files
-// 
+//
 // This class is excluded from SWIG
 //-----------------------------------------------------------------------------
 #if !defined(SWIG)

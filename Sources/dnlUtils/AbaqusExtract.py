@@ -32,8 +32,8 @@ class AbaqusExtract:
         lines = FRead.readlines()
         FRead.close()
         lines = [x.partition('#')[0] for x in lines if (x and x.partition('#')[0])]
-        return lines    
-            
+        return lines
+
     def run(self):
         dataNames = []
         dataValues = []
@@ -53,12 +53,12 @@ class AbaqusExtract:
                     if (item[0] == 'name'): dataNames.append(item[1])
                     if (item[0] == 'job'): dataJobs.append(item[1])
                     if (item[0] == 'operate'): dataOperates[-1]=item[1]
-                    if (item[0] == 'region'): 
+                    if (item[0] == 'region'):
                         if '+' in item[1]:
                             # Many regions grouped
                             group = [x.strip() for x in item[1].split('+')]
                             dataRegions.append(group)
-                        else:    
+                        else:
                             # Only one region
                             reg = []
                             reg.append(item[1])

@@ -8,23 +8,24 @@
 \chapter{DynELA programming language}
 
 \startcontents[chapters]
-\printmyminitoc[1]\LETTRINE{T}his chapter deals about the \DynELA~programming language. This language is based on Python 3 and all models must be described using this formalism. Therefore, this chapter will describe step by step how to build a Finite Element Model for the \DynELA, using the Python 3 language.
+\printmyminitoc[1]\LETTRINE{T}his chapter deals about the \DynELA~programming language. This language is based on Python 3 and all models must be described using this formalism. Therefore, this chapter will describe step by step how to build a Finite Element Model for the \DynELA, using the Python 3 language. To set-up a model in DynELA, a good knowledge of the Python's 3 language is not mandatory, but it will help to be skillful concerning this language. On the other hand advanced features can be setup with the help of Python 3 language.
 
 \section{Introduction and basic knowledge}
+The Python 3 language serves as a support for describing FEM in DynELA. Construction of the Finite Element Model is done by calling some \Cpp~methods of the DynELA library through Python language. In fact, the \Cpp~methods of the DynELA library are encapsulated by the help of SWIG. Some methods of the DynELA library have therefore been encapsulated using the SWIG utility and are directly accessible from the Python language.
 
 \subsection{Calling the python interpreter}
 
-After the installation and compilation phase of the code\footnote{See the installation instructions in chapter \ref{Chapter!Installation} of the preamble, page \pageref{Chapter!Installation}}, the \DynELA~can be run using the following command:
+After the installation and compilation phase of the code\footnote{See the installation instructions in chapter \ref{Chapter!Installation} of the preamble, page \pageref{Chapter!Installation}}, the \DynELA~can be used using the following command:
 
 \begin{BashListing}
 python model.py
 \end{BashListing}
 
-where \textsf{model.py} is the Python 3 source file defining the Finite Element Model. The \textsf{model.py} file contains the definition of the Finite Element Model using a Python 3 language and calls to specific DynELA methods written in \Cpp.
+where \textsf{model.py} is the Python 3 source file defining the Finite Element Model. The \textsf{model.py} file contains the definition of the Finite Element Model using a Python 3 language and calls to specific DynELA methods written in \Cpp. The formalism used to set up this Python source file are described is the subsequent chapters.
 
 \subsection{Formalism of a DynELA python file}
 
-To build a Finite Element Model, it is mandatory to import the \textsf{dnlPython} interpreter from the \textsf{.py} script. Conforming to this formalism, we give hereafter the minimal piece of Python code to set up a Finite Element Model in the \DynELA.
+To build a Finite Element Model, it is mandatory to import the \textsf{dnlPython} interpreter from the \textsf{.py} script. Conforming to this formalism, we give hereafter the minimal piece of Python code to set up a Finite Element Model in the \DynELA.\index[PL]{dnlPython}
 
 \begin{PythonListing}
 #!/usr/bin/env python3
@@ -36,9 +37,18 @@ model.solve()           # Runs the solver
 ...                     # Set of instructions to postprocess the FE model
 \end{PythonListing}
 
-In the preceding piece of code, line 2 is used to load into the namespace \textsf{dnl} the \textsf{dnlPython} module containing the interface to all \Cpp~methods of the \DynELA, based on the use of the SWIG Python interface. Therefore, all public methods of the \DynELA~written in \Cpp~can be called from the Python script to build the Finite Element Model, launch the solver, produce output results,\ldots
+In the preceding piece of code, line 2 is used to load into the namespace \textsf{dnl} the \textsf{dnlPython} module containing the interface to all \Cpp~methods of the \DynELA, based on the use of the SWIG Python interface. Of course, and conforming to the \textsf{import} command, any name can be used as a namespace to import the DynELA top library. Therefore, all public methods of the \DynELA~written in \Cpp~can be called from the Python script to build the Finite Element Model, launch the solver, produce output results,\ldots
 
-In the proposed piece of code, line 3 is used to create an object of type \textsf{DynELA} (the higher object type in the \DynELA~library) and instantiate it as the \textsf{model} object\footnote{For the rest of this chapter, we assume that the name of the instantiated \textsf{DynELA} object is \textsf{model.}}, while line 6, the solver of the \DynELA~library is called to solve the problem and produce the results.
+In the proposed piece of code, line 3 is used to create an object of type \textsf{DynELA} (the higher object type in the \DynELA~library) and instantiate it as the \textsf{model} object\footnote{For the rest of this chapter, we assume that the name of the instantiated \textsf{DynELA} object is \textsf{model}.}, while line 6, the solver of the \DynELA~library is called to solve the problem and produce the results.
+
+It is also possible, but not recommended, to use the following syntax for lines 2 and 3 of the previous block:
+\begin{PythonListing}
+#!/usr/bin/env python3
+from dnlPython import * # Imports the dnlPython library in current namespace
+model = DynELA()        # Creates the main Object
+...                     # Rest of the source code defining the FE model
+\end{PythonListing}
+and then access all top methods and object of the DynELA library directly without referring to the namespace, such as what is proposed in line 3 of the previous block.
 
 As the interpreter of the \DynELA~is based on Python 3 language, we can use all instructions valid in Python 3 along with the specific DynELA instructions. In the rest of this documentation, we assume that the notions of programming in Python are mastered, and we will focus only on the functions specific to the \DynELA.
 
@@ -94,24 +104,26 @@ As the interpreter of the \DynELA~is based on Python 3 language, we can use all 
 
 \section{Model, Nodes and Elements}
 
-All Finite Element Models involves nodes and elements. The very first part of the model is therefore to create the nodes and the elements of the structure to set up a Finite Element Model. The \DynELA~library doesn't include any meshing procedure yet, therefore, it is mandatory to create all elements and all nodes by hand or using Python loops in case it can be used. Another way is to use an external meshing program and convert the output of this program to produce the ad hoc lines of Python to describe the elements and the nodes of the model. This has been used many times by the author, and the Abaqus Finite Element code is an efficient way to create the mesh using the \textsf{.inp} text file generated by the CAE Abaqus program.
+All Finite Element Models involves nodes and elements. The very first part of the model is therefore to create the nodes and the elements of the structure to set up a Finite Element Model. The \DynELA~library doesn't include any meshing procedure yet, therefore, it is mandatory to create all elements and all nodes by hand or using Python loops in case it can be used.
+
+Another way is to use an external meshing program and convert the output of this program to produce the ad hoc lines of Python to describe the elements and the nodes of the model. This has been used many times by the author, and the Abaqus Finite Element code is an efficient way to create the mesh using the \textsf{.inp} text file generated by the CAE Abaqus program and then convert the nodes and elements description parts of the Abaqus inp file into DynELA formalism.
 
 \subsection{Model}
 
-Definition of a model in the \DynELA~is done by creating an instance of the \textsf{DynELA} object into memory. This is done by calling the \textsf{dnlPython.DynELA()} method that returns an object of type \textsf{DynELA} as presented hereafter.
+Definition of a model in the \DynELA~is done by creating an instance of the \textsf{DynELA} object into memory. This is done by calling the \textsf{dnlPython.DynELA(string)} method that returns an object of type \textsf{DynELA} as presented hereafter.\index[PL]{dnlPython!DynELA(string)}
 
 \begin{PythonListing}
 import dnlPython as dnl       # Imports the dnlPython library as dnl
 model = dnl.DynELA('Taylor')  # Creates the main Object model named Taylor
 \end{PythonListing}
 
-In line 2 of the preceding piece of code, a reference name\footnote{The reference name is a string used to identify the object, this is completely optional but useful for debugging purposes for example as one can know the associated name to an object.} \textsf{Taylor} is associated to the model object during creation. Once the model is created, one can then define all nodes, elements, materials, constitutive laws, boundary conditions,\ldots
+In line 2 of the preceding piece of code, a reference name\footnote{The reference name is a string used to identify the object, this is completely optional but useful for debugging purposes for example as one can know the associated name to an object.} \textsf{Taylor} is associated to the \textsf{model} object during creation. Once the model is created, one can then define all nodes, elements, materials, constitutive laws, boundary conditions,\ldots
 
 \subsection{Nodes}
 
 \subsubsection{Definition of the nodes}
 
-In the \DynELA, creation of nodes is done by calling the \textsf{DynELA.createNode()} method. Therefore, a node is created by calling the \textsf{createNode()} method and giving the new node number and the $x$, $y$ and $z$ coordinates of the new node as presented just below.\index[PL]{DynELA!createNode(int, float, float, float)}
+In the \DynELA, creation of nodes is done by calling the \textsf{DynELA::createNode()} method. Therefore, a node is created by calling the \textsf{createNode()} method and giving the new node number and the $x$, $y$ and $z$ coordinates of the new node as presented just below.\index[PL]{DynELA!createNode(int, float, float, float)}
 
 \begin{PythonListing}
 model.createNode(1, 0.0, 0.0, 0.0)  # Creates node 1, coordinates [0.0, 0.0, 0.0]
@@ -385,7 +397,7 @@ Nodal fields are defined at nodes and cover types defined in table \ref{tab:Prog
 			Stress & $\Sig$ & tensor & $9+1$ & IntPt & \\ \hline
 			temperature & $T$ & scalar & $1$ & IntPt & \\ \hline
 			vonMises & $\overline{\sigma}$ & scalar & $1$ & IntPt & \\ \hline
-			yieldStress & $\sigma^y$ & scalar & $1$ & IntPt & 
+			yieldStress & $\sigma^y$ & scalar & $1$ & IntPt &
 	\end{tcolorbox}\end{center}\caption{Nodal fields\label{tab:Programming!NodalFields}}
 \end{table}
 
@@ -425,7 +437,7 @@ Element fields are defined at integration points and cover types defined in tabl
 			\multicolumn{1}{c|}{Name} && Type & nb & \multicolumn{1}{c}{Description} \\ \hline\hline
 			kineticEnergy & $E_c$ & scalar & $1$ & \\ \hline
 			realTimeStep & $\Delta t_r$ & scalar & $1$ & \\ \hline
-			timeStep &$\Delta t$& scalar & $1$ & 
+			timeStep &$\Delta t$& scalar & $1$ &
 	\end{tcolorbox}\end{center}\caption{Global fields\label{tab:Programming!GlobalFields}}
 \end{table}
 
@@ -461,13 +473,13 @@ model.add(hist)                              # Add the time history to the solve
 \begin{centering}
 \begin{BashListing}
 #DynELA FEM Code v. 4.0 history file
-#plotted :timeStep vonMises nodeCoordinateX 
-0.0000000E+00 6.2463483E-08 0.0000000E+00 3.2000000E+00 
-1.0623148E-06 6.2462797E-08 1.3439840E+03 3.5412151E+00 
-2.0617159E-06 6.2462515E-08 1.3643205E+03 3.7516529E+00 
-3.0611173E-06 6.2462676E-08 1.3748692E+03 3.9635932E+00 
-4.0605220E-06 6.2462901E-08 1.3662499E+03 4.1161636E+00 
-5.0599347E-06 6.2465035E-08 1.3539346E+03 4.2812566E+00 
+#plotted :timeStep vonMises nodeCoordinateX
+0.0000000E+00 6.2463483E-08 0.0000000E+00 3.2000000E+00
+1.0623148E-06 6.2462797E-08 1.3439840E+03 3.5412151E+00
+2.0617159E-06 6.2462515E-08 1.3643205E+03 3.7516529E+00
+3.0611173E-06 6.2462676E-08 1.3748692E+03 3.9635932E+00
+4.0605220E-06 6.2462901E-08 1.3662499E+03 4.1161636E+00
+5.0599347E-06 6.2465035E-08 1.3539346E+03 4.2812566E+00
 .....
 \end{BashListing}
 \par\end{centering}

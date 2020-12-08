@@ -17,9 +17,9 @@
 struct IntegrationPointData;
 //-----------------------------------------------------------------------------
 // Class : IntegrationPointBase
-// 
+//
 // Used to manage IntegrationPointBase
-// 
+//
 // This class is included in SWIG
 //-----------------------------------------------------------------------------
 class IntegrationPointBase
@@ -44,9 +44,9 @@ public:
 
 //-----------------------------------------------------------------------------
 // Class : UnderIntegrationPoint
-// 
+//
 // Used to manage UnderIntegrationPoint
-// 
+//
 // This class is included in SWIG
 //-----------------------------------------------------------------------------
 class UnderIntegrationPoint : public IntegrationPointBase

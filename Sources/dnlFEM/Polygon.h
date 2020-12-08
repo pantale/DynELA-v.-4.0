@@ -21,9 +21,9 @@ class Node;
 
 //-----------------------------------------------------------------------------
 // Class : Polygon
-// 
+//
 // Used to manage Polygons for SVG files
-// 
+//
 // This class is excluded from SWIG
 //-----------------------------------------------------------------------------
 #if !defined(SWIG)
@@ -68,9 +68,9 @@ public:
 
 //-----------------------------------------------------------------------------
 // Class : PolygonPatch
-// 
+//
 // Used to manage PolygonPatch for SVG files
-// 
+//
 // This class is excluded from SWIG
 //-----------------------------------------------------------------------------
 #if !defined(SWIG)
@@ -91,9 +91,9 @@ public:
 
 //-----------------------------------------------------------------------------
 // Class : PolygonPatches
-// 
+//
 // Used to manage PolygonPatches for SVG files
-// 
+//
 // This class is excluded from SWIG
 //-----------------------------------------------------------------------------
 #if !defined(SWIG)

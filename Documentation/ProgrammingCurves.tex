@@ -30,22 +30,22 @@ The datafile format is the plot file used by \DynELA. This file is a text file w
 
 \begin{PythonListing}
 #DynELA_plot history file
-#plotted :timeStep 
-1.0596474E-06 1.0596474E-06 
-1.0058495E-04 1.0572496E-06 
+#plotted :timeStep
+1.0596474E-06 1.0596474E-06
+1.0058495E-04 1.0572496E-06
 \ldots\ldots
-1.0000000E-02 1.4838518E-07 
+1.0000000E-02 1.4838518E-07
 \end{PythonListing}
 
 In this file, the very first line is ignored by the script, while the second one is used to define the default name of the variable to be plotted (here 'timeStep' in this case). Here after is a example of a datafile containing more columns.
 
 \begin{PythonListing}
 #DynELA_plot history file
-#plotted :s11 s22 s33 
-1.0596474E-06 1.0596474E+06 2.0596474E+06 -1.0596474E+06 
-1.0058495E-04 1.0572496E+06 2.0572496E+06 -1.0572496E+06 
+#plotted :s11 s22 s33
+1.0596474E-06 1.0596474E+06 2.0596474E+06 -1.0596474E+06
+1.0058495E-04 1.0572496E+06 2.0572496E+06 -1.0572496E+06
 \ldots\ldots
-1.0000000E-02 1.4838518E+07 2.4838518E+07 -1.4838518E+07 
+1.0000000E-02 1.4838518E+07 2.4838518E+07 -1.4838518E+07
 \end{PythonListing}
 
 In this case, one can specify which columns will be used for plotting the curves as it will be presented just later.
@@ -94,7 +94,7 @@ Comments can be inserted as presented briefly earlier by using the '\#' characte
 \item [titlefontsize = <size>]: defines the font size of the title on the top part of the plot (default value is $20$).
 \item [xfontsize, yfontsize = <size>]: defines the font size of the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis names for the plot (default value is $20$).
 \item [xlabelfontsize, ylabelfontsize = <size>]: defines the font size of the values along the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis for the plot (default value is $16$).
-\item [xrange, yrange = <range>]: remaps the range of the curves for the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis to the given value. For example, setting \textsf{xrange=10} will remap the x-data within the range $[0,10]$. 
+\item [xrange, yrange = <range>]: remaps the range of the curves for the $\overrightarrow{x}$ and $\overrightarrow{y}$ axis to the given value. For example, setting \textsf{xrange=10} will remap the x-data within the range $[0,10]$.
 \item [xscale, yscale = <range>]: multiply the $\overrightarrow{x}$ or the $\overrightarrow{y}$ data by a given factor. For example, setting \textsf{xscale=10} will multiply all x-data by a factor of $10$.
 \end{description}
 
@@ -102,7 +102,7 @@ Comments can be inserted as presented briefly earlier by using the '\#' characte
 \begin{description}
 \item [name = <'name'>]: defines a new name for the next curve in the legend and overrides the one defined by the datafile.
 \item [removename = <'name'>]: removes from the names of the curves a given pattern for the legends. Example: \textsf{removename} = -S11 will convert 'data-S11' into 'data'. This is not a very useful method and one should prefer the \textsf{name} command to redefine the name of the plotting curve.
-\item [linewidth = <'width'>]: defines the line width for all subsequent plots (default value is $2$). 
+\item [linewidth = <'width'>]: defines the line width for all subsequent plots (default value is $2$).
 \item [marks = <'symbol'>]: is used to define the next marker to use for all subsequent plots (default value is ''). If the value is void, markers are cycled through the default markers list.
 \item [marksnumber = <number>]: defines the total number of markers on the curves for all subsequent plots (default value is $20$).
 \item [markersize = <size>]: defines the size of the marker symbols to use for all subsequent plots (default value is $10$).

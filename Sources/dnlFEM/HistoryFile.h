@@ -22,9 +22,9 @@ class NodeSet;
 
 //-----------------------------------------------------------------------------
 // Class : HistoryFileItem
-// 
+//
 // Used to manage data inside of HistoryFile class
-// 
+//
 // This class is excluded from SWIG
 //-----------------------------------------------------------------------------
 #if !defined(SWIG)

@@ -48,7 +48,7 @@ class Curves:
         lines = FRead.readlines()
         FRead.close()
         return lines[number-1]
-    
+
     def rawRead(self, file):
         # Read the whole file
         FRead = open(file, "r")
@@ -56,7 +56,7 @@ class Curves:
         FRead.close()
         lines = [x.partition('#')[0] for x in lines if (x and x.partition('#')[0])]
         lines = [x for x in lines if (x and x.partition('\n')[0])]
-        return lines    
+        return lines
 
     def readPlotFile(self, filename, column_1 = 0, column_2 = 1):
         x, y = [], []
@@ -87,10 +87,10 @@ class Curves:
         if (item[0] == 'yscale'):
             self.yscale = float(item[1])
             self.xrange = 0.0
-        if (item[0] == 'xrange'): 
+        if (item[0] == 'xrange'):
             self.xrange = float(item[1])
             self.xscale = 1.0
-        if (item[0] == 'yrange'): 
+        if (item[0] == 'yrange'):
             self.yrange = float(item[1])
             self.yscale = 1.0
         if (item[0] == 'xfontsize'): self.xfontsize = int(item[1])
@@ -104,7 +104,7 @@ class Curves:
         if (item[0] == 'legendanchor'): self.legendanchor = item[1]
         if (item[0] == 'legendcolumns'): self.legendcolumns = int(item[1])
         if (item[0] == 'legendshadow'): self.legendshadow = self.boolTest(item[1])
-        if (item[0] == 'legendlocate'): 
+        if (item[0] == 'legendlocate'):
             if (item[1] == 'topleft'):
                 self.legendposition = ['0.0', '1.0']
                 self.legendanchor = 'upper left'
@@ -172,7 +172,7 @@ class Curves:
                         # If data has been read
                         if (len(x) !=0):
                             if (self.removeinname != ''): name = name.replace(self.removeinname, '')
-                            if (self.curvename != ''): 
+                            if (self.curvename != ''):
                                 name = self.curvename
                                 self.curvename = ''
                             X = numpy.array(x)
@@ -180,12 +180,12 @@ class Curves:
                             if (self.xrange != 0.0): X = X/X.max()*self.xrange
                             if (self.yrange != 0.0): Y = Y/Y.max()*self.yrange
                             if (self.curvesymbol == ''):
-                                pylab.plot (self.xscale * X, self.yscale * Y, next(symbolslist), label = name, 
-                                            markevery = round(len(x)/self.marks), zorder = zor, 
+                                pylab.plot (self.xscale * X, self.yscale * Y, next(symbolslist), label = name,
+                                            markevery = round(len(x)/self.marks), zorder = zor,
                                             markersize = self.marksize, linewidth = self.lwidth)
                             else:
-                                pylab.plot (self.xscale*X, self.yscale*Y, self.curvesymbol, label=name, 
-                                            markevery = round(len(x)/self.marks), zorder = zor, 
+                                pylab.plot (self.xscale*X, self.yscale*Y, self.curvesymbol, label=name,
+                                            markevery = round(len(x)/self.marks), zorder = zor,
                                             markersize = self.marksize, linewidth = self.lwidth)
                             zor -=  1
                 pylab.xlabel(self.xname, fontsize = self.xfontsize)

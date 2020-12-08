@@ -77,7 +77,7 @@ public:
   void setTimes(double start_time, double end_time);
   void setTimeStepMethod(short method);
   void setTimeStepSafetyFactor(double safetyfactor);
-  
+
   // TrashBin here after
   /*
   bool timeOk ();

@@ -30,9 +30,9 @@ struct SvgRotate
 
 //-----------------------------------------------------------------------------
 // Class : SvgInterface
-// 
+//
 // Used to export SVG files
-// 
+//
 // This class is included in SWIG
 //-----------------------------------------------------------------------------
 class SvgInterface

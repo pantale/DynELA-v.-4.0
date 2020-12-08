@@ -21,10 +21,10 @@ class Benchmark:
 
     def setPlotFiles(self, _files):
         self.files = _files
-        
+
     def setTolerance(self, tol):
         self.tolerance = tol
-        
+
     def run(self):
         parser = argparse.ArgumentParser()
         parser.add_argument("--run", action="store_true")
@@ -34,7 +34,7 @@ class Benchmark:
             self.runCompare()
         if (args.reference):
             self.setReference()
-    
+
     def runBench(self):
         print("Run the " + self.Benchmark + " benchmark\n")
         bashCommand = "python3 " + self.Benchmark + ".py"
@@ -69,7 +69,7 @@ class Benchmark:
             print("Process failed\n")
             shutil.copy2(iconsDir + '/ko-flag.png', '_bench.png')
             return -1
-        
+
     def setReference(self):
         for file in self.files:
             shutil.copy2(file, file + '.ref')

@@ -8,7 +8,7 @@ Created on Tue Mar 19 16:07:48 2019
 
 import dnlBench
 
-test = dnlBench.Benchmark('PlateNecking')  
+test = dnlBench.Benchmark('PlateNecking')
 test.setPlotFiles(['temperature.plot', 'vonMises.plot', 'plasticStrain.plot'])
 test.setTolerance(1e-1)
 test.run()
