@@ -44,10 +44,10 @@ texlive-latex-extra texlive-fonts-recommended
 
 \section{Download and compilation}
 
-Downloading of the source code from the github repository, compilation and installation of the software into a sub-directory can be done using the following procedure:
+Downloading of the source code from the github repository\footnote{Here, we consider that the software is available from the ENIT gitlab repository at the following address: https://git.enit.fr/opantale/dynela-v.-4.0.git. You can adapt the proposed installation procedure if it is not your case.}, compilation and installation of the software into a sub-directory named \textsf{DynELA} can be done using the following procedure:
 
 \begin{BashListing}[numbers=none]
-git clone https://git.enit.fr/opantale/dynela-v.-4.0.git
+git clone https://git.enit.fr/opantale/dynela-v.-4.0.git DynELA
 cd DynELA
 mkdir Build
 cd Build
@@ -66,6 +66,8 @@ export PYTHONPATH="$DYNELA_BIN:$PYTHONPATH"
 export PYTHONPATH="$DYNELA_LIB:$PYTHONPATH"
 export LD_LIBRARY_PATH=$DYNELA_LIB:$LD_LIBRARY_PATH
 \end{BashListing}
+
+Of course, you have to execute \textsf{source .bashrc} to take into account those modifications, or launch another terminal.
 
 \section{Testing and usage}
 
@@ -86,3 +88,5 @@ The \DynELA~now has a class for direct export of contourplot results using SVG v
 The DynELA FEM code can generate VTK files for the results. The Paraview postprocessor can be used to visualize those results. Paraview is available here:
 
 \hspace*{1cm}\textsf{\hspace*{1cm}\textsf{https://www.paraview.org}}
+
+Refer to the documentation of the ParaView software to know how to install it, and use it. This is out of scope from this documentation.
