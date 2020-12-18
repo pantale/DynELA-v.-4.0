@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+import sys
+import glob
+import os
+
+mandatoryArgs = 1
+talk = True
+treated = 0
+
+def ConvertFile(svgfile, pdffile):
+    global treated
+    treated += 1
+    command = 'inkscape --file=' + svgfile + ' --export-area-drawing --without-gui --export-pdf=' + pdffile
+    os.system(command)
+    return
+ 
+def TreatFiles(files):
+    for svgfile in files:
+        #pdffile = svgfile.replace('.svg', '.pdf')
+        pdffile = dest_dir + '/' + prefix_name + svgfile.replace('.svg', '.pdf')
+        if (os.path.isfile(pdffile)):
+            svg_time = os.path.getmtime(svgfile)
+            pdf_time = os.path.getmtime(pdffile)
+            if (svg_time > pdf_time):
+                if (talk): print('Convert '+svgfile+' -> '+pdffile)
+                ConvertFile(svgfile, pdffile)
+        else:
+            ConvertFile(svgfile, pdffile)
+            if (talk): print('Convert '+svgfile+' -> '+pdffile)
+
+def getArgument(argtoget, default):
+    if (argtoget in sys.argv):
+        for i in range(len(sys.argv)-1):
+            if (sys.argv[i] == argtoget): return sys.argv[i+1]
+    return default
+
+# --------------------------------------------------------    
+# Start of the main program
+# --------------------------------------------------------   
+if ('--silent' in sys.argv):
+    talk = False
+else:
+    print ("svgToPdf")
+    print ("(c) by Olivier Pantalé 2020")
+    
+if ('--help' in sys.argv):
+    print ("Usage is the following:")
+    print ("    svgToPdf [options]")
+    print ("Options:")
+    print ("    -dest [dest-dir]    destination directory")
+    print ("    -file [filename]    filename to treat")
+    print ("    -prefix [prefix]    prefix to append to dest name")
+    print ("    --help              this help")
+    print ("    --silent            no output, run in silence")
+    exit(0)
+
+dest_dir = getArgument('-dest', '.')
+prefix_name = getArgument('-prefix', '')
+
+if ('-file' in sys.argv):
+    filenames = [getArgument('-file', '')]
+else:
+    pattern = '*.svg'
+    filenames = glob.glob(pattern)
+TreatFiles(filenames)
+if (talk):
+    if (treated == 0):
+        print('All files already up to date')
+    else:
+        if (treated == 1):
+            print(treated,'file converted')
+        else:
+            print(treated,'files converted')
