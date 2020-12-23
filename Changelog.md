@@ -6,6 +6,12 @@
 
 ### December 2020
 
+18/12/2020 - Add Python utilities in bin directory
+
+15/12/2020 - History chapter in Documentation
+
+03/12/2020 - Multiple index support in Documentation
+
 02/12/2020 - Separate Solve and initSolve in DynELA to be able to modify directly fields before computation
 
 ### November 2020
