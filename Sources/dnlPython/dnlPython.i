@@ -3,7 +3,7 @@
  *  DynELA Finite Element Code v 4.0                                       *
  *  By Olivier PANTALE                                                     *
  *                                                                         *
- *  (c) Copyright 1997-2020                                                *
+ *  (c) Copyright 1997-2021                                                *
  *                                                                         *
  **************************************************************************/
 
