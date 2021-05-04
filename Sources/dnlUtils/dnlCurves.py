@@ -194,7 +194,8 @@ class Curves:
                 pylab.legend(loc = self.legendanchor, bbox_to_anchor = (float(self.legendposition[0]), float(self.legendposition[1])),
                             fancybox = True, shadow = self.legendshadow, ncol = self.legendcolumns, numpoints = 1, fontsize = self.legendfontsize)
                 pylab.grid(self.gridOn)
-                pylab.title(self.titlegraph, y = 1.04, fontsize = self.titlefontsize)
+                pylab.title(self.titlegraph, fontsize = self.titlefontsize)
+                # pylab.title(self.titlegraph, y = 1.04, fontsize = self.titlefontsize)
                 if self.cropped:
                     pylab.savefig(graphName + '.' + self.outputformat, transparent = self.transparency, bbox_inches = 'tight', pad_inches = 0)
                 else:
