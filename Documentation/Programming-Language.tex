@@ -8,14 +8,14 @@
 \chapter{DynELA programming language}
 
 \startcontents[chapters]
-\printmyminitoc[1]\LETTRINE{T}his chapter deals about the \DynELA~programming language. This language is based on Python 3 and all models must be described using this formalism. Therefore, this chapter will describe step by step how to build a Finite Element Model for the \DynELA, using the Python 3 language. To set-up a model in DynELA, a good knowledge of the Python's 3 language is not mandatory, but it will help to be skillful concerning this language. On the other hand advanced features can be setup with the help of Python 3 language.
+\printmyminitoc[1]\LETTRINE{T}his chapter deals about the \DynELA programming language. This language is based on Python 3 and all models must be described using this formalism. Therefore, this chapter will describe step by step how to build a Finite Element Model for the \DynELA, using the Python 3 language. To set-up a model in DynELA, a good knowledge of the Python's 3 language is not mandatory, but it will help to be skillful concerning this language. On the other hand advanced features can be setup with the help of Python 3 language.
 
 \section{Introduction and basic knowledge}
-The Python 3 language serves as a support for describing FEM in DynELA. Construction of the Finite Element Model is done by calling some \Cpp~methods of the DynELA library through Python language. In fact, the \Cpp~methods of the DynELA library are encapsulated by the help of SWIG. Some methods of the DynELA library have therefore been encapsulated using the SWIG utility and are directly accessible from the Python language.
+The Python 3 language serves as a support for describing FEM in DynELA. Construction of the Finite Element Model is done by calling some \Cpp methods of the DynELA library through Python language. In fact, the \Cpp methods of the DynELA library are encapsulated by the help of SWIG. Some methods of the DynELA library have therefore been encapsulated using the SWIG utility and are directly accessible from the Python language.
 
 \subsection{Calling the python interpreter}
 
-After the installation and compilation phase of the code\footnote{See the installation instructions in chapter \ref{Chapter!Installation} of the preamble, page \pageref{Chapter!Installation}}, the \DynELA~can be used using the following command:
+After the installation and compilation phase of the code\footnote{See the installation instructions in chapter \ref{Chapter!Installation} of the preamble, page \pageref{Chapter!Installation}}, the \DynELA can be used using the following command:
 
 \begin{BashListing}
 python model.py
@@ -37,9 +37,9 @@ model.solve()           # Runs the solver
 ...                     # Set of instructions to postprocess the FE model
 \end{PythonListing}
 
-In the preceding piece of code, line 2 is used to load into the namespace \textsf{dnl} the \textsf{dnlPython} module containing the interface to all \Cpp~methods of the \DynELA, based on the use of the SWIG Python interface. Of course, and conforming to the \textsf{import} command, any name can be used as a namespace to import the DynELA top library. Therefore, all public methods of the \DynELA~written in \Cpp~can be called from the Python script to build the Finite Element Model, launch the solver, produce output results,\ldots
+In the preceding piece of code, line 2 is used to load into the namespace \textsf{dnl} the \textsf{dnlPython} module containing the interface to all \Cpp methods of the \DynELA, based on the use of the SWIG Python interface. Of course, and conforming to the \textsf{import} command, any name can be used as a namespace to import the DynELA top library. Therefore, all public methods of the \DynELA written in \Cpp can be called from the Python script to build the Finite Element Model, launch the solver, produce output results,\ldots
 
-In the proposed piece of code, line 3 is used to create an object of type \textsf{DynELA} (the higher object type in the \DynELA~library) and instantiate it as the \textsf{model} object\footnote{For the rest of this chapter, we assume that the name of the instantiated \textsf{DynELA} object is \textsf{model}.}, while line 6, the solver of the \DynELA~library is called to solve the problem and produce the results.
+In the proposed piece of code, line 3 is used to create an object of type \textsf{DynELA} (the higher object type in the \DynELA library) and instantiate it as the \textsf{model} object\footnote{For the rest of this chapter, we assume that the name of the instantiated \textsf{DynELA} object is \textsf{model}.}, while line 6, the solver of the \DynELA library is called to solve the problem and produce the results.
 
 It is also possible, but not recommended, to use the following syntax for lines 2 and 3 of the previous block:
 \begin{PythonListing}
@@ -50,7 +50,7 @@ model = DynELA()        # Creates the main Object
 \end{PythonListing}
 and then access all top methods and object of the DynELA library directly without referring to the namespace, such as what is proposed in line 3 of the previous block.
 
-As the interpreter of the \DynELA~is based on Python 3 language, we can use all instructions valid in Python 3 along with the specific DynELA instructions. In the rest of this documentation, we assume that the notions of programming in Python are mastered, and we will focus only on the functions specific to the \DynELA.
+As the interpreter of the \DynELA is based on Python 3 language, we can use all instructions valid in Python 3 along with the specific DynELA instructions. In the rest of this documentation, we assume that the notions of programming in Python are mastered, and we will focus only on the functions specific to the \DynELA.
 
 \section{The Kernel library}
 
@@ -104,13 +104,13 @@ As the interpreter of the \DynELA~is based on Python 3 language, we can use all 
 
 \section{Model, Nodes and Elements}
 
-All Finite Element Models involves nodes and elements. The very first part of the model is therefore to create the nodes and the elements of the structure to set up a Finite Element Model. The \DynELA~library doesn't include any meshing procedure yet, therefore, it is mandatory to create all elements and all nodes by hand or using Python loops in case it can be used.
+All Finite Element Models involves nodes and elements. The very first part of the model is therefore to create the nodes and the elements of the structure to set up a Finite Element Model. The \DynELA library doesn't include any meshing procedure yet, therefore, it is mandatory to create all elements and all nodes by hand or using Python loops in case it can be used.
 
 Another way is to use an external meshing program and convert the output of this program to produce the ad hoc lines of Python to describe the elements and the nodes of the model. This has been used many times by the author, and the Abaqus Finite Element code is an efficient way to create the mesh using the \textsf{.inp} text file generated by the CAE Abaqus program and then convert the nodes and elements description parts of the Abaqus inp file into DynELA formalism.
 
 \subsection{Model}
 
-Definition of a model in the \DynELA~is done by creating an instance of the \textsf{DynELA} object into memory. This is done by calling the \textsf{dnlPython.DynELA(string)} method that returns an object of type \textsf{DynELA} as presented hereafter.\index[PL]{dnlPython!DynELA(string)}
+Definition of a model in the \DynELA is done by creating an instance of the \textsf{DynELA} object into memory. This is done by calling the \textsf{dnlPython.DynELA(string)} method that returns an object of type \textsf{DynELA} as presented hereafter.\index[PL]{dnlPython!DynELA(string)}
 
 \begin{PythonListing}
 import dnlPython as dnl       # Imports the dnlPython library as dnl
@@ -213,7 +213,7 @@ When the mesh has been created, it is always possible to modify the geometry of 
 
 \subsubsection{Translations}
 
-One can define a translation of the whole model or a part of the model by defining a translation vector (an instance of the \DynELA~\textsf{Vec3D}) and apply this translation to the whole structure (without specifying the \textsf{NodeSet}) or a \textsf{NodeSet} using the \textsf{DynELA.translate()} method with the following syntax.
+One can define a translation of the whole model or a part of the model by defining a translation vector (an instance of the \DynELA \textsf{Vec3D}) and apply this translation to the whole structure (without specifying the \textsf{NodeSet}) or a \textsf{NodeSet} using the \textsf{DynELA.translate()} method with the following syntax.
 
 \begin{PythonListing}
 vector = dnl.Vec3D(1, 0, 0)   # Defines the translation vector
@@ -223,7 +223,7 @@ model.translate(vector, nset) # Translates the NodeSet nset along [1, 0, 0]
 
 \subsubsection{Rotations}
 
-One can define a rotation of the whole model or a part of the model by defining a rotation vector (global axes $\overrightarrow{\ensuremath{x}}$, $\overrightarrow{y}$, $\overrightarrow{\ensuremath{z}}$ or an instance of the \DynELA~\textsf{Vec3D}) and an angle $\alpha$ then apply this rotation to the whole structure (without specifying the \textsf{NodeSet}) or a \textsf{NodeSet} using the \textsf{DynELA.rotate()} method with the following syntax.
+One can define a rotation of the whole model or a part of the model by defining a rotation vector (global axes $\overrightarrow{\ensuremath{x}}$, $\overrightarrow{y}$, $\overrightarrow{\ensuremath{z}}$ or an instance of the \DynELA \textsf{Vec3D}) and an angle $\alpha$ then apply this rotation to the whole structure (without specifying the \textsf{NodeSet}) or a \textsf{NodeSet} using the \textsf{DynELA.rotate()} method with the following syntax.
 
 \begin{PythonListing}
 model.rotate('X', angle)        # Rotation of the whole structure around X
@@ -235,7 +235,7 @@ model.rotate(axis, angle, nset) # Rotation of NodeSet nset around axis
 
 \subsubsection{Scaling}
 
-One can define a scaling of the whole model or a part of the model by defining a scale factor or a scale vector (an instance of the \DynELA~\textsf{Vec3D}) and apply this scaling operation to the whole structure (without specifying the \textsf{NodeSet}) or a \textsf{NodeSet} using the \textsf{DynELA.scale()} method with the following syntax.
+One can define a scaling of the whole model or a part of the model by defining a scale factor or a scale vector (an instance of the \DynELA \textsf{Vec3D}) and apply this scaling operation to the whole structure (without specifying the \textsf{NodeSet}) or a \textsf{NodeSet} using the \textsf{DynELA.scale()} method with the following syntax.
 
 \begin{PythonListing}
 model.scale(value)             # Scales the whole structure by factor value
@@ -260,7 +260,7 @@ steel = dnl.Material('Steel')
 
 \subsubsection{General properties of materials}
 
-General properties of materials in \DynELA~concerns the general constants such as Young's modulus, Poisson's ratio, density,\ldots The complete list of parameters is reported in Table \ref{tab:Programming!GeneralProperties}.
+General properties of materials in \DynELA concerns the general constants such as Young's modulus, Poisson's ratio, density,\ldots The complete list of parameters is reported in Table \ref{tab:Programming!GeneralProperties}.
 \begin{table}[h]
 	\begin{center}\begin{tcolorbox}[width=.75\textwidth,myTab,tabularx={l|c|c|R}]
 			\multicolumn{1}{c|}{Name} & Symbol & Unit & \multicolumn{1}{c}{Description} \\ \hline\hline
@@ -444,7 +444,7 @@ Element fields are defined at integration points and cover types defined in tabl
 \section{Data Output during computation}
 
 \subsection{VTK Data files}
-The \DynELA~is able to export results in VTK (The Visualization Toolkit\footnote{See : https://vtk.org}) ASCII files. Those files can be used to visualize the results of computations using the Paraview post-processing software\footnote{See : https://www.paraview.org}.
+The \DynELA is able to export results in VTK (The Visualization Toolkit\footnote{See : https://vtk.org}) ASCII files. Those files can be used to visualize the results of computations using the Paraview post-processing software\footnote{See : https://www.paraview.org}.
 
 Those VTK files are automatically created during the solving phase. Controlling the instant of file save is done using the following syntax:\index[PL]{DynELA!setSaveTimes(float, float, float)}
 \begin{PythonListing}
@@ -456,7 +456,7 @@ At any time, it is possible to export a VTK file using the method \textsf{writeV
 
 \subsection{History files}
 
-During the solving procedure, one can export time history datafiles that can be used to produce time-history plots. This kind of files are text files in CSV format directly exported from the DynELA solver. In order to control the production of those files, one have to create an instance of the \textsf{HistoryFile} class and add this instance to the current model. Those history-files can then be used to produce high-quality plots through the associated \textsf{Curves Utility} of the \DynELA~presented in chapter \ref{chap:CU!CU}, or use the produced data-file in any external plotting application.
+During the solving procedure, one can export time history datafiles that can be used to produce time-history plots. This kind of files are text files in CSV format directly exported from the DynELA solver. In order to control the production of those files, one have to create an instance of the \textsf{HistoryFile} class and add this instance to the current model. Those history-files can then be used to produce high-quality plots through the associated \textsf{Curves Utility} of the \DynELA presented in chapter \ref{chap:CU!CU}, or use the produced data-file in any external plotting application.
 
 As an illustration, the following commented piece of code has been used to produce the CSV history file reported in Figure \ref{fig:PL!HF!Export}.
 \begin{PythonListing}
@@ -486,7 +486,7 @@ model.add(hist)                              # Add the time history to the solve
 \caption{Export of a CSV history file\label{fig:PL!HF!Export}}
 \end{figure}
 
-In file reported in Figure \ref{fig:PL!HF!Export}, the first two lines are comments. Line $1$ shows the name and version of the \DynELA~while line $2$ shows the name of the fields from columns 2 to the end of the table (in this example, current time is in column 1, time-step $\Delta t$ is in column 2, von Mises stress $\overline{\sigma}$ at the center of the element referred by element-set \emph{histES} is in column 3 and nodal coordinate $x$ of the node defined in \emph{histRad} node-set is in the last column of the table). One data is more or less produced at each requested time ($t_i=10^{-6}s$), but this depends on the time-step increment $\Delta t$ of the Explicit solver.
+In file reported in Figure \ref{fig:PL!HF!Export}, the first two lines are comments. Line $1$ shows the name and version of the \DynELA while line $2$ shows the name of the fields from columns 2 to the end of the table (in this example, current time is in column 1, time-step $\Delta t$ is in column 2, von Mises stress $\overline{\sigma}$ at the center of the element referred by element-set \emph{histES} is in column 3 and nodal coordinate $x$ of the node defined in \emph{histRad} node-set is in the last column of the table). One data is more or less produced at each requested time ($t_i=10^{-6}s$), but this depends on the time-step increment $\Delta t$ of the Explicit solver.
 
 \subsubsection{Definition of data to save}
 
@@ -515,7 +515,7 @@ Data information defined in the previous subsection can be checked using one of 
 \end{description}
 
 \section{Solvers}
-The \DynELA~currently have only one FEM solver: an Explicit solver based on a Chung-Hulbert algorithm. Declaration of such a solver is done by creating an instance of the \textsf{Explicit} solver class, using the following syntax:
+The \DynELA currently have only one FEM solver: an Explicit solver based on a Chung-Hulbert algorithm. Declaration of such a solver is done by creating an instance of the \textsf{Explicit} solver class, using the following syntax:
 \begin{PythonListing}
 solver = dnl.Explicit('Solver') # Declaration of the explicit solver
 solver.setTimes(0, stopTime)    # Definition of start and end time
@@ -533,7 +533,7 @@ The Explicit class contains some useful methods as reported here after:
 \end{description}
 
 \subsection{Parallel solver}
-In \DynELA~it is possible to control the number of cores to use for the solver through the \textsf{Parallel} class. If no options are given to the parallel solver, it assumes that only $1$ core will be used for the computation. There are currently few options in the parallel class and the following ones can be used to control the parallelization of the Explicit solver:
+In \DynELA it is possible to control the number of cores to use for the solver through the \textsf{Parallel} class. If no options are given to the parallel solver, it assumes that only $1$ core will be used for the computation. There are currently few options in the parallel class and the following ones can be used to control the parallelization of the Explicit solver:
 \begin{description}
 \item [{setCores (\emph{int})}] : Set the number of cores to use for the solver.\index[PL]{parallel!setCores(int)}
 \item [{getCores ( )}] : Get the number of cores used by the solver.\index[PL]{parallel!getCores( )}
@@ -560,7 +560,7 @@ Commands available for running the solver are the following ones:
 
 
 \section{Vectorial SVG meshes and contourplots}
-Since \DynELA~version 3.0, it is possible to export SVG files (Scalable Vector Graphics) from the Python command language to produce high quality figures (and of course reproducible results, as everything is generated from script). This can be done before running the Solver to export the initial mesh of the structure for example, or after the solver phase to produce contourplot results. One can then produce some mesh exports as presented in Figure \ref{fig:PL!SVG!Mesh} or contourplots exports for a given data (here we used the von Mises field) as presented in Figure \ref{fig:PL!SVG!Contourplot}.
+Since \DynELA version 3.0, it is possible to export SVG files (Scalable Vector Graphics) from the Python command language to produce high quality figures (and of course reproducible results, as everything is generated from script). This can be done before running the Solver to export the initial mesh of the structure for example, or after the solver phase to produce contourplot results. One can then produce some mesh exports as presented in Figure \ref{fig:PL!SVG!Mesh} or contourplots exports for a given data (here we used the von Mises field) as presented in Figure \ref{fig:PL!SVG!Contourplot}.
 \begin{figure}[h]
 \begin{centering}
 \includegraphics[width=0.5\columnwidth]{Figures/ProgrammingLanguage/mesh}
@@ -589,13 +589,13 @@ svg.write('vonMises.svg', dnl.Field.vonMises) # Exports the contourplot
 More details concerning the syntax of the SvgInterface class are presented in the following subsections.
 
 \subsection{Initialization of an SVG object}
-Creation of a SVG file under \DynELA~is done using through the instantiation of an object \textsf{SvgInterface} object using the following syntax:
+Creation of a SVG file under \DynELA is done using through the instantiation of an object \textsf{SvgInterface} object using the following syntax:
 \begin{PythonListing}
 svg = dnl.SvgInterface('SVG object')
 \end{PythonListing}
 In this piece of code, \textsf{svg} is an instance of the object \textsf{SvgInterface} and '\emph{SVG object}' is the associated name of the object created by the constructor of the \textsf{SvgInterface} class.
 
-Concerning \textsf{SvgInterface}, \DynELA~creates a window with the prescribed size $1600\times1600$, where the coordinates of the top-left corner are $(0, 0)$ and the coordinates of the bottom-right corner are $(1600, 1600)$. All drawing options where some coordinates are requested must conform to this definition.
+Concerning \textsf{SvgInterface}, \DynELA creates a window with the prescribed size $1600\times1600$, where the coordinates of the top-left corner are $(0, 0)$ and the coordinates of the bottom-right corner are $(1600, 1600)$. All drawing options where some coordinates are requested must conform to this definition.
 
 \subsection{Drawing options}
 
