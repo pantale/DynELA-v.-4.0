@@ -6,6 +6,8 @@ import os
 mandatoryArgs = 1
 talk = True
 treated = 0
+convert = True
+deleteTarget = False
 
 def ConvertFile(svgfile, pdffile):
     global treated
@@ -13,20 +15,28 @@ def ConvertFile(svgfile, pdffile):
     command = 'inkscape --file=' + svgfile + ' --export-area-drawing --without-gui --export-pdf=' + pdffile
     os.system(command)
     return
- 
+
+def DeleteFile(file):
+    global treated
+    treated += 1
+    os.remove(file)
+    return
+
 def TreatFiles(files):
     for svgfile in files:
-        #pdffile = svgfile.replace('.svg', '.pdf')
         pdffile = dest_dir + '/' + prefix_name + svgfile.replace('.svg', '.pdf')
-        if (os.path.isfile(pdffile)):
-            svg_time = os.path.getmtime(svgfile)
-            pdf_time = os.path.getmtime(pdffile)
-            if (svg_time > pdf_time):
-                if (talk): print('Convert '+svgfile+' -> '+pdffile)
+        if (convert):
+            if (os.path.isfile(pdffile)):
+                svg_time = os.path.getmtime(svgfile)
+                pdf_time = os.path.getmtime(pdffile)
+                if (svg_time > pdf_time):
+                    if (talk): print('Convert '+svgfile+' -> '+pdffile)
+                    ConvertFile(svgfile, pdffile)
+            else:
                 ConvertFile(svgfile, pdffile)
-        else:
-            ConvertFile(svgfile, pdffile)
-            if (talk): print('Convert '+svgfile+' -> '+pdffile)
+                if (talk): print('Convert '+svgfile+' -> '+pdffile)
+        if (deleteTarget):
+            DeleteFile(pdffile)
 
 def getArgument(argtoget, default):
     if (argtoget in sys.argv):
@@ -50,6 +60,7 @@ if ('--help' in sys.argv):
     print ("    -dest [dest-dir]    destination directory")
     print ("    -file [filename]    filename to treat")
     print ("    -prefix [prefix]    prefix to append to dest name")
+    print ("    -delete             delete target files instread of converting files")
     print ("    --help              this help")
     print ("    --silent            no output, run in silence")
     exit(0)
@@ -62,6 +73,11 @@ if ('-file' in sys.argv):
 else:
     pattern = '*.svg'
     filenames = glob.glob(pattern)
+    
+if ('-delete' in sys.argv):
+    convert = False
+    deleteTarget = True
+
 TreatFiles(filenames)
 if (talk):
     if (treated == 0):
