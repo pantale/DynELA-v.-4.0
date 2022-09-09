@@ -1,11 +1,10 @@
-/***************************************************************************
- *                                                                         *
- *  DynELA Finite Element Code v 4.0                                       *
- *  By Olivier PANTALE                                                     *
- *                                                                         *
- *  (c) Copyright 1997-2021                                                *
- *                                                                         *
- **************************************************************************/
+/**********************************************************************************
+ *                                                                                *
+ *  DynELA Finite Element Code v.4.0                                              *
+ *  by Olivier PANTALE                                                            *
+ *  Olivier.Pantale@enit.fr                                                       *
+ *                                                                                *
+ *********************************************************************************/
 //@!CODEFILE = DynELA-inc-file
 //@!BEGIN = PRIVATE
 
@@ -15,6 +14,7 @@
   #include "HardeningLaw.h"
   #include "IntegrationPoint.h"
   #include "JohnsonCookLaw.h"
+  #include "ANN.h"
   #include "Material.h"
   #include "TabularLaw.h"
 %}
@@ -27,4 +27,5 @@
 %include "ElasticLaw.h"
 %include "ElastoplasticLaw.h"
 %include "JohnsonCookLaw.h"
+%include "ANN.h"
 %include "TabularLaw.h"

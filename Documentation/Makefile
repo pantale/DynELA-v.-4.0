@@ -3,8 +3,7 @@
 #
 #  DynELA Finite Element Code v.4.0
 #  by Olivier PANTALE
-#
-#  (c) Copyright 1997-2021
+#  Olivier.Pantale@enit.fr
 #
 # -------------------------------------------------------------------------------
 # Beginning of the private area for the Makefile
