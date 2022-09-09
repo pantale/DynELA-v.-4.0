@@ -1,0 +1,283 @@
+%@!FILENAME = macrosHyperlink.tex
+@!COMMENT = %
+@!BEGIN = COMMON
+%
+% macrosHyperlink TeX configuration file
+%
+% (c) by Olivier Pantalé 2020
+%
+%@!CODEFILE = macrosHyperlinkEnglish.tex
+
+\usepackage{kurier} % Set the default font for the document
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\pagestyle{headings}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{color}
+\usepackage{array}
+\usepackage{babel}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\PassOptionsToPackage{normalem}{ulem}
+\usepackage{ulem}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{lettrine}
+\usepackage{pict2e}
+\usepackage{minitoc}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage{titletoc}
+\usepackage{calc}
+\usepackage{makeidx}
+\usepackage{index}
+\usepackage[]{titlesec}
+\usepackage{placeins}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{tablefootnote}
+\usepackage[nice]{nicefrac}
+\usetikzlibrary{shadows.blur}
+\tcbuselibrary{skins}
+
+% Define the macros for color tables
+\newcolumntype{L}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{R}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\tcbset{myTab/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize,
+colback=gray!10!white,colframe=gray!85!black,colbacktitle=gray,
+coltitle=white,center title}}
+
+% Sets the caption of all figures
+\usepackage{caption}
+\captionsetup[figure]{labelfont={bf,it}, textfont=it}
+\captionsetup[table]{labelfont={bf,it}, textfont=it}
+
+% Change the list spaces
+\usepackage{enumitem}
+\setlist[description]{itemsep=0.3em, parsep=0em, itemindent=-1em}
+
+\makeatletter
+
+% Titre de l'ouvrage
+\newcommand{\MyTitle}{DynELA FEM code v.4.0}
+
+%Command for bilingual texts
+\newcommand{\frEn}[2]{#2} % Default English
+
+% Command for Full version
+\newenvironment{fullVersion}{}{}
+
+% Definition of pages sizes and geometry
+\geometry{verbose, a4paper, tmargin=3cm, bmargin=2.5cm, lmargin=2cm, rmargin=2cm, headheight=1cm, headsep=1cm, footskip=1cm}
+\pagestyle{fancyplain}
+\renewcommand{\floatpagefraction}{1.0}
+\renewcommand{\textfraction}{0.2}
+\renewcommand{\bottomfraction}{1.0}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+% Defintiion of the Lettrine
+\newcommand{\LETTRINE}[1]{\lettrine[lines=3]{\textcolor{myRed}{#1}}{}}
+
+% Special style for footnotes
+\renewcommand\@makefnmark{\@textsuperscript{\normalfont(\@thefnmark)}}
+
+% Special style for references
+\newcommand{\myCite}[1]{\textbf{\underbar{\cite{#1}~}}}
+
+% Bibliography enhancement
+\renewenvironment{thebibliography}[1]
+     {\section*{\bibname}%
+      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\lhead [\fancyplain {\bfseries\thepage} {\bfseries\thepage \\ \textcolor{myGray}{\rule{\textwidth}{2mm}}}]
+       {\fancyplain {} {\bfseries\leftmark \\ \textcolor{myGray}{\rule{\textwidth}{2mm}}}}
+\rhead [\fancyplain {} {\bfseries\leftmark \\ \textcolor{myGray}{\rule{\textwidth}{2mm}}}]
+       {\fancyplain {\bfseries\thepage} {\bfseries\thepage \\ \textcolor{myGray}{\rule{\textwidth}{2mm}}}}
+\chead{}
+\cfoot{}
+\lfoot [{\textcolor{myGray}{\rule{\textwidth}{2mm}}\\ \mbox{\scriptsize{\MyTitle}}}]
+       {\textcolor{myGray}{\rule{\textwidth}{2mm}}\\ \mbox{\scriptsize{Olivier PANTALE}}}
+\rfoot [{\textcolor{myGray}{\rule{\textwidth}{2mm}}\\ \mbox{\scriptsize{Olivier PANTALE}}}]
+       {\textcolor{myGray}{\rule{\textwidth}{2mm}}\\ \mbox{\scriptsize{\MyTitle}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% cette ligne est necessaire si il n'y a pas d'algorithme dans le fichier lyx
+\@ifundefined{algorithm}{
+\newfloat{algorithm}{htbp}{loa}
+}
+
+% dfinitions pour les sections en couleur dans le texte
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\LARGE\bfseries\color{myRed}}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\Large\bfseries\color{myRed}}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\large\bfseries\color{myRed}}}
+
+% le super format pour les chapitres
+\colorlet{chpnumbercolor}{black}
+\let\oldl@chapter\l@chapter
+\def\l@chapter#1#2{\oldl@chapter{#1}{\textcolor{chpnumbercolor}{#2}}}
+
+\let\old@dottedcontentsline\@dottedtocline
+\def\@dottedtocline#1#2#3#4#5{%
+\old@dottedcontentsline{#1}{#2}{#3}{#4}{{\textcolor{chpnumbercolor}{#5}}}}
+
+\titleformat{\chapter}[display]
+  {\normalfont\color{myRed}}
+  {\filleft\Huge\sffamily\bfseries\chaptertitlename\hspace*{2mm}%
+  \begin{tikzpicture}[baseline={([yshift=-.6ex]current bounding box.center)}]
+    \node[fill=myRed, circle, text=white] {\thechapter};
+  \end{tikzpicture}}
+  {1ex}
+  {\titlerule[5pt]\vspace*{2ex}\huge\sffamily\itshape}
+  []
+
+\titleformat{name=\chapter, numberless}[display]
+  {\normalfont\color{myRed}}
+  {}
+  {1ex}
+  {\vspace*{2ex}\huge\sffamily\itshape}
+  []
+
+% Command to print the actual minitoc
+\newcommand{\printmyminitoc}[1][2]{%
+    \vspace*{-5ex}
+%    \noindent\hspace*{-0.5\hoffset}\hspace*{-0.5in}\hspace*{-0.5\oddsidemargin}%
+    \colorlet{chpnumbercolor}{myRed}%
+    \begin{tikzpicture}
+    \node[rounded corners, align=left, fill=myGray80, inner sep=5mm]{%
+        \color{myRed}%
+        \begin{minipage}{0.95\columnwidth}%minipage trick
+        \printcontents[chapters]{}{1}{\setcounter{tocdepth}{#1}}
+        \end{minipage}};
+    \end{tikzpicture}
+    \vspace*{5ex}}
+
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    {\centering
+     \interlinepenalty \@M
+    \textcolor{myRed}{\rule{0.5\textwidth}{4mm}}%  <--- the rule
+    \nobreak
+    \vskip 5\p@
+    \normalfont
+     \ifnum \c@secnumdepth >-2\relax
+       \huge\bfseries \color{myRed}\partname~\thepart
+       \par
+       \vskip 20\p@
+     \fi
+     \Huge \bfseries #2\par}%
+    \vskip 5\p@
+    \textcolor{myRed}{\rule{\textwidth}{4mm}}%  <--- the rule
+    \nobreak
+    \vskip 10\p@
+    \@endpart}
+
+\def\@endpart{\vfil\newpage
+	\setcounter{chapter}{0} %reset the counter between chapters
+              \if@twoside
+               \if@openright
+                \null
+                \thispagestyle{empty}%
+                \newpage
+               \fi
+              \fi
+              \if@tempswa
+                \twocolumn
+              \fi}
+
+% creation des programmes
+\floatstyle{ruled}
+\newfloat{Program}{thp}{lop}[chapter]
+
+% plus de place dans les listes
+\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{3.3em}}
+\renewcommand*\l@table{\@dottedtocline{1}{1.5em}{3.3em}}
+\renewcommand\listof[2]{%
+  \@ifundefined{ext@#1}{\float@error{#1}}{%
+    \@ifundefined{chapter}{\def\@tempa{\section*}}%
+      {\def\@tempa{\chapter*}}%
+    \@tempa{#2\@mkboth{\uppercase{#2}}{\uppercase{#2}}}%
+    \@namedef{l@#1}{\@dottedtocline{1}{1.5em}{3.3em}}%
+    \@starttoc{\@nameuse{ext@#1}}}}
+
+\AtBeginDocument{
+\addto\captionsfrench{
+\renewcommand{\figurename}{Figure }
+\renewcommand{\tablename}{Tableau }
+}}
+
+% les numros incluent le numro de la partie
+\renewcommand \thefigure
+     {\ifnum \c@part>\z@ \thepart.\fi \ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@figure}
+\renewcommand \thetable
+     {\ifnum \c@part>\z@ \thepart.\fi \ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@table}
+
+%Definition des mises en page
+\newcommand{\listingfontsscale}{\footnotesize}
+
+@!INCLUDE = macrosGene.template
+
+% Derivatives symbol using big dot
+\renewcommand{\bullet}{\begin{picture}(3,2)\put(1.5,1){\circle*{2}}\end{picture}}
+
+\ifx\pdfoutput\undefined
+\usepackage[ps2pdf,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
+\else
+\usepackage[pdftex,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
+\fi
+\makeindex
+
+\newcommand{\DynELA}{DynELA Finite Element Code}
+
+\excludecomment{fullVersion}
+
+\makeatother

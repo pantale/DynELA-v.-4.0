@@ -1,0 +1,413 @@
+%
+% macrosGene TeX configuration file
+%
+\usepackage{esvect}
+\usepackage{keystroke}
+\usepackage{xstring}
+\usepackage{transparent}
+\usepackage{xspace}
+\usepackage{color}
+\usepackage{pdfpages}
+
+% Define the set of colors
+\definecolor{myGray}{gray}{0.75}
+\definecolor{myGray90}{gray}{0.90}
+\definecolor{myGray80}{gray}{0.80}
+\definecolor{myGray50}{gray}{0.50}
+\definecolor{myGray40}{gray}{0.40}
+\definecolor{myRed}{rgb}{0.34,0.05,0.05}
+\definecolor{myLightRed}{rgb}{0.54,0.05,0.05}
+\definecolor{myDarkRed}{rgb}{0.14,0.05,0.05}
+\definecolor{myBlue}{rgb}{0.05,0.05,0.34}  % Blue color
+\definecolor{myGreen}{rgb}{0.05,0.34,0.05}  % Green color
+
+% Command to define two texts depending on the current language
+\newcommand{\FrEn}[2]{\IfStrEq*{\languagename}{french}{#1}{#2}}
+
+% Redefine the esvector shape to remove overlapping
+\def\traitfill@#1#2#3#4{%
+  $\m@th\mkern2mu\relax#4#1\mkern-1.5mu %on met \relbaredd au d\'ebut
+   \cleaders\hbox{$#4\mkern-0.3mu#2\mkern-0.3mu$}\hfill %remplit avec relbareda
+   \mkern-1.5mu#3$%
+}
+
+% affect overrightarrow to vv
+\renewcommand{\overrightarrow}{\vv}
+
+% définition des commandes locales
+% Definition of the C++ special command
+\DeclareRobustCommand{\Cpp}
+{\valign{\vfil\hbox{##}\vfil\cr
+   \textsf{C\kern-.1em}\cr
+   $\hbox{\fontsize{\ssf@size}{0}\textbf{+\kern-0.05em+}}$\cr}%
+}
+
+% Definition des listings avec langage par défaut Python
+\usepackage{listings}
+
+\lstnewenvironment{CppListing}[1][]
+    {\lstset{language=C++,
+	keywordstyle=\color{myRed},
+	numberstyle=\footnotesize\color{myGray50},
+	numbers=left,
+	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
+	literate={-} { \textrm{-}}{1},
+	%otherkeywords={>>>},
+	%morekeywords={as,assert,with,yield},
+	commentstyle=\color{myGray40},
+	stringstyle=\color{myGreen},
+	basicstyle=\listingfontsscale\sffamily\upshape,
+	escapeinside={(*}{*)},
+	backgroundcolor=\color{myGray90},
+	rulecolor=\color{myGray50},
+        #1}%
+        \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
+        {\csname\@lst @SaveFirstNumber\endcsname}
+
+\lstnewenvironment{FortranListing}[1][]
+    {\lstset{language=[77]Fortran,
+	keywordstyle=\color{myRed},
+	numberstyle=\footnotesize\color{myGray50},
+	numbers=left,
+	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
+	literate={-} { \textrm{-}}{1},
+	%otherkeywords={>>>},
+	%morekeywords={as,assert,with,yield},
+	commentstyle=\color{myGray50},
+	stringstyle=\color{myGreen},
+	basicstyle=\listingfontsscale\sffamily\upshape,
+	escapeinside={(*}{*)},
+	backgroundcolor=\color{myGray90},
+	rulecolor=\color{myGray50},
+        #1}%
+        \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
+        {\csname\@lst @SaveFirstNumber\endcsname}
+
+\lstnewenvironment{PythonListing}[1][]
+    {\lstset{language=Python,
+	keywordstyle=\color{myRed},
+	numberstyle=\footnotesize\color{myGray50},
+	numbers=left,
+	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
+	%float=h,
+	literate={-} { \textrm{-}}{1},
+	%otherkeywords={>>>},
+	morekeywords={as,assert,with,yield},
+	commentstyle=\color{myGray40},
+	stringstyle=\color{myGreen},
+	basicstyle=\listingfontsscale\sffamily\upshape,
+	escapeinside={(*}{*)},
+	backgroundcolor=\color{myGray90},
+	rulecolor=\color{myGray50},
+        #1}%
+        \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
+        {\csname\@lst @SaveFirstNumber\endcsname}
+
+\lstnewenvironment{AbaqusListing}[1][]
+    {\lstset{language=Python,
+	keywordstyle=\color{myRed},
+	numberstyle=\footnotesize\color{myGray50},
+	numbers=left,
+	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
+	literate={-} { \textrm{-}}{1},
+	%otherkeywords={>>>},
+	morekeywords={as,assert,with,yield},
+	commentstyle=\color{myGray40},
+	stringstyle=\color{myGreen},
+	basicstyle=\listingfontsscale\sffamily\upshape,
+	escapeinside={(*}{*)},
+	backgroundcolor=\color{myGray90},
+	rulecolor=\color{myGray50},
+		#1}%
+        \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
+        {\csname\@lst @SaveFirstNumber\endcsname}
+
+\lstnewenvironment{BashListing}[1][]
+	{\lstset{language=bash,
+		keywordstyle=\color{myRed},
+		numberstyle=\footnotesize\color{myGray50},
+		numbers=left,
+		frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
+		literate={-} { \textrm{-}}{1},
+		%otherkeywords={>>>},
+		%morekeywords={as,assert,with,yield},
+		commentstyle=\color{myGray40},
+		stringstyle=\color{myGreen},
+		basicstyle=\sffamily\listingfontsscale\upshape,
+		escapeinside={(*}{*)},
+		backgroundcolor=\color{myGray90},
+		rulecolor=\color{myGray50},
+		#1}%
+	\noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
+{\csname\@lst @SaveFirstNumber\endcsname}
+
+\lstset{language=Python,
+keywordstyle=\color{myRed},
+numberstyle=\footnotesize\color{myGray40},
+numbers=left,
+frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
+literate={-} { \textrm{-}}{1},
+%otherkeywords={>>>},
+morekeywords={as,assert,with,yield},
+commentstyle=\color{myGray50},
+stringstyle=\color{myGreen},
+basicstyle=\listingfontsscale\sffamily\upshape,
+escapeinside={(*}{*)},
+backgroundcolor=\color{white},
+rulecolor=\color{myGray50}}
+\newcommand{\pyout}[1]{\color{blue}\textsl{#1}}
+
+\newcommand{\TI}[1]{\mbox{\large\ensuremath{\mathsf{#1}}}}
+\newcommand{\TII}[1]{\mbox{\large\ensuremath{\mathbb{#1}}}}
+\newcommand{\TiI}[1]{\mbox{\large\ensuremath{\mathcal{#1}}}}
+
+%Domaines d'intégration
+\newcommand{\Ve}	{\Omega_{x}^{e}}
+\newcommand{\Se}	{\Gamma_{x}^{e}}
+
+%Tenseur des contraintes, déformations, etc...
+\newcommand{\Sig}	{\mbox{\large\ensuremath{\boldsymbol{\sigma}}}}
+\newcommand{\Eps}	{\mbox{\large\ensuremath{\boldsymbol{\varepsilon}}}}
+\newcommand{\Alp}	{\mbox{\large\ensuremath{\boldsymbol{\alpha}}}}
+\newcommand{\ro}	{\mbox{\large\ensuremath{\boldsymbol{\rho}}}}
+\newcommand{\gam}	{\mbox{\large\ensuremath{\boldsymbol{\gamma}}}}
+\newcommand{\Gam}	{\mbox{\large\ensuremath{\boldsymbol{\Gamma}}}}
+\newcommand{\om}	{\mbox{\large\ensuremath{\boldsymbol{\omega}}}}
+\newcommand{\Om}	{\mbox{\large\ensuremath{\boldsymbol{\Omega}}}}
+\newcommand{\Fi}	{\mbox{\Large\ensuremath{\boldsymbol{\phi}}}}
+\newcommand{\Dev}	{\mbox{\Large\ensuremath{\mathsf{s}}}}
+
+%Tenseur Identité
+\newcommand{\IId}	{\mbox{\large\ensuremath{\mathbb{I}}}}
+\newcommand{\Iid}	{\mbox{\Large\ensuremath{\mathcal{I}}}}
+\newcommand{\Id}  	{\mbox{\large\ensuremath{\mathsf{1}}}}
+
+% Tenseurs A du second, 3eme et 4eme ordre
+\newcommand{\A}  	{\mbox{\large\ensuremath{\mathsf{A}}}}
+\newcommand{\IiA}	{\mbox{\large\ensuremath{\mathcal{A}}}}
+\newcommand{\IIA}	{\mbox{\large\ensuremath{\mathbb{A}}}}
+\newcommand{\ia}	{\mbox{\large\ensuremath{\mathsf{a}}}}
+
+%Tenseurs B du second, 3eme et 4eme ordre
+\newcommand{\B}		{\mbox{\large\ensuremath{\mathsf{B}}}}
+\newcommand{\IiB}	{\mbox{\large\ensuremath{\mathcal{B}}}}
+\newcommand{\IIB}	{\mbox{\large\ensuremath{\mathbb{B}}}}
+\newcommand{\ib}	{\mbox{\large\ensuremath{\mathsf{b}}}}
+
+% Tenseurs C du second, 3eme et 4eme ordre
+\newcommand{\C}		{\mbox{\large\ensuremath{\mathsf{C}}}}
+\newcommand{\IiC}	{\mbox{\large\ensuremath{\mathcal{C}}}}
+\newcommand{\IIC}	{\mbox{\large\ensuremath{\mathbb{C}}}}
+
+% Tenseurs D du second, 3eme et 4eme ordre
+\newcommand{\D}		{\mbox{\large\ensuremath{\mathsf{D}}}}
+\newcommand{\IiD}	{\mbox{\large\ensuremath{\mathcal{D}}}}
+\newcommand{\IID}	{\mbox{\large\ensuremath{\mathbb{D}}}}
+
+% Tenseurs E du second, 3eme et 4eme ordre
+\newcommand{\E}		{\mbox{\large\ensuremath{\mathsf{E}}}}
+\newcommand{\IiE}	{\mbox{\large\ensuremath{\mathcal{E}}}}
+\newcommand{\IIE}	{\mbox{\large\ensuremath{\mathbb{E}}}}
+\newcommand{\e}		{\mbox{\large\ensuremath{\mathsf{e}}}}
+
+% Tenseurs F du second, 3eme et 4eme ordre
+\newcommand{\F}		{\mbox{\large\ensuremath{\mathsf{F}}}}
+\newcommand{\IiF}	{\mbox{\large\ensuremath{\mathcal{F}}}}
+\newcommand{\IIF}	{\mbox{\large\ensuremath{\mathbb{F}}}}
+\newcommand{\f}		{\mbox{\large\ensuremath{\mathsf{f}}}}
+
+% Tenseurs H du second, 3eme et 4eme ordre
+\newcommand{\G}		{\mbox{\large\ensuremath{\mathsf{G}}}}
+\newcommand{\IiG}	{\mbox{\large\ensuremath{\mathcal{G}}}}
+\newcommand{\IIG}	{\mbox{\large\ensuremath{\mathbb{G}}}}
+\newcommand{\ig}	{\mbox{\large\ensuremath{\mathsf{g}}}}
+
+% Tenseurs H du second, 3eme et 4eme ordre
+\newcommand{\iH}	{\mbox{\large\ensuremath{\mathsf{H}}}}
+\newcommand{\IiH}	{\mbox{\large\ensuremath{\mathcal{H}}}}
+\newcommand{\IIH}	{\mbox{\large\ensuremath{\mathbb{H}}}}
+
+% Tenseurs J du second, 3eme et 4eme ordre
+\newcommand{\J}		{\mbox{\large\ensuremath{\mathsf{J}}}}
+\newcommand{\IiJ}	{\mbox{\large\ensuremath{\mathcal{J}}}}
+\newcommand{\IIJ}	{\mbox{\large\ensuremath{\mathbb{J}}}}
+
+% Tenseurs K du second, 3eme et 4eme ordre
+\newcommand{\K}		{\mbox{\large\ensuremath{\mathsf{K}}}}
+\newcommand{\IiK}	{\mbox{\large\ensuremath{\mathcal{K}}}}
+\newcommand{\IIK}	{\mbox{\large\ensuremath{\mathbb{K}}}}
+
+% Tenseurs L du second, 3eme et 4eme ordre
+\newcommand{\iL}	{\mbox{\large\ensuremath{\mathsf{L}}}}
+\newcommand{\IiL}	{\mbox{\large\ensuremath{\mathcal{L}}}}
+\newcommand{\IIL}	{\mbox{\large\ensuremath{\mathbb{L}}}}
+
+% Tenseurs M du second, 3eme et 4eme ordre
+\newcommand{\M}		{\mbox{\large\ensuremath{\mathsf{M}}}}
+\newcommand{\IiM}	{\mbox{\large\ensuremath{\mathcal{M}}}}
+\newcommand{\IIM}	{\mbox{\large\ensuremath{\mathbb{M}}}}
+\newcommand{\m}		{\mbox{\large\ensuremath{\mathsf{m}}}}
+
+% Tenseurs N du second, 3eme et 4eme ordre
+\newcommand{\N}		{\mbox{\large\ensuremath{\mathsf{N}}}}
+\newcommand{\IiN}	{\mbox{\large\ensuremath{\mathcal{N}}}}
+\newcommand{\IIN}	{\mbox{\large\ensuremath{\mathbb{N}}}}
+\newcommand{\n}		{\mbox{\large\ensuremath{\mathsf{n}}}}
+
+% Tenseurs P du second, 3eme et 4eme ordre
+\newcommand{\iP}	{\mbox{\large\ensuremath{\mathsf{P}}}}
+\newcommand{\IiP}	{\mbox{\large\ensuremath{\mathcal{P}}}}
+\newcommand{\IIP}	{\mbox{\large\ensuremath{\mathbb{P}}}}
+\newcommand{\p}		{\mbox{\large\ensuremath{\mathsf{p}}}}
+
+% Tenseurs Q du second, 3eme et 4eme ordre
+\newcommand{\Q}		{\mbox{\large\ensuremath{\mathsf{Q}}}}
+\newcommand{\IiQ}	{\mbox{\large\ensuremath{\mathcal{Q}}}}
+\newcommand{\IIQ}	{\mbox{\large\ensuremath{\mathbb{Q}}}}
+\newcommand{\q}		{\mbox{\large\ensuremath{\mathsf{q}}}}
+
+% Tenseurs R du second, 3eme et 4eme ordre
+\newcommand{\R}		{\mbox{\large\ensuremath{\mathsf{R}}}}
+\newcommand{\IiR}	{\mbox{\large\ensuremath{\mathcal{R}}}}
+\newcommand{\IIR}	{\mbox{\large\ensuremath{\mathbb{R}}}}
+\newcommand{\ir}	{\mbox{\large\ensuremath{\mathsf{r}}}}
+
+% Tenseurs S du second, 3eme et 4eme ordre
+\newcommand{\iS}	{\mbox{\large\ensuremath{\mathsf{S}}}}
+\newcommand{\IIS}	{\mbox{\large\ensuremath{\mathbb{S}}}}
+\newcommand{\IiS}	{\mbox{\Large\ensuremath{\mathcal{S}}}}
+
+% Tenseurs T du second, 3eme et 4eme ordre
+\newcommand{\T}		{\mbox{\large\ensuremath{\mathsf{T}}}}
+\newcommand{\IiT}	{\mbox{\large\ensuremath{\mathcal{T}}}}
+\newcommand{\IIT}	{\mbox{\large\ensuremath{\mathbb{T}}}}
+\newcommand{\bt}	{\mbox{\large\ensuremath{\mathsf{t}}}}
+
+% Tenseurs U du second, 3eme et 4eme ordre
+\newcommand{\U}		{\mbox{\large\ensuremath{\mathsf{U}}}}
+\newcommand{\IiU}	{\mbox{\large\ensuremath{\mathcal{U}}}}
+\newcommand{\IIU}	{\mbox{\large\ensuremath{\mathbb{U}}}}
+\newcommand{\iu}	{\mbox{\large\ensuremath{\mathsf{u}}}}
+
+% Tenseurs V du second, 3eme et 4eme ordre
+\newcommand{\V}		{\mbox{\large\ensuremath{\mathsf{V}}}}
+\newcommand{\IiV}	{\mbox{\large\ensuremath{\mathcal{V}}}}
+\newcommand{\IIV}	{\mbox{\large\ensuremath{\mathbb{V}}}}
+\newcommand{\iv}	{\mbox{\large\ensuremath{\mathsf{v}}}}
+
+% Tenseurs W du second, 3eme et 4eme ordre
+\newcommand{\W}		{\mbox{\large\ensuremath{\mathsf{W}}}}
+\newcommand{\IiW}	{\mbox{\large\ensuremath{\mathcal{W}}}}
+\newcommand{\IIW}	{\mbox{\large\ensuremath{\mathbb{W}}}}
+\newcommand{\iw}	{\mbox{\large\ensuremath{\mathsf{w}}}}
+
+% Tenseurs X du second, 3eme et 4eme ordre
+\newcommand{\X}		{\mbox{\large\ensuremath{\mathsf{X}}}}
+\newcommand{\IiX}	{\mbox{\large\ensuremath{\mathcal{X}}}}
+\newcommand{\x}		{\mbox{\large\ensuremath{\mathsf{x}}}}
+\newcommand{\IIX}	{\mbox{\large\ensuremath{\mathbb{X}}}}
+
+% Tenseurs Y du second, 3eme et 4eme ordre
+\newcommand{\Y}		{\mbox{\large\ensuremath{\mathsf{Y}}}}
+\newcommand{\IiY}	{\mbox{\large\ensuremath{\mathcal{Y}}}}
+\newcommand{\y}		{\mbox{\large\ensuremath{\mathsf{y}}}}
+\newcommand{\IIY}	{\mbox{\large\ensuremath{\mathbb{Y}}}}
+
+% Tenseurs Z du second, 3eme et 4eme ordre
+\newcommand{\Z}		{\mbox{\large\ensuremath{\mathsf{Z}}}}
+\newcommand{\IiZ}	{\mbox{\large\ensuremath{\mathcal{Z}}}}
+\newcommand{\z}		{\mbox{\large\ensuremath{\mathsf{z}}}}
+\newcommand{\IIZ}	{\mbox{\large\ensuremath{\mathbb{Z}}}}
+
+%Null tensor
+\newcommand{\0}		{\mbox{\large\ensuremath{\mathsf{0}}}}
+
+%Commandes spéciales espacements
+\newcommand{\Vs}	{\vspace{1cm}}
+\newcommand{\vs}	{\vspace{2mm}}
+
+%Commandes spéciales
+\newcommand{\tr}	{\mbox{\ensuremath{\mathsf{\,tr\,}}}}
+\newcommand{\dev}	{\mbox{\ensuremath{\mathsf{\,dev\,}}}}
+\newcommand{\grad}	{\mbox{\ensuremath{\mathsf{\,grad\,}}}}
+\newcommand{\Div}	{\mbox{\ensuremath{\mathsf{\,div\,}}}}
+\newcommand{\curl}	{\mbox{\ensuremath{\mathsf{\,curl\,}}}}
+\renewcommand{\det}	{\mbox{\ensuremath{\mathsf{\,det\,}}}}
+
+\newcommand{\pluseq}{\mathrel{+}=}
+\newcommand{\minuseq}{\mathrel{-}=}
+\newcommand{\multeq}{\mathrel{*}=}
+\newcommand{\diveq}{\mathrel{/}=}
+
+\DeclareMathAlphabet{\mathbxsl}{\encodingdefault}{\rmdefault}{m}{it}
+\newcommand{\invI}[1]	{\mbox{\large\ensuremath{\mathbxsl{I_{\mathsf{#1}}}}}}
+\newcommand{\invII}[1]	{\mbox{\large\ensuremath{\mathbxsl{II_{\mathsf{#1}}}}}}
+\newcommand{\invIII}[1]	{\mbox{\large\ensuremath{\mathbxsl{III_{\mathsf{#1}}}}}}
+
+\newcommand*{\ie}	{\emph{i.e.}\@\xspace}
+\newcommand*{\versus}	{\emph{vs.}\@\xspace}
+\newcommand*{\eal}	{et \emph{al.}\@\xspace}
+\newcommand*{\eg}	{e.g.,\@\xspace}
+
+% Declaration des colorboxes
+\RequirePackage{calc}
+\newsavebox{\boitetitre}
+\newlength{\tempdim}
+\newlength{\largeurboitetitre}
+\newlength{\hauteurboitetitre}
+\newlength{\largeurtitre}
+
+\newcommand{\espacetitre}{1.5}
+\newcommand{\decalagetitreg}{1}
+\newcommand{\decalagetitred}{5}
+
+\newcommand{\traitressort}[2][1]{%
+  \leaders\hrule height#2\hskip0pt plus #1fill\relax}
+
+\newcommand{\traitpasressort}[2][1]{%
+  \leaders\hrule height#2\hskip1.5em\relax}
+
+\newcommand{\fixedtitlebox}[3][-0.3ex]{%
+  \begin{lrbox}{\boitetitre}\kern\fboxsep\colorbox{myGray80}{#3}\kern\fboxsep\end{lrbox}%
+  \settowidth{\largeurboitetitre}{\usebox{\boitetitre}}%
+  \settowidth{\largeurtitre}{#2}%
+  \settoheight{\hauteurboitetitre}{\usebox{\boitetitre}}%
+  \settodepth{\tempdim}{\usebox{\boitetitre}}%
+  \addtolength{\hauteurboitetitre}{\tempdim+2\fboxrule+2\fboxrule+2\fboxsep}%
+  \parbox{2\fboxrule}{%
+    \rule{2\fboxrule}{\hauteurboitetitre}}%
+  \parbox{\largeurboitetitre}{%
+    \begin{flushleft}
+      \makebox[\largeurboitetitre]{%
+        \traitpasressort[\decalagetitreg]{2\fboxrule}%
+        \raisebox{#1}[0pt][0pt]{%
+          \kern\espacetitre\fboxsep\textbf{#2}\kern\espacetitre\fboxsep}%
+        \traitressort[\decalagetitred]{2\fboxrule}}\\[\fboxsep]\nointerlineskip
+      \usebox{\boitetitre}\\[\fboxsep]\nointerlineskip%
+      \rule{\largeurboitetitre}{2\fboxrule}
+    \end{flushleft}}%
+  \parbox{\fboxrule}{%
+    \rule{2\fboxrule}{\hauteurboitetitre}}}
+
+\newcommand{\titlebox}[3][-0.3ex]{%
+  \begin{lrbox}{\boitetitre}\kern\fboxsep\colorbox{myGray80}{#3}\kern\fboxsep\end{lrbox}%
+  \settowidth{\largeurboitetitre}{\usebox{\boitetitre}}%
+  \settowidth{\largeurtitre}{#2}%
+  \settoheight{\hauteurboitetitre}{\usebox{\boitetitre}}%
+  \settodepth{\tempdim}{\usebox{\boitetitre}}%
+  \addtolength{\hauteurboitetitre}{\tempdim+2\fboxrule+2\fboxrule+2\fboxsep}%
+  \parbox{2\fboxrule}{%
+    \rule{2\fboxrule}{\hauteurboitetitre}}%
+  \parbox{\largeurboitetitre}{%
+    \begin{flushleft}
+      \makebox[\largeurboitetitre]{%
+        \traitressort[\decalagetitreg]{2\fboxrule}%
+        \raisebox{#1}[0pt][0pt]{%
+          \kern\espacetitre\fboxsep\textbf{#2}\kern\espacetitre\fboxsep}%
+        \traitressort[\decalagetitred]{2\fboxrule}}\\[\fboxsep]\nointerlineskip
+      \usebox{\boitetitre}\\[\fboxsep]\nointerlineskip%
+      \rule{\largeurboitetitre}{2\fboxrule}
+    \end{flushleft}}%
+  \parbox{\fboxrule}{%
+    \rule{2\fboxrule}{\hauteurboitetitre}}}
+

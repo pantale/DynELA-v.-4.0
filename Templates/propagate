@@ -1,0 +1,14 @@
+#!/bin/sh
+
+updateDataFile Makefile-documentation ../Documentation
+updateDataFile macrosHyperlinkEnglish.template ../Documentation
+
+updateDataFile C_File ../Sources
+updateDataFile H_File ../Sources
+updateDataFile inc_File ../Sources
+updateDataFile CMakeList ../Sources
+
+updateDataFile Makefile-samples-abaqus ../Samples
+updateDataFile Makefile-samples-dynela ../Samples
+updateDataFile Makefile-samples-subdirs ../Samples
+

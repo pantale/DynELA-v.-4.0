@@ -1,0 +1,13 @@
+%@!FILENAME = *.inc
+@!COMMENT = //
+@!BEGIN = COMMON
+/**********************************************************************************
+ *                                                                                *
+ *  DynELA Finite Element Code v.4.0                                              *
+ *  by Olivier PANTALE                                                            *
+ *  Olivier.Pantale@enit.fr                                                       *
+ *                                                                                *
+ *********************************************************************************/
+//@!CODEFILE = DynELA-inc-file
+//@!BEGIN = PRIVATE
+
