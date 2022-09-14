@@ -16,8 +16,9 @@
 #include <fstream>
 #include <string>
 #include <string.h>
-#include <Errors.h>
-#include <Macros.h>
+//#include <dnlKernel.h>
+//#include <Macros.h>
+#include <dnlKernel.h>
 
 #define Ind(i, j, __rows, __cols) ((i) * (__cols) + (j))
 

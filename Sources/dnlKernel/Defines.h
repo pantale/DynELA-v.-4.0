@@ -17,9 +17,9 @@
 #define CSWIG
 
 // Compilation defines for optimization
-//#define OPTIMIZE     // This option activates optimized algorithms of the DynELA code. This also desactivate the following options of the code \ref MEM_funct, \ref VERIF_bounds, \ref VERIF_math, \ref VERIF_alloc and \ref VERIF_assert.
+//#define OPTIMIZE     // This option activates optimized algorithms of the DynELA code. This also desactivate the following options of the code \ref MEM_funct, \ref VERIF_bounds, \ref VERIF_maths, \ref VERIF_alloc and \ref VERIF_assert.
 #define VERIF_bounds // Verify the boundaries (indices of matrices and vectors). If the indices are out of bounds, this generates an error.
-#define VERIF_math   // Verify the coherence of mathematical functions such as divisions by zero.
+#define VERIF_maths   // Verify the coherence of mathematical functions such as divisions by zero.
 #define VERIF_alloc  // Verify the memory allocations during the execution of the program. For example after each call to the new or malloc function.
 #define VERIF_assert // Activates the mechanism of \b assert() verifications
 
@@ -33,8 +33,8 @@
   #ifdef VERIF_alloc
     #undef VERIF_alloc
   #endif
-  #ifdef VERIF_math
-    #undef VERIF_math
+  #ifdef VERIF_maths
+    #undef VERIF_maths
   #endif
   #ifdef VERIF_assert
     #undef VERIF_assert

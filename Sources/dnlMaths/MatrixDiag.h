@@ -124,7 +124,7 @@ inline bool MatrixDiag::indexOK(long i) const
 inline double &MatrixDiag::operator()(long i)
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i);
 #endif
 
@@ -137,12 +137,10 @@ inline double &MatrixDiag::operator()(long i)
   Return : valeur de la matrice à la ligne et colonne \c i
 */
 //-----------------------------------------------------------------------------
-inline double
-MatrixDiag::operator()(long i)
-    const
+inline double MatrixDiag::operator()(long i) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i);
 #endif
 

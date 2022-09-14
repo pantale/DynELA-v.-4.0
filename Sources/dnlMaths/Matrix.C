@@ -233,7 +233,7 @@ void Matrix::setToValue(double val)
 void Matrix::setToUnity()
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_rows != _cols)
     fatalError(" Matrix::setToUnity()",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
@@ -395,7 +395,7 @@ Matrix Matrix::operator+(const Matrix &mat) const
 {
   long i;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if ((_rows != mat._rows) && (_cols != mat._cols))
     fatalError("Matrix::operator -=",
                "matrix sizes incompatible\n"
@@ -430,7 +430,7 @@ Matrix Matrix::operator-(const Matrix &mat) const
 {
   long i;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if ((_rows != mat._rows) && (_cols != mat._cols))
     fatalError("Matrix::operator -=",
                "matrix sizes incompatible\n"
@@ -482,7 +482,7 @@ void Matrix::operator+=(const Matrix &mat)
 {
   long i;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if ((_rows != mat._rows) && (_cols != mat._cols))
     fatalError("Matrix::operator -=",
                "matrix sizes incompatible\n"
@@ -511,7 +511,7 @@ void Matrix::operator-=(const Matrix &mat)
 {
   long i;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if ((_rows != mat._rows) && (_cols != mat._cols))
     fatalError("Matrix::operator -=",
                "matrix sizes incompatible\n"

@@ -13,8 +13,7 @@
 
 #include <string>
 #include <string.h>
-#include <Errors.h>
-#include <Macros.h>
+#include <dnlKernel.h>
 
   // Interface methods excluded from SWIG
 #ifndef SWIG
@@ -138,7 +137,7 @@ inline bool Vector::indexOK(long i) const
 inline double &Vector::operator()(long i)
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i);
 #endif
   return _data[i];
@@ -153,7 +152,7 @@ inline double &Vector::operator()(long i)
 inline double Vector::operator()(long i) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i);
 #endif
   return _data[i];

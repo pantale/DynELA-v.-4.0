@@ -13,8 +13,8 @@
 
 #include <string>
 #include <string.h>
-#include <Errors.h>
-#include <Macros.h>
+#include <dnlKernel.h>
+//#include <Macros.h>
 
 class Vec3D;
 class Tensor2;
@@ -109,7 +109,7 @@ inline bool Tensor3::indexOK(short i, short j, short k) const
 inline double &Tensor3::operator()(short i, short j, short k)
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
     indexOK(i, j, k);
 #endif
     return v[dnlTensor3Ind(i, j, k, 3)];
@@ -127,7 +127,7 @@ inline double &Tensor3::operator()(short i, short j, short k)
 inline double Tensor3::operator()(short i, short j, short k) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
     indexOK(i, j, k);
 #endif
     return v[dnlTensor3Ind(i, j, k, 3)];

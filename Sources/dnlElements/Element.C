@@ -310,7 +310,7 @@ void Element::computeMassMatrix(MatrixDiag &elementMassMatrix)
 {
   double WxdJ;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   // verifier la taille de la matrice elementMassMatrix
   if ((elementMassMatrix.rows() != _elementData->numberOfNodes) || (elementMassMatrix.columns() != _elementData->numberOfNodes))
   {
@@ -1417,7 +1417,7 @@ void Element::computeMassEquation(MatrixDiag &M, Vector &F)
   Tensor2 dv;
   double WxdJ;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   // verifier la taille de la matrice M
   if ((M.rows() != _elementData->numberOfNodes) || (M.columns() != _elementData->numberOfNodes))
   {
@@ -1485,7 +1485,7 @@ void Element::computeMomentumEquation(MatrixDiag &M, Vector &F)
   long i, j, I;
   double density, WxdJ;//, currentRadius;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   // verifier la taille de la matrice M
   if ((M.rows() != _elementData->numberOfNodes * getNumberOfDimensions()) || (M.columns() != _elementData->numberOfNodes * getNumberOfDimensions()))
   {
@@ -1723,7 +1723,7 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
   double  WxdJ, density;
   double SigklVkl, lambda;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   // verifier la taille de la matrice M
   if ((M.rows () != _elementData->numberOfNodes) || (M.columns () != _elementData->numberOfNodes))
     {

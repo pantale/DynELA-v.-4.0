@@ -135,7 +135,7 @@ void Vector::swapWith(Vector &vec)
   double *tmp;
 
   // test the vector sizes
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (vec._dataLength != _dataLength)
     fatalError("Vector::swapWith", "Only for same size vectors\n");
 #endif
@@ -388,7 +388,7 @@ Vector Vector::operator+(const Vector &vect) const
 {
   Vector resu(_dataLength);
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::operator +",
@@ -420,7 +420,7 @@ Vector Vector::operator+(const Vector &vect) const
 void Vector::operator+=(const Vector &vect)
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::operator +=",
@@ -453,7 +453,7 @@ Vector Vector::operator-(const Vector &vect) const
 {
   Vector resu(_dataLength);
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::operator -",
@@ -484,7 +484,7 @@ Vector Vector::operator-(const Vector &vect) const
 void Vector::operator-=(const Vector &vect)
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::operator -=",
@@ -583,7 +583,7 @@ Vector Vector::operator/(const double lambda) const
 {
   long i;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (lambda == 0.0)
   {
     fatalError("Vector:: operator /", "divide by zero");
@@ -616,7 +616,7 @@ void Vector::operator/=(const double lambda)
 {
   long i;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (lambda == 0.0)
   {
     fatalError("Vector:: operator /=", "divide by zero");
@@ -995,7 +995,7 @@ void Vector::scatterFrom(const Vector &V, long *ind0, int numberOfDimensions)
 bool Vector::operator==(const Vector &vect) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::operator ==",
@@ -1035,7 +1035,7 @@ bool Vector::operator!=(const Vector &vec) const
 double Vector::distance(const Vector &vect) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::distance",
@@ -1059,7 +1059,7 @@ double Vector::distance(const Vector &vect) const
 double Vector::squareDistance(const Vector &vect) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::squareDistance",
@@ -1085,7 +1085,7 @@ double Vector::dotProduct(const Vector &vect) const
 {
   double prod = 0.0;
 
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
     fatalErrorLine("Vector::dotProduct",
@@ -1111,7 +1111,7 @@ double Vector::dotProduct(const Vector &vect) const
 Vector Vector::vectorialProduct(const Vector &vect) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   if (_dataLength != 3)
   {
     fatalErrorLine("Vector::vectorialProduct",

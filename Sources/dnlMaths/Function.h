@@ -12,6 +12,7 @@
 #define __dnlMaths_Function_h__
 
 #include <String.h>
+#include <dnlKernel.h>
 
 //-----------------------------------------------------------------------------
 // Class : Function

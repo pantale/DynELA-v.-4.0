@@ -165,7 +165,7 @@ inline bool Matrix::indexOK(long i, long j) const
 inline double Matrix::operator()(long i, long j) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i, j);
 #endif
   return _data[Ind(i, j, _rows, _cols)];
@@ -181,7 +181,7 @@ inline double Matrix::operator()(long i, long j) const
 inline double &Matrix::operator()(long i, long j)
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i, j);
 #endif
   return _data[Ind(i, j, _rows, _cols)];

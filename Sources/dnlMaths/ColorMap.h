@@ -13,6 +13,7 @@
 
 #include <Vec3D.h>
 #include <DiscreteFunction.h>
+#include <dnlKernel.h>
 
 //-----------------------------------------------------------------------------
 // Class : ColorMap

@@ -13,8 +13,8 @@
 
 #include <string>
 #include <string.h>
-#include <Errors.h>
-#include <Macros.h>
+#include <dnlKernel.h>
+//#include <Macros.h>
 
 class Tensor2;
 class SymTensor2;
@@ -125,7 +125,7 @@ inline bool Vec3D::indexOK(int i) const
 inline double &Vec3D::operator()(int i)
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i);
 #endif
   return _data[i];
@@ -140,7 +140,7 @@ inline double &Vec3D::operator()(int i)
 inline double Vec3D::operator()(int i) const
 //-----------------------------------------------------------------------------
 {
-#ifdef VERIF_math
+#ifdef VERIF_maths
   indexOK(i);
 #endif
   return _data[i];
