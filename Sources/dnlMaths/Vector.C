@@ -1133,6 +1133,77 @@ Vector Vector::vectorialProduct(const Vector &vect) const
   return resu;
 }
 
+//Element Wise inversion of a vector
+/*
+  This method computes the element wise inverse of a vector
+  Return : Vector result of the element wise inverse
+*/
+//-----------------------------------------------------------------------------
+Vector Vector::EWInverse()
+//-----------------------------------------------------------------------------
+{
+  Vector result(_dataLength);
+  for (long i = 0; i < _dataLength; i++) result._data[i] = 1/_data[i];
+  return result;
+}
+
+//Element Wise exp of a vector
+/*
+  This method computes the element wise exp of a vector
+  Return : Vector result of the element wise exp
+*/
+//-----------------------------------------------------------------------------
+Vector Vector::EWExp()
+//-----------------------------------------------------------------------------
+{
+  Vector result(_dataLength);
+  for (long i = 0; i < _dataLength; i++) result._data[i] = exp(_data[i]);
+  return result;
+}
+
+//Element Wise multiplication of two vectors
+/*
+  This method computes the element wise multiplication of two vectors
+  - v2 : second vector to use for the operation
+  Return : Vector result of the element wise multiplication of two vectors
+*/
+//-----------------------------------------------------------------------------
+Vector Vector::EWMultiply(const Vector & v2)
+//-----------------------------------------------------------------------------
+{
+  Vector result(_dataLength);
+  for (long i = 0; i < _dataLength; i++) result._data[i] = _data[i]*v2._data[i];
+  return result;
+}
+
+//Element Wise square of a vector
+/*
+  This method computes the element wise square of a vector
+  Return : Vector result of the element wise square
+*/
+//-----------------------------------------------------------------------------
+Vector Vector::EWSquare()
+//-----------------------------------------------------------------------------
+{
+  Vector result(_dataLength);
+  for (long i = 0; i < _dataLength; i++) result._data[i] = _data[i]*_data[i];
+  return result;
+}
+
+//Element Wise add a value to a vector
+/*
+  This method computes the element wise add a value to a vector
+  Return : Vector result of the element wise add a value
+*/
+//-----------------------------------------------------------------------------
+Vector Vector::EWAddReal(const double val)
+//-----------------------------------------------------------------------------
+{
+  Vector result(_dataLength);
+  for (long i = 0; i < _dataLength; i++) result._data[i] = val + _data[i];
+  return result;
+}
+
 //Writes a vector in a binary flux for storage
 /*
   This method is used to store the components of a vector in a binary file.
