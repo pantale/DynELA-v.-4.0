@@ -14,7 +14,8 @@
   #include "HardeningLaw.h"
   #include "IntegrationPoint.h"
   #include "JohnsonCookLaw.h"
-  #include "ANN.h"
+  #include "ANN2SigLaw.h"
+  #include "ANNFortranLaw.h"
   #include "Material.h"
   #include "TabularLaw.h"
 %}
@@ -27,5 +28,6 @@
 %include "ElasticLaw.h"
 %include "ElastoplasticLaw.h"
 %include "JohnsonCookLaw.h"
-%include "ANN.h"
+%include "ANN2SigLaw.h"
+%include "ANNFortranLaw.h"
 %include "TabularLaw.h"

@@ -37,7 +37,9 @@ public:
     Elastic,
     Elastoplastic,
     Tabular,
-    JohnsonCook
+    JohnsonCook,
+    ANN2Sig,
+    ANNFortran
   };
 #endif
 

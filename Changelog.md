@@ -1,6 +1,14 @@
 # Changelog of DynELA v.4.0 Finite Element Code
 
+## 2022
 
+### September 2022
+
+09/09/2022 - Update before 2022 rebuild. Mainly comments parts modified
+
+14/09/2022 - Update after adding support for ANN constitutive Laws
+
+14/09/2022 - Correction of bugs concerning VERIF_maths incorrectly included
 
 ## 2021
 
