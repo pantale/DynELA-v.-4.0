@@ -104,6 +104,7 @@ public:
   void setDefaultElement(short type);
   void setSaveTimes(double startSaveTime, double endSaveTime, double saveTimeIncrement);
   void solve();
+  void setStressComputation(char* method);
   void translate(Vec3D translateVector, NodeSet *nodeSet = NULL);
   void writeResultFile();
   void writeVTKFile();

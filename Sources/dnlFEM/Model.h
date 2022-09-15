@@ -35,6 +35,13 @@ class Model
   friend class DynELA;
 
 private:
+#ifndef SWIG
+  enum
+  {
+    StressIntNR = 0,
+    StressIntDirect
+  };
+#endif
   bool _massMatrixComputed = false;        // Flag defining that the mass matrix has already been computed
   double _powerIterationFreqMax = 0.0;     // Initial value for the max frequency
   double _powerIterationPrecision = 1e-4;  // Precision of the Power Iteration Agorithm
@@ -42,6 +49,7 @@ private:
   short _numberOfDimensions = 0;           // Number of dimensions of the model
   Vector _powerIterationEV;
   bool _initSolveDone = false;
+  int _stressIntegrationMethod = StressIntNR;
 
 public:
   double currentTime = 0.0;          // Temps actuel du modele

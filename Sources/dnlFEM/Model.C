@@ -222,7 +222,7 @@ void Model::add(NodeSet *nodeSet, long startNumber, long endNumber, long increme
   }
 }
 
-//ajoute un ensemble d'elements à un ElementSet
+// ajoute un ensemble d'elements à un ElementSet
 /*
   Cette methode ajoute un ensemble d'elements existant à un ElementSet. Les elements sont specifies par leurs numeros d'identification donne dans un intervalle de variation (numero de debut, numero de fin et increment). Les elements sont alors recherches dans la grille courante du modele courant de la structure.
   \warning Les elements ajoutes doivent etre presents dans la grille courante du modele courant.
@@ -301,7 +301,7 @@ Node *Model::getNodeByNum(long nodeNumber)
   return nodes.dichotomySearch(substractNodesNumber, nodeNumber);
 }
 
-//recherche d'un element dans la structure en fonction de son numero
+// recherche d'un element dans la structure en fonction de son numero
 /*
   Cette methode recherche un element dans la structure en fonction de son numero et renvoie un pointeur sur celui-ci, ou NULL si celui-ci n'existe pas dans la structure. L'element est recherche sur la grille courante du modele courant.
   - elementNumber numero de l'element à rechercher
@@ -834,10 +834,17 @@ void Model::computePressure()
 void Model::computeStress(double timeStep)
 //-----------------------------------------------------------------------------
 {
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
-  {
-    elements(elementId)->computeStress(timeStep);
-  }
+  if (_stressIntegrationMethod == StressIntNR)
+    for (long elementId = 0; elementId < elements.getSize(); elementId++)
+    {
+      elements(elementId)->computeStress(timeStep);
+    }
+
+  if (_stressIntegrationMethod == StressIntDirect)
+    for (long elementId = 0; elementId < elements.getSize(); elementId++)
+    {
+      elements(elementId)->computeStressDirect(timeStep);
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -1225,11 +1232,11 @@ void Model::starterWrite(String name)
 
   fprintf (pfile, "\n                                 BOUNDARY CONDITIONS\n");
   fprintf (pfile,
-	   "------------------------------------------------------------------------------------\n");
+     "------------------------------------------------------------------------------------\n");
   fprintf (pfile,
-	   "  NODE              MATERIAL SPEEDS                       GRID SPEEDS\n");
+     "  NODE              MATERIAL SPEEDS                       GRID SPEEDS\n");
   fprintf (pfile,
-	   " NUMBER        X         Y         Z          X         Y         Z\n");
+     " NUMBER        X         Y         Z          X         Y         Z\n");
   for (i = 0; i < nodes.getSize (); i++)
     {
       nodes (i)->toFileBound (pfile);

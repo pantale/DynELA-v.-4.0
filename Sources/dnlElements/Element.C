@@ -813,7 +813,7 @@ void Element::computeStressDirect(double timeStep)
       plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
       temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
 
-        yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
+      yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
 
       // Computation of the plastic strain increment
       _integrationPoint->PlasticStrain += gamma * DeviatoricStress / Snorm;
@@ -842,7 +842,7 @@ void Element::computeStressDirect(double timeStep)
 
     // Get back the gamma value
     if (gamma != 0.0)
-        {
+    {
       // Compute the plastic Work increment
       plWorkInc = 0.5 * gamma * (DeviatoricStress.getNorm() + Snorm0);
 
@@ -851,7 +851,7 @@ void Element::computeStressDirect(double timeStep)
       _integrationPoint->temperature += heatFrac * plWorkInc;
     }
   }
-        }
+}
 
 /* //-----------------------------------------------------------------------------
 void Element::computeStressDirect(double timeStep)
@@ -932,13 +932,13 @@ void Element::computeStressDirect(double timeStep)
 
     // Plasticity criterion test and begin of plastic corrector
     if (Strial > yield)
-        {
+    {
       if (plasticStrain > 0.0)
       {
         hard = hardeningLaw->getDerivateYieldStress(plasticStrain, plasticStrainRate, temperature, timeStep);
-        }
-        else
-        {
+      }
+      else
+      {
         hard = hardeningLaw->getDerivateYieldStress(gammaInitial, plasticStrainRate, temperature, timeStep);
       }
 
@@ -954,7 +954,7 @@ void Element::computeStressDirect(double timeStep)
       // if (plasticStrain == 0.0)
       //   gamma = dnlSqrt32 * gammaInitial;
 
-          // Update the values of plasticStrain, plasticStrainRate and temperature for next loop
+      // Update the values of plasticStrain, plasticStrainRate and temperature for next loop
       // plasticStrainRate = dnlSqrt23 * gamma / timeStep;
       // plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
       // temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
@@ -1802,9 +1802,9 @@ void Element::detachMaterial ()
 #ifdef VERIF_assert
   if (material == NULL)
     fatalError ("Element::detachMaterial",
-		"This function have been called while there is no material attached to this element.\n"
-		"This is not allowed since you tried to detach a non existing material to the element\n"
-		"You must make a call to Element::attachMaterial before doing this\n");
+    "This function have been called while there is no material attached to this element.\n"
+    "This is not allowed since you tried to detach a non existing material to the element\n"
+    "You must make a call to Element::attachMaterial before doing this\n");
 #endif
 
   material = NULL;
@@ -1825,8 +1825,8 @@ void Element::getIntegrationPoint (long pt)
   if (ref == NULL)
     {
       fatalError ("Element::getIntegrationPoint",
-		  "Integration point [%d] doesn't exist for the element %d",
-		  pt, _listIndex);
+      "Integration point [%d] doesn't exist for the element %d",
+      pt, _listIndex);
     }
 #endif
 }
@@ -1844,8 +1844,8 @@ void Element::getUnderIntegrationPoint (long pt)
   if (underIntegrationPoint == NULL)
     {
       fatalError ("Element::getIntegrationPoint",
-		  "Integration point [%d] doesn't exist for the element %d",
-		  pt, _listIndex);
+      "Integration point [%d] doesn't exist for the element %d",
+      pt, _listIndex);
     }
 #endif
 }
@@ -1857,7 +1857,7 @@ long Element::getLocalNumber (Node * nd)
   for (long i = 0; i < nodes.getSize (); i++)
     {
       if (nodes (i) == nd)
-	return i;
+  return i;
     }
   cerr << "indice " << nd->number << " not found";
   return 0;
@@ -1905,15 +1905,15 @@ void Element::computeMassEquation (MatrixDiag & M)
       // calcul du terme d'integration numerique
       WxdJ = _integrationPoint->integrationPointData->weight * _integrationPoint->detJ;
       if (getFamily() == Element::Axisymetric)
-	{
-	  //double currentRadius;
-	  //currentRadius=_integrationPoint->radius;
-	  WxdJ *= dnl2PI * _integrationPoint->radius;
-	}
+  {
+    //double currentRadius;
+    //currentRadius=_integrationPoint->radius;
+    WxdJ *= dnl2PI * _integrationPoint->radius;
+  }
 
       // calcul de la matrice M consistante
       for (i = 0; i < _elementData->numberOfNodes; i++)
-	M (i) += (_elementData->integrationPoint[pt].shapeFunction (i)) * WxdJ;
+  M (i) += (_elementData->integrationPoint[pt].shapeFunction (i)) * WxdJ;
     }
 }
 
@@ -1950,7 +1950,7 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
   if ((M.rows () != _elementData->numberOfNodes) || (M.columns () != _elementData->numberOfNodes))
     {
       cerr <<
-	"Error in computeEnergyEquation()\nincompatible getSize of matrices M\n";
+  "Error in computeEnergyEquation()\nincompatible getSize of matrices M\n";
       cerr << "expected " << _elementData->numberOfNodes << "x" << _elementData->numberOfNodes << std::endl;
       cerr << "getting  " << M.rows () << "x" << M.columns () << std::endl;
       exit (-1);
@@ -1960,7 +1960,7 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
   if (F.getSize () != _elementData->numberOfNodes)
     {
       cerr <<
-	"Error in computeEnergyEquation()\nincompatible getSize of vector F\n";
+  "Error in computeEnergyEquation()\nincompatible getSize of vector F\n";
       cerr << "expected " << _elementData->numberOfNodes << std::endl;
       cerr << "getting  " << F.getSize () << std::endl;
       exit (-1);
@@ -2014,34 +2014,34 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
       // calcul du terme d'integration numerique
       WxdJ = _integrationPoint->integrationPointData->weight * _integrationPoint->detJ;
       if (getFamily() == Element::Axisymetric)
-	{
-	  //double currentRadius;
-	  //currentRadius=_integrationPoint->radius;
-	  WxdJ *= dnl2PI * _integrationPoint->radius;
-	}
+  {
+    //double currentRadius;
+    //currentRadius=_integrationPoint->radius;
+    WxdJ *= dnl2PI * _integrationPoint->radius;
+  }
 
       // calcul de l'increment de masse pour le lumping
       //  mass+=density*WxdJ;
 
       // calcul de M consistent et de la contribution en masse
       for (i = 0; i < _elementData->numberOfNodes; i++)
-	M (i) += density * (_elementData->integrationPoint[pt].shapeFunction (i)) * WxdJ;
+  M (i) += density * (_elementData->integrationPoint[pt].shapeFunction (i)) * WxdJ;
 
       // calcul des vecteurs de densites
       for (i = 0; i < _elementData->numberOfNodes; i++)
-	{
+  {
 
 
-	  // contribution de la partie convective
-	  //        F(i)-=density*_integrationPoint->N(i)*tmpConv*WxdJ;
+    // contribution de la partie convective
+    //        F(i)-=density*_integrationPoint->N(i)*tmpConv*WxdJ;
 
-	  // contribution de la deformation
-	  F (i) += _elementData->integrationPoint[pt].shapeFunction (i) * SigklVkl * WxdJ;
+    // contribution de la deformation
+    F (i) += _elementData->integrationPoint[pt].shapeFunction (i) * SigklVkl * WxdJ;
 
-	  // partie conductive
-	  for (k = 0; k < getNumberOfDimensions(); k++)
-	    F (i) -= lambda * _integrationPoint->dShapeFunction (i, k) * dT (k) * WxdJ;
-	}
+    // partie conductive
+    for (k = 0; k < getNumberOfDimensions(); k++)
+      F (i) -= lambda * _integrationPoint->dShapeFunction (i, k) * dT (k) * WxdJ;
+  }
     }
 
   // lumping de la matrice de masse
@@ -2129,9 +2129,9 @@ void Element::getSigmaAtPoint (Tensor2 & Stress, const Vec3D & point)
       pel = pnd->elements (j); \
       long loc = pel->nodes.IAppN (pnd->_listIndex); \
       for ( pt = 0; pt < pel->getNumberOfIntegrationPoints (); pt++) \
-	{ \
-	  VAR += pel->_elementData->nodes[loc].integrationPointsToNode(pt) * pel->integrationPoints (pt)->VAR; \
-	} \
+  { \
+    VAR += pel->_elementData->nodes[loc].integrationPointsToNode(pt) * pel->integrationPoints (pt)->VAR; \
+  } \
       nb++; \
     } \
   VAR = VAR / nb; \
@@ -2186,12 +2186,12 @@ void Element::computeBoundBox ()
     {
       pnd = nodes (i);
       for (j = 0; j < 3; j++)
-	{
-	  if (pnd->coordinates (j) < _nodeMin (j))
-	    _nodeMin (j) = pnd->coordinates (j);
-	  if (pnd->coordinates (j) > _nodeMax (j))
-	    _nodeMax (j) = pnd->coordinates (j);
-	}
+  {
+    if (pnd->coordinates (j) < _nodeMin (j))
+      _nodeMin (j) = pnd->coordinates (j);
+    if (pnd->coordinates (j) > _nodeMax (j))
+      _nodeMax (j) = pnd->coordinates (j);
+  }
     }
 }
 
@@ -2245,7 +2245,7 @@ bool Element::isNodeinElement (Vec3D coordinates)
 
       // recherche avec une tolerance 1e-7
       if ((shapes (i) < -0.0000001) || (shapes (i) > 1.0000001))
-	return (false);
+  return (false);
     }
 
   // ok, le noeud est dedans
@@ -2308,7 +2308,7 @@ bool Element::linkIntegrationPointData (short i)
 #ifdef VERIF_bounds
     if (i > _elementData->numberOfIntegrationPoints)
       fatalError("Element::getIntegrPointCoords",
-		 "integration point %d is out of bounds %d-%d\n",i,0,_elementData->numberOfIntegrationPoints);
+     "integration point %d is out of bounds %d-%d\n",i,0,_elementData->numberOfIntegrationPoints);
 #endif
 
   integrationPointData = _elementData->integrationPoint[i];

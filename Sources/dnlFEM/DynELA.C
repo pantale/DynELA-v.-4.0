@@ -289,7 +289,7 @@ bool DynELA::createElement(long elementNumber, long nodesIndex, ...)
   }
   logFile << "] added to " << name << "\n";
 
-  //Cleans up the list
+  // Cleans up the list
   va_end(arguments);
 
   return true;
@@ -355,7 +355,7 @@ void DynELA::add(Material *material, ElementSet *elementSet)
     addMaterial(material);
 }
 
-//ajoute un materiau à la structure
+// ajoute un materiau à la structure
 /*
   Cette methode ajoute un nouveau materiau à la structure. Le nouveau materiau est initialise et renseigne de maniere externe. Cette methode est uniquement destinee à le stocker au niveau de la stucture. Il est ensuite possible d'y faire reference à partir poissonRatio nom de ce materiau. Cette methode verifie que lorsque l'on ajoute un materiau, si le nom est declare, un autre materiau portant le meme nom n'est pas deje present dans la liste des materiaux. Dans ce cas, une erreur est alors generee.
 
@@ -437,7 +437,7 @@ void DynELA::attachInitialBC(Boundary *boundary, NodeSet *nodeSet)
   boundary->typeSet << tp; */
 }
 
-//affecte des conditions aux limites constantes à un ensemble de noeuds
+// affecte des conditions aux limites constantes à un ensemble de noeuds
 /*
   Cette methode affecte des conditions aux limites à un ensemble de noeuds de la structure.
 
@@ -719,7 +719,7 @@ bool DynELA::initSolve()
   return true;
 }
 
-//lancement du solveur general
+// lancement du solveur general
 /*
   Cette methode lance la procedure de solveur general de la structure. Elle prend en compte tous les types de solveurs possible et gere aussi bien la resolution mono-modele que la resolution multi-modele. C'est le point d'entree de tout solveur.
 */
@@ -820,18 +820,18 @@ bool DynELA::initSolve ()
 
   // initialisation du temps
   currentTime=0;
-	// initialisation des modeles
+  // initialisation des modeles
   for (i=0; i<models.getSize();i++)
     {
       logFile << "\nVerification of model "<<i<<" ...\n";
       if (models(i)->initSolve()==false)
-	{
-	  // model has to be deleted
-	  logFile << "Void Model "<<i<< " has been deleted ...\n";
-	  delete models(i);
-	  models.del(i);
-	  i--;
-	}
+  {
+    // model has to be deleted
+    logFile << "Void Model "<<i<< " has been deleted ...\n";
+    delete models(i);
+    models.del(i);
+    i--;
+  }
     }
   logFile << "\nPhysic contains "<<i<< " model"<<(i>1 ? "s":"")<<" ...\n\n";
 
@@ -883,7 +883,7 @@ Material * DynELA::getMaterial (String name)
     {
       // materiau trouve
       if (model.materials (i)->name == name)
-	return model.materials (i);
+  return model.materials (i);
     }
 
   // materiau non trouve
@@ -1031,10 +1031,10 @@ void DynELA::displayOnline()
 //  for (long i=0;i<models.getSize();i++) doms+=physics(i)->models.getSize();
 
   printf("\rRead %ld model%s %ld node%s %ld element%s %ld material%s",
-	 models.getSize(),(models.getSize() > 1 ? "s" : ""),
-	 nodes.getSize(),(nodes.getSize()>1 ? "s" : ""),
-	 elements.getSize(),(elements.getSize()>1 ? "s" : ""),
-	 model.materials.getSize(),(model.materials.getSize()>1 ? "s" : ""));
+   models.getSize(),(models.getSize() > 1 ? "s" : ""),
+   nodes.getSize(),(nodes.getSize()>1 ? "s" : ""),
+   elements.getSize(),(elements.getSize()>1 ? "s" : ""),
+   model.materials.getSize(),(model.materials.getSize()>1 ? "s" : ""));
 
   // reset currentModel
  // physics(indPhy);
@@ -1095,7 +1095,7 @@ void DynELA::readData (ifstream & pfile)
     {
       models(i)->readData(pfile);
       if (checkBinaryVersion (pfile, 1) != Ok)
-	fatalError ("model datas", "Read error");
+  fatalError ("model datas", "Read error");
     }
 }
 
@@ -1131,26 +1131,26 @@ bool DynELA::checkBinaryVersion (ifstream & pfile, int top)
       pfile >> check;
 
       if (check (0) != versionCheckDefine)
-	{
-	  cerr << "File recorded by DynELA v." << (int) version (0) << "." <<
-	    (int) version (1) << "." << (int) version (2) << "-" << (int)
-	    check (1) << endl;
-	  cerr << endl << "This recording format is not compatible with ";
-	  cerr << "DynELA v." << VERSION << "." << RELEASE << "." <<
-	    UNDER_RELEASE << "-" << ALPHA_VERSION << endl;
-	  cerr << "\nYou MUST delete previous results and rerun the solver\n";
-	  return Fail;
-	}
+  {
+    cerr << "File recorded by DynELA v." << (int) version (0) << "." <<
+      (int) version (1) << "." << (int) version (2) << "-" << (int)
+      check (1) << endl;
+    cerr << endl << "This recording format is not compatible with ";
+    cerr << "DynELA v." << VERSION << "." << RELEASE << "." <<
+      UNDER_RELEASE << "-" << ALPHA_VERSION << endl;
+    cerr << "\nYou MUST delete previous results and rerun the solver\n";
+    return Fail;
+  }
       return Ok;
     }
   else
     {
       pfile >> check;
       if (check (0) != separatorCheckDefine)
-	{
-	  cerr << "\n May be file is trucated\n";
-	  return Fail;
-	}
+  {
+    cerr << "\n May be file is trucated\n";
+    return Fail;
+  }
       return Ok;
     }
 }
@@ -1223,23 +1223,23 @@ void DynELA::compact()
 //    {
 //      pphysic=physics(i);
       for (j=0;j<models.getSize();j++)
-	{
-	  pmodel=models(j);
+  {
+    pmodel=models(j);
 //	  for(k=0;k<pmodel.grids.getSize();k++)
 //	    {
-	      elementNum=1;
-	      nodeNum=1;
+        elementNum=1;
+        nodeNum=1;
 //	      pgrid=pmodel.grids(k);
-	      for (l=0;l<pmodel.nodes.getSize();l++)
-		{
-		  pmodel.nodes(l)->number=nodeNum++;
-		}
-	      for (l=0;l<pmodel.elements.getSize();l++)
-		{
-		  pmodel.elements(l)->number=elementNum++;
-		}
-	    }
-	//}
+        for (l=0;l<pmodel.nodes.getSize();l++)
+    {
+      pmodel.nodes(l)->number=nodeNum++;
+    }
+        for (l=0;l<pmodel.elements.getSize();l++)
+    {
+      pmodel.elements(l)->number=elementNum++;
+    }
+      }
+  //}
    // }
 }
 
@@ -1385,19 +1385,46 @@ void DynELA::mergeModels()
 
       // copy elements
       for (j=0;j<pmodelo->elements.getSize();j++)
-	{
-	  pmodeld->elements << pmodelo->elements(j);
-	  pmodelo->elements(j)->number=elnum++;
-	}
+  {
+    pmodeld->elements << pmodelo->elements(j);
+    pmodelo->elements(j)->number=elnum++;
+  }
 
       // copy nodes
       for (j=0;j<pmodelo->nodes.getSize();j++)
-	{
-	  pmodeld->nodes << pmodelo->nodes(j);
-	  pmodelo->nodes(j)->number=nnum++;
-	}
+  {
+    pmodeld->nodes << pmodelo->nodes(j);
+    pmodelo->nodes(j)->number=nnum++;
+  }
     }
 
   models.del(1,models.getSize()-1);
 }
 */
+
+//-----------------------------------------------------------------------------
+void DynELA::setStressComputation(char *method)
+//-----------------------------------------------------------------------------
+{
+  String meth = method;
+  bool ok = false;
+  if (meth == "Direct")
+  {
+    model._stressIntegrationMethod = model.StressIntDirect;
+    // logFile
+    logFile << "Stress computation method set to : Direct \n";
+    ok = true;
+  }
+  if (meth == "NewtonRaphson")
+  {
+    model._stressIntegrationMethod = model.StressIntNR;
+    // logFile
+    logFile << "Stress computation method set to : Newton-Raphson \n";
+    ok = true;
+  }
+  if (!ok)
+  {
+    printf("Unknown setStressComputation method : %s\n", method);
+    exit(-1);
+  }
+}
