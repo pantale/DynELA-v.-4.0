@@ -27,7 +27,7 @@ class Element;
 class ElementsChunk
 {
 public:
-  List<Element *> elements; // List of the elements of the chunk
+  List <Element *> elements; // List of the elements of the chunk
 
 public:
   ElementsChunk() {}
@@ -66,7 +66,7 @@ public:
 #ifndef SWIG
   ElementsChunk *getElementsOfCore(int core);
   ElementsChunk *getElementsOfCurrentCore();
-  void dispatchElements(List<Element *> elementList);
+  void dispatchElements(List <Element *> elementList);
 #endif
 
   // Interface methods excluded from basic SWIG support

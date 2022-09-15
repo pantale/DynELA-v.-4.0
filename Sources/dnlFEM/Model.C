@@ -57,7 +57,7 @@ Model::~Model()
 {
 }
 
-//Ajout d'un noeud à la grille courante
+// Ajout d'un noeud à la grille courante
 /*
   Cette methode ajoute un noeud à la grille courante. Cette methode effectue des verifications de base comme par exemple la presence d'un noeud portant le meme numero que le nouveau noeud dans la liste. En cas de doublon, cette methode stoppe le processus de construction et renvoie une erreur.
   - newNode pointeur sur le nouveau noeud à ajouter à la grille
@@ -169,7 +169,7 @@ void Model::create(Element *newElement, long *listOfNodes)
   }
 }
 
-//Add new nodes to the current NodeSet
+// Add new nodes to the current NodeSet
 /*
   This method adds a set of existing nodes and a NodeSet. The nodes are specified by their identification numbers given in a variation range (start number, end number and increment). The nodes are then searched in the current grid of the current model of the structure.
   \warning Les noeuds ajoutes doivent etre presents dans la grille courante du modele courant.
@@ -278,7 +278,7 @@ void Model::add(ElementSet *elementSet, long startNumber, long endNumber, long i
   }
 }
 
-//recherche d'un noeud dans la structure en fonction de son numero
+// recherche d'un noeud dans la structure en fonction de son numero
 /*
   Cette methode recherche un noeud dans la structure en fonction de son numero et renvoie un pointeur sur celui-ci, ou NULL si celui-ci n'existe pas dans la structure. Le noeud est recherche sur la grille courante du modele courant.
   - nodeNumber numero du noeud à rechercher
@@ -361,7 +361,8 @@ bool Model::initSolve()
 //-----------------------------------------------------------------------------
 {
   // If the init solve has already beeen done, return
-  if (_initSolveDone){
+  if (_initSolveDone)
+  {
     std::cout << "Already Done Model::iniSolve !\n";
     return true;
   }
@@ -377,7 +378,9 @@ bool Model::initSolve()
 
   // Set the dimension of the model
   _numberOfDimensions = elements(0)->getNumberOfDimensions();
-  dynelaData->logFile << "Grid topology set to " << (elements(0)->getFamily() == Element::Bidimensional ? "2D" : elements(0)->getFamily() == Element::Axisymetric ? "2D Axi" : "3D") << "\n";
+  dynelaData->logFile << "Grid topology set to " << (elements(0)->getFamily() == Element::Bidimensional ? "2D" : elements(0)->getFamily() == Element::Axisymetric ? "2D Axi"
+                                                                                                                                                                  : "3D")
+                      << "\n";
 
   // Check the topology of the model
   if (checkTopology())
@@ -622,7 +625,7 @@ double Model::getTotalKineticEnergy()
   return (kineticEnergy);
 }
 
-//Calcul du time step de minimal de la grille (Courant)
+// Calcul du time step de minimal de la grille (Courant)
 /*
   Cette methode calcule le time step minimal de la grille à partir de la definition de la geometrie des elements et de la vitesse de propagation du son dans les elements de la structure. Cette relation est basee sur le critere de stabilite de Courant.
   La relation utilisee pour ce calcul est donnee par:
@@ -722,7 +725,7 @@ bool Model::solve(double solveUpToTime)
   return true;
 }
 
-//Calcule le determinant du Jacobien de tous les elements de la grille
+// Calcule le determinant du Jacobien de tous les elements de la grille
 /*
   Cette methode calcule le Jacobien de tous les elements de la grille.
 */
@@ -1247,7 +1250,7 @@ void Model::starterWrite(String name)
   cout << "End of write ...\n";*/
 //}
 
-//Cree un element et l'ajoute à la grille courante
+// Crée un element et l'ajoute à la grille courante
 /*
   Cette methode cree un element et l'ajoute à la grille courante.
 

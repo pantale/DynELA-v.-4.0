@@ -40,7 +40,7 @@ public:
 
 protected:
   HardeningLaw *_hardening = NULL; // Hardening law of the current material
-  List<ElementSet *> _elementsSet; // Liste d'elements qui referencent ce materiau
+  List <ElementSet *> _elementsSet; // Liste d'elements qui referencent ce materiau
   Tensor4 _hookeTensor;            // Fourth order Hooke tensor
   Vec3D _color;                    // Associated _color of the material for the post-processor
 

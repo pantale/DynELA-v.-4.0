@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 class DiscreteFunctionSet
 {
-  List<DiscreteFunction *> curves;
+  List <DiscreteFunction *> curves;
 
 public:
   DiscreteFunctionSet();

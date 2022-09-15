@@ -24,7 +24,7 @@
 #if !defined(SWIG)
 class coupleReal
 {
-  friend class List<coupleReal *>;
+  friend class List <coupleReal *>;
   friend class DiscreteFunction;
   friend bool compare(coupleReal *t1, coupleReal *t2);
   double x; // Coordinate X of the point
@@ -58,7 +58,7 @@ public:
   };
 
 protected:
-  List<coupleReal *> lpoints; // List of points
+  List <coupleReal *> lpoints; // List of points
   bool Sort;                  // Boolean flage telling if the points are sorted or not
 
 public:

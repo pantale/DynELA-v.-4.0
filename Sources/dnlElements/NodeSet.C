@@ -168,7 +168,7 @@ void NodeSet::clear()
 void NodeSet::surface(ElementSet *eset)
 //-----------------------------------------------------------------------------
 {
-  List<LateralSurface *> lat;
+  List <LateralSurface *> lat;
   Element *pel;
   long i, j, k;
   LateralSurface *sr1;

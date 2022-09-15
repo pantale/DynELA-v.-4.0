@@ -39,8 +39,8 @@ protected:
   Function *_function; // Fonction discrete associee si elle existe
 
 public:
-  List<NodeSet *> nodeSet;
-  // List<bool> typeSet;
+  List <NodeSet *> nodeSet;
+  // List <bool> typeSet;
   String name; // Public name of the BoundaryCondition
 
 public:

@@ -27,7 +27,7 @@ class Element;
 //-----------------------------------------------------------------------------
 class Node
 {
-  friend class ListIndex<Node *>; // To be able to use ListIndex
+  friend class ListIndex <Node *>; // To be able to use ListIndex
   long _listIndex;                // Local index used for the ListIndex management.
 
 public:
@@ -37,7 +37,7 @@ public:
   //Vec3D normal;                // Normal vector. This vector represents the normal vector of the current point in 3D space. Such normal vector is compted from the values of the normals of the faces connected to this point.
   BoundaryCondition *boundary; // Boundary conditions. This pointer reference the list of the boundary conditions on the current node.
   double mass;                 // Mass. This field is used to store the value of the getJ2 nodal mass.
-  List<Element *> elements;    // Element list. This pointer reference the list of the elements that contains a reference to the current node (ie: the list of the elements that includes this node).
+  List <Element *> elements;    // Element list. This pointer reference the list of the elements that contains a reference to the current node (ie: the list of the elements that includes this node).
   long number;                 // Identification number. This field represents the external identification number of the current node (ie. user representation).
   NodalField *currentField;    // Nodal field of the node, ie. nodal field at the begining of the current increment
   NodalField *newField;        // New Nodal field of the node, ie. nodal field at the end of the current increment

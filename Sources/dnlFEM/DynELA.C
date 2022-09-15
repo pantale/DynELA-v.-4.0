@@ -20,7 +20,7 @@
 class DynELA;
 DynELA *dynelaData = NULL; // initialisation par defaut sur NULL
 
-//Default constructor of the DynELA class
+// Default constructor of the DynELA class
 /*
   This method is the default constructor of the DynELA class.
   */
@@ -80,7 +80,7 @@ DynELA::DynELA(char *newName)
  */
 }
 
-//constructeur par recopie de la classe DynELA
+// constructeur par recopie de la classe DynELA
 /*
   Cette methode est le constructeur par recopie de la classe DynELA. En pratique, ici, on ne fait rien de plus que les allocations de memoire necessaires.
   \date 2002
@@ -91,7 +91,7 @@ DynELA::DynELA(const DynELA &X)
 {
 }
 
-//destructeur de la classe DynELA
+// destructeur de la classe DynELA
 /*
   \date 2002
 
@@ -109,7 +109,7 @@ DynELA::~DynELA()
   cpuTimes.saveReport(cpuFileName.c_str());
 }
 
-//recherche d'un noeud dans la structure en fonction de son numero
+// recherche d'un noeud dans la structure en fonction de son numero
 /*
   Cette methode recherche un noeud dans la structure en fonction de son numero et renvoie un pointeur sur celui-ci, ou NULL si celui-ci n'existe pas dans la structure. Le noeud est recherche sur la grille courante du modele courant.
   - nodeNumber numero du noeud à rechercher
@@ -132,7 +132,7 @@ Node *DynELA::getNodeByNum(long nodeNumber)
   return model.nodes.dichotomySearch(substractNodesNumber, nodeNumber);
 }
 
-//recherche d'un element dans la structure en fonction de son numero
+// recherche d'un element dans la structure en fonction de son numero
 /*
   Cette methode recherche un element dans la structure en fonction de son numero et renvoie un pointeur sur celui-ci, ou NULL si celui-ci n'existe pas dans la structure. L'element est recherche sur la grille courante du modele courant.
   - elementNumber numero de l'element à rechercher
@@ -155,7 +155,7 @@ Element *DynELA::getElementByNum(long elementNumber)
   return model.elements.dichotomySearch(substractElementsNumber, elementNumber);
 }
 
-//creation d'un noeud et ajout à la structure
+// creation d'un noeud et ajout à la structure
 /*
   Cette methode cree un nouveau noeud et l'ajoute à la fois à la liste des noeuds de la structure et à la liste des noeuds de la grille courante du modele courant.
   - nodeNumber numero du nouveau noeud à creer
@@ -175,7 +175,7 @@ bool DynELA::createNode(long nodeNumber, double xCoord, double yCoord, double zC
   model.add(newNode);
 
   // add the newNode
-  //nodes << newNode;
+  // nodes << newNode;
 
   // logFile
   char st[80];
@@ -194,7 +194,7 @@ bool DynELA::createNode(long nodeNumber, Vec3D coords)
   return true;
 }
 
-//renvoie le nombre de noeuds de la structure
+// renvoie le nombre de noeuds de la structure
 /*
   Cette methode renvoie le nombre total de noeuds de la structure
 
@@ -316,7 +316,7 @@ void DynELA::add(Solver *newSolver)
   model.add(newSolver);
 }
 
-//affecte un materiau à un ensemble d'elements
+// affecte un materiau à un ensemble d'elements
 /*
   Cette methode affecte un materiau à un ensemble d'elements de la structure.
 
@@ -399,7 +399,7 @@ void DynELA::add(ElementSet *elementSet, long startNumber, long endNumber, long 
   model.add(elementSet, startNumber, endNumber, increment);
 }
 
-//affecte des conditions aux limites initiales à un ensemble de noeuds
+// affecte des conditions aux limites initiales à un ensemble de noeuds
 /*
   Cette methode affecte des conditions aux limites à un ensemble de noeuds de la structure.
 
@@ -652,7 +652,7 @@ void DynELA::rotate(Vec3D axis, double angle, NodeSet *nodeSet)
       model.nodes(i)->coordinates = Mat * model.nodes(i)->coordinates;
 }
 
-//calcule les coordonnees mini et maxi de l'ensemble des noeuds d'une structure
+// calcule les coordonnees mini et maxi de l'ensemble des noeuds d'une structure
 /*
   Cette methode calcule l'enveloppe mini et maxi des coordonnees des points d'uns structure complete
 

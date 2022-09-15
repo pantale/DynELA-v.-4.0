@@ -27,7 +27,7 @@ class Model;
 class Element
 {
     friend class Node;
-    friend class ListIndex<Element *>; // To be able to use ListIndex
+    friend class ListIndex <Element *>; // To be able to use ListIndex
     long _listIndex;                   // Local index used for the ListIndex management.
     Vec3D _nodeMin, _nodeMax;          // Bounding box of an element.
 
@@ -38,9 +38,9 @@ protected:
     UnderIntegrationPoint *_underIntegrationPoint;
 
 public:
-    List<IntegrationPoint *> integrationPoints;
-    List<UnderIntegrationPoint *> underIntegrationPoints;
-    ListIndex<Node *> nodes;
+    List <IntegrationPoint *> integrationPoints;
+    List <UnderIntegrationPoint *> underIntegrationPoints;
+    ListIndex <Node *> nodes;
     long number;
     Material *material;
     Matrix stiffnessMatrix;

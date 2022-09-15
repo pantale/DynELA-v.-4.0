@@ -24,8 +24,8 @@ class BoundaryCondition
 {
 
 protected:
-  List<Boundary *> constant; // Liste des conditions aux limites constantes
-  List<Boundary *> initial;  // Liste des conditions aux limites initiales
+  List <Boundary *> constant; // Liste des conditions aux limites constantes
+  List <Boundary *> initial;  // Liste des conditions aux limites initiales
 
 public:
   // constructeurs

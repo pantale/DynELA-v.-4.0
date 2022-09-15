@@ -58,7 +58,7 @@ private:
   int _patchDecompLevel = 1;
   int _titleX = 50;
   int _titleY = 1550;
-  List<SvgRotate *> _rotateList;
+  List <SvgRotate *> _rotateList;
   std::ofstream _stream;
   String _fileName;
   Vec3D _svgCenter;

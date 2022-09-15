@@ -30,7 +30,7 @@ struct PolynomialFragment
 class PolynomialFunction : public Function
 {
 private:
-  List<PolynomialFragment> fragment;
+  List <PolynomialFragment> fragment;
 
 public:
 public:

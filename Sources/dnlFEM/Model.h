@@ -44,18 +44,18 @@ private:
   bool _initSolveDone = false;
 
 public:
-  double currentTime = 0.0;         // Temps actuel du modele
-  double nextTime = 0.0;            // Temps actuel du modele + increment de temps
-  List<ElementSet *> elementsSets;  // List of the Elements Sets
-  List<HistoryFile *> historyFiles; // List of the History Files
-  List<Material *> materials;       // Materials list of the structure
-  List<NodeSet *> nodesSets;        // List of the Nodes Sets
-  ListIndex<Element *> elements;    // List of the Elements
-  ListIndex<Node *> nodes;          // List of the Nodes
-  MatrixDiag massMatrix;            // Mass matrix
-  Solver *solver = NULL;            // solveurs associes au modele
-  String name = "Model::_noname_";  // Name of the model
-  Vector internalForces;            // Vecteur des forces internes
+  double currentTime = 0.0;          // Temps actuel du modele
+  double nextTime = 0.0;             // Temps actuel du modele + increment de temps
+  List <ElementSet *> elementsSets;  // List of the Elements Sets
+  List <HistoryFile *> historyFiles; // List of the History Files
+  List <Material *> materials;       // Materials list of the structure
+  List <NodeSet *> nodesSets;        // List of the Nodes Sets
+  ListIndex <Element *> elements;    // List of the Elements
+  ListIndex <Node *> nodes;          // List of the Nodes
+  MatrixDiag massMatrix;             // Mass matrix
+  Solver *solver = NULL;             // solveurs associes au modele
+  String name = "Model::_noname_";   // Name of the model
+  Vector internalForces;             // Vecteur des forces internes
 
 private:
   bool add(Element *pel);

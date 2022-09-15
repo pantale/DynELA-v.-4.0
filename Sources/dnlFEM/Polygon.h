@@ -100,7 +100,7 @@ class PolygonPatches
 {
 private:
   int _decompLevel;
-  List<PolygonPatch *> _polygonPatches;
+  List <PolygonPatch *> _polygonPatches;
   friend class Polygon;
 
   PolygonPatch *createPolygonPatch();

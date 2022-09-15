@@ -38,7 +38,7 @@ Element::Element(long elementNumber)
   _integrationPoint = NULL;
 
   // affectation par defaut NULL sur les ref
-  //underIntegrationPoint = NULL;
+  // underIntegrationPoint = NULL;
 
   // affectation par defaut edges
   //_elementData = NULL;
@@ -291,7 +291,7 @@ void Element::initializeData()
     _underIntegrationPoint->density = material->density;
   } */
   // Compute Jacobian of the element
-  //computeJacobian(true);
+  // computeJacobian(true);
 
   /*   for (int intPoint = 0; intPoint < integrationPoints.getSize(); intPoint++)
   {
@@ -342,7 +342,7 @@ void Element::computeMassMatrix(MatrixDiag &elementMassMatrix)
   }
 }
 
-//Calcul du de la vitesse de propagation d'une onde.
+// Calcul du de la vitesse de propagation d'une onde.
 //-----------------------------------------------------------------------------
 double Element::getElongationWaveSpeed()
 //-----------------------------------------------------------------------------
@@ -369,7 +369,7 @@ void Element::computeInternalForces(Vector &InternalForce, double timeStep)
   long I;
   int i, j;
   double WxdJ;
-  //double currentRadius;
+  // double currentRadius;
 
   // redim du vecteur InternalForce
   InternalForce.redim(_elementData->numberOfNodes * _elementData->numberOfDimensions);
@@ -476,7 +476,7 @@ void Element::computeStress(double timeStep)
 
     // Get back yield stress
     yield = _integrationPoint->yieldStress;
-    //yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
+    // yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
 
     // If the yield is zero, compute the first yield stress thank's to the constitutive law using the initial default value of gamma
     if (yield == 0.0)
@@ -495,7 +495,7 @@ void Element::computeStress(double timeStep)
     {
       // Definition of gamma range
       gammaMin = 0.0;
-      //gammaMax = Strial / TwoG32;
+      // gammaMax = Strial / TwoG32;
       gammaMax = (Strial - yield) / TwoG32;
 
       // Get back the previous value of gamma
@@ -629,20 +629,242 @@ void Element::computeStress(double timeStep)
 void Element::computeStressDirect(double timeStep)
 //-----------------------------------------------------------------------------
 {
-  bool irun;
   double plasticStrain, plasticStrainRate, yield;
-  double fun, dfun;
   double gammaInitial = 1e-8;
-  double gammaMin, gammaMax, gamma, dgamma;
+  double gamma;
   double hard;
   double Snorm0, Snorm, Strial;
   double stressPower;
   double temperature0, temperature;
-  double tolNR = 1e-8;
   double plWorkInc;
-  int iBissection;
-  int iterate;
-  int itMax = 250;
+  short intPoint;
+  SymTensor2 StressOld;
+  SymTensor2 DeviatoricStress;
+  SymTensor2 Unity;
+
+  // Init unity vector
+  Unity.setToUnity();
+
+  HardeningLaw *hardeningLaw = material->getHardeningLaw();
+
+  double TwoG = material->getTwoShearModulus();
+  double TwoG32 = dnlSqrt32 * TwoG;
+
+  // Don't know for the moment if the density has to be the initial one of the current one
+  double heatFrac = material->taylorQuinney / (material->density * material->heatCapacity);
+
+  // Boucle sur les points d'integration
+  for (intPoint = 0; intPoint < _elementData->numberOfIntegrationPoints; intPoint++)
+  {
+    // Select integration point
+    setCurrentIntegrationPoint(intPoint);
+
+    // Get back the Stress
+    StressOld = _integrationPoint->Stress;
+    DeviatoricStress = StressOld.getDeviator();
+
+    // computation of Snorm0
+    Snorm0 = DeviatoricStress.getNorm();
+
+    // Trial Deviatoric stress
+    DeviatoricStress += TwoG * _integrationPoint->StrainInc.getDeviator();
+
+    // Computation of Snorm
+    Snorm = DeviatoricStress.getNorm();
+
+    // Computation of Strial
+    Strial = dnlSqrt32 * Snorm;
+
+    // Get back initial temperature
+    temperature0 = _integrationPoint->temperature;
+    temperature = temperature0;
+
+    // Get back plasticStrain and plasticStrainRate
+    plasticStrain = _integrationPoint->plasticStrain;
+    plasticStrainRate = _integrationPoint->plasticStrainRate;
+
+    // Initialize value of gamma
+    gamma = 0.0;
+
+    // Get back yield stress
+    yield = _integrationPoint->yieldStress;
+    // yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
+
+    // If the yield is zero, compute the first yield stress thank's to the constitutive law using the initial default value of gamma
+    if (yield == 0.0)
+    {
+      yield = hardeningLaw->getYieldStress(gammaInitial, gammaInitial / timeStep, temperature);
+      //   yield = hardeningLaw->getYieldStress(0, 0, temperature);
+      _integrationPoint->yieldStress = yield;
+    }
+
+    // // Initialize the iterate counters
+    // iterate = 0;
+    // iBissection = 0;
+
+    // Plasticity criterion test and begin of plastic corrector
+    if (Strial > yield)
+    {
+      if (plasticStrain > 0.0)
+      {
+        hard = hardeningLaw->getDerivateYieldStress(plasticStrain, plasticStrainRate, temperature, timeStep);
+      }
+      else
+      {
+        hard = hardeningLaw->getDerivateYieldStress(gammaInitial, plasticStrainRate, temperature, timeStep);
+      }
+
+      gamma = (Snorm - dnlSqrt23 * yield) / (TwoG * (1.0 + hard / (1.5 * TwoG)));
+      // Definition of gamma range
+      //  gammaMin = 0.0;
+      // gammaMax = Strial / TwoG32;
+      //  gammaMax = (Strial-yield) / TwoG32;
+
+      // Get back the previous value of gamma
+      // gamma = _integrationPoint->gamma;
+
+      // if (plasticStrain == 0.0)
+      //   gamma = dnlSqrt32 * gammaInitial;
+
+      // Update the values of plasticStrain, plasticStrainRate and temperature for next loop
+      // plasticStrainRate = dnlSqrt23 * gamma / timeStep;
+      // plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
+      // temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
+
+      // // initialize the loop
+      // irun = true;
+
+      // // Main loop of the Newton-Raphson procedure
+      // while (irun)
+      // {
+      //   // Compute yield stress and hardening parameter
+      //   yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
+
+      //   // Compute the radial return equation for isotropic case
+      //   fun = Strial - gamma * TwoG32 - yield;
+
+      //   // Reduce the range of the solution depending the sign of fun
+      //   if (fun < 0.0)
+      //     gammaMax = gamma;
+      //   else
+      //     gammaMin = gamma;
+
+      //   // Compute the hardening coefficient
+      //   hard = hardeningLaw->getDerivateYieldStress(plasticStrain, plasticStrainRate, temperature, timeStep);
+
+      //   // Compute derivative of the radial return equation
+      //   dfun = TwoG32 + dnlSqrt23 * hard;
+
+      //   // Increment of the gamma parameter
+      //   dgamma = fun / dfun;
+
+      //   // Increment on the gamma value for Newton-Raphson
+      //   gamma += dgamma;
+
+      //   // If the solution is outside of the brackets, do a bissection step
+      //   if ((gammaMax - gamma) * (gamma - gammaMin) < 0.0)
+      //   {
+      //     dgamma = 0.5 * (gammaMax - gammaMin);
+      //     gamma = gammaMin + dgamma;
+      //     iBissection += 1;
+      //   }
+
+      //   // Algorithm converged, end of computations
+      //   if (dnlAbs(dgamma) < tolNR)
+      //   {
+      //     irun = false;
+      //   }
+      //   else
+      //   {
+      //     // Update the values of plasticStrain, plasticStrainRate and temperature for next loop
+      //     plasticStrainRate = dnlSqrt23 * gamma / timeStep;
+      //     plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
+      //     temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
+
+      //     // Increase the number of iterations
+      //     iterate += 1;
+      //     if (iterate > itMax)
+      //     {
+      //       printf("NO CONVERGENCE in Newton-Raphson\n");
+      //       printf("After %d iterations\n", iterate);
+      //       printf("Time %lf \n", timeStep);
+      //       printf("Precision %lf\n", dnlAbs(fun / yield));
+      //       printf("Strial %lf\n", Strial);
+      //       printf("Gamma0 %lf\n", _integrationPoint->gamma);
+      //       printf("Gamma %lf\n", gamma);
+      //       printf("Gamma M %lf %lf\n", gammaMin, gammaMax);
+      //       printf("DGamma %lf\n", dgamma);
+      //       printf("epsp0 %lf\n", _integrationPoint->plasticStrain + dnlSqrt23 * _integrationPoint->gamma);
+      //       printf("depsp0 %lf\n", dnlSqrt23 * _integrationPoint->gamma / timeStep);
+      //       printf("plasticStrain %lf\n", plasticStrain);
+      //       printf("plasticStrainRate %lf\n", plasticStrainRate);
+      //       printf("temperature %lf\n", temperature);
+      //       printf("old plasticStrain %lf\n", _integrationPoint->plasticStrain);
+      //       printf("old plasticStrainRate %lf\n", _integrationPoint->plasticStrainRate);
+      //       printf("old gamma %lf\n", _integrationPoint->gamma);
+      //       printf("old yieldStress %lf\n", _integrationPoint->yieldStress);
+      //       printf("old temperature %lf\n", _integrationPoint->temperature);
+      //       fatalError("No convergence");
+      //     }
+      //   }
+      // }
+
+      plasticStrainRate = dnlSqrt23 * gamma / timeStep;
+      plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
+      temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
+
+        yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
+
+      // Computation of the plastic strain increment
+      _integrationPoint->PlasticStrain += gamma * DeviatoricStress / Snorm;
+
+      // Compute the new stress corrector
+      DeviatoricStress *= 1.0 - TwoG * gamma / Snorm;
+
+      // Store new plasticStrain and plasticStrainRate
+      _integrationPoint->plasticStrain += dnlSqrt23 * gamma;
+      _integrationPoint->plasticStrainRate = dnlSqrt23 * gamma / timeStep;
+
+      // Store the value of gamma for next loop
+      _integrationPoint->gamma = gamma;
+      _integrationPoint->gammaCumulate += gamma;
+
+      // store the new yield stress of the material
+      _integrationPoint->yieldStress = yield;
+    }
+
+    // Compute the final stress of the element
+    _integrationPoint->Stress = DeviatoricStress + _integrationPoint->pressure * Unity;
+
+    // Compute the new specific internal energy
+    stressPower = 0.5 * _integrationPoint->StrainInc.doubleProduct(StressOld + _integrationPoint->Stress);
+    _integrationPoint->internalEnergy += stressPower / material->density;
+
+    // Get back the gamma value
+    if (gamma != 0.0)
+        {
+      // Compute the plastic Work increment
+      plWorkInc = 0.5 * gamma * (DeviatoricStress.getNorm() + Snorm0);
+
+      // New dissipated inelastic specific energy
+      _integrationPoint->inelasticEnergy += plWorkInc / material->density;
+      _integrationPoint->temperature += heatFrac * plWorkInc;
+    }
+  }
+        }
+
+/* //-----------------------------------------------------------------------------
+void Element::computeStressDirect(double timeStep)
+//-----------------------------------------------------------------------------
+{
+  double plasticStrain, plasticStrainRate, yield;
+  double gammaInitial = 1e-8;
+  double gamma;
+  double hard;
+  double Snorm0, Snorm, Strial;
+  double stressPower;
+  double temperature0, temperature;
+  double plWorkInc;
   short intPoint;
   SymTensor2 StressOld;
   SymTensor2 DeviatoricStress;
@@ -693,37 +915,37 @@ void Element::computeStressDirect(double timeStep)
     gamma = 0.0;
 
     // Get back yield stress
-    //yield = _integrationPoint->yieldStress;
+    // yield = _integrationPoint->yieldStress;
     yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
 
     // If the yield is zero, compute the first yield stress thank's to the constitutive law using the initial default value of gamma
-    /*   if (yield == 0.0)
-    {
-      //yield = hardeningLaw->getYieldStress(gammaInitial, gammaInitial / timeStep, temperature);
-      yield = hardeningLaw->getYieldStress(0, 0, temperature);
-      _integrationPoint->yieldStress = yield;
-    }
+    //    if (yield == 0.0)
+    // {
+    //   //yield = hardeningLaw->getYieldStress(gammaInitial, gammaInitial / timeStep, temperature);
+    //   yield = hardeningLaw->getYieldStress(0, 0, temperature);
+    //   _integrationPoint->yieldStress = yield;
+    // }
 
-    // Initialize the iterate counters
-    iterate = 0;
-    iBissection = 0;
- */
+    // // Initialize the iterate counters
+    // iterate = 0;
+    // iBissection = 0;
+
     // Plasticity criterion test and begin of plastic corrector
     if (Strial > yield)
-    {
+        {
       if (plasticStrain > 0.0)
       {
         hard = hardeningLaw->getDerivateYieldStress(plasticStrain, plasticStrainRate, temperature, timeStep);
-      }
-      else
-      {
+        }
+        else
+        {
         hard = hardeningLaw->getDerivateYieldStress(gammaInitial, plasticStrainRate, temperature, timeStep);
       }
 
       gamma = (Snorm - dnlSqrt23 * yield) / (TwoG * (1.0 + hard / (1.5 * TwoG)));
       // Definition of gamma range
       //  gammaMin = 0.0;
-      //gammaMax = Strial / TwoG32;
+      // gammaMax = Strial / TwoG32;
       //  gammaMax = (Strial-yield) / TwoG32;
 
       // Get back the previous value of gamma
@@ -732,88 +954,88 @@ void Element::computeStressDirect(double timeStep)
       // if (plasticStrain == 0.0)
       //   gamma = dnlSqrt32 * gammaInitial;
 
-      // Update the values of plasticStrain, plasticStrainRate and temperature for next loop
-      /*    plasticStrainRate = dnlSqrt23 * gamma / timeStep;
-      plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
-      temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
-
-      // initialize the loop
-      irun = true;
-
-      // Main loop of the Newton-Raphson procedure
-      while (irun)
-      {
-        // Compute yield stress and hardening parameter
-        yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
-
-        // Compute the radial return equation for isotropic case
-        fun = Strial - gamma * TwoG32 - yield;
-
-        // Reduce the range of the solution depending the sign of fun
-        if (fun < 0.0)
-          gammaMax = gamma;
-        else
-          gammaMin = gamma;
-
-        // Compute the hardening coefficient
-        hard = hardeningLaw->getDerivateYieldStress(plasticStrain, plasticStrainRate, temperature, timeStep);
-
-        // Compute derivative of the radial return equation
-        dfun = TwoG32 + dnlSqrt23 * hard;
-
-        // Increment of the gamma parameter
-        dgamma = fun / dfun;
-
-        // Increment on the gamma value for Newton-Raphson
-        gamma += dgamma;
-
-        // If the solution is outside of the brackets, do a bissection step
-        if ((gammaMax - gamma) * (gamma - gammaMin) < 0.0)
-        {
-          dgamma = 0.5 * (gammaMax - gammaMin);
-          gamma = gammaMin + dgamma;
-          iBissection += 1;
-        }
-
-        // Algorithm converged, end of computations
-        if (dnlAbs(dgamma) < tolNR)
-        {
-          irun = false;
-        }
-        else
-        {
           // Update the values of plasticStrain, plasticStrainRate and temperature for next loop
-          plasticStrainRate = dnlSqrt23 * gamma / timeStep;
-          plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
-          temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
+      // plasticStrainRate = dnlSqrt23 * gamma / timeStep;
+      // plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
+      // temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
 
-          // Increase the number of iterations
-          iterate += 1;
-          if (iterate > itMax)
-          {
-            printf("NO CONVERGENCE in Newton-Raphson\n");
-            printf("After %d iterations\n", iterate);
-            printf("Time %lf \n", timeStep);
-            printf("Precision %lf\n", dnlAbs(fun / yield));
-            printf("Strial %lf\n", Strial);
-            printf("Gamma0 %lf\n", _integrationPoint->gamma);
-            printf("Gamma %lf\n", gamma);
-            printf("Gamma M %lf %lf\n", gammaMin, gammaMax);
-            printf("DGamma %lf\n", dgamma);
-            printf("epsp0 %lf\n", _integrationPoint->plasticStrain + dnlSqrt23 * _integrationPoint->gamma);
-            printf("depsp0 %lf\n", dnlSqrt23 * _integrationPoint->gamma / timeStep);
-            printf("plasticStrain %lf\n", plasticStrain);
-            printf("plasticStrainRate %lf\n", plasticStrainRate);
-            printf("temperature %lf\n", temperature);
-            printf("old plasticStrain %lf\n", _integrationPoint->plasticStrain);
-            printf("old plasticStrainRate %lf\n", _integrationPoint->plasticStrainRate);
-            printf("old gamma %lf\n", _integrationPoint->gamma);
-            printf("old yieldStress %lf\n", _integrationPoint->yieldStress);
-            printf("old temperature %lf\n", _integrationPoint->temperature);
-            fatalError("No convergence");
-          }
-        }
-      } */
+      // // initialize the loop
+      // irun = true;
+
+      // // Main loop of the Newton-Raphson procedure
+      // while (irun)
+      // {
+      //   // Compute yield stress and hardening parameter
+      //   yield = hardeningLaw->getYieldStress(plasticStrain, plasticStrainRate, temperature);
+
+      //   // Compute the radial return equation for isotropic case
+      //   fun = Strial - gamma * TwoG32 - yield;
+
+      //   // Reduce the range of the solution depending the sign of fun
+      //   if (fun < 0.0)
+      //     gammaMax = gamma;
+      //   else
+      //     gammaMin = gamma;
+
+      //   // Compute the hardening coefficient
+      //   hard = hardeningLaw->getDerivateYieldStress(plasticStrain, plasticStrainRate, temperature, timeStep);
+
+      //   // Compute derivative of the radial return equation
+      //   dfun = TwoG32 + dnlSqrt23 * hard;
+
+      //   // Increment of the gamma parameter
+      //   dgamma = fun / dfun;
+
+      //   // Increment on the gamma value for Newton-Raphson
+      //   gamma += dgamma;
+
+      //   // If the solution is outside of the brackets, do a bissection step
+      //   if ((gammaMax - gamma) * (gamma - gammaMin) < 0.0)
+      //   {
+      //     dgamma = 0.5 * (gammaMax - gammaMin);
+      //     gamma = gammaMin + dgamma;
+      //     iBissection += 1;
+      //   }
+
+      //   // Algorithm converged, end of computations
+      //   if (dnlAbs(dgamma) < tolNR)
+      //   {
+      //     irun = false;
+      //   }
+      //   else
+      //   {
+      //     // Update the values of plasticStrain, plasticStrainRate and temperature for next loop
+      //     plasticStrainRate = dnlSqrt23 * gamma / timeStep;
+      //     plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
+      //     temperature = temperature0 + 0.5 * gamma * heatFrac * (dnlSqrt23 * yield + Snorm0);
+
+      //     // Increase the number of iterations
+      //     iterate += 1;
+      //     if (iterate > itMax)
+      //     {
+      //       printf("NO CONVERGENCE in Newton-Raphson\n");
+      //       printf("After %d iterations\n", iterate);
+      //       printf("Time %lf \n", timeStep);
+      //       printf("Precision %lf\n", dnlAbs(fun / yield));
+      //       printf("Strial %lf\n", Strial);
+      //       printf("Gamma0 %lf\n", _integrationPoint->gamma);
+      //       printf("Gamma %lf\n", gamma);
+      //       printf("Gamma M %lf %lf\n", gammaMin, gammaMax);
+      //       printf("DGamma %lf\n", dgamma);
+      //       printf("epsp0 %lf\n", _integrationPoint->plasticStrain + dnlSqrt23 * _integrationPoint->gamma);
+      //       printf("depsp0 %lf\n", dnlSqrt23 * _integrationPoint->gamma / timeStep);
+      //       printf("plasticStrain %lf\n", plasticStrain);
+      //       printf("plasticStrainRate %lf\n", plasticStrainRate);
+      //       printf("temperature %lf\n", temperature);
+      //       printf("old plasticStrain %lf\n", _integrationPoint->plasticStrain);
+      //       printf("old plasticStrainRate %lf\n", _integrationPoint->plasticStrainRate);
+      //       printf("old gamma %lf\n", _integrationPoint->gamma);
+      //       printf("old yieldStress %lf\n", _integrationPoint->yieldStress);
+      //       printf("old temperature %lf\n", _integrationPoint->temperature);
+      //       fatalError("No convergence");
+      //     }
+      //   }
+      // }
 
       plasticStrainRate = dnlSqrt23 * gamma / timeStep;
       plasticStrain = _integrationPoint->plasticStrain + dnlSqrt23 * gamma;
@@ -857,7 +1079,7 @@ void Element::computeStressDirect(double timeStep)
       _integrationPoint->temperature += heatFrac * plWorkInc;
     }
   }
-}
+} */
 
 //-----------------------------------------------------------------------------
 bool Element::check()
