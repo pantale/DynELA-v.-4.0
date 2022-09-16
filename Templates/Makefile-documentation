@@ -57,7 +57,7 @@ $(TOP) : $(SOURCES) $(FIGURES)
 
 # Clean the LateX temp files
 clean: 
-	rm -rf *.aux *.log *.nav *.out *.toc *.vrb *.bbl *.blg *.snm *.mtc* *.idx *.maf *.ptc *.brf *.lof *.lot *.ilg *.ind
+	rm -rf *.aux *.log *.nav *.out *.toc *.vrb *.bbl *.blg *.snm *.mtc* *.?dx *.maf *.ptc *.brf *.lof *.lot *.ilg *.?nd
 
 # Clean the target to force compilation again
 forceClean:
