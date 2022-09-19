@@ -8,6 +8,7 @@
 \input{macrosHyperlink.tex}
 
 \newindex{PL}{0dx}{0nd}{Programming Language}
+\newindex{DL}{1dx}{1nd}{Development Language}
 
 \begin{document}
 \includepdf[pages=1-2]{Figures/Cover.pdf}
@@ -33,13 +34,29 @@
 
 \input{Installation.tex}
 
-\part{DynELA FEM code theory}
+\part{DynELA FEM Code Theory}
 
 \input{Theory-Introduction.tex}
 
 \cleardoublepage
 
-\part{DynELA Programming}
+\part{DynELA Development Libraries}
+
+\input{Development-Kernel.tex}
+
+\input{Development-Maths.tex}
+
+\input{Development-Elements.tex}
+
+\input{Development-Materials.tex}
+
+\input{Development-Boundary.tex}
+
+\input{Development-FEM.tex}
+
+\cleardoublepage
+
+\part{DynELA Syntax and Language}
 
 \input{Programming-Language.tex}
 
@@ -66,10 +83,12 @@
 \includegraphics[width=0.4\columnwidth]{Figures/Bibliography}
 \par\end{center}
 
-\bibliography{Private,Bibliography}
+\bibliography{Private, Bibliography}
 
 \cleardoublepage
 
 \printindex
+\printindex[DL]
 \printindex[PL]
+
 \end{document}

@@ -1,0 +1,108 @@
+% !TeX spellcheck = en_US
+% !TeX root = DynELA.tex
+%
+% LaTeX source file of DynELA FEM Code
+%
+% (c) by Olivier Pantalé 2020
+%
+\chapter{DynELA Maths library}
+
+\startcontents[chapters]
+\printmyminitoc[2]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. 
+
+\section{The Tensor2 library}
+
+The Tensor2 library is used to store second order tensors defined in the \DynELA.
+
+A second order tensor is a like a matrix with the following form:
+\begin{equation}
+T=\left[\begin{array}{ccc}
+  T_{11} & T_{12} & T_{13}\\
+  T_{21} & T_{22} & T_{23}\\
+  T_{31} & T_{32} & T_{33}
+  \end{array}\right]
+\end{equation}
+
+
+%@DOC:Tensor2::Tensor2()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::Tensor2(~)}}\label{Tensor2::Tensor2()} : Default constructor of the Tensor2 class.\index[DL]{Tensor2!Tensor2(~)}\\ \hspace*{5mm}$\hookrightarrow$ Tensor2
+
+All components are initialized to zero by default.
+\begin{equation*}
+T=\left[\begin{array}{ccc}
+0&0&0\\
+0&0&0\\
+0&0&0
+\end{array}\right]
+\end{equation*}
+%@END
+
+%@DOC:Tensor2::Tensor2(const Tensor2)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::Tensor2(const Tensor2)}}\label{Tensor2::Tensor2(const Tensor2)} : Copy constructor of the Tensor2 class.\index[DL]{Tensor2!Tensor2(const Tensor2)}\\ \hspace*{5mm}$\hookrightarrow$ Tensor2
+
+%@END
+
+%@DOC:Tensor2::~Tensor2()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::$\sim$Tensor2(~)}}\label{Tensor2::~Tensor2()} : Destructor of the Tensor2 class.\index[DL]{Tensor2!$\sim$Tensor2(~)}
+
+%@END
+
+%@DOC:Tensor2::Tensor2(double,...)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::Tensor2(double,...)}}\label{Tensor2::Tensor2(double,...)} : Constructor of the Tensor2 class.\index[DL]{Tensor2!Tensor2(double,...)}\\ \hspace*{5mm}$\hookrightarrow$ Tensor2
+
+Constructor of a second order tensor with initialization of the 9 values.
+%@END
+
+%@DOC:Tensor2::setToUnity()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::setToUnity(~)}}\label{Tensor2::setToUnity()} : Unity tensor.\index[DL]{Tensor2!setToUnity(~)}
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+
+This method transforms the current tensor to a unity tensor.
+%@END
+
+%@DOC:Tensor2::setToZero()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::setToZero(~)}}\label{Tensor2::setToZero()} : Sets all components of the tensor to zero.\index[DL]{Tensor2!setToZero(~)}
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+
+%@END
+
+\section{The Tensor3 library}
+
+The Tensor3 library is used to store third order tensors defined in the \DynELA.
+
+%@DOC:Tensor3::Tensor3()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::Tensor3(~)}}\label{Tensor3::Tensor3()} : This method is the default constructor of a third order tensor.\index[DL]{Tensor3!Tensor3(~)}\\ \hspace*{5mm}$\hookrightarrow$ Tensor3
+
+All components are initialized to zero by default.
+%@END
+
+%@DOC:Tensor3::~Tensor3()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::$\sim$Tensor3(~)}}\label{Tensor3::~Tensor3()} : Destructor of the Tensor3 class.\index[DL]{Tensor3!$\sim$Tensor3(~)}
+
+%@END

@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Sep 19 09:41:29 2022
+
+@author: pantale
+"""
+
+from pathlib import Path
+import fnmatch
+
+def formDoc(label, brief, ret, warn, doc):
+    return label, [brief, ret, warn, doc]
+
+def findFiles(path, pattern):
+    lst = []
+    for file in Path(path).rglob(pattern):
+        lst.append(file)
+    return lst
+
+def readFile(file):
+    with open(file, 'r') as myfile:
+        data = myfile.read().splitlines()
+    return data
+
+def writeFile(file, data):
+    with open(file, 'w') as myfile:
+        for line in data:
+            myfile.write(line + '\n')
+            
+def extractDoc(files):
+    documentation = []
+    doc = False
+    for file in files:
+        data = readFile(file)
+        for line in data:
+            if line.startswith('@LABEL:'):
+                line = line.replace('  ',' ')
+                doc = True
+            if doc:
+                documentation.append(line)                 
+            if line.startswith('@END'):      
+                doc = False
+    return documentation
+
+def after(s, delim):
+    return s.partition(delim)[2]
+
+def texify(str):
+    str = str.replace('~','$\sim$')
+    str = str.replace('()','(~)')
+    return str
+
+def returnDoc(data):
+    Docs = {}
+    doc = []
+    label = ''
+    desc = ''
+    ret = ''
+    warn = ''
+    go = False;
+    for line in data:
+        if (go):
+            ok = False
+            if '@SHORT' in line:
+                desc = after(line,'@SHORT:')
+                ok = True
+            if '@RETURN' in line:
+                ret = after(line,'@RETURN:')
+                ok = True                
+            if '@WARNING' in line:
+                warn = after(line,'@WARNING:')
+                ok = True    
+            if (ok == False):
+                if not '@END' in line:
+                    doc.append(line)
+        if '@LABEL' in line:
+            label = after(line,'@LABEL:')
+            #doc.append(label)
+            go = True
+        if '@END' in line:
+            go = False
+            k, l = formDoc(label, desc, ret, warn, doc)
+            Docs[k] = l
+            doc = []
+            label = ''
+            desc = ''
+            ret = ''
+            warn = ''
+    return Docs
+
+def cleanTex(targetFile):
+    data = readFile(targetFile)
+    out = []
+    write = True
+    for line in data:
+        if '%@DOC:' in line:
+            out.append(line.replace('  ',' '))
+            write = False
+        if (write):
+            out.append(line)
+        if '%@END' in line:
+            out.append(line)
+            write = True
+    return out
+
+def addDocToTex(data):
+    out = []
+    write = True
+    for line in data:
+        if '%@DOC:' in line:
+            out.append(line)
+            key = after(line,'%@DOC:')
+            out = writeTex(out, key)
+            write = False
+        if (write):
+            out.append(line)
+        if '%@END' in line:
+            out.append(line)
+            write = True
+    return out
+
+def writeTex(out, key):
+    dc = docs[key]
+    # Writes the warning
+    out.append("%Warning :\n%This area is an automatic documentation generated from the DynELA source code.\n%Do not change anything in this latex file between this position and the @END keyword.")
+    
+    # Writes the header
+    ln = "\\textcolor{purple}{\\textbf{" + texify(key) + "}}\\label{" + key + "}"
+    if dc[0]!='' :
+        ln += ' : ' + dc[0]
+    # Writes the cross index
+    if '::' in key :
+        ln2 = key.replace('::','!')
+        ln += '\\index[DL]{'+texify(ln2)+'}'    
+    # Writes the return
+    if dc[1]!='' :
+        ln += ("\\\\ \\hspace*{5mm}$\\hookrightarrow$ "+dc[1])
+    out.append(ln)
+    out.append('')
+        
+    # Writes the Warning
+    if dc[2]!='' :
+        out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :} '+dc[2]+'}')
+        out.append('')
+        
+    # Writes the documentation
+    for ln in dc[-1]:
+        out.append(ln)
+    return out
+
+# Start of the main application
+print("updateDocumentation")
+print("(c) by Olivier Pantalé 2022")
+
+sources = "../Sources"
+target = "."
+
+sourceFiles = findFiles(sources, "*.[Ch]")
+targetFiles = findFiles(target, "*.tex")
+
+docs = returnDoc(extractDoc(sourceFiles))
+
+for targetFile in targetFiles:
+    cl = cleanTex(targetFile)
+    tex = addDocToTex(cl)
+    writeFile(targetFile, tex)
+    

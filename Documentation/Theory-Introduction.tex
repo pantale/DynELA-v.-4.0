@@ -8,21 +8,21 @@
 \chapter{Theory}
 
 \startcontents[chapters]
-\printmyminitoc[1]\LETTRINE{T}he \DynELA is an Explicit FEM code written in \Cpp using a Python's interface for creating the Finite Element Models. 
+\printmyminitoc[2]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. 
 
 \section{Introduction}
 
 \begin{tcolorbox}[width=0.95\textwidth,myTab,tabularx={l||C|C|C|C|C},title=Homogeneous system of units in mechanics]%,boxrule=0.5pt]
               & Dimension        & SI (MKS)   & SI (mm-s)  & SI (mm-kg)  & SI (mm-kg-s) \\\hline\hline
-Length        & $L$              & $m$        & $mm$       & $mm$        & $mm$        \\\hline
-Weight        & $M$              & $kg$       & $T$        & $kg$        & $kg$        \\\hline
-Time          & $T$              & $s$        & $s$        & $ms$        & $s$         \\\hline
-Stress        & $ML^{-1}T^{-2}$  & $Pa$       & $MPa$      & $GPa$       & $kPa$       \\\hline
-Force         & $MLT^{-2}$       & $N$        & $N$        & $kN$        & $mN$        \\\hline
-Energy        & $ML^{2}T^{-2}$   & $J$        & $mJ$       & $J$         & $MJ$        \\\hline
-Density       & $ML^{-3}$        & $kg/m^{3}$ & $T/mm^{3}$ & $kg/mm^{3}$ & $kg/mm^{3}$ \\\hline
-Speed         & $LT^{-1}$        & $m/s$      & $mm/s$     & $mm/ms$     & $mm/s$      \\\hline
-Angular speed & $T^{-1}$         & $s^{-1}$   & $s^{-1}$   & $ms^{-1}$   & $s^{-1}$    \\\hline
-Acceleration  & $LT^{-2}$        & $m/s^{2}$  & $mm/s^{2}$ & $mm/ms^{2}$ & $mm/s^{2}$  \\\hline
-Couple        & $ML^{2}T^{-2}$   & $N.m$      & $N.mm$     & $kN.mm$     & $mN.mm$
+Length        & $L$              & m        & mm       & mm        & mm        \\\hline
+Weight        & $M$              & kg       & T        & kg        & kg        \\\hline
+Time          & $T$              & s        & s        & ms        & s         \\\hline
+Stress        & $ML^{-1}T^{-2}$  & Pa       & MPa      & GPa       & kPa       \\\hline
+Force         & $MLT^{-2}$       & N        & N        & kN        & mN        \\\hline
+Energy        & $ML^{2}T^{-2}$   & J        & mJ       & J         & MJ        \\\hline
+Density       & $ML^{-3}$        & kg/m$^{3}$ & T/mm$^{3}$ & kg/mm$^{3}$ & kg/mm$^{3}$ \\\hline
+Speed         & $LT^{-1}$        & m/s      & mm/s     & mm/ms     & mm/s      \\\hline
+Angular speed & $T^{-1}$         & s$^{-1}$   & s$^{-1}$   & ms$^{-1}$   & s$^{-1}$    \\\hline
+Acceleration  & $LT^{-2}$        & m/$s^{2}$  & mm/s$^{2}$ & mm/ms$^{2}$ & mm/s$^{2}$  \\\hline
+Couple        & $ML^{2}T^{-2}$   & N.m      & N.mm     & kN.mm     & mN.mm
 \end{tcolorbox}

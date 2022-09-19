@@ -1,0 +1,47 @@
+% !TeX spellcheck = en_US
+% !TeX root = DynELA.tex
+%
+% LaTeX source file of DynELA FEM Code
+%
+% (c) by Olivier Pantalé 2020
+%
+\chapter{DynELA Elements library}
+
+\startcontents[chapters]
+\printmyminitoc[2]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. 
+
+\section{Introduction}
+
+\subsection{Planar elements}
+
+%@DOC:ElQua4N2D::getCharacteristicLength()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ElQua4N2D::getCharacteristicLength(~)}}\label{ElQua4N2D::getCharacteristicLength()} : Computation of the characteristic length of an element.\index[DL]{ElQua4N2D!getCharacteristicLength(~)}\\ \hspace*{5mm}$\hookrightarrow$ double
+
+This method computes the characteristic length of an element from the definition of the geometry of this element.
+The relationship used for this calculation is given by:
+\begin{equation}
+L=\frac{x_{31} y_{42}+x_{24} y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}} 
+\end{equation}
+where $x_{ij}$ is the horizontal distance between points $i$ and $j$ and $y_{ij}$ is the vertical distance between points $i$ and $j$.
+%@END
+
+\subsection{Axi-symmetric elements}
+
+%@DOC:ElQua4NAx::getCharacteristicLength()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ElQua4NAx::getCharacteristicLength(~)}}\label{ElQua4NAx::getCharacteristicLength()} : Computation of the characteristic length of an element.\index[DL]{ElQua4NAx!getCharacteristicLength(~)}\\ \hspace*{5mm}$\hookrightarrow$ double
+
+This method computes the characteristic length of an element from the definition of the geometry of this element.
+The relationship used for this calculation is given by:
+\begin{equation}
+L=\frac{x_{31} y_{42}+x_{24} y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}} 
+\end{equation}
+where $x_{ij}$ is the horizontal distance between points $i$ and $j$ and $y_{ij}$ is the vertical distance between points $i$ and $j$.
+%@END
+
+\subsection{Three-dimensional elements}

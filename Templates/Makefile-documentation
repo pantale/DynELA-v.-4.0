@@ -44,20 +44,22 @@ figures:
 $(TOP) : $(SOURCES) $(FIGURES)
 	# Remove old file
 	-rm $(TOP)
-	# Run pass 1
+	# Update documentation from source files
+	./updateDocumentation
+	# Run pass 0
 	$(TEX2PDF) $(MAINTOP)
 	# Run bibtex skipping error
 	$(BIBTEX) $(ROOT).aux
-	# Run pass 2
-	$(TEX2PDF) $(MAINTOP)
 	# Run the indexes
 	$(call makeIndexes)
-	# Run pass 3
+	# Run pass 1
+	$(TEX2PDF) $(MAINTOP)
+	# Run pass 2
 	$(TEX2PDF) $(MAINTOP)
 
 # Clean the LateX temp files
 clean: 
-	rm -rf *.aux *.log *.nav *.out *.toc *.vrb *.bbl *.blg *.snm *.mtc* *.?dx *.maf *.ptc *.brf *.lof *.lot *.ilg *.?nd
+	rm -rf *.aux *.log *.nav *.out *.toc *.vrb *.bbl *.blg *.snm *.mtc* *.?dx *.maf *.ptc *.brf *.lof *.lot *.ilg *.?nd *.mw
 
 # Clean the target to force compilation again
 forceClean:

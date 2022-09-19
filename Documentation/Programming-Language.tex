@@ -8,7 +8,7 @@
 \chapter{DynELA programming language}
 
 \startcontents[chapters]
-\printmyminitoc[1]\LETTRINE{T}his chapter deals about the \DynELA programming language. This language is based on Python 3 and all models must be described using this formalism. Therefore, this chapter will describe step by step how to build a Finite Element Model for the \DynELA, using the Python 3 language. To set-up a model in DynELA, a good knowledge of the Python's 3 language is not mandatory, but it will help to be skillful concerning this language. On the other hand advanced features can be setup with the help of Python 3 language.
+\printmyminitoc[2]\LETTRINE{T}his chapter deals about the \DynELA programming language. This language is based on Python 3 and all models must be described using this formalism. Therefore, this chapter will describe step by step how to build a Finite Element Model for the \DynELA, using the Python 3 language. To set-up a model in DynELA, a good knowledge of the Python's 3 language is not mandatory, but it will help to be skillful concerning this language. On the other hand advanced features can be setup with the help of Python 3 language.
 
 \section{Introduction and basic knowledge}
 The Python 3 language serves as a support for describing FEM in DynELA. Construction of the Finite Element Model is done by calling some \Cpp methods of the DynELA library through Python language. In fact, the \Cpp methods of the DynELA library are encapsulated by the help of SWIG. Some methods of the DynELA library have therefore been encapsulated using the SWIG utility and are directly accessible from the Python language.
@@ -52,55 +52,6 @@ and then access all top methods and object of the DynELA library directly withou
 
 As the interpreter of the \DynELA is based on Python 3 language, we can use all instructions valid in Python 3 along with the specific DynELA instructions. In the rest of this documentation, we assume that the notions of programming in Python are mastered, and we will focus only on the functions specific to the \DynELA.
 
-\section{The Kernel library}
-
-\#include 'LogFile.h'
-
-\#include 'MacAddress.h'
-
-\#include 'Settings.h'
-
-\#include 'String.h'
-
-\#include 'System.h'
-
-\#include 'Timer.h'
-
-\#include 'Field.h'
-
-\section{The Maths library}
-
-\#include 'DiscreteFunction.h'
-
-\#include 'DiscreteFunctionSet.h'
-
-\#include 'Function.h'
-
-\#include 'Matrices.h'
-
-\#include 'Matrix.h'
-
-\#include 'MatrixDiag.h'
-
-\#include 'PolynomialFunction.h'
-
-\#include 'RampFunction.h'
-
-\#include 'SinusFunction.h'
-
-\#include 'SymTensor2.h'
-
-\#include 'Tensor2.h'
-
-\#include 'Tensor3.h'
-
-\#include 'Tensor4.h'
-
-\#include 'Vec3D.h'
-
-\#include 'Vector.h'
-
-\#include 'ColorMap.h'
 
 \section{Model, Nodes and Elements}
 
