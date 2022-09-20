@@ -2,12 +2,16 @@
 % macrosGene TeX configuration file
 %
 \usepackage{esvect}
+\usepackage{xfrac}
 \usepackage{keystroke}
 \usepackage{xstring}
 \usepackage{transparent}
 \usepackage{xspace}
 \usepackage{color}
 \usepackage{pdfpages}
+
+% Prevent cutting of footnotes between pdfpages
+\interfootnotelinepenalty=\@M
 
 % Define the set of colors
 \definecolor{myGray}{gray}{0.75}
@@ -31,6 +35,10 @@
    \mkern-1.5mu#3$%
 }
 
+% Dots for derivatives
+\newcommand{\mdot}[1]{\accentset{\mbox{\bullet}}{#1}}
+\newcommand{\mmdot}[1]{\accentset{\mbox{\bullet\bullet}}{#1}}
+
 % affect overrightarrow to vv
 \renewcommand{\overrightarrow}{\vv}
 
@@ -47,99 +55,38 @@
 
 \lstnewenvironment{CppListing}[1][]
     {\lstset{language=C++,
-	keywordstyle=\color{myRed},
-	numberstyle=\footnotesize\color{myGray50},
-	numbers=left,
-	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
-	literate={-} { \textrm{-}}{1},
-	%otherkeywords={>>>},
-	%morekeywords={as,assert,with,yield},
-	commentstyle=\color{myGray40},
-	stringstyle=\color{myGreen},
-	basicstyle=\listingfontsscale\sffamily\upshape,
-	escapeinside={(*}{*)},
-	backgroundcolor=\color{myGray90},
-	rulecolor=\color{myGray50},
         #1}%
         \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
         {\csname\@lst @SaveFirstNumber\endcsname}
 
 \lstnewenvironment{FortranListing}[1][]
     {\lstset{language=[77]Fortran,
-	keywordstyle=\color{myRed},
-	numberstyle=\footnotesize\color{myGray50},
-	numbers=left,
-	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
-	literate={-} { \textrm{-}}{1},
-	%otherkeywords={>>>},
-	%morekeywords={as,assert,with,yield},
-	commentstyle=\color{myGray50},
-	stringstyle=\color{myGreen},
-	basicstyle=\listingfontsscale\sffamily\upshape,
-	escapeinside={(*}{*)},
-	backgroundcolor=\color{myGray90},
-	rulecolor=\color{myGray50},
         #1}%
         \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
         {\csname\@lst @SaveFirstNumber\endcsname}
 
 \lstnewenvironment{PythonListing}[1][]
     {\lstset{language=Python,
-	keywordstyle=\color{myRed},
-	numberstyle=\footnotesize\color{myGray50},
-	numbers=left,
-	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
-	%float=h,
-	literate={-} { \textrm{-}}{1},
-	%otherkeywords={>>>},
 	morekeywords={as,assert,with,yield},
-	commentstyle=\color{myGray40},
-	stringstyle=\color{myGreen},
-	basicstyle=\listingfontsscale\sffamily\upshape,
-	escapeinside={(*}{*)},
-	backgroundcolor=\color{myGray90},
-	rulecolor=\color{myGray50},
         #1}%
         \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
         {\csname\@lst @SaveFirstNumber\endcsname}
 
 \lstnewenvironment{AbaqusListing}[1][]
     {\lstset{language=Python,
-	keywordstyle=\color{myRed},
-	numberstyle=\footnotesize\color{myGray50},
-	numbers=left,
-	frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
-	literate={-} { \textrm{-}}{1},
-	%otherkeywords={>>>},
 	morekeywords={as,assert,with,yield},
-	commentstyle=\color{myGray40},
-	stringstyle=\color{myGreen},
-	basicstyle=\listingfontsscale\sffamily\upshape,
-	escapeinside={(*}{*)},
-	backgroundcolor=\color{myGray90},
-	rulecolor=\color{myGray50},
 		#1}%
         \noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
         {\csname\@lst @SaveFirstNumber\endcsname}
 
 \lstnewenvironment{BashListing}[1][]
 	{\lstset{language=bash,
-		keywordstyle=\color{myRed},
-		numberstyle=\footnotesize\color{myGray50},
-		numbers=left,
-		frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
-		literate={-} { \textrm{-}}{1},
-		%otherkeywords={>>>},
-		%morekeywords={as,assert,with,yield},
-		commentstyle=\color{myGray40},
-		stringstyle=\color{myGreen},
-		basicstyle=\sffamily\listingfontsscale\upshape,
-		escapeinside={(*}{*)},
-		backgroundcolor=\color{myGray90},
-		rulecolor=\color{myGray50},
 		#1}%
 	\noindent\begin{minipage}{\textwidth}\csname\@lst @SetFirstNumber\endcsname\end{minipage}}
 {\csname\@lst @SaveFirstNumber\endcsname}
+
+\newsavebox\mypostbreak
+\savebox\mypostbreak{\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{myRed}\hookrightarrow\space}}}
 
 \lstset{language=Python,
 keywordstyle=\color{myRed},
@@ -148,12 +95,15 @@ numbers=left,
 frame=single,xleftmargin=5.0ex,xrightmargin=1.0ex,
 literate={-} { \textrm{-}}{1},
 %otherkeywords={>>>},
-morekeywords={as,assert,with,yield},
+showstringspaces=false,
+%morekeywords={as,assert,with,yield},
 commentstyle=\color{myGray50},
 stringstyle=\color{myGreen},
-basicstyle=\listingfontsscale\sffamily\upshape,
-escapeinside={(*}{*)},
-backgroundcolor=\color{white},
+basicstyle=\sffamily\listingfontsscale\upshape,
+escapeinside={<@}{@>},
+backgroundcolor=\color{myGray90},
+breaklines=true,
+postbreak=\usebox\mypostbreak,
 rulecolor=\color{myGray50}}
 \newcommand{\pyout}[1]{\color{blue}\textsl{#1}}
 
@@ -347,7 +297,7 @@ rulecolor=\color{myGray50}}
 \newcommand*{\ie}	{\emph{i.e.}\@\xspace}
 \newcommand*{\versus}	{\emph{vs.}\@\xspace}
 \newcommand*{\eal}	{et \emph{al.}\@\xspace}
-\newcommand*{\eg}	{e.g.,\@\xspace}
+\newcommand*{\eg}	{\emph{e.g.}\@\xspace}
 
 % Declaration des colorboxes
 \RequirePackage{calc}
@@ -410,4 +360,3 @@ rulecolor=\color{myGray50}}
     \end{flushleft}}%
   \parbox{\fboxrule}{%
     \rule{2\fboxrule}{\hauteurboitetitre}}}
-

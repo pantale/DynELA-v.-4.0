@@ -8,10 +8,25 @@
 %
 %@!CODEFILE = macrosHyperlinkEnglish.tex
 
-\usepackage{kurier} % Set the default font for the document
-\usepackage{helvet}
+% Select fonts to use
+\usepackage[math]{kurier} % Set the default font for the document
+%\usepackage{helvet}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+
+% Classic packages to include
+\usepackage{babel}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{multirow}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{accents}
+\PassOptionsToPackage{normalem}{ulem}
+\usepackage{ulem}
+\usepackage{morewrites}
 \usepackage[a4paper]{geometry}
 \pagestyle{headings}
 \setcounter{secnumdepth}{4}
@@ -20,18 +35,7 @@
 \setlength{\parindent}{0pt}
 \usepackage{color}
 \usepackage{array}
-\usepackage{babel}
 \usepackage{longtable}
-\usepackage{multirow}
-\usepackage{float}
-\usepackage{textcomp}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{cancel}
-\usepackage{stmaryrd}
-\usepackage{graphicx}
-\PassOptionsToPackage{normalem}{ulem}
-\usepackage{ulem}
 \usepackage{float}
 \usepackage{cite}
 \usepackage{lettrine}
@@ -52,15 +56,18 @@
 \usepackage{fancyhdr}
 \usepackage{tablefootnote}
 \usepackage[nice]{nicefrac}
+\usepackage{tabto}
 \usetikzlibrary{shadows.blur}
 \tcbuselibrary{skins}
+\usepackage{tocbibind}
+
 
 % Define the macros for color tables
 \newcolumntype{L}{>{\raggedleft\arraybackslash}X}
 \newcolumntype{R}{>{\raggedright\arraybackslash}X}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \tcbset{myTab/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize,
-colback=gray!10!white,colframe=gray!85!black,colbacktitle=gray,
+colback=gray!10!white,colframe=gray!75!black,colbacktitle=gray,
 coltitle=white,center title}}
 
 % Sets the caption of all figures
@@ -92,8 +99,11 @@ coltitle=white,center title}}
 \setcounter{tocdepth}{2}
 \setcounter{secnumdepth}{3}
 
-% Defintiion of the Lettrine
+% Definition of the Lettrine
 \newcommand{\LETTRINE}[1]{\lettrine[lines=3]{\textcolor{myRed}{#1}}{}}
+
+% Derivatives symbols
+\renewcommand{\bullet}{\begin{picture}(3,2)\put(1.5,1){\circle*{2}}\end{picture}}
 
 % Special style for footnotes
 \renewcommand\@makefnmark{\@textsuperscript{\normalfont(\@thefnmark)}}
@@ -255,7 +265,7 @@ coltitle=white,center title}}
 \renewcommand{\tablename}{Tableau }
 }}
 
-% les numros incluent le numro de la partie
+% les numéros incluent le numro de la partie
 \renewcommand \thefigure
      {\ifnum \c@part>\z@ \thepart.\fi \ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@figure}
 \renewcommand \thetable
@@ -266,8 +276,24 @@ coltitle=white,center title}}
 
 @!INCLUDE = macrosGene.template
 
-% Derivatives symbol using big dot
-\renewcommand{\bullet}{\begin{picture}(3,2)\put(1.5,1){\circle*{2}}\end{picture}}
+%
+% TikZ TeX configuration file
+%
+\usetikzlibrary{shapes,arrows,chains,calc}
+\tikzset{
+  base/.style={draw, on chain, on grid, align=center, minimum height=8 mm, line width=0.5 mm},
+  bloc/.style={base, rectangle, text width=50 mm},
+  test/.style={base, diamond, aspect=2, text width=25 mm},
+  endPoint/.style={bloc, fill=gray!30, text width=40 mm, rounded corners=4mm},
+  % coord node style is used for placing corners of connecting lines
+  coord/.style={coordinate, on chain, on grid, node distance=6mm and 35mm},
+  % nmark node style is used for coordinate debugging marks
+  nmark/.style={draw, cyan, circle, font={\sffamily\bfseries}},
+  % Connector line styles for different parts of the diagram
+  norm/.style={->, draw, line width=0.35 mm},
+  it/.style={font={\small\itshape}},
+  flowChart/.style={>=triangle 60, start chain=going below, node distance=7mm and 65mm,every join/.style={norm}}
+}
 
 \ifx\pdfoutput\undefined
 \usepackage[ps2pdf,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
@@ -278,6 +304,6 @@ coltitle=white,center title}}
 
 \newcommand{\DynELA}{DynELA Finite Element Code}
 
-\excludecomment{fullVersion}
+%\excludecomment{fullVersion}
 
 \makeatother

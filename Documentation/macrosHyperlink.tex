@@ -56,6 +56,8 @@
 \usepackage{tabto}
 \usetikzlibrary{shadows.blur}
 \tcbuselibrary{skins}
+\usepackage{tocbibind}
+
 
 % Define the macros for color tables
 \newcolumntype{L}{>{\raggedleft\arraybackslash}X}
@@ -651,7 +653,6 @@ rulecolor=\color{myGray50}}
   flowChart/.style={>=triangle 60, start chain=going below, node distance=7mm and 65mm,every join/.style={norm}}
 }
 
-
 \ifx\pdfoutput\undefined
 \usepackage[ps2pdf,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
 \else
@@ -661,6 +662,6 @@ rulecolor=\color{myGray50}}
 
 \newcommand{\DynELA}{DynELA Finite Element Code}
 
-\excludecomment{fullVersion}
+%\excludecomment{fullVersion}
 
 \makeatother
