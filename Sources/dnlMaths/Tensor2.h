@@ -112,6 +112,8 @@ public:
   void numpyWriteZ(std::string, std::string, bool = false) const;
   void polarDecompose(SymTensor2 &, Tensor2 &) const;
   void polarDecomposeLnU(SymTensor2 &, Tensor2 &) const;
+  void planarPolarDecompose(SymTensor2 &, Tensor2 &) const;
+  void planarPolarDecomposeLnU(SymTensor2 &, Tensor2 &) const;
   void setToUnity();
   void setToValue(const double);
   void setToZero();

@@ -1160,6 +1160,122 @@ Vec3D Tensor2::solve(const Vec3D &b) const
   return Vec3D(getInverse() * b);
 }
 
+//-----------------------------------------------------------------------------
+void Tensor2::planarPolarDecompose(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double m, p, eval1, eval2, val1, val2, xval1, xval2;
+  double vec1x, vec1y, vec2x, vec2y;
+  double sq;
+  double detU, Um1, Um2, Um3;
+
+  // calcul de FF=F(T).F
+  SymTensor2 FTF;
+  FTF._data[0] = dnlSquare(_data[0]) + dnlSquare(_data[3]);
+  FTF._data[1] = _data[0] * _data[1] + _data[3] * _data[4];
+  FTF._data[3] = dnlSquare(_data[1]) + dnlSquare(_data[4]);
+  FTF._data[5] = 1;
+
+  m = (FTF._data[0] + FTF._data[3]) / 2;
+  p = FTF._data[0] * FTF._data[3] - FTF._data[1] * FTF._data[1];
+  eval1 = m - sqrt(m * m - p);
+  eval2 = m + sqrt(m * m - p);
+  val1 = eval1 - FTF._data[0];
+  val2 = eval2 - FTF._data[0];
+  xval1 = sqrt(FTF._data[1] * FTF._data[1] + val1 * val1);
+  xval2 = sqrt(FTF._data[1] * FTF._data[1] + val2 * val2);
+  vec1x = FTF._data[1] / xval1;
+  vec1y = val1 / xval1;
+  vec2x = FTF._data[1] / xval2;
+  vec2y = val2 / xval2;
+
+  U.setToUnity();
+  sq = sqrt(eval1);
+  U._data[0] = sq * vec1x * vec1x;
+  U._data[1] = sq * vec1x * vec1y;
+  U._data[3] = sq * vec1y * vec1y;
+  sq = sqrt(eval2);
+  U._data[0] += sq * vec2x * vec2x;
+  U._data[1] += sq * vec2x * vec2y;
+  U._data[3] += sq * vec2y * vec2y;
+
+  detU = U._data[0] * U._data[3] - U._data[1] * U._data[1];
+  Um1 = +U._data[3] / detU;
+  Um2 = -U._data[1] / detU;
+  Um3 = +U._data[0] / detU;
+
+  R.setToUnity();
+  R._data[0] = _data[0] * Um1 + _data[1] * Um2;
+  R._data[1] = _data[0] * Um2 + _data[1] * Um3;
+  R._data[3] = _data[3] * Um1 + _data[4] * Um2;
+  R._data[4] = _data[3] * Um2 + _data[4] * Um3;
+}
+
+//-----------------------------------------------------------------------------
+void Tensor2::planarPolarDecomposeLnU(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double m, p, eval1, eval2, val1, val2, xval1, xval2;
+  double vec1x, vec1y, vec2x, vec2y, vv;
+  double sq, sqlg, u0, u1, u3;
+  double detU, Um1, Um2, Um3;
+
+  // calcul de FF=F(T).F
+  SymTensor2 FTF;
+  FTF._data[0] = dnlSquare(_data[0]) + dnlSquare(_data[3]);
+  FTF._data[1] = _data[0] * _data[1] + _data[3] * _data[4];
+  FTF._data[3] = dnlSquare(_data[1]) + dnlSquare(_data[4]);
+  FTF._data[5] = 1;
+
+  m = (FTF._data[0] + FTF._data[3]) / 2;
+  p = FTF._data[0] * FTF._data[3] - FTF._data[1] * FTF._data[1];
+  eval1 = m - sqrt(m * m - p);
+  eval2 = m + sqrt(m * m - p);
+  val1 = eval1 - FTF._data[0];
+  val2 = eval2 - FTF._data[0];
+  xval1 = sqrt(FTF._data[1] * FTF._data[1] + val1 * val1);
+  xval2 = sqrt(FTF._data[1] * FTF._data[1] + val2 * val2);
+  vec1x = FTF._data[1] / xval1;
+  vec1y = val1 / xval1;
+  vec2x = FTF._data[1] / xval2;
+  vec2y = val2 / xval2;
+
+  U.setToZero();
+  sq = sqrt(eval1);
+  sqlg = 0.5 * log(eval1);
+  vv = vec1x * vec1x;
+  U._data[0] = sqlg * vv;
+  u0 = sq * vv;
+  vv = vec1x * vec1y;
+  U._data[1] = sqlg * vv;
+  u1 = sq * vv;
+  vv = vec1y * vec1y;
+  U._data[3] = sqlg * vv;
+  u3 = sq * vv;
+  sq = sqrt(eval2);
+  sqlg = 0.5 * log(eval2);
+  vv = vec2x * vec2x;
+  U._data[0] += sqlg * vv;
+  u0 += sq * vv;
+  vv = vec2x * vec2y;
+  U._data[1] += sqlg * vv;
+  u1 += sq * vv;
+  vv = vec2y * vec2y;
+  U._data[3] += sqlg * vv;
+  u3 += sq * vv;
+
+  detU = u0 * u3 - u1 * u1;
+  Um1 = +u3 / detU;
+  Um2 = -u1 / detU;
+  Um3 = +u0 / detU;
+
+  R.setToUnity();
+  R._data[0] = _data[0] * Um1 + _data[1] * Um2;
+  R._data[1] = _data[0] * Um2 + _data[1] * Um3;
+  R._data[3] = _data[3] * Um1 + _data[4] * Um2;
+  R._data[4] = _data[3] * Um2 + _data[4] * Um3;
+}
+
 /*
   Polar decomposition of a second order tensor with computation of the \f$ ln[U] \f$ and \f$ R \f$ tensors.
 
