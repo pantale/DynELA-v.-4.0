@@ -287,11 +287,14 @@ inline void SymTensor2::operator/=(const double val)
 }
 
 /*
-  Returns the trace of a symmetric second order tensor
-
+@LABEL:SymTensor2::getTrace()
+@SHORT:Returns the trace of a symmetric second order tensor.
+@RETURN:double
   This method returns the trace of a symmetric second order tensor, i.e. the sum of all the terms of the diagonal:
-  \f[ t = tr[T] = T_{11}+T_{22}+T_{33} \f]
-  Return : getTrace of a symmetric second order tensor
+\begin{equation*}
+v = tr[\T] = T_{11}+T_{22}+T_{33}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double SymTensor2::getTrace() const
@@ -301,11 +304,14 @@ inline double SymTensor2::getTrace() const
 }
 
 /*
-  Returns the average value of the trace of a symmetric second order tensor
-
-  This method returns average value of the trace of a symmetric second order tensor, i.e. the sum of all the terms of the diagonal divided by 3:
-    \f[ t = \frac{1}{3} tr[T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right) \f]
-  Return : getTrace of a symmetric second order tensor divided by 3
+@LABEL:SymTensor2::getThirdTrace()
+@SHORT:Returns the average value of the trace of a symmetric second order tensor.
+@RETURN:double
+This method returns average value of the trace of a symmetric second order tensor, i.e. the sum of all the terms of the diagonal divided by 3:
+\begin{equation*}
+v = \frac{1}{3} tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double SymTensor2::getThirdTrace() const
@@ -315,11 +321,14 @@ inline double SymTensor2::getThirdTrace() const
 }
 
 /*
-  Returns the von-Mises stress of a second order tensor
-
-  This method returns the von-Mises stress of a symmetric second order tensor defined by:
-  \f[ \overline{\sigma} = \frac {1}{\sqrt{2}}\sqrt{(s_{11}-s_{22})^2+(s_{22}-s_{33})^2+(s_{33}-s_{11})^2+6(s_{12}^2+s_{23}^2+s_{31}^2)}\f]
-  Return : von-Mises stress of a symmetric second order tensor
+@LABEL:SymTensor2::getMisesEquivalent()
+@SHORT:Returns the von Mises stress of a symmetric second order tensor.
+@RETURN:double
+This method returns the von Mises stress of a symmetric second order tensor defined by:
+\begin{equation*}
+\overline{\sigma} = \frac {1}{\sqrt{2}}\sqrt{(s_{11}-s_{22})^2+(s_{22}-s_{33})^2+(s_{33}-s_{11})^2+6(s_{12}^2+s_{23}^2+s_{31}^2)}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double SymTensor2::getMisesEquivalent() const
@@ -329,16 +338,14 @@ inline double SymTensor2::getMisesEquivalent() const
 }
 
 /*
-  Norm of a second order tensor
-
-  This method returns the norm of a symmetric second order tensor defined by:
-  \f[ \left\Vert s \right\Vert  = \sqrt {s_{ij}:s_{ij}} \f]
-  \code
-  SymTensor2 tensor1;
-  double s;
-  s = tensor1.getNorm(); // norm du tenseur
-  \endcode
-  Return : norm of a symmetric second order tensor
+@LABEL:SymTensor2::getNorm()
+@SHORT:Norm of a symmetric second order tensor.
+@RETURN:double
+This method returns the norm of a symmetric second order tensor defined by:
+\begin{equation*}
+\left\Vert s \right\Vert  = \sqrt {s_{ij}:s_{ij}}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double SymTensor2::getNorm() const
@@ -349,15 +356,14 @@ inline double SymTensor2::getNorm() const
 }
 
 /*
-  J2 norm of a second order tensor
-
-  This method returns the J2 norm of a symmetric second order tensor defined by:
-  \f[ n = \sqrt {\frac{3}{2}} \left\Vert s \right\Vert  = \sqrt {\frac{3}{2} s_{ij}:s_{ij}} \f]
-  \code
-  SymTensor2 tensor1;
-  double s;
-  s = tensor1.getJ2(); // J2 norm of the tensor
-  \endcode
+@LABEL:SymTensor2::getJ2()
+@SHORT:J2 norm of a symmetric second order tensor.
+@RETURN:double
+This method returns the J2 norm of a symmetric second order tensor defined by:
+\begin{equation*}
+\sqrt {\frac{3}{2}} \left\Vert s \right\Vert  = \sqrt {\frac{3}{2} s_{ij}:s_{ij}}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double SymTensor2::getJ2() const
@@ -368,12 +374,15 @@ inline double SymTensor2::getJ2() const
 }
 
 /*
-  Determinant of a second order tensor
-
-  This method returns the determinant of a second second order tensor.
-  The result of this operation is a scalar value defined by:
-  \f[ D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33} \f]
-  Return : Scalar value containing the determinant of a symmetric second order tensor
+@LABEL:SymTensor2::getDeterminant()
+@SHORT:Determinant of a symmetric second order tensor.
+@RETURN:double
+This method returns the determinant of a symmetric second second order tensor.
+The result of this operation is a scalar value defined by:
+\begin{equation*}
+D = T_{11} T_{22} T_{33} + 2 T_{12} T_{23} T_{13} - T_{22} T_{13}^2 - T_{11} T_{23}^2 - T_{33} T_{12}^2
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double SymTensor2::getDeterminant() const

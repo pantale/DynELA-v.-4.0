@@ -25,9 +25,11 @@
 #include <NumpyInterface.h>
 
 /*
-  Constructor of the Tensor4 class
-
-  This method is the default constructor of a fourth order tensor. All components are initialized to zero by default.
+@LABEL:Tensor4::Tensor4()
+@SHORT:Default constructor of the TenTensor4sor2 class.
+@RETURN:Tensor4
+All components are initialized to zero by default.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor4::Tensor4()
@@ -38,7 +40,9 @@ Tensor4::Tensor4()
 }
 
 /*
-  Destructor of the Tensor4 class
+@LABEL:Tensor4::~Tensor4()
+@SHORT:Destructor of the Tensor4 class.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor4::~Tensor4()
@@ -90,14 +94,11 @@ void Tensor4::print(std::ostream &os) const
 }
 
 /*
-  Returns an identity tensor
-
-  This method transforms the current tensor to an identity tensor.
-  \code
-  Tensor4 t1;
-  t1.setToUnity(); // Returns and identity tensor
-  \endcode
-  \warning This method modify it's argument
+@LABEL:Tensor4::setToUnity()
+@SHORT:Unity tensor.
+@WARNING:This method modifies its own argument
+This method transforms the current tensor to a unity tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 void Tensor4::setToUnity()

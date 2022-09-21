@@ -8,19 +8,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*
-  \file Tensor2.C
-  Definition file for the second order tensor class
-
-  This file is the declaration file for the second order tensor class. A second order tensor is a like a matrix with the following form:
-  \f[ T=\left[\begin{array}{ccc}
-  T_{11} & T_{12} & T_{13}\\
-  T_{21} & T_{22} & T_{23}\\
-  T_{31} & T_{32} & T_{33}
-  \end{array}\right] \f]
-  \ingroup dnlMaths
-*/
-
 #include <fstream>
 #include <Tensor2.h>
 #include <SymTensor2.h>
@@ -30,9 +17,18 @@
 const Tensor2Index Tensor2::_internalIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 
 /*
-  Constructor of the Tensor2 class
-
-  This method is the default constructor of a second order tensor. All components are initialized to zero by default.
+@LABEL:Tensor2::Tensor2()
+@SHORT:Default constructor of the Tensor2 class.
+@RETURN:Tensor2
+All components are initialized to zero by default.
+\begin{equation*}
+\T=\left[\begin{array}{ccc}
+0&0&0\\
+0&0&0\\
+0&0&0
+\end{array}\right]
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2::Tensor2()
@@ -42,7 +38,10 @@ Tensor2::Tensor2()
 }
 
 /*
-  Copy constructor of the Tensor2 class
+@LABEL:Tensor2::Tensor2(Tensor2)
+@SHORT:Copy constructor of the Tensor2 class.
+@RETURN:Tensor2
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2::Tensor2(const Tensor2 &tensor)
@@ -52,9 +51,11 @@ Tensor2::Tensor2(const Tensor2 &tensor)
 }
 
 /*
-  Constructor of the Tensor2 class
-
-  This method is a constructor of a second order tensor with initialization of the 9 values.
+@LABEL:Tensor2::Tensor2(double,...)
+@SHORT:Constructor of the Tensor2 class.
+@RETURN:Tensor2
+Constructor of a second order tensor with initialization of the 9 values.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2::Tensor2(double t11, double t12, double t13, double t21, double t22, double t23, double t31, double t32, double t33)
@@ -72,7 +73,9 @@ Tensor2::Tensor2(double t11, double t12, double t13, double t21, double t22, dou
 }
 
 /*
-  Destructor of the Tensor2 class
+@LABEL:Tensor2::~Tensor2()
+@SHORT:Destructor of the Tensor2 class.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2::~Tensor2()
@@ -128,14 +131,18 @@ void Tensor2::print(std::ostream &outputStream) const
 }
 
 /*
-  Returns a unity tensor
-
+@LABEL:Tensor2::setToUnity()
+@SHORT:Unity tensor.
+@WARNING:This method modifies its own argument
   This method transforms the current tensor to a unity tensor.
-  \code
-  Tensor2 tensor1;
-  tensor1.setToUnity(); // Returns and identity tensor
-  \endcode
-  \warning This method modify it's argument
+\begin{equation*}
+\T=\left[\begin{array}{ccc}
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{array}\right]
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 void Tensor2::setToUnity()
@@ -153,7 +160,17 @@ void Tensor2::setToUnity()
 }
 
 /*
-  Sets all components of the tensor to zero
+@LABEL:Tensor2::setToZero()
+@SHORT:Sets all components of the tensor to zero.
+@WARNING:This method modifies its own argument
+\begin{equation*}
+\T=\left[\begin{array}{ccc}
+0&0&0\\
+0&0&0\\
+0&0&0
+\end{array}\right]
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 void Tensor2::setToZero()
@@ -163,14 +180,18 @@ void Tensor2::setToZero()
 }
 
 /*
-  Fill a second order tensor with a scalar value
-
+@LABEL:Tensor2::operator=(double)
+@SHORT:Fill a second order tensor with a scalar value.
+@RETURN:Tensor2
   This method is a surdefinition of the = operator for the second order tensor class.
-  \code
-  Tensor2 tensor1;
-  tensor1 = 1.0; // All components of the tensor are set to 1.0
-  \endcode
-  - val double value to give to all components of the second order tensor
+\begin{equation*}
+\T=\left[\begin{array}{ccc}
+m&m&m\\
+m&m&m\\
+m&m&m
+\end{array}\right]
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 &Tensor2::operator=(const double &val)
@@ -413,15 +434,16 @@ Tensor2 operator*(const double &lambda, const Tensor2 &tensor)
 }
 
 /*
-  Multiplication of 2 second order tensors
-
-  This method defines a single contracted product of two second order tensors.
+@LABEL:Tensor2::singleProduct()
+@SHORT:Contracted product of a second order tensor by itself.
+@RETURN:Tensor2
+This method defines a single contracted product of of a second order tensor by itself.
   The result of this operation is also a second order tensor defined by:
-  \f[ T = A . B \f]
-  \code
-  Tensor2 tensor, result;
-  result = tensor.singleProduct(); // product of two tensors
-  \endcode
+\begin{equation*}
+\T = \A \cdot \A
+\end{equation*}
+where $\A$ is a two second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::singleProduct() const
@@ -443,15 +465,16 @@ Tensor2 Tensor2::singleProduct() const
 }
 
 /*
-  Multiplication of 2 second order tensors
-
+@LABEL:Tensor2::singleProductTxN()
+@SHORT:Contracted product of a second order tensor by its transpose.
+@RETURN:SymTensor2
   This method defines a single contracted product of two second order tensors.
   The result of this operation is also a second order tensor defined by:
-  \f[ T = A^T . B \f]
-  \code
-  Tensor2 tensor, result3;
-  result = tensor.singleProductTxN(); // product of two tensors
-  \endcode
+\begin{equation*}
+\T = \A^T\cdot \A
+\end{equation*}
+where $\A$ is a second order tensor. Result is a symmetric second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 SymTensor2 Tensor2::singleProductTxN() const
@@ -470,15 +493,16 @@ SymTensor2 Tensor2::singleProductTxN() const
 }
 
 /*
-  Multiplication of 2 second order tensors
-
+@LABEL:Tensor2::singleProductNxT()
+@SHORT:Contracted product of a second order tensor by its transpose.
+@RETURN:SymTensor2
   This method defines a single contracted product of two second order tensors.
   The result of this operation is also a second order tensor defined by:
-  \f[ T = A . B^T \f]
-  \code
-  Tensor2 tensor, result;
-  result = tensor.singleProductNxT(); // product of two tensors
-  \endcode
+\begin{equation*}
+\T = \A \cdot \A^T
+\end{equation*}
+where $\A$ is a second order tensor. Result is a symmetric second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 SymTensor2 Tensor2::singleProductNxT() const
@@ -497,16 +521,16 @@ SymTensor2 Tensor2::singleProductNxT() const
 }
 
 /*
-  Multiplication of 2 second order tensors
-
+@LABEL:Tensor2::operator*(Tensor2)
+@SHORT:Multiplication of 2 second order tensors.
+@RETURN:Tensor2
   This method defines a single contracted product of two second order tensors.
   The result of this operation is also a second order tensor defined by:
-  \f[ T = A . B \f]
-  \code
-  Tensor2 tensor1,tensor2,t3;
-  t3 = tensor1 * tensor2; // product of two tensors
-  \endcode
-  - tensor Second second order tensor to use for the operation
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ and $\B$ are two second order tensors.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::operator*(const Tensor2 &tensor) const
@@ -528,16 +552,16 @@ Tensor2 Tensor2::operator*(const Tensor2 &tensor) const
 }
 
 /*
-  Multiplication of 2 second order tensors
-
+@LABEL:Tensor2::operator*(SymTensor2)
+@SHORT:Multiplication of 2 second order tensors.
+@RETURN:Tensor2
   This method defines a single contracted product of two second order tensors.
   The result of this operation is also a second order tensor defined by:
-  \f[ T = A . B \f]
-  \code
-  Tensor2 tensor1,tensor2,t3;
-  t3 = tensor1 * tensor2; // product of two tensors
-  \endcode
-  - tensor Second second order tensor to use for the operation
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ is a second order tensor and $\B$ is a symmetric second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::operator*(const SymTensor2 &tensor) const
@@ -559,17 +583,16 @@ Tensor2 Tensor2::operator*(const SymTensor2 &tensor) const
 }
 
 /*
-  Multiplication of a second order tensor by a vector
-
+@LABEL:Tensor2::operator*(Vec3D)
+@SHORT:Multiplication of a second order tensor by a vector.
+@RETURN:Vec3D
   This method defines the product of a second order tensor by a vector.
   The result of this operation is also a vector defined by:
-  \f[ \overrightarrow{b} = T . \overrightarrow{a} \f]
-  \code
-  Tensor2 tensor1;
-  Vec3D v1,v2;
-  v2 = tensor1 * v1; // product of the second order tensor by a vector
-  \endcode
-  - vector Vector to use for the operation
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a second order tensor and $\overrightarrow{x}$ and $\overrightarrow{y}$ are two Vec3D.
+@END
 */
 //-----------------------------------------------------------------------------
 Vec3D Tensor2::operator*(const Vec3D &vector) const
@@ -585,16 +608,16 @@ Vec3D Tensor2::operator*(const Vec3D &vector) const
 }
 
 /*
-  Multiplication of 2 second order tensors
-
+@LABEL:Tensor2::singleProduct(Tensor2)
+@SHORT:Contracted product of two second order tensors.
+@RETURN:Tensor2
   This method defines a single contracted product of two second order tensors.
   The result of this operation is also a second order tensor defined by:
-  \f[ T = A . B \f]
-  \code
-  Tensor2 tensor1,tensor2,t3;
-  t3 = tensor1.singleProduct(tensor2); // product of two tensors
-  \endcode
-  - tensor Second second order tensor to use for the operation
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ and $\B$ are two second order tensors.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::singleProduct(const Tensor2 tensor) const
@@ -617,16 +640,16 @@ Tensor2 Tensor2::singleProduct(const Tensor2 tensor) const
 }
 
 /*
-  Double contracted product of a second order tensor by itself
-
-  This method defines a double contracted product of two second order tensors.
+@LABEL:Tensor2::doubleProduct()
+@SHORT:Double contracted product of a second order tensor by itself.
+@RETURN:double
+This method defines a double contracted product of a second order tensor by itself.
   The result of this operation is a scalar defined by:
-  \f[ s = A : A \f]
-  \code
-  Tensor2 tensor;
-  double s;
-  s = tensor.doubleProduct(); // double contracted product
-  \endcode
+\begin{equation*}
+s = \A : \A = \sum_{i=1}^{3} \sum_{j=1}^{3} A_{ij}\times A_{ij}
+\end{equation*}
+where $\A$ is a second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 double Tensor2::doubleProduct() const
@@ -638,17 +661,16 @@ double Tensor2::doubleProduct() const
 }
 
 /*
-  Double contracted product of 2 second order tensors
-
+@LABEL:Tensor2::doubleProduct(Tensor2)
+@SHORT:Double contracted product of 2 second order tensors.
+@RETURN:double
   This method defines a double contracted product of two second order tensors.
   The result of this operation is a scalar defined by:
-  \f[ s = A : B \f]
-  \code
-  Tensor2 tensor1,tensor;
-  double s;
-  s = tensor1.doubleProduct(tensor); // double contracted product
-  \endcode
-  - tensor Second second order tensor to use for the operation
+\begin{equation*}
+s = \A : \B = \sum_{i=1}^{3} \sum_{j=1}^{3} A_{ij}\times B_{ij}
+\end{equation*}
+where $\A$ and $\B$ are two second order tensors.
+@END
 */
 //-----------------------------------------------------------------------------
 double Tensor2::doubleProduct(const Tensor2 tensor) const
@@ -660,12 +682,16 @@ double Tensor2::doubleProduct(const Tensor2 tensor) const
 }
 
 /*
-  Deviator of a second order tensor
-
-  This method defines the getDeviator of a second second order tensor.
-  The result of this operation is a second order tensor defined by:
-  \f[ s=\sigma-\frac{1}{3}\tr[\sigma].I \f]
-  Return : Deviator of a second order tensor
+@LABEL:Tensor2::getDeviator()
+@SHORT:Deviatoric part of a second order tensor.
+@RETURN:Tensor2
+This method defines the deviatoric part of a second second order tensor.
+The result of this operation is a second order tensor defined by the following equation:
+\begin{equation*}
+\Sig^d=\Sig-\frac{1}{3}\tr[\Sig].\Id
+\end{equation*}
+where $\Sig^d$ is the deviatoric part of the tensor, $\Sig$ is the tensor and $\Id$ is the unit tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::getDeviator() const
@@ -682,12 +708,19 @@ Tensor2 Tensor2::getDeviator() const
 }
 
 /*
-  getTranspose of a second order tensor
-
+@LABEL:Tensor2::getTranspose()
+@SHORT:Transpose of a second order tensor.
+@RETURN:Tensor2
   This method defines the transpose of a second second order tensor.
-  The result of this operation is a second order tensor defined by:
-  \f[ T_2 = T_1^T \f]
-  Return : getTranspose of a second order tensor
+The result of this operation is a second order tensor defined by the following equation:
+\begin{equation*}
+\A=\B^T =\left[\begin{array}{ccc}
+  B_{11} & B_{21} & B_{31}\\
+  B_{12} & B_{22} & B_{32}\\
+  B_{13} & B_{23} & B_{33}
+  \end{array}\right]
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::getTranspose() const
@@ -697,12 +730,15 @@ Tensor2 Tensor2::getTranspose() const
 }
 
 /*
-  Sum of the rows of a second order tensor
-
+@LABEL:Tensor2::rowSum()
+@SHORT:Sum of the rows of a second order tensor.
+@RETURN:Vec3D
   This method returns a vector by computing the sum of the components on all rows of a second second order tensor.
   The result of this operation is a vector defined by:
-  \f[ v_{i}=\sum_{j=1}^{3}T_{ji} \f]
-  Return : Vector containing the sum of the rows of a second order tensor
+\begin{equation*}
+v_{i}=\sum_{j=1}^{3} T_{ji}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Vec3D Tensor2::rowSum() const
@@ -714,12 +750,15 @@ Vec3D Tensor2::rowSum() const
 }
 
 /*
-  Sum of the columns of a second order tensor
-
+@LABEL:Tensor2::columnSum()
+@SHORT:Sum of the columns of a second order tensor.
+@RETURN:Vec3D
   This method returns a vector by computing the sum of the components on all columns of a second second order tensor.
   The result of this operation is a vector defined by:
-  \f[ v_{i}=\sum_{j=1}^{3}T_{ij} \f]
-  Return : Vector containing the sum of the rows of a second order tensor
+\begin{equation*}
+v_{i}=\sum_{j=1}^{3}T_{ij}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Vec3D Tensor2::columnSum() const
@@ -731,18 +770,19 @@ Vec3D Tensor2::columnSum() const
 }
 
 /*
-  Symmetric part of a second order tensor
-
+@LABEL:Tensor2::getSymetricPart()
+@SHORT:Symmetric part of a second order tensor.
+@RETURN:Tensor2
   This method returns the symmetric part of a second second order tensor.
   The result of this operation is a second second order tensor defined by:
-  \f[
-  s = \left[\begin{array}{ccc}
- v_{11} & \frac{v{12} + v{21}}{2} & \frac{v{13} + v{31}}{2}\\
- \frac{v{12} + v{21}}{2} & v_{22} & \frac {v{23} + v{32}}{2}\\
- \frac{v{13} + v{31}}{2} & \frac {v{23} + v{32}}{2} & v_{33}\end{array}
+\begin{equation*}
+\B = \left[\begin{array}{ccc}
+ A_{11} & \frac{A_{12} + A_{21}}{2} & \frac{A_{13} + A_{31}}{2}\\
+ \frac{A_{12} + A_{21}}{2} & A_{22} & \frac {A_{23} + A_{32}}{2}\\
+ \frac{A_{13} + A_{31}}{2} & \frac {A_{23} + A_{32}}{2} & A_{33}\end{array}
 \right]
-  \f]
-  - s_v Returned symmetric part of a second order tensor
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::getSymetricPart() const
@@ -760,18 +800,19 @@ Tensor2 Tensor2::getSymetricPart() const
 }
 
 /*
-  Skew-symmetric part of a second order tensor
-
+@LABEL:Tensor2::getSkewSymetricPart()
+@SHORT:Skew-symmetric part of a second order tensor.
+@RETURN:Tensor2
   This method returns the skew-symmetric part of a second second order tensor.
   The result of this operation is a second second order tensor defined by:
-  \f[
-  s = \left[\begin{array}{ccc}
- v_{11} & \frac{v{12} - v{21}}{2} & \frac{v{13} - v{31}}{2}\\
- -\frac{v{12} -  v{21}}{2} & v_{22} & \frac {v{23} - v{32}}{2}\\
- -\frac{v{13} - v{31}}{2} & -\frac {v{23} - v{32}}{2} & v_{33}\end{array}
+\begin{equation*}
+\B = \left[\begin{array}{ccc}
+ A_{11} & \frac{A_{12} - A_{21}}{2} & \frac{A_{13} - A_{31}}{2}\\
+ -\frac{A_{12} -  A_{21}}{2} & A_{22} & \frac {A_{23} - A_{32}}{2}\\
+ -\frac{A_{13} - A_{31}}{2} & -\frac {A_{23} - A_{32}}{2} & A_{33}\end{array}
 \right]
-  \f]
-  - a_v Returned skew-symmetric part of a second order tensor
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::getSkewSymetricPart() const
@@ -789,13 +830,15 @@ Tensor2 Tensor2::getSkewSymetricPart() const
 }
 
 /*
-  Extraction of a row from a second order tensor
-
+@LABEL:Tensor2::getRow(short)
+@SHORT:Extraction of a row from a second order tensor.
+@RETURN:Vec3D
   This method returns a vector as part of a second second order tensor.
   The result of this operation with the argument j is a vector defined by:
-  \f[ v_{i} = T_{ij} \f]
-  - row row line number to extract.
-  Return : vecteur containing the corresponding row
+\begin{equation*}
+v_{i} = T_{ij}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Vec3D Tensor2::getRow(short row) const
@@ -812,13 +855,15 @@ Vec3D Tensor2::getRow(short row) const
 }
 
 /*
-  Extraction of a column from a second order tensor
-
+@LABEL:Tensor2::getColumn(short)
+@SHORT:Extraction of a column from a second order tensor.
+@RETURN:Vec3D
   This method returns a vector as part of a second second order tensor.
   The result of this operation with the argument j is a vector defined by:
-  \f[ v_{i} = T_{ji} \f]
-  - col col line number to extract.
-  Return : vecteur containing the corresponding column
+\begin{equation*}
+v_{i} = T_{ji}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Vec3D Tensor2::getColumn(short col) const
@@ -948,9 +993,11 @@ std::ifstream &operator>>(std::ifstream &is, Tensor2 &tensor)
 }
 
 /*
-  Maximum component in a vector
-
-  This method returns the maximum component of a vector
+@LABEL:Tensor2::maxValue()
+@SHORT:Maximum component in a second order tensor.
+@RETURN:double
+This method returns the maximum component in a second second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 double Tensor2::maxValue()
@@ -966,9 +1013,11 @@ double Tensor2::maxValue()
 }
 
 /*
-  Minimum component in a vector
-
-  This method returns the minimum component of a vector
+@LABEL:Tensor2::minValue()
+@SHORT:Minimum component in a second order tensor.
+@RETURN:double
+This method returns the minimum component in a second second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 double Tensor2::minValue()
@@ -984,9 +1033,11 @@ double Tensor2::minValue()
 }
 
 /*
-  Maximum absolute component in a vector
-
-  This method returns the maximum absolute component of a vector
+@LABEL:Tensor2::maxAbsoluteValue()
+@SHORT:Maximum absolute component in a second order tensor.
+@RETURN:double
+This method returns the maximum absolute component in a second second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 double Tensor2::maxAbsoluteValue()
@@ -1002,9 +1053,11 @@ double Tensor2::maxAbsoluteValue()
 }
 
 /*
-  Minimum absolute component in a vector
-
-  This method returns the minimum absolute component of a vector
+@LABEL:Tensor2::minAbsoluteValue()
+@SHORT:Minimum absolute component in a second order tensor.
+@RETURN:double
+This method returns the minimum absolute component in a second second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 double Tensor2::minAbsoluteValue()
@@ -1020,19 +1073,23 @@ double Tensor2::minAbsoluteValue()
 }
 
 /*
-  Inverse of a second order tensor
-
+@LABEL:Tensor2::getInverse()
+@SHORT:Inverse of a second order tensor.
+@RETURN:Tensor2
   This method returns the inverse of a second second order tensor.
   The result of this operation is a second order tensor defined by:
-  \f[ D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33} \f]
-  and
-  \f[ T^{-1} = \frac {1}{D} \left[\begin{array}{ccc}
-  -(T{23} * T{32}) + T{22} * T{33} & T{13} * T{32} - T{12} * T{33} & -(T{13} * T{22}) + T{12} * T{23}\\
-  T{23} * T{31} - T{21} * T{33}& -(T{13} * T{31}) + T{11} * T{33} & T{13} * T{21} - T{11} * T{23}\\
-  -(T{22} * T{31}) + T{21} * T{32}&T{12} * T{31} - T{11} * T{32} & -(T{12} * T{21}) + T{11} * T{22}\end{array}
+\begin{equation*}
+D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
+\end{equation*}
+\begin{equation*}
+T^{-1} = \frac {1}{D} \left[\begin{array}{ccc}
+  T_{22}T_{33}-T_{23}T_{32}&T_{13}T_{32}-T_{12}T_{33}&T_{12}T_{23}-T_{13}T_{22}\\
+  T_{23}T_{31}-T_{21}T_{33}&T_{11}T_{33}-T_{13}T_{31}&T_{13}T_{21}-T_{11}T_{23}\\
+  T_{21}T_{32}-T_{22}T_{31}&T_{12}T_{31}-T_{11}T_{32}&T_{11}T_{22}-T_{12}T_{21}
+  \end{array}
   \right]
-  \f]
-  Return : Tensor containing the getInverse
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Tensor2::getInverse() const

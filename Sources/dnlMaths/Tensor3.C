@@ -15,9 +15,11 @@
 #include <NumpyInterface.h>
 
 /*
-  Constructor of the Tensor3 class
-
-  This method is the default constructor of a third order tensor. All components are initialized to zero by default.
+@LABEL:Tensor3::Tensor3()
+@SHORT:This method is the default constructor of a third order tensor.
+@RETURN:Tensor3
+All components are initialized to zero by default.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor3::Tensor3()
@@ -28,7 +30,22 @@ Tensor3::Tensor3()
 }
 
 /*
-  Destructor of the Tensor3 class
+@LABEL:Tensor3::Tensor3(const Tensor3)
+@SHORT:Copy constructor of the Tensor3 class.
+@RETURN:Tensor3
+@END
+*/
+//-----------------------------------------------------------------------------
+Tensor3::Tensor3(const Tensor3 &tensor)
+//-----------------------------------------------------------------------------
+{
+  memcpy(_data, tensor._data, 27 * sizeof(double));
+}
+
+/*
+@LABEL:Tensor3::~Tensor3()
+@SHORT:Destructor of the Tensor3 class.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor3::~Tensor3()
@@ -84,6 +101,13 @@ void Tensor3::print(std::ostream &os) const
   t1.setToUnity(); // Returns and identity tensor
   \endcode
   \warning This method modify it's argument
+*/
+/*
+@LABEL:Tensor3::setToUnity()
+@SHORT:Returns an identity third order tensor.
+@WARNING:This method modifies its own argument
+This method transforms the current tensor to a unity tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 void Tensor3::setToUnity()

@@ -302,11 +302,14 @@ inline void Tensor2::operator/=(const double val)
 }
 
 /*
-  Returns the trace of a second order tensor
-
+@LABEL:Tensor2::getTrace()
+@SHORT:Returns the trace of a second order tensor.
+@RETURN:double
   This method returns the trace of a second order tensor, i.e. the sum of all the terms of the diagonal:
-  \f[ _data = tr[T] = T_{11}+T_{22}+T_{33} \f]
-  Return : getTrace of a second order tensor
+\begin{equation*}
+v = tr[\T] = T_{11}+T_{22}+T_{33}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double Tensor2::getTrace() const
@@ -316,11 +319,14 @@ inline double Tensor2::getTrace() const
 }
 
 /*
-  Returns the average value of the trace of a second order tensor
-
+@LABEL:Tensor2::getThirdTrace()
+@SHORT:Returns the average value of the trace of a second order tensor.
+@RETURN:double
   This method returns average value of the trace of a second order tensor, i.e. the sum of all the terms of the diagonal divided by 3:
-    \f[ _data = \frac{1}{3} tr[T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right) \f]
-  Return : getTrace of a second order tensor divided by 3
+\begin{equation*}
+v = \frac{1}{3} tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double Tensor2::getThirdTrace() const
@@ -345,16 +351,13 @@ inline double Tensor2::getMisesEquivalent() const
 } */
 
 /*
-  Norm of a second order tensor
-
-  This method returns the norm of a second order tensor defined by:
-  \f[ \left\Vert s \right\Vert  = \sqrt {s_{ij}:s_{ij}} \f]
-  \code
-  Tensor2 tensor1;
-  double s;
-  s = tensor1.getNorm(); // norm du tenseur
-  \endcode
-  Return : norm of a second order tensor
+@LABEL:Tensor2::getNorm()
+@SHORT:Norm of a second order tensor.
+@RETURN:double
+This method returns the norm of a second order tensor defined by:\begin{equation*}
+\left\Vert s \right\Vert  = \sqrt {s_{ij}:s_{ij}}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double Tensor2::getNorm() const
@@ -366,15 +369,14 @@ inline double Tensor2::getNorm() const
 }
 
 /*
-  J2 norm of a second order tensor
-
+@LABEL:Tensor2::getJ2()
+@SHORT:J2 norm of a second order tensor.
+@RETURN:double
   This method returns the J2 norm of a second order tensor defined by:
-  \f[ n = \sqrt {\frac{3}{2}} \left\Vert s \right\Vert  = \sqrt {\frac{3}{2} s_{ij}:s_{ij}} \f]
-  \code
-  Tensor2 tensor1;
-  double s;
-  s = tensor1.getJ2(); // J2 norm of the tensor
-  \endcode
+\begin{equation*}
+\sqrt {\frac{3}{2}} \left\Vert s \right\Vert  = \sqrt {\frac{3}{2} s_{ij}:s_{ij}}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double Tensor2::getJ2() const
@@ -385,13 +387,17 @@ inline double Tensor2::getJ2() const
                           dnlSquare(_data[6]) + dnlSquare(_data[7]) + dnlSquare(_data[8]));
 }
 
-/*
-  Determinant of a second order tensor
 
+/*
+@LABEL:Tensor2::getDeterminant()
+@SHORT:Determinant of a second order tensor.
+@RETURN:double
   This method returns the determinant of a second second order tensor.
   The result of this operation is a scalar value defined by:
-  \f[ D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33} \f]
-  Return : Scalar value containing the determinant of a second order tensor
+\begin{equation*}
+D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 inline double Tensor2::getDeterminant() const

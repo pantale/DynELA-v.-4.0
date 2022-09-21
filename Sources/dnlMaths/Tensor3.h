@@ -35,6 +35,7 @@ private:
 
 public:
     Tensor3();
+    Tensor3(const Tensor3 &);
     ~Tensor3();
 
     // Interface methods excluded from SWIG
