@@ -38,7 +38,7 @@ const Tensor2Index Tensor2::_internalIndexes = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 Tensor2::Tensor2()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0.0);
+  setToValue(0);
 }
 
 /*
@@ -141,15 +141,15 @@ void Tensor2::print(std::ostream &outputStream) const
 void Tensor2::setToUnity()
 //-----------------------------------------------------------------------------
 {
-  _data[0] = 1.0;
-  _data[1] = 0.0;
-  _data[2] = 0.0;
-  _data[3] = 0.0;
-  _data[4] = 1.0;
-  _data[5] = 0.0;
-  _data[6] = 0.0;
-  _data[7] = 0.0;
-  _data[8] = 1.0;
+  _data[0] = 1;
+  _data[1] = 0;
+  _data[2] = 0;
+  _data[3] = 0;
+  _data[4] = 1;
+  _data[5] = 0;
+  _data[6] = 0;
+  _data[7] = 0;
+  _data[8] = 1;
 }
 
 /*
@@ -159,7 +159,7 @@ void Tensor2::setToUnity()
 void Tensor2::setToZero()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0.0);
+  setToValue(0);
 }
 
 /*
@@ -360,7 +360,7 @@ Tensor2 Tensor2::operator/(const double lambda) const
   Tensor2 result;
 
 #ifdef VERIF_maths
-  if (lambda == 0.0)
+  if (lambda == 0)
   {
     fatalError("Tensor2:: operator /", "divide by zero");
   }
@@ -708,7 +708,9 @@ Tensor2 Tensor2::getTranspose() const
 Vec3D Tensor2::rowSum() const
 //-----------------------------------------------------------------------------
 {
-  return Vec3D(_data[0] + _data[1] + _data[2], _data[3] + _data[4] + _data[5], _data[6] + _data[7] + _data[8]);
+  return Vec3D(_data[0] + _data[1] + _data[2],
+               _data[3] + _data[4] + _data[5],
+               _data[6] + _data[7] + _data[8]);
 }
 
 /*
@@ -723,7 +725,9 @@ Vec3D Tensor2::rowSum() const
 Vec3D Tensor2::columnSum() const
 //-----------------------------------------------------------------------------
 {
-  return Vec3D(_data[0] + _data[3] + _data[6], _data[1] + _data[4] + _data[7], _data[2] + _data[5] + _data[8]);
+  return Vec3D(_data[0] + _data[3] + _data[6],
+               _data[1] + _data[4] + _data[7],
+               _data[2] + _data[5] + _data[8]);
 }
 
 /*
@@ -773,15 +777,15 @@ Tensor2 Tensor2::getSymetricPart() const
 Tensor2 Tensor2::getSkewSymetricPart() const
 //-----------------------------------------------------------------------------
 {
-  return Tensor2(0.0,
+  return Tensor2(0,
                  (_data[1] - _data[3]) / 2,
                  (_data[2] - _data[6]) / 2,
                  (_data[3] - _data[1]) / 2,
-                 0.0,
+                 0,
                  (_data[5] - _data[7]) / 2,
                  (_data[6] - _data[2]) / 2,
                  (_data[7] - _data[5]) / 2,
-                 0.0);
+                 0);
 }
 
 /*
@@ -1041,7 +1045,7 @@ Tensor2 Tensor2::getInverse() const
   double t5 = _data[1] * _data[8];
   double t6 = _data[2] * _data[4];
 
-  double unSurDeter = 1.0 / (_data[0] * t1 + _data[3] * t2 + _data[6] * t3 - _data[0] * t4 - _data[3] * t5 - _data[6] * t6);
+  double unSurDeter = 1 / (_data[0] * t1 + _data[3] * t2 + _data[6] * t3 - _data[0] * t4 - _data[3] * t5 - _data[6] * t6);
   return Tensor2((t1 - t4) * unSurDeter,
                  (t2 - t5) * unSurDeter,
                  (t3 - t6) * unSurDeter,
@@ -1128,15 +1132,15 @@ void Tensor2::polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const
   FF._data[5] = dnlSquare(_data[2]) + dnlSquare(_data[5]) + dnlSquare(_data[8]);
 
   // initialisation de Rot
-  Rot11 = 1.0;
-  Rot22 = 1.0;
-  Rot33 = 1.0;
-  Rot12 = 0.0;
-  Rot13 = 0.0;
-  Rot21 = 0.0;
-  Rot23 = 0.0;
-  Rot31 = 0.0;
-  Rot32 = 0.0;
+  Rot11 = 1;
+  Rot22 = 1;
+  Rot33 = 1;
+  Rot12 = 0;
+  Rot13 = 0;
+  Rot21 = 0;
+  Rot23 = 0;
+  Rot31 = 0;
+  Rot32 = 0;
 
   while (it < 30)
   {
@@ -1149,9 +1153,9 @@ void Tensor2::polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const
     // test de convergence
     if (dnlAbs(FF._data[SymTensor2::_internalIndexes.index[p][q]]) < precisionPolarDecompose)
     {
-      _tmp1 = 0.5 * log(FF._data[0]);
-      _tmp2 = 0.5 * log(FF._data[3]);
-      _tmp3 = 0.5 * log(FF._data[5]);
+      _tmp1 = log(FF._data[0]) / 2;
+      _tmp2 = log(FF._data[3]) / 2;
+      _tmp3 = log(FF._data[5]) / 2;
       LnU._data[0] = dnlSquare(Rot11) * _tmp1 + dnlSquare(Rot12) * _tmp2 + dnlSquare(Rot13) * _tmp3;
       LnU._data[3] = dnlSquare(Rot21) * _tmp1 + dnlSquare(Rot22) * _tmp2 + dnlSquare(Rot23) * _tmp3;
       LnU._data[5] = dnlSquare(Rot31) * _tmp1 + dnlSquare(Rot32) * _tmp2 + dnlSquare(Rot33) * _tmp3;
@@ -1159,9 +1163,9 @@ void Tensor2::polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const
       LnU._data[2] = (Rot11 * Rot31 * _tmp1 + Rot12 * Rot32 * _tmp2 + Rot13 * Rot33 * _tmp3);
       LnU._data[4] = (Rot21 * Rot31 * _tmp1 + Rot22 * Rot32 * _tmp2 + Rot23 * Rot33 * _tmp3);
 
-      _tmp1 = 1.0 / sqrt(FF._data[0]);
-      _tmp2 = 1.0 / sqrt(FF._data[3]);
-      _tmp3 = 1.0 / sqrt(FF._data[5]);
+      _tmp1 = 1 / sqrt(FF._data[0]);
+      _tmp2 = 1 / sqrt(FF._data[3]);
+      _tmp3 = 1 / sqrt(FF._data[5]);
       _tmp4 = (Rot13 * _data[0] + Rot23 * _data[1] + Rot33 * _data[2]) * _tmp3;
       _tmp5 = (Rot12 * _data[0] + Rot22 * _data[1] + Rot32 * _data[2]) * _tmp2;
       _tmp6 = (Rot11 * _data[0] + Rot21 * _data[1] + Rot31 * _data[2]) * _tmp1;
@@ -1184,11 +1188,13 @@ void Tensor2::polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const
     }
 
     // calcul de l'angle
-    alpha = (FF._data[SymTensor2::_internalIndexes.index[q][q]] - FF._data[SymTensor2::_internalIndexes.index[p][p]]) / (2.0 * FF._data[SymTensor2::_internalIndexes.index[p][q]]);
-    theta = (alpha != 0.0 ? 1.0 / (alpha + sqrt(alpha * alpha + 1.0) * (alpha > 0.0 ? 1.0 : -1.0)) : 1.0);
+    alpha = (FF._data[SymTensor2::_internalIndexes.index[q][q]] -
+             FF._data[SymTensor2::_internalIndexes.index[p][p]]) /
+            (2 * FF._data[SymTensor2::_internalIndexes.index[p][q]]);
+    theta = (alpha != 0 ? 1 / (alpha + sqrt(alpha * alpha + 1) * (alpha > 0 ? 1 : -1)) : 1);
 
     // calcul des cosinus
-    Ctheta = 1.0 / (sqrt(1.0 + theta * theta));
+    Ctheta = 1 / (sqrt(1 + theta * theta));
     Stheta = theta * Ctheta;
 
     // calcul du nouveau tenseur
@@ -1263,15 +1269,15 @@ void Tensor2::polarDecompose(SymTensor2 &U, Tensor2 &R) const
   FF._data[5] = dnlSquare(_data[2]) + dnlSquare(_data[5]) + dnlSquare(_data[8]);
 
   // initialisation de Rot
-  Rot11 = 1.0;
-  Rot22 = 1.0;
-  Rot33 = 1.0;
-  Rot12 = 0.0;
-  Rot13 = 0.0;
-  Rot21 = 0.0;
-  Rot23 = 0.0;
-  Rot31 = 0.0;
-  Rot32 = 0.0;
+  Rot11 = 1;
+  Rot22 = 1;
+  Rot33 = 1;
+  Rot12 = 0;
+  Rot13 = 0;
+  Rot21 = 0;
+  Rot23 = 0;
+  Rot31 = 0;
+  Rot32 = 0;
 
   while (it < 30)
   {
@@ -1294,9 +1300,9 @@ void Tensor2::polarDecompose(SymTensor2 &U, Tensor2 &R) const
       U._data[2] = (Rot11 * Rot31 * _tmp1 + Rot12 * Rot32 * _tmp2 + Rot13 * Rot33 * _tmp3);
       U._data[4] = (Rot21 * Rot31 * _tmp1 + Rot22 * Rot32 * _tmp2 + Rot23 * Rot33 * _tmp3);
 
-      _tmp1 = 1.0 / sqrt(FF._data[0]);
-      _tmp2 = 1.0 / sqrt(FF._data[3]);
-      _tmp3 = 1.0 / sqrt(FF._data[5]);
+      _tmp1 = 1 / sqrt(FF._data[0]);
+      _tmp2 = 1 / sqrt(FF._data[3]);
+      _tmp3 = 1 / sqrt(FF._data[5]);
       _tmp4 = (Rot13 * _data[0] + Rot23 * _data[1] + Rot33 * _data[2]) * _tmp3;
       _tmp5 = (Rot12 * _data[0] + Rot22 * _data[1] + Rot32 * _data[2]) * _tmp2;
       _tmp6 = (Rot11 * _data[0] + Rot21 * _data[1] + Rot31 * _data[2]) * _tmp1;
@@ -1319,11 +1325,12 @@ void Tensor2::polarDecompose(SymTensor2 &U, Tensor2 &R) const
     }
 
     // calcul de l'angle
-    alpha = (FF._data[SymTensor2::_internalIndexes.index[q][q]] - FF._data[SymTensor2::_internalIndexes.index[p][p]]) / (2.0 * FF._data[SymTensor2::_internalIndexes.index[p][q]]);
-    theta = (alpha != 0.0 ? 1.0 / (alpha + sqrt(alpha * alpha + 1.0) * (alpha > 0.0 ? 1.0 : -1.0)) : 1.0);
+    alpha = (FF._data[SymTensor2::_internalIndexes.index[q][q]] - FF._data[SymTensor2::_internalIndexes.index[p][p]]) /
+            (2 * FF._data[SymTensor2::_internalIndexes.index[p][q]]);
+    theta = (alpha != 0 ? 1 / (alpha + sqrt(alpha * alpha + 1) * (alpha > 0 ? 1 : -1)) : 1);
 
     // calcul des cosinus
-    Ctheta = 1.0 / (sqrt(1.0 + theta * theta));
+    Ctheta = 1 / (sqrt(1 + theta * theta));
     Stheta = theta * Ctheta;
 
     // calcul du nouveau tenseur

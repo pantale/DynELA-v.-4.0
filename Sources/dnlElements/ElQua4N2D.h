@@ -25,7 +25,7 @@ class ElQua4N2D : public Element2D
 {
 
 public:
-  static const ElementData _elementData;
+  static const ElementData _elementData; // Database storage for the Element
 
 public:
   ElQua4N2D(long elementNumber = 1);

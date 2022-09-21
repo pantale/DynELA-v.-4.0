@@ -8,17 +8,7 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*
-  \file Tensor3.C
-  Definition file for the third order tensor class
-
-  This file is the declaration file for the third order tensor class. A third order tensor has the following form:
-  \f[ T = T_{ijk} \f]
-  \ingroup dnlMaths
-*/
-
 #include <fstream>
-
 #include <Tensor3.h>
 #include <Tensor2.h>
 #include <Vec3D.h>
@@ -79,7 +69,7 @@ void Tensor3::print(std::ostream &os) const
     {
       for (k = 0; k < 3; k++)
       {
-        os << "T[" << i << "," << j << "," << k << "]=" << v[dnlTensor3Ind(i, j, k, 3)];
+        os << "T[" << i << "," << j << "," << k << "]=" << _data[dnlTensor3Ind(i, j, k, 3)];
       }
     }
   }
@@ -100,12 +90,12 @@ void Tensor3::setToUnity()
 //-----------------------------------------------------------------------------
 {
   setToValue(0.);
-  v[dnlTensor3Ind(0, 1, 2, 3)] = 1.;
-  v[dnlTensor3Ind(1, 2, 0, 3)] = 1.;
-  v[dnlTensor3Ind(2, 0, 1, 3)] = 1.;
-  v[dnlTensor3Ind(2, 1, 0, 3)] = -1.;
-  v[dnlTensor3Ind(1, 0, 2, 3)] = -1.;
-  v[dnlTensor3Ind(0, 2, 1, 3)] = -1.;
+  _data[dnlTensor3Ind(0, 1, 2, 3)] = 1.;
+  _data[dnlTensor3Ind(1, 2, 0, 3)] = 1.;
+  _data[dnlTensor3Ind(2, 0, 1, 3)] = 1.;
+  _data[dnlTensor3Ind(2, 1, 0, 3)] = -1.;
+  _data[dnlTensor3Ind(1, 0, 2, 3)] = -1.;
+  _data[dnlTensor3Ind(0, 2, 1, 3)] = -1.;
 }
 
 /*
@@ -140,7 +130,7 @@ Tensor3 &Tensor3::operator=(const double &val)
 Tensor3 &Tensor3::operator=(const Tensor3 &t1)
 //-----------------------------------------------------------------------------
 {
-  memcpy(v, t1.v, 27 * sizeof(double));
+  memcpy(_data, t1._data, 27 * sizeof(double));
   return *this;
 }
 
@@ -166,7 +156,7 @@ Tensor3 Tensor3::operator+(const Tensor3 &t1) const
   // calcul de la somme
   for (short i = 0; i < 27; i++)
   {
-    t2.v[i] = v[i] + t1.v[i];
+    t2._data[i] = _data[i] + t1._data[i];
   }
 
   // renvoi de l'objet
@@ -195,7 +185,7 @@ Tensor3 Tensor3::operator-(const Tensor3 &t1) const
   // calcul de la somme
   for (short i = 0; i < 27; i++)
   {
-    t2.v[i] = v[i] - t1.v[i];
+    t2._data[i] = _data[i] - t1._data[i];
   }
 
   // renvoi de l'objet
@@ -223,7 +213,7 @@ Tensor3 Tensor3::operator*(const double &lambda) const
 
   for (short i = 0; i < 27; i++)
   {
-    t2.v[i] = lambda * v[i];
+    t2._data[i] = lambda * _data[i];
   }
 
   return t2;
@@ -251,7 +241,7 @@ Tensor3 Tensor3::operator/(const double &lambda) const
 
   for (short i = 0; i < 27; i++)
   {
-    t2.v[i] = v[i] / lambda;
+    t2._data[i] = _data[i] / lambda;
   }
 
   return t2;
@@ -279,7 +269,7 @@ Tensor3 operator*(const double &lambda, const Tensor3 &t1)
 
   for (short i = 0; i < 27; i++)
   {
-    t2.v[i] = lambda * t1.v[i];
+    t2._data[i] = lambda * t1._data[i];
   }
 
   return t2;
@@ -309,7 +299,7 @@ Tensor2 Tensor3::operator*(const Vec3D &v1) const
     for (short j = 0; j < 3; j++)
       for (short k = 0; k < 3; k++)
       {
-        t2(i, j) += v[dnlTensor3Ind(i, j, k, 3)] * v1(k);
+        t2(i, j) += _data[dnlTensor3Ind(i, j, k, 3)] * v1(k);
       }
 
   return t2;
@@ -330,7 +320,7 @@ bool Tensor3::operator==(const Tensor3 &t1) const
   short i;
 
   for (i = 0; i < 27; i++)
-    if (v[i] != t1.v[i])
+    if (_data[i] != t1._data[i])
     {
       return false;
     }
@@ -367,7 +357,7 @@ bool Tensor3::operator!=(const Tensor3 &t1) const
 void Tensor3::write(std::ofstream &ofs) const
 //-----------------------------------------------------------------------------
 {
-  ofs.write((char *)v, 27 * sizeof(double));
+  ofs.write((char *)_data, 27 * sizeof(double));
 }
 
 /*
@@ -385,7 +375,7 @@ void Tensor3::write(std::ofstream &ofs) const
 void Tensor3::read(std::ifstream &ifs)
 //-----------------------------------------------------------------------------
 {
-  ifs.read((char *)v, 27 * sizeof(double));
+  ifs.read((char *)_data, 27 * sizeof(double));
 }
 
 /*
@@ -444,7 +434,7 @@ void Tensor3::numpyWrite(std::string filename, bool initialize) const
   std::string mode = "a";
   if (initialize)
     mode = "w";
-  NumpyInterface::npySave(filename, &v[0], {3, 3, 3}, mode);
+  NumpyInterface::npySave(filename, &_data[0], {3, 3, 3}, mode);
 }
 
 /*
@@ -463,7 +453,7 @@ void Tensor3::numpyWriteZ(std::string filename, std::string name, bool initializ
   std::string mode = "a";
   if (initialize)
     mode = "w";
-  NumpyInterface::npzSave(filename, name, &v[0], {3, 3, 3}, mode);
+  NumpyInterface::npzSave(filename, name, &_data[0], {3, 3, 3}, mode);
 }
 
 /*
@@ -484,7 +474,7 @@ void Tensor3::numpyRead(std::string filename)
   {
     std::cout << "ERROR\n";
   }
-  memcpy(v, arr.data<double *>(), arr.num_vals * arr.word_size);
+  memcpy(_data, arr.data<double *>(), arr.num_vals * arr.word_size);
 }
 
 /*
@@ -505,5 +495,5 @@ void Tensor3::numpyReadZ(std::string filename, std::string name)
   {
     std::cout << "ERROR\n";
   }
-  memcpy(v, arr.data<double *>(), arr.num_vals * arr.word_size);
+  memcpy(_data, arr.data<double *>(), arr.num_vals * arr.word_size);
 }

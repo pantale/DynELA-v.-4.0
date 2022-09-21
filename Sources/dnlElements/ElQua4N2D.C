@@ -251,14 +251,14 @@ ElQua4N2D::ElQua4N2D(long elementNumber) : Element2D(elementNumber)
 
     // Check the data structure
     if (_elementData.CheckElementData != Element::ElQua4N2D)
-        fatalError("ElQua4N2D::ElQua4N2D", "Element Data currupted");
+        fatalError("ElQua4N2D::ElQua4N2D", "Element Data corrupted");
 }
 
 //-----------------------------------------------------------------------------
 ElQua4N2D::ElQua4N2D(const ElQua4N2D &element) : Element2D(element)
 //-----------------------------------------------------------------------------
 {
-    std::cout << "recopie d'un ElQua4N2D\n";
+    std::cout << "Copy of a ElQua4N2D\n";
 }
 
 //-----------------------------------------------------------------------------

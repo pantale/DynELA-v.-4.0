@@ -28,7 +28,7 @@ class Tensor2;
 //-----------------------------------------------------------------------------
 class Tensor3
 {
-    double v[27]; // Data storage for 27 double
+    double _data[27]; // Data storage for 27 double
 
 private:
     inline bool indexOK(short i, short j, short k) const;
@@ -112,7 +112,7 @@ inline double &Tensor3::operator()(short i, short j, short k)
 #ifdef VERIF_maths
     indexOK(i, j, k);
 #endif
-    return v[dnlTensor3Ind(i, j, k, 3)];
+    return _data[dnlTensor3Ind(i, j, k, 3)];
 }
 
 /*
@@ -130,7 +130,7 @@ inline double Tensor3::operator()(short i, short j, short k) const
 #ifdef VERIF_maths
     indexOK(i, j, k);
 #endif
-    return v[dnlTensor3Ind(i, j, k, 3)];
+    return _data[dnlTensor3Ind(i, j, k, 3)];
 }
 
 /*
@@ -149,7 +149,7 @@ inline void Tensor3::setToValue(double val)
 {
     for (short i = 0; i < 27; i++)
     {
-        v[i] = val;
+        _data[i] = val;
     }
 }
 
@@ -170,7 +170,7 @@ inline void Tensor3::operator+=(const Tensor3 &tens)
     // calcul de la somme
     for (short i = 0; i < 27; i++)
     {
-        v[i] += tens.v[i];
+        _data[i] += tens._data[i];
     }
 }
 
@@ -191,7 +191,7 @@ inline void Tensor3::operator-=(const Tensor3 &tens)
     // calcul de la difference
     for (short i = 0; i < 27; i++)
     {
-        v[i] -= tens.v[i];
+        _data[i] -= tens._data[i];
     }
 }
 
@@ -212,7 +212,7 @@ inline void Tensor3::operator*=(const double val)
 {
     for (short i = 0; i < 27; i++)
     {
-        v[i] *= val;
+        _data[i] *= val;
     }
 }
 
@@ -233,7 +233,7 @@ inline void Tensor3::operator/=(const double val)
 {
     for (short i = 0; i < 27; i++)
     {
-        v[i] /= val;
+        _data[i] /= val;
     }
 }
 

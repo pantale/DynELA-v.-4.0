@@ -248,14 +248,14 @@ ElQua4NAx::ElQua4NAx(long elementNumber) : ElementAxi(elementNumber)
 
     // Check the data structure
     if (_elementData.CheckElementData != Element::ElQua4NAx)
-        fatalError("ElQua4NAx::ElQua4NAx", "Element Data currupted");
+        fatalError("ElQua4NAx::ElQua4NAx", "Element Data corrupted");
 }
 
 //-----------------------------------------------------------------------------
 ElQua4NAx::ElQua4NAx(const ElQua4NAx &element) : ElementAxi(element)
 //-----------------------------------------------------------------------------
 {
-    std::cout << "recopie d'un ElQua4NAx\n";
+    std::cout << "Copy of a ElQua4NAx\n";
 }
 
 //-----------------------------------------------------------------------------

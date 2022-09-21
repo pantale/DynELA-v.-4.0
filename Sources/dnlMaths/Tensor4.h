@@ -29,7 +29,7 @@ class Tensor3;
 //-----------------------------------------------------------------------------
 class Tensor4
 {
-  double v[81]; // Data storage for 81 double
+  double _data[81]; // Data storage for 81 double
 
 public:
   // constructeurs
@@ -108,7 +108,7 @@ inline double &Tensor4::operator()(short i, short j, short k, short l)
 #ifdef VERIF_maths
   indexOK(i, j, k, l);
 #endif
-  return v[dnlTensor4Ind(i, j, k, l, 3)];
+  return _data[dnlTensor4Ind(i, j, k, l, 3)];
 }
 
 /*
@@ -123,7 +123,7 @@ inline double Tensor4::operator()(short i, short j, short k, short l) const
 #ifdef VERIF_maths
   indexOK(i, j, k, l);
 #endif
-  return v[dnlTensor4Ind(i, j, k, l, 3)];
+  return _data[dnlTensor4Ind(i, j, k, l, 3)];
 }
 
 /*
@@ -141,7 +141,7 @@ inline void Tensor4::setToValue(const double val)
 //-----------------------------------------------------------------------------
 {
   for (short i = 0; i < 81; i++)
-    v[i] = val;
+    _data[i] = val;
 }
 
 /*
@@ -160,7 +160,7 @@ inline void Tensor4::operator+=(const Tensor4 &tens)
 {
   // calcul de la somme
   for (short i = 0; i < 81; i++)
-    v[i] += tens.v[i];
+    _data[i] += tens._data[i];
 }
 
 /*
@@ -179,7 +179,7 @@ inline void Tensor4::operator-=(const Tensor4 &tens)
 {
   // calcul de la difference
   for (short i = 0; i < 81; i++)
-    v[i] -= tens.v[i];
+    _data[i] -= tens._data[i];
 }
 
 /*
@@ -198,7 +198,7 @@ inline void Tensor4::operator*=(const double val)
 //-----------------------------------------------------------------------------
 {
   for (short i = 0; i < 81; i++)
-    v[i] *= val;
+    _data[i] *= val;
 }
 
 /*
@@ -217,7 +217,7 @@ inline void Tensor4::operator/=(const double val)
 //-----------------------------------------------------------------------------
 {
   for (short i = 0; i < 81; i++)
-    v[i] /= val;
+    _data[i] /= val;
 }
 
 #endif

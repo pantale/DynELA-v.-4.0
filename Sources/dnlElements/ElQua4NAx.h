@@ -28,8 +28,8 @@ public:
   static const ElementData _elementData; // Database storage for the Element
 
 public:
-  ElQua4NAx(long = 1);
-  ElQua4NAx(const ElQua4NAx &);
+  ElQua4NAx(long elementNumber = 1);
+  ElQua4NAx(const ElQua4NAx &element);
   ~ElQua4NAx();
 
   // Interface methods excluded from SWIG
@@ -40,8 +40,8 @@ public:
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
-  void getShapeFunctionAtPoint(Vector &, const Vec3D &) const;
-  void getDerShapeFunctionAtPoint(Matrix &, const Vec3D &) const;
+  void getShapeFunctionAtPoint(Vector &shapeFunctions, const Vec3D &point) const;
+  void getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3D &point) const;
   double getCharacteristicLength();
   double getArea();
 };

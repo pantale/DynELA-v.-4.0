@@ -10,9 +10,9 @@
 
 /*
   \file result.C
-  Definition file for the second order tensor class
+  Definition file for the symmetric second order tensor class
 
-  This file is the declaration file for the second order tensor class. A second order tensor is a like a matrix with the following form:
+  This file is the declaration file for the symmetric second order tensor class. A second order tensor is a like a matrix with the following form:
   \f[ T=\left[\begin{array}{ccc}
   T_{11} & T_{12} & T_{13}\\
   T_{12} & T_{22} & T_{23}\\
@@ -571,8 +571,12 @@ Tensor2 SymTensor2::singleProduct(const SymTensor2 tensor) const
 double SymTensor2::doubleProduct(const SymTensor2 tensor) const
 //-----------------------------------------------------------------------------
 {
-  return (_data[0] * tensor._data[0] + _data[3] * tensor._data[3] + _data[5] * tensor._data[5] +
-          2.0 * (_data[1] * tensor._data[1] + _data[2] * tensor._data[2] + _data[4] * tensor._data[4]));
+  return (_data[0] * tensor._data[0] +
+          _data[3] * tensor._data[3] +
+          _data[5] * tensor._data[5] +
+          2.0 * (_data[1] * tensor._data[1] +
+                 _data[2] * tensor._data[2] +
+                 _data[4] * tensor._data[4]));
 }
 
 //Double contracted product of 2 second order tensors
@@ -590,8 +594,12 @@ double SymTensor2::doubleProduct(const SymTensor2 tensor) const
 double SymTensor2::doubleProduct() const
 //-----------------------------------------------------------------------------
 {
-  return (_data[0] * _data[0] + _data[3] * _data[3] + _data[5] * _data[5] +
-          2.0 * (_data[1] * _data[1] + _data[2] * _data[2] + _data[4] * _data[4]));
+  return (_data[0] * _data[0] +
+          _data[3] * _data[3] +
+          _data[5] * _data[5] +
+          2.0 * (_data[1] * _data[1] +
+                 _data[2] * _data[2] +
+                 _data[4] * _data[4]));
 }
 
 /*
@@ -646,12 +654,12 @@ SymTensor2 SymTensor2::getDeviator() const
   \f[ T_2 = T_1^T \f]
   Return : getTranspose of a second order tensor
 */
-//-----------------------------------------------------------------------------
+/* //-----------------------------------------------------------------------------
 SymTensor2 SymTensor2::getTranspose() const
 //-----------------------------------------------------------------------------
 {
   return *this;
-}
+} */
 
 /*
   Sum of the rows of a second order tensor
@@ -665,7 +673,9 @@ SymTensor2 SymTensor2::getTranspose() const
 Vec3D SymTensor2::rowSum() const
 //-----------------------------------------------------------------------------
 {
-  return Vec3D(_data[0] + _data[1] + _data[2], _data[1] + _data[3] + _data[4], _data[2] + _data[4] + _data[5]);
+  return Vec3D(_data[0] + _data[1] + _data[2],
+               _data[1] + _data[3] + _data[4],
+               _data[2] + _data[4] + _data[5]);
 }
 
 /*
@@ -680,7 +690,9 @@ Vec3D SymTensor2::rowSum() const
 Vec3D SymTensor2::columnSum() const
 //-----------------------------------------------------------------------------
 {
-  return Vec3D(_data[0] + _data[1] + _data[2], _data[1] + _data[3] + _data[4], _data[2] + _data[4] + _data[5]);
+  return Vec3D(_data[0] + _data[1] + _data[2],
+               _data[1] + _data[3] + _data[4],
+               _data[2] + _data[4] + _data[5]);
 }
 
 /*
@@ -697,12 +709,12 @@ Vec3D SymTensor2::columnSum() const
   \f]
   - s_v Returned symmetric part of a second order tensor
 */
-//-----------------------------------------------------------------------------
+/* //-----------------------------------------------------------------------------
 SymTensor2 SymTensor2::getSymetricPart() const
 //-----------------------------------------------------------------------------
 {
   return *this;
-}
+} */
 
 /*
   Skew-symmetric part of a second order tensor
@@ -718,12 +730,12 @@ SymTensor2 SymTensor2::getSymetricPart() const
   \f]
   - a_v Returned skew-symmetric part of a second order tensor
 */
-//-----------------------------------------------------------------------------
+/* //-----------------------------------------------------------------------------
 SymTensor2 SymTensor2::getSkewSymetricPart() const
 //-----------------------------------------------------------------------------
 {
   return SymTensor2();
-}
+} */
 
 /*
   Extraction of a row from a second order tensor

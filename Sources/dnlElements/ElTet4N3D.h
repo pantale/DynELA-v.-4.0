@@ -24,7 +24,7 @@ class ElTet4N3D : public Element3D
 {
 
 public:
-  static const ElementData _elementData;
+  static const ElementData _elementData; // Database storage for the Element
 
 public:
   // constructeurs

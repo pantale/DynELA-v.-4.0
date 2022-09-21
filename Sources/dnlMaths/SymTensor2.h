@@ -84,9 +84,9 @@ public:
   SymTensor2 getDeviator() const;
   SymTensor2 getInverse() const;
   SymTensor2 getMinor() const;
-  SymTensor2 getSkewSymetricPart() const;
-  SymTensor2 getSymetricPart() const;
-  SymTensor2 getTranspose() const;
+/*   SymTensor2 getSkewSymetricPart() const;
+  SymTensor2 getSymetricPart() const; */
+  //SymTensor2 getTranspose() const;
   SymTensor2 operator-() const;
   SymTensor2 operator-(const SymTensor2 &) const;
   SymTensor2 operator*(const double) const;
@@ -379,7 +379,11 @@ inline double SymTensor2::getJ2() const
 inline double SymTensor2::getDeterminant() const
 //-----------------------------------------------------------------------------
 {
-  return (_data[0] * _data[3] * _data[5] + 2.0 * _data[1] * _data[4] * _data[2] - _data[2] * _data[3] * _data[2] - _data[0] * _data[4] * _data[4] - _data[1] * _data[1] * _data[5]);
+  return (_data[0] * _data[3] * _data[5] +
+          2.0 * _data[1] * _data[4] * _data[2] -
+          _data[2] * _data[3] * _data[2] -
+          _data[0] * _data[4] * _data[4] -
+          _data[1] * _data[1] * _data[5]);
 }
 
 #endif

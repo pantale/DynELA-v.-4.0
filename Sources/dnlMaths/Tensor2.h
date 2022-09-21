@@ -14,7 +14,6 @@
 #include <string>
 #include <string.h>
 #include <dnlKernel.h>
-//#include <Macros.h>
 
 class Vec3D;
 class SymTensor2;
@@ -74,7 +73,7 @@ public:
   double doubleProduct(const Tensor2) const;
   double getDeterminant() const;
   double getJ2() const;
-  double getMisesEquivalent() const;
+  //double getMisesEquivalent() const;
   double getNorm() const;
   double getThirdTrace() const;
   double getTrace() const;
@@ -337,13 +336,13 @@ inline double Tensor2::getThirdTrace() const
   \f[ \overline{\sigma} = \frac {1}{\sqrt{2}}\sqrt{(s_{11}-s_{22})^2+(s_{22}-s_{33})^2+(s_{33}-s_{11})^2+6(s_{12}^2+s_{23}^2+s_{31}^2)}\f]
   Return : von-Mises stress of a second order tensor
 */
-//-----------------------------------------------------------------------------
+/* //-----------------------------------------------------------------------------
 inline double Tensor2::getMisesEquivalent() const
 //-----------------------------------------------------------------------------
 {
   exit(-1); // No sense, since this is not a symmetric tensor2
   return (dnlVonMises(_data[0], _data[4], _data[8], _data[1], _data[2], _data[5]));
-}
+} */
 
 /*
   Norm of a second order tensor
@@ -398,7 +397,12 @@ inline double Tensor2::getJ2() const
 inline double Tensor2::getDeterminant() const
 //-----------------------------------------------------------------------------
 {
-  return (_data[0] * _data[4] * _data[8] + _data[3] * _data[7] * _data[2] + _data[6] * _data[1] * _data[5] - _data[6] * _data[4] * _data[2] - _data[0] * _data[7] * _data[5] - _data[3] * _data[1] * _data[8]);
+  return (_data[0] * _data[4] * _data[8] +
+          _data[3] * _data[7] * _data[2] +
+          _data[6] * _data[1] * _data[5] -
+          _data[6] * _data[4] * _data[2] -
+          _data[0] * _data[7] * _data[5] -
+          _data[3] * _data[1] * _data[8]);
 }
 
 #endif
