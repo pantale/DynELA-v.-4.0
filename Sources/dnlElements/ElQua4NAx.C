@@ -297,12 +297,16 @@ void ElQua4NAx::getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3
 }
 
 /*
-//Calcul de la longueur caracteristique d'un element
-//
-//Cette methode calcule la longueur caracteristique d'un element à partir de la definition de la geometrie de cet element.
-//La relation utilisee pour ce calcul est donnee par:
-//\f[ l=\frac{x_{31}*y_{42}+x_{24}*y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}} \f] avec \f$ x_{ij} \f$ distance horizontale entre les points i et j et \f$ y_{ij} \f$ distance verticale entre les points i et j.
-//Return : longueur caracteristique de l'element
+@LABEL:ElQua4NAx::getCharacteristicLength()
+@SHORT:Computation of the characteristic length of an element.
+@RETURN:double
+This method computes the characteristic length of an element from the definition of the geometry of this element.
+The relationship used for this calculation is given by:
+\begin{equation}
+L=\frac{x_{31} y_{42}+x_{24} y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}} 
+\end{equation}
+where $x_{ij}$ is the horizontal distance between points $i$ and $j$ and $y_{ij}$ is the vertical distance between points $i$ and $j$.
+@END
 */
 //-----------------------------------------------------------------------------
 double ElQua4NAx::getCharacteristicLength()

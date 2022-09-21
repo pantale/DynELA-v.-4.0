@@ -322,7 +322,7 @@ inline double Tensor2::getTrace() const
 @LABEL:Tensor2::getThirdTrace()
 @SHORT:Returns the average value of the trace of a second order tensor.
 @RETURN:double
-  This method returns average value of the trace of a second order tensor, i.e. the sum of all the terms of the diagonal divided by 3:
+This method returns average value of the trace of a second order tensor, i.e. the sum of all the terms of the diagonal divided by 3:
 \begin{equation*}
 v = \frac{1}{3} tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
 \end{equation*}
@@ -372,7 +372,7 @@ inline double Tensor2::getNorm() const
 @LABEL:Tensor2::getJ2()
 @SHORT:J2 norm of a second order tensor.
 @RETURN:double
-  This method returns the J2 norm of a second order tensor defined by:
+This method returns the J2 norm of a second order tensor defined by:
 \begin{equation*}
 \sqrt {\frac{3}{2}} \left\Vert s \right\Vert  = \sqrt {\frac{3}{2} s_{ij}:s_{ij}}
 \end{equation*}
@@ -392,8 +392,8 @@ inline double Tensor2::getJ2() const
 @LABEL:Tensor2::getDeterminant()
 @SHORT:Determinant of a second order tensor.
 @RETURN:double
-  This method returns the determinant of a second second order tensor.
-  The result of this operation is a scalar value defined by:
+This method returns the determinant of a second second order tensor.
+The result of this operation is a scalar value defined by:
 \begin{equation*}
 D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
 \end{equation*}
