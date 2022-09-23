@@ -1118,7 +1118,7 @@ void Element::computeStrains()
     computeDeformationGradient(F, 0);
 
     // Polar decomposition
-    F.polarDecomposeLnU(_integrationPoint->StrainInc, _integrationPoint->R);
+    F.polarDecomposeCuppenLnU(_integrationPoint->StrainInc, _integrationPoint->R);
 
     // Compute the total strain tensor
     _integrationPoint->Strain += _integrationPoint->StrainInc;

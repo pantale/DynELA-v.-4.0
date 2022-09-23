@@ -37,6 +37,9 @@ class Tensor2
 
 private:
   bool indexOK(short, short) const;
+  void buildFTF(double FTF[3][3]) const;
+  void polarExtract(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const;
+  void polarExtractLnU(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const;
 
 public:
   Tensor2();
@@ -73,7 +76,6 @@ public:
   double doubleProduct(const Tensor2) const;
   double getDeterminant() const;
   double getJ2() const;
-  //double getMisesEquivalent() const;
   double getNorm() const;
   double getThirdTrace() const;
   double getTrace() const;
@@ -111,9 +113,15 @@ public:
   void numpyWrite(std::string, bool = false) const;
   void numpyWriteZ(std::string, std::string, bool = false) const;
   void polarDecompose(SymTensor2 &, Tensor2 &) const;
+  void polarDecomposeQL(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeJacobi(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeCuppen(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeLapack(SymTensor2 &U, Tensor2 &R) const;
   void polarDecomposeLnU(SymTensor2 &, Tensor2 &) const;
-  void planarPolarDecompose(SymTensor2 &, Tensor2 &) const;
-  void planarPolarDecomposeLnU(SymTensor2 &, Tensor2 &) const;
+  void polarDecomposeQLLnU(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeJacobiLnU(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeCuppenLnU(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeLapackLnU(SymTensor2 &U, Tensor2 &R) const;
   void setToUnity();
   void setToValue(const double);
   void setToZero();
@@ -388,7 +396,6 @@ inline double Tensor2::getJ2() const
                           dnlSquare(_data[3]) + dnlSquare(_data[4]) + dnlSquare(_data[5]) +
                           dnlSquare(_data[6]) + dnlSquare(_data[7]) + dnlSquare(_data[8]));
 }
-
 
 /*
 @LABEL:Tensor2::getDeterminant()
