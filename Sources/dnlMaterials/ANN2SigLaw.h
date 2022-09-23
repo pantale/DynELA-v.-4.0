@@ -62,7 +62,6 @@ class ANN2SigLaw : public HardeningLaw
   Vector b1, b2, b3;
   Vector logBase, minEntries, maxEntries, rangeEntries;
 
-
 public:
   ANN2SigLaw();
   ANN2SigLaw(const ANN2SigLaw &law);
@@ -82,7 +81,6 @@ public:
   void setParameters(char *filename);
   double getYieldStress(double plasticStrain, double plasticStrainRate = 0.0, double T = 0.0, double dtime = 0.0, IntegrationPoint *intPoint = NULL);
   double getDerivateYieldStress(double plasticStrain, double plasticStrainRate = 0.0, double T = 0.0, double dtime = 0.0, IntegrationPoint *intPoint = NULL);
-
 };
 
 #endif

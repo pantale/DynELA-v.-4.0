@@ -56,7 +56,7 @@ public:
 //-----------------------------------------------------------------------------
 class MacAddresses
 {
-  List <MacAddress *> macs; // List of mac adresses
+  List<MacAddress *> macs; // List of mac adresses
 
 public:
   MacAddresses();

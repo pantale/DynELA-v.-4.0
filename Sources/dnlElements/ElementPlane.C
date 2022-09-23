@@ -225,7 +225,7 @@ void ElementPlane::computeElasticStiffnessMatrix(bool underIntegration)
       WxdJ = currentIntPoint->integrationPointData->weight * currentIntPoint->detJ;
       if (getFamily() == Element::Axisymetric)
       {
-        //setCurrentUnderIntegrationPoint(currentIntPt);
+        // setCurrentUnderIntegrationPoint(currentIntPt);
         R = currentIntPoint->radius;
         WxdJ *= dnl2PI * R;
       }

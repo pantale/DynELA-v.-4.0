@@ -29,7 +29,7 @@ private:
   bool initialized = false;
 
 public:
-  List <Polygon *> polygons;
+  List<Polygon *> polygons;
   Vec3D bottomLeft, topRight;
   Vec3D center;
   Vec3D worldCenter;

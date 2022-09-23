@@ -22,9 +22,9 @@
 #include <Macros.h>
 #include <SinusFunction.h>
 
-//constructeur par defaut de la classe SinusFunction
+// constructeur par defaut de la classe SinusFunction
 /*
-*/
+ */
 //-----------------------------------------------------------------------------
 SinusFunction::SinusFunction(char *newName) : Function(newName)
 //-----------------------------------------------------------------------------

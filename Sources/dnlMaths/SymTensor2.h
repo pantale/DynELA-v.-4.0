@@ -84,9 +84,9 @@ public:
   SymTensor2 getDeviator() const;
   SymTensor2 getInverse() const;
   SymTensor2 getMinor() const;
-/*   SymTensor2 getSkewSymetricPart() const;
-  SymTensor2 getSymetricPart() const; */
-  //SymTensor2 getTranspose() const;
+  /*   SymTensor2 getSkewSymetricPart() const;
+    SymTensor2 getSymetricPart() const; */
+  // SymTensor2 getTranspose() const;
   SymTensor2 operator-() const;
   SymTensor2 operator-(const SymTensor2 &) const;
   SymTensor2 operator*(const double) const;

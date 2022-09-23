@@ -103,7 +103,7 @@ void Explicit::computeChungHulbertIntegrationParameters()
   }
 }
 
-//Permet de definir l'amortissement du schema explicite
+// Permet de definir l'amortissement du schema explicite
 /*
   Cette methode permet de definir l'ammortissement numerique introduit dans le schema d'integration numerique explicite en modifiant la valeur du rayon spectral à la frequence de bifurcation. La valeur numerique doit etre comprise dans l'intervalle: \f$\rho_{b}\in[0.0:1.0]\f$. Cette methode fait appel à la methode computeIntegrationParameters() afin de remettre à jour les parametres en fonction du nouveau rayon spectral.
   - val valeur du rayon spectral
@@ -192,7 +192,7 @@ void Explicit::solve(double solveUpToTime)
       printf("%s inc=%ld time=%8.4E timeStep=%8.4E\n", model->name.chars(), currentIncrement, model->currentTime, timeStep);
 
       // write the progress file
-      //progressWrite();
+      // progressWrite();
     }
 
     // Predictor phase
@@ -242,6 +242,7 @@ void Explicit::solve(double solveUpToTime)
       // Compute the Jacobian
       dynelaData->cpuTimes.timer("Jacobian")->start();
       model->computeJacobian();
+      model->computeUnderJacobian();
       dynelaData->cpuTimes.timer("Jacobian")->stop();
 
       // calcul du pas de temps critique de la structure
@@ -251,7 +252,7 @@ void Explicit::solve(double solveUpToTime)
     }
 
     // Write the history files
-    //model->writeHistoryFiles();
+    // model->writeHistoryFiles();
   }
 
   printf("%s inc=%ld time=%8.4E timeStep=%8.4E\n", model->name.chars(), currentIncrement, model->currentTime, timeStep);
@@ -324,15 +325,15 @@ void Explicit::solve(double solveUpToTime)
       // affichage de l'increment courant tous les 100 increments
 #ifndef PRINT_Execution_Solve
       if ((increment % frequencyReports == 0) || (increment == 1))
-	{
+  {
 #endif
-	  printf ("%s inc=%ld time=%8.4E timeStep=%8.4E\n", model->name.chars(), increment,
-		  model->getCurrentTime(), timeStep);
+    printf ("%s inc=%ld time=%8.4E timeStep=%8.4E\n", model->name.chars(), increment,
+      model->getCurrentTime(), timeStep);
 
-	  // write the progress file
-	  progressWrite();
+    // write the progress file
+    progressWrite();
 #ifndef PRINT_Execution_Solve
- 	}
+  }
 #endif
 
       // prediction des quantites
@@ -378,31 +379,31 @@ void Explicit::solve(double solveUpToTime)
 
       // test de fin de calcul
       if (!timeIsBetweenBounds())
-	{
-	  runStep=false;
-	}
+  {
+    runStep=false;
+  }
 
       // si on continue le calcul
       if (runStep)
-	{
+  {
 #ifdef computeCpuTimes
-	  recordTimes.start("Internal_Matrices");
+    recordTimes.start("Internal_Matrices");
 #endif
-	  model->computeJacobian ();
-	  // initialisation du step de calcul
+    model->computeJacobian ();
+    // initialisation du step de calcul
 #ifdef computeCpuTimes
-	  recordTimes.stop("Internal_Matrices");
+    recordTimes.stop("Internal_Matrices");
 #endif
 
-	  // calcul du pas de temps critique de la structure
+    // calcul du pas de temps critique de la structure
 #ifdef computeCpuTimes
-	  recordTimes.start("Time_Step");
+    recordTimes.start("Time_Step");
 #endif
-	  computeTimeStep();
+    computeTimeStep();
 #ifdef computeCpuTimes
-	  recordTimes.stop("Time_Step");
+    recordTimes.stop("Time_Step");
 #endif
-	}
+  }
     }
  */
   // print the CPU times
@@ -425,7 +426,7 @@ void Explicit::updateTimes()
   currentIncrement++;
 }
 
-//Phase de prediction des deplacements, vitesses et accelerations nodales
+// Phase de prediction des deplacements, vitesses et accelerations nodales
 /*
   La prediction se fait au niveau des deplacements, vitesses et accelerations nodales à partir des relations suivantes:
   \f[\stackrel{\bullet\bullet}{x}_{n+1}=0\f]
@@ -456,7 +457,7 @@ void Explicit::computePredictions()
 
     // prediction du deplacement
     node->newField->displacement = timeStep * (node->currentField->speed + (0.5 - _beta) * timeStep * node->currentField->acceleration);
-    //node->newField->displacement = node->currentField->displacement + node->newField->displacement;
+    // node->newField->displacement = node->currentField->displacement + node->newField->displacement;
     /*  node->newField->displacement = node->currentField->acceleration;
     node->newField->displacement *= timeStep * (0.5 - _beta);
     node->newField->displacement += node->currentField->speed;
@@ -480,7 +481,7 @@ void Explicit::computePredictions()
   }
 }
 
-//Resolution explicite de l'increment
+// Resolution explicite de l'increment
 /*
   Cette methode effectue la resolution explicite de l'increment de temps. La methode explicite etant une methode directe, aucune iteration n'est necessaire ici, les quantites peuvent etre calculees directement en utilisante les relations suivantes:
 */
@@ -560,7 +561,7 @@ void Explicit::computeDensity()
   }
 }
 
-//Renvoie le parametre \f$\alpha_M\f$ de l'integration de Chung-Hulbert
+// Renvoie le parametre \f$\alpha_M\f$ de l'integration de Chung-Hulbert
 /*
   Cette methode renvoie la valeur du parametre \f$\alpha_M\f$ pour le schema d'integration de Chung-Hulbert.
   \see computeIntegrationParameters()

@@ -26,8 +26,8 @@ class NodalField
 public:
   // double density = 0.0;        // Mass density at the current node \f$ \rho \f$
   // double densityInc = 0.0;     // Increment of the mass density at the current node \f$ d\rho \f$
-  //double energy = 0.0;           // Internal energy at the current node \f$ e \f$
-  //double energyInc = 0.0;        // Increment of the internal energy at the current node \f$ de \f$
+  // double energy = 0.0;           // Internal energy at the current node \f$ e \f$
+  // double energyInc = 0.0;        // Increment of the internal energy at the current node \f$ de \f$
   // Vec3D flux = 0.0;            // Thermal flux at the current node \f$ \overrightarrow{q} \f$
   // Vec3D force = 0.0;           // External force vector the current node \f$ \overrightarrow{f_e} \f$
   Vec3D displacement = 0.0; // Increment of the displacement at the current node \f$ d\overrightarrow{d} \f$

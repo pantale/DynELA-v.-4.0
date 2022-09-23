@@ -32,7 +32,7 @@
 #include <Tensor2.h>
 #include <SymTensor2.h>
 
-//Constructor of the Vec3D class with initialization
+// Constructor of the Vec3D class with initialization
 /*
   This method is a  constructor of the Vec3D class. All components are initialized with given values.
   If all values are omitted, initial value is a zero vector, i.e. all components are set to zero.
@@ -49,7 +49,7 @@ Vec3D::Vec3D(double v1, double v2, double v3)
     _data[2] = v3;
 }
 
-//Copy constructor of the Vec3D class
+// Copy constructor of the Vec3D class
 //-----------------------------------------------------------------------------
 Vec3D::Vec3D(const Vec3D &vect)
 //-----------------------------------------------------------------------------
@@ -57,14 +57,14 @@ Vec3D::Vec3D(const Vec3D &vect)
     memcpy(_data, vect._data, 3 * sizeof(double));
 }
 
-//Destructor of the Vec3D class
+// Destructor of the Vec3D class
 //-----------------------------------------------------------------------------
 Vec3D::~Vec3D()
 //-----------------------------------------------------------------------------
 {
 }
 
-//Multiplication of a vector by a scalar value
+// Multiplication of a vector by a scalar value
 /*
   This method defines the multiplication of a vector by a scalar value
   The result of this operation is also a vector defined by:
@@ -91,7 +91,7 @@ Vec3D operator*(const double lambda, const Vec3D &vect)
     return resu;
 }
 
-//Multiplication of a vector by a scalar value
+// Multiplication of a vector by a scalar value
 /*
   This method defines the multiplication of a vector by a scalar value
   The result of this operation is also a vector defined by:
@@ -112,7 +112,7 @@ Vec3D Vec3D::operator*(const double lambda) const
     return Vec3D(lambda * _data[0], lambda * _data[1], lambda * _data[2]);
 }
 
-//Division of a vector by a scalar value
+// Division of a vector by a scalar value
 /*
   This method defines the division of a vector by a scalar value
   The result of this operation is also a vector defined by:
@@ -140,7 +140,7 @@ Vec3D Vec3D::operator/(const double lambda) const
     return Vec3D(_data[0] / lambda, _data[1] / lambda, _data[2] / lambda);
 }
 
-//Test the equality of two vectors
+// Test the equality of two vectors
 /*
   This method tests the equality of two vectors.
   It returns \ref true if all components of the two vectors are equals, \ref false on other case.
@@ -161,7 +161,7 @@ bool Vec3D::operator==(const Vec3D &vect) const
     return true;
 }
 
-//Test the inequality of two vectors
+// Test the inequality of two vectors
 /*
   This method tests the inequality of two vectors.
   It returns \ref true if all components of the two vectors are differents, \ref false on other case.
@@ -175,7 +175,7 @@ bool Vec3D::operator!=(const Vec3D &vect) const
     return !(*this == vect);
 }
 
-//Maximum component in a vector
+// Maximum component in a vector
 /*
   This method returns the maximum component of a vector
 */
@@ -199,7 +199,7 @@ double Vec3D::maxValue()
     }
 }
 
-//Minimum component in a vector
+// Minimum component in a vector
 /*
   This method returns the minimum component of a vector
 */
@@ -223,7 +223,7 @@ double Vec3D::minValue()
     }
 }
 
-//Maximum absolute component in a vector
+// Maximum absolute component in a vector
 /*
   This method returns the maximum absolute component of a vector
 */
@@ -247,7 +247,7 @@ double Vec3D::maxAbsoluteValue()
     }
 }
 
-//Minimum absolute component in a vector
+// Minimum absolute component in a vector
 /*
   This method returns the minimum absolute component of a vector
 */
@@ -271,7 +271,7 @@ double Vec3D::minAbsoluteValue()
     }
 }
 
-//Test if a given point is inside a given box defined by two opposite points
+// Test if a given point is inside a given box defined by two opposite points
 /*
   This method returns true or false depending if the point is or not inside the bounding box.
   - vect_m first vector to use for the operation
@@ -291,7 +291,7 @@ bool Vec3D::isInsideBox(const Vec3D &vect_m, const Vec3D &vect_M) const
     return true;
 }
 
-//Dot product of two vectors
+// Dot product of two vectors
 /*
   This method computes the dot product of two vectors defined by:
   \f[ s = \overrightarrow{a} . \overrightarrow{b} \f]
@@ -305,7 +305,7 @@ double Vec3D::dotProduct(const Vec3D &vect) const
     return (_data[0] * vect._data[0] + _data[1] * vect._data[1] + _data[2] * vect._data[2]);
 }
 
-//Vectorial product of two vectors
+// Vectorial product of two vectors
 /*
   This method computes the vectorialProduct product of two vectors defined by:
   \f[ \overrightarrow{_data} = \overrightarrow{a} \land \overrightarrow{b} \f]
@@ -319,7 +319,7 @@ Vec3D Vec3D::vectorialProduct(const Vec3D &vect) const
     return Vec3D(_data[1] * vect._data[2] - _data[2] * vect._data[1], _data[2] * vect._data[0] - _data[0] * vect._data[2], _data[0] * vect._data[1] - _data[1] * vect._data[0]);
 }
 
-//Components product of two vectors
+// Components product of two vectors
 /*
   This method computes the component product of two vectors defined by:
   \f[ v_i = a_i * b_i \f]
@@ -331,7 +331,7 @@ Vec3D Vec3D::componentsProduct(const Vec3D &vect) const
     return Vec3D(_data[0] * vect._data[0], _data[1] * vect._data[1], _data[2] * vect._data[2]);
 }
 
-//Components product of a vec3D and a Tensor2
+// Components product of a vec3D and a Tensor2
 /*
   This method computes the component product of a vec3D and a Tensor2:
   \f[ A_{ij} = a_i * B_{ij} \f]
@@ -357,7 +357,7 @@ Tensor2 Vec3D::componentsProduct(const Tensor2 &tensor) const
     return result;
 }
 
-//Dyadic product of two vectors
+// Dyadic product of two vectors
 /*
   This method defines the dyadic product of 2 vectors that gives a second order tensor.
   The result of this operation is a second order tensor defined by:
@@ -390,7 +390,7 @@ Tensor2 Vec3D::dyadicProduct(const Vec3D &vector) const
     return result;
 }
 
-//Dyadic product of two vectors
+// Dyadic product of two vectors
 /*
   This method defines the dyadic product of 2 vectors that gives a second order tensor.
   The result of this operation is a second order tensor defined by:
@@ -420,7 +420,7 @@ SymTensor2 Vec3D::dyadicProduct() const
     return result;
 }
 
-//Writes a vector in a binary flux for storage
+// Writes a vector in a binary flux for storage
 /*
   This method is used to store the components of a vector in a binary file.
 
@@ -440,7 +440,7 @@ void Vec3D::write(std::ofstream &ofs) const
     ofs.write((char *)_data, 3 * sizeof(double));
 }
 
-//Reads a vector from a binary flux for storage
+// Reads a vector from a binary flux for storage
 /*
   This method is used to read the components of a vector in a binary file.
 
@@ -480,7 +480,7 @@ std::ofstream &operator<<(std::ofstream &os, const Vec3D &vect)
     return os;
 }
 
-//Reads a vector from a binary flux for storage
+// Reads a vector from a binary flux for storage
 /*
   This method is used to read the components of a vector in a binary file.
 
@@ -501,7 +501,7 @@ std::ifstream &operator>>(std::ifstream &is, Vec3D &vect)
     return is;
 }
 
-//Display the content of a Vec3D
+// Display the content of a Vec3D
 /*
   This method is a surdefintion of the << operator
 
@@ -520,7 +520,7 @@ std::ostream &operator<<(std::ostream &os, const Vec3D &vector)
     return os;
 }
 
-//Display the content of a Vec3D
+// Display the content of a Vec3D
 /*
   This method is a surdefintion of the << operator
 
@@ -544,7 +544,7 @@ void Vec3D::print(std::ostream &os) const
     os << "}";
 }
 
-//Saves the content of a Vec3D into a NumPy file
+// Saves the content of a Vec3D into a NumPy file
 /*
   This method saves the content of a vec3D object into a NumPy file defined by its filename. If the flag initialize is true, the current file will be concatenated.
 
@@ -564,7 +564,7 @@ void Vec3D::numpyWrite(std::string filename, bool initialize) const
     NumpyInterface::npySave(filename, &_data[0], {3}, mode);
 }
 
-//Saves the content of a Vec3D into a NumPyZ file
+// Saves the content of a Vec3D into a NumPyZ file
 /*
   This method saves the content of a vec3D object into a NumPyZ file defined by its filename. If the flag initialize is true, the current file will be concatenated.
 
@@ -584,7 +584,7 @@ void Vec3D::numpyWriteZ(std::string filename, std::string name, bool initialize)
     NumpyInterface::npzSave(filename, name, &_data[0], {3}, mode);
 }
 
-//Read the content of a Vec3D from a NumPy file
+// Read the content of a Vec3D from a NumPy file
 /*
   This method reads the content of a vec3D object from a NumPy file defined by its filename.
 
@@ -606,7 +606,7 @@ void Vec3D::numpyRead(std::string filename)
     memcpy(_data, arr.data<double *>(), arr.num_vals * arr.word_size);
 }
 
-//Read the content of a Vec3D from a NumPyZ file
+// Read the content of a Vec3D from a NumPyZ file
 /*
   This method reads the content of a vec3D object from a NumPyZ file defined by its filename.
 

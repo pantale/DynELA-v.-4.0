@@ -89,6 +89,6 @@ namespace StandardExceptions
   }
 #endif
 
-# endif // from #if !defined(SWIG)
+#endif // from #if !defined(SWIG)
 
 #endif

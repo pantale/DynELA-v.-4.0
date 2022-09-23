@@ -32,7 +32,7 @@ struct SinusFragment
 class SinusFunction : public Function
 {
 private:
-  List <SinusFragment> fragment;
+  List<SinusFragment> fragment;
   double constant;
 
 public:

@@ -96,7 +96,7 @@ std::vector<char> &NumpyInterface::operator+=(std::vector<char> &lhs, const std:
 template <>
 std::vector<char> &NumpyInterface::operator+=(std::vector<char> &lhs, const char *rhs)
 {
-    //write in little endian
+    // write in little endian
     size_t len = strlen(rhs);
     lhs.reserve(len);
     for (size_t byte = 0; byte < len; byte++)
@@ -108,7 +108,7 @@ std::vector<char> &NumpyInterface::operator+=(std::vector<char> &lhs, const char
 
 void NumpyInterface::parse_npy_header(unsigned char *buffer, size_t &word_size, std::vector<size_t> &shape, bool &fortran_order)
 {
-    //std::string magic_string(buffer,6);
+    // std::string magic_string(buffer,6);
     uint8_t major_version = *reinterpret_cast<uint8_t *>(buffer + 6);
     uint8_t minor_version = *reinterpret_cast<uint8_t *>(buffer + 7);
     uint16_t header_len = *reinterpret_cast<uint16_t *>(buffer + 8);
@@ -116,11 +116,11 @@ void NumpyInterface::parse_npy_header(unsigned char *buffer, size_t &word_size, 
 
     size_t loc1, loc2;
 
-    //fortran order
+    // fortran order
     loc1 = header.find("fortran_order") + 16;
     fortran_order = (header.substr(loc1, 4) == "True" ? true : false);
 
-    //shape
+    // shape
     loc1 = header.find("(");
     loc2 = header.find(")");
 
@@ -135,15 +135,15 @@ void NumpyInterface::parse_npy_header(unsigned char *buffer, size_t &word_size, 
         str_shape = sm.suffix().str();
     }
 
-    //endian, word size, data type
-    //byte order code | stands for not applicable.
-    //not sure when this applies except for byte array
+    // endian, word size, data type
+    // byte order code | stands for not applicable.
+    // not sure when this applies except for byte array
     loc1 = header.find("descr") + 9;
     bool littleEndian = (header[loc1] == '<' || header[loc1] == '|' ? true : false);
     assert(littleEndian);
 
-    //char type = header[loc1+1];
-    //assert(type == map_type(T));
+    // char type = header[loc1+1];
+    // assert(type == map_type(T));
 
     std::string str_ws = header.substr(loc1 + 2);
     loc2 = str_ws.find("'");
@@ -161,14 +161,14 @@ void NumpyInterface::parse_npy_header(FILE *fp, size_t &word_size, std::vector<s
 
     size_t loc1, loc2;
 
-    //fortran order
+    // fortran order
     loc1 = header.find("fortran_order");
     if (loc1 == std::string::npos)
         throw std::runtime_error("parse_npy_header: failed to find header keyword: 'fortran_order'");
     loc1 += 16;
     fortran_order = (header.substr(loc1, 4) == "True" ? true : false);
 
-    //shape
+    // shape
     loc1 = header.find("(");
     loc2 = header.find(")");
     if (loc1 == std::string::npos || loc2 == std::string::npos)
@@ -185,9 +185,9 @@ void NumpyInterface::parse_npy_header(FILE *fp, size_t &word_size, std::vector<s
         str_shape = sm.suffix().str();
     }
 
-    //endian, word size, data type
-    //byte order code | stands for not applicable.
-    //not sure when this applies except for byte array
+    // endian, word size, data type
+    // byte order code | stands for not applicable.
+    // not sure when this applies except for byte array
     loc1 = header.find("descr");
     if (loc1 == std::string::npos)
         throw std::runtime_error("parse_npy_header: failed to find header keyword: 'descr'");
@@ -195,8 +195,8 @@ void NumpyInterface::parse_npy_header(FILE *fp, size_t &word_size, std::vector<s
     bool littleEndian = (header[loc1] == '<' || header[loc1] == '|' ? true : false);
     assert(littleEndian);
 
-    //char type = header[loc1+1];
-    //assert(type == map_type(T));
+    // char type = header[loc1+1];
+    // assert(type == map_type(T));
 
     std::string str_ws = header.substr(loc1 + 2);
     loc2 = str_ws.find("'");
@@ -298,21 +298,21 @@ NumpyInterface::npz_t NumpyInterface::npzLoad(std::string fname)
         if (headerres != 30)
             throw std::runtime_error("npzLoad: failed fread");
 
-        //if we've reached the global header, stop reading
+        // if we've reached the global header, stop reading
         if (local_header[2] != 0x03 || local_header[3] != 0x04)
             break;
 
-        //read in the variable name
+        // read in the variable name
         uint16_t name_len = *(uint16_t *)&local_header[26];
         std::string varname(name_len, ' ');
         size_t vname_res = fread(&varname[0], sizeof(char), name_len, fp);
         if (vname_res != name_len)
             throw std::runtime_error("npzLoad: failed fread");
 
-        //erase the lagging .npy
+        // erase the lagging .npy
         varname.erase(varname.end() - 4, varname.end());
 
-        //read in the extra field
+        // read in the extra field
         uint16_t extra_field_len = *(uint16_t *)&local_header[28];
         if (extra_field_len > 0)
         {
@@ -354,21 +354,21 @@ NumpyInterface::NumpyArray NumpyInterface::npzLoad(std::string fname, std::strin
         if (header_res != 30)
             throw std::runtime_error("npzLoad: failed fread");
 
-        //if we've reached the global header, stop reading
+        // if we've reached the global header, stop reading
         if (local_header[2] != 0x03 || local_header[3] != 0x04)
             break;
 
-        //read in the variable name
+        // read in the variable name
         uint16_t name_len = *(uint16_t *)&local_header[26];
         std::string vname(name_len, ' ');
         size_t vname_res = fread(&vname[0], sizeof(char), name_len, fp);
         if (vname_res != name_len)
             throw std::runtime_error("npzLoad: failed fread");
-        vname.erase(vname.end() - 4, vname.end()); //erase the lagging .npy
+        vname.erase(vname.end() - 4, vname.end()); // erase the lagging .npy
 
-        //read in the extra field
+        // read in the extra field
         uint16_t extra_field_len = *(uint16_t *)&local_header[28];
-        fseek(fp, extra_field_len, SEEK_CUR); //skip past the extra field
+        fseek(fp, extra_field_len, SEEK_CUR); // skip past the extra field
 
         uint16_t compr_method = *reinterpret_cast<uint16_t *>(&local_header[0] + 8);
         uint32_t compr_bytes = *reinterpret_cast<uint32_t *>(&local_header[0] + 18);
@@ -382,7 +382,7 @@ NumpyInterface::NumpyArray NumpyInterface::npzLoad(std::string fname, std::strin
         }
         else
         {
-            //skip past the data
+            // skip past the data
             uint32_t size = *(uint32_t *)&local_header[22];
             fseek(fp, size, SEEK_CUR);
         }
@@ -390,7 +390,7 @@ NumpyInterface::NumpyArray NumpyInterface::npzLoad(std::string fname, std::strin
 
     fclose(fp);
 
-    //if we get here, we haven't found the variable in the file
+    // if we get here, we haven't found the variable in the file
     throw std::runtime_error("npzLoad: Variable name " + varname + " not found in " + fname);
 }
 

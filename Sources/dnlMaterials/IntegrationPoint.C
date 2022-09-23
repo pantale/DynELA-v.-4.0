@@ -52,7 +52,7 @@ void IntegrationPointBase::baseFlush()
   JxW = 0.;
   invJxW = 0.;
   detJ = 0.;
-  //detJ0 = 0.;
+  // detJ0 = 0.;
 }
 
 //-----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ void IntegrationPoint::flush()
 {
   // initialisations
   plasticStrainRate = 0.0;
-  //DeviatoricStress = 0.0;
+  // DeviatoricStress = 0.0;
   plasticStrain = 0.0;
   PlasticStrain = 0.0;
   pressure = 0.0;
@@ -145,7 +145,7 @@ void IntegrationPoint::write(std::ofstream &pfile) const
   pfile.write((char *)&pressure, sizeof(double));
   pfile.write((char *)&plasticStrain, sizeof(double));
 
-  //pfile << DeviatoricStress;
+  // pfile << DeviatoricStress;
   pfile << Stress;
 
   pfile << Strain;

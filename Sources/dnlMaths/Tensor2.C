@@ -1405,7 +1405,7 @@ void Tensor2::polarDecomposeJacobiLnU(SymTensor2 &U, Tensor2 &R) const
   double FTF[3][3];
   double eigenVectors[3][3];
   double eigenValues[3];
-  
+
   buildFTF(FTF);
 
   dsyevj3(FTF, eigenVectors, eigenValues); // Jacobi

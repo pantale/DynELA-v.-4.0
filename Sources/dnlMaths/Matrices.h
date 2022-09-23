@@ -22,7 +22,7 @@
 
 #define Ind(i, j, __rows, __cols) ((i) * (__cols) + (j))
 
-  // Interface methods excluded from SWIG
+// Interface methods excluded from SWIG
 #ifndef SWIG
 enum OutMatrix
 {
@@ -67,7 +67,7 @@ public:
 
 //------inline functions-------------------------------------------------------
 
-//constructeur par defaut
+// constructeur par defaut
 /*
   Cette methode est le constructeur par defaut de la classe Matrices. Ce constructeur ne fait rien d'autre que creer l'objet.
 */
@@ -78,7 +78,7 @@ inline Matrices::Matrices()
   outType = outMatrixTypeNormal;
 }
 
-//constructeur par recopie
+// constructeur par recopie
 /*
   Cette methode est le constructeur par recopie de la classe Matrices. Ce constructeur ne fait rien d'autre que creer l'objet.
 */
@@ -89,7 +89,7 @@ inline Matrices::Matrices(const Matrices &mat)
   outType = mat.outType;
 }
 
-//destructeur
+// destructeur
 /*
   Cette methode est le destructeur de la classe Matrices.
 */
@@ -99,7 +99,7 @@ inline Matrices::~Matrices()
 {
 }
 
-//nombre de lignes de la matrice
+// nombre de lignes de la matrice
 /*
   Cette methode calcule et retourne le nombre de lignes de la matrice.
   \nombre de lignes de la matrice
@@ -111,7 +111,7 @@ inline long Matrices::rows() const
   return _rows;
 }
 
-//nombre de colonnes de la matrice
+// nombre de colonnes de la matrice
 /*
   Cette methode calcule et retourne le nombre de colonnes de la matrice.
   \nombre de colonnes de la matrice
@@ -123,7 +123,7 @@ inline long Matrices::columns() const
   return _cols;
 }
 
-//selection du type d'affichage
+// selection du type d'affichage
 /*
   Cette methode permet de selectionner le type d'affichage demande. Le type de sortie est defini par les variables enumerees dans \ref OutMatrix.
 

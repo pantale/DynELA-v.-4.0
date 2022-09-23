@@ -51,7 +51,7 @@ void NodeSet::setName(char *_name)
   name = _name;
 }
 
-//Add a new node to the current NodeSet
+// Add a new node to the current NodeSet
 /*
   This method adds an existing node to a NodeSet. The node is directly specified by its pointer, no verification is performed by this method.  - nd pointeur sur un noeud
 */
@@ -62,7 +62,7 @@ void NodeSet::add(Node *node)
   nodes << node;
 }
 
-//Add new nodes to the current NodeSet
+// Add new nodes to the current NodeSet
 /*
    This method adds an existing NodeSet and a NodeSet.
   - NodeSet to be merged
@@ -77,7 +77,7 @@ void NodeSet::add(NodeSet *nodesSet)
   }
 }
 
-//nombre de noeuds dans la liste
+// nombre de noeuds dans la liste
 /*
   Cette methode renvoie le nombre de noeuds dans un NodeSet
   Return : nombre de noeuds de la liste
@@ -90,7 +90,7 @@ long NodeSet::getSize()
   return nodes.getSize();
 }
 
-//recupere un pointeur sur le ieme noeud d'un node set
+// recupere un pointeur sur le ieme noeud d'un node set
 /*
   Cette methode renvoie un pointeur sur le ieme noeud d'une liste de noeuds contenue dans un NodeSet.
   - i place du noeud dans la liste.
@@ -104,7 +104,7 @@ Node *NodeSet::getNode(long nodeNumber)
   return (nodes(nodeNumber));
 }
 
-//recupere le numero du ieme noeud d'un node set
+// recupere le numero du ieme noeud d'un node set
 /*
   Cette methode renvoie le numero du ieme noeud d'une liste de noeuds contenue dans un NodeSet.
   - i place du noeud dans la liste.

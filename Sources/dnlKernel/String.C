@@ -843,7 +843,7 @@ int String::containsWithCaseSub(const String &substring, bool cas) const
   return -1;
 }
 
-//teste la presence d'une chaine dans une autre
+// teste la presence d'une chaine dans une autre
 /*
   tests the presence of a chain in another chain.
 
@@ -1156,7 +1156,7 @@ bool String::popString(String &ret, String sep)
   return false;
 }
 
-//conversion of a String into an integer
+// conversion of a String into an integer
 //-----------------------------------------------------------------------------
 long String::getInt() const
 //-----------------------------------------------------------------------------
@@ -1164,7 +1164,7 @@ long String::getInt() const
   return atoi(c_str());
 }
 
-//conversion of a String into a reel
+// conversion of a String into a reel
 //-----------------------------------------------------------------------------
 double String::getReal() const
 //-----------------------------------------------------------------------------
@@ -1172,7 +1172,7 @@ double String::getReal() const
   return atof(c_str());
 }
 
-//addition of an extension if it is not present
+// addition of an extension if it is not present
 //-----------------------------------------------------------------------------
 void String::addExtension(String ext)
 //-----------------------------------------------------------------------------

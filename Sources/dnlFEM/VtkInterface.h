@@ -26,7 +26,7 @@
 class VtkInterface
 {
 private:
-  List <short> _outputFields;
+  List<short> _outputFields;
   std::ofstream _stream;
   String _fileName;
 

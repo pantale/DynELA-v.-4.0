@@ -39,8 +39,8 @@ public:
   void getShapeFunctionAtPoint(Vector &shapeFunctions, const Vec3D &point) const = 0;
   void getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3D &point) const = 0;
   double getCharacteristicLength() = 0;
-  //double getRadiusAtIntegrationPoint();
-  //double getRadiusAtUnderIntegrationPoint();
+  // double getRadiusAtIntegrationPoint();
+  // double getRadiusAtUnderIntegrationPoint();
   void computeDeformationGradient(Tensor2 &F, short time);
   bool checkLevel2();
   void getdV_atIntPoint(Tensor2 &dv, short time);

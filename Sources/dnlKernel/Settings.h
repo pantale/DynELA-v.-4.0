@@ -43,11 +43,11 @@ public:
     Settings();
     ~Settings();
 
-  // Interface methods excluded from SWIG
+    // Interface methods excluded from SWIG
 #ifndef SWIG
 #endif
 
-  // Interface methods excluded from basic SWIG support
+    // Interface methods excluded from basic SWIG support
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
@@ -296,7 +296,7 @@ inline void Settings::getValue(const std::string &key, std::vector<T> &value) co
         std::istringstream parser(it->second);
         value.clear();
 
-        //split by comma
+        // split by comma
         while (getline(parser, output, ','))
         {
             value.push_back(convertToType<T>(output));

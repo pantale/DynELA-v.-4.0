@@ -116,7 +116,7 @@ inline bool Vec3D::indexOK(int i) const
   return (false);
 }
 
-//Access to the values _data[i] of a 3D vector
+// Access to the values _data[i] of a 3D vector
 /*
   - i indice inside of the vector
   Return : Value of the 3D vector _data[i]
@@ -131,7 +131,7 @@ inline double &Vec3D::operator()(int i)
   return _data[i];
 }
 
-//Access to the values _data[i] of 3D vector (Read only method)
+// Access to the values _data[i] of 3D vector (Read only method)
 /*
   - i indice inside of the vector
   Return : Value of the 3D vector _data[i]
@@ -146,7 +146,7 @@ inline double Vec3D::operator()(int i) const
   return _data[i];
 }
 
-//Fill a 3D vector with a scalar value
+// Fill a 3D vector with a scalar value
 /*
   This method affect a value to a 3D vector class.
 
@@ -164,7 +164,7 @@ inline void Vec3D::setValue(double val)
   _data[0] = _data[1] = _data[2] = val;
 }
 
-//Fill a 3D vector with a scalar value
+// Fill a 3D vector with a scalar value
 /*
   This method affect a value to a 3D vector class.
 
@@ -186,7 +186,7 @@ inline void Vec3D::setValue(double xVal, double yVal, double zVal)
   _data[2] = zVal;
 }
 
-//Size of the 3D vector
+// Size of the 3D vector
 /*
   This method returns the size of the 3D vector (of course here it's always 3).
   Return : Size of the 3D vector
@@ -198,7 +198,7 @@ inline int Vec3D::getSize() const
   return 3;
 }
 
-//Copy the content of a 3D vector into a new one
+// Copy the content of a 3D vector into a new one
 /*
   This method is the so called = operator between two 3D vectors.
 
@@ -217,7 +217,7 @@ inline Vec3D &Vec3D::operator=(const Vec3D &vec)
   return *this;
 }
 
-//Fill a 3D vector with a scalar value
+// Fill a 3D vector with a scalar value
 /*
   This method is a surdefinition of the = operator for the 3D vector class.
 
@@ -239,7 +239,7 @@ inline Vec3D &Vec3D::operator=(double val)
   return *this;
 }
 
-//Fill a 3D vector with a table of values
+// Fill a 3D vector with a table of values
 /*
   This method is a surdefinition of the equality operator used to setValue a vector with a table of values.
 
@@ -258,7 +258,7 @@ inline Vec3D &Vec3D::operator=(const double *vals)
   return *this;
 }
 
-//Addition of 2 vectors
+// Addition of 2 vectors
 /*
   This method defines the addition of 2 vectors.
   The result of this operation is also a vector defined by:
@@ -278,7 +278,7 @@ inline Vec3D Vec3D::operator+(const Vec3D &vect) const
   return Vec3D(_data[0] + vect._data[0], _data[1] + vect._data[1], _data[2] + vect._data[2]);
 }
 
-//Difference of 2 vectors
+// Difference of 2 vectors
 /*
   This method defines the difference of 2 vectors.
   The result of this operation is also a vector defined by:
@@ -298,7 +298,7 @@ inline Vec3D Vec3D::operator-(const Vec3D &vect) const
   return Vec3D(_data[0] - vect._data[0], _data[1] - vect._data[1], _data[2] - vect._data[2]);
 }
 
-//Opposite value of a vector
+// Opposite value of a vector
 /*
   This method defines the opposite of a vector.
   The result of this operation is also a vector defined by:
@@ -317,7 +317,7 @@ inline Vec3D Vec3D::operator-() const
   return Vec3D(-_data[0], -_data[1], -_data[2]);
 }
 
-//Addition of 2 3D vectors
+// Addition of 2 3D vectors
 /*
   This method defines the addition of 2 3D vectors.
 
@@ -337,7 +337,7 @@ inline void Vec3D::operator+=(const Vec3D &vect)
   _data[2] += vect._data[2];
 }
 
-//Difference of 2 3D vectors
+// Difference of 2 3D vectors
 /*
   This method defines the difference of 2 3D vectors.
 
@@ -357,7 +357,7 @@ inline void Vec3D::operator-=(const Vec3D &vect)
   _data[2] -= vect._data[2];
 }
 
-//Multiplication of a 3D vector by a scalar value
+// Multiplication of a 3D vector by a scalar value
 /*
   This method defines the multiplication of a 3D vector by a scalar value
 
@@ -378,7 +378,7 @@ inline void Vec3D::operator*=(const double lambda)
   _data[2] *= lambda;
 }
 
-//Division of a 3D vector by a scalar value
+// Division of a 3D vector by a scalar value
 /*
   This method defines the division of a 3D vector by a scalar value
 
@@ -403,7 +403,7 @@ inline void Vec3D::operator/=(const double lambda)
   _data[2] /= lambda;
 }
 
-//Returns the getJ2 norm of a 3D vector
+// Returns the getJ2 norm of a 3D vector
 /*
   This method returns getJ2 norm of a 3D vector defined by:
   \f[ \left\Vert \overrightarrow{_data} \right\Vert  = \sqrt {v_{1}^2 + v_{2}^2 + v_{3}^2} \f]
@@ -423,7 +423,7 @@ inline double Vec3D::getSquareNorm()
   return dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]);
 }
 
-//Returns the inner product of a 3D vector by itself
+// Returns the inner product of a 3D vector by itself
 /*
   This method returns inner product of a 3D vector by itself defined by:
   \f[ \left\Vert \overrightarrow{_data} \right\Vert  = v_{1}^2 + v_{2}^2 + v_{3}^2 \f]
@@ -436,7 +436,7 @@ inline double Vec3D::innerProduct()
   return (dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]));
 }
 
-//Normalization of a 3D vector
+// Normalization of a 3D vector
 /*
   This method modifies the given vector and makes its norm equal to 1.0
 */
@@ -453,7 +453,7 @@ inline void Vec3D::normalize()
   _data[2] /= norm;
 }
 
-//Nomalized 3D vector
+// Nomalized 3D vector
 /*
   This method returns an colinear vector with a unary norm.
   Return : colinear vector with a norm equal to 1.
@@ -468,7 +468,7 @@ inline Vec3D Vec3D::getNormalized()
   return Vec3D(_data[0] / norm, _data[1] / norm, _data[2] / norm);
 }
 
-//Sets all negative components to zero
+// Sets all negative components to zero
 /*
   This method sets all negative components of a vector equal zero
 */
@@ -484,7 +484,7 @@ inline void Vec3D::setNegativeValuesToZero()
     _data[2] = 0.;
 }
 
-//Distance between two points
+// Distance between two points
 /*
   This method computes the distance between two points using an Euclidian getNorm.
   - vect Second vector to use
@@ -499,7 +499,7 @@ inline double Vec3D::distance(const Vec3D &vect) const
   return x.getNorm();
 }
 
-//Square value of the distance between two points
+// Square value of the distance between two points
 /*
   This method computes the distance between two points using an Euclidian getNorm and returns the square value of this distance.
   - vect Second vector to use

@@ -27,7 +27,7 @@ class Model;
 class Element
 {
     friend class Node;
-    friend class ListIndex <Element *>; // To be able to use ListIndex
+    friend class ListIndex<Element *>; // To be able to use ListIndex
     long _listIndex;                   // Local index used for the ListIndex management.
     Vec3D _nodeMin, _nodeMax;          // Bounding box of an element.
 
@@ -38,9 +38,9 @@ protected:
     UnderIntegrationPoint *_underIntegrationPoint;
 
 public:
-    List <IntegrationPoint *> integrationPoints;
-    List <UnderIntegrationPoint *> underIntegrationPoints;
-    ListIndex <Node *> nodes;
+    List<IntegrationPoint *> integrationPoints;
+    List<UnderIntegrationPoint *> underIntegrationPoints;
+    ListIndex<Node *> nodes;
     long number;
     Material *material;
     Matrix stiffnessMatrix;
@@ -86,7 +86,7 @@ public:
     bool operator>(const Element &) const;
 
     bool check();
-    //double getDensityAtIntegrationPoint(short time);
+    // double getDensityAtIntegrationPoint(short time);
     double getElongationWaveSpeed();
     double getIntPointValue(short field, short intPoint);
     IntegrationPoint *getIntegrationPoint(short point);
@@ -123,12 +123,12 @@ public:
     void add(Material *newMaterial);
     void add(UnderIntegrationPoint *_integrationPoint, short intPointId);
     void addNode(Node *newNode);
-    //void computeConstitutiveEquation();
+    // void computeConstitutiveEquation();
     void computeFinalRotation();
     void computeInternalForces(Vector &F, double timeStep);
-    //void computeMassEquation(MatrixDiag &M, Vector &F);
+    // void computeMassEquation(MatrixDiag &M, Vector &F);
     void computeMassMatrix(MatrixDiag &massMatrix);
-    //void computeMomentumEquation(MatrixDiag &M, Vector &F);
+    // void computeMomentumEquation(MatrixDiag &M, Vector &F);
     void computePressure();
     //  void computeStateEquationOld();
     void computeStrains();
@@ -389,7 +389,7 @@ inline Vec3D Element::getLocalNodeCoords(short node) const
     return (_elementData->nodes[node].localCoords);
 }
 
-//Internal number. This method gives a direct access to the internal number of the current node.
+// Internal number. This method gives a direct access to the internal number of the current node.
 /*
   Return : Internal number of the current node.
 */

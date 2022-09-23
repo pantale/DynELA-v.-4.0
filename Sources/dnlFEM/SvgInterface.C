@@ -146,7 +146,7 @@ void SvgInterface::rotate(char axis, double angle)
     rotate(Vec3D(0, 0, 1), angle);
     break;
   default:
-    fatalError("SvgInterface::rotate(char axis, double angle)","Unknown Axis %c", axis);
+    fatalError("SvgInterface::rotate(char axis, double angle)", "Unknown Axis %c", axis);
   }
 }
 
@@ -389,7 +389,7 @@ void SvgInterface::write(std::string fileName, short _field)
       // Create colorMap
       colorMap.setBounds(min, max);
     }
-    //field = field;
+    // field = field;
 
     if (colorMap.getMax() - colorMap.getMin() > 1e-6)
       interpolatedPolygonsWrite();

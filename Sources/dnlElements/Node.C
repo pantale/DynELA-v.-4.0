@@ -50,12 +50,12 @@ Node::Node(long nodeNumber, double xCoord, double yCoord, double zCoord)
 
   // init par defaut des coordonnees
   coordinates.setValue(xCoord, yCoord, zCoord);
-  //normal = 0.;
+  // normal = 0.;
 
   // init par defaut de deux champs de donnees
   newField = new NodalField;
   currentField = new NodalField;
-  //tmp = NULL;
+  // tmp = NULL;
 
   // init par defaut d'un node Motion
   // motion = NULL;
@@ -71,7 +71,7 @@ Node::Node(const Node &nd)
   std::cout << "Copy of a Node" << std::endl;
 
   coordinates = nd.coordinates;
-  //normal = nd.normal;
+  // normal = nd.normal;
 }
 
 //-----------------------------------------------------------------------------
@@ -191,9 +191,9 @@ void Node::copyNodalFieldToNew()
 {
   // newField->density = currentField->density;
   // newField->densityInc = currentField->densityInc;
-  //newField->energy = currentField->energy;
-  //newField->energyInc = currentField->energyInc;
-  //newField->displacement = currentField->displacement;
+  // newField->energy = currentField->energy;
+  // newField->energyInc = currentField->energyInc;
+  // newField->displacement = currentField->displacement;
   newField->displacement = currentField->displacement;
   //  newField->flux = currentField->flux;
   // newField->force = currentField->force;
@@ -481,7 +481,7 @@ void Node::toFile (FILE * pfile)
 //-----------------------------------------------------------------------------
 {
   fprintf (pfile, "%8ld  %8.5E  %8.5E  %8.5E \n", number, coordinates (0),
-	   coordinates (1), coordinates (2));
+     coordinates (1), coordinates (2));
 }
 
 //-----------------------------------------------------------------------------
@@ -491,9 +491,9 @@ void Node::toFileBound (FILE * pfile)
   if (currentField->speed.innerProduct () != 0.0)
     {
       fprintf (pfile, "%8ld  %8.3E %8.3E %8.3E\n",
-	       number,
-	       currentField->speed (0), currentField->speed (1),
-	       currentField->speed (2));
+         number,
+         currentField->speed (0), currentField->speed (1),
+         currentField->speed (2));
     }
 }
 

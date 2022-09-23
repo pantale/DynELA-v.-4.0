@@ -83,7 +83,7 @@ public:
 //-----------------------------------------------------------------------------
 class Timers
 {
-  List <Timer *> timers; // List of timers
+  List<Timer *> timers; // List of timers
 
 public:
   Timers(){};

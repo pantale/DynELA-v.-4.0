@@ -129,7 +129,7 @@ private:
   double _startTime;
   double _stopTime;
   FILE *_pfile;
-  List <HistoryFileItem *> _items;
+  List<HistoryFileItem *> _items;
   String _fileName;
 
 public:

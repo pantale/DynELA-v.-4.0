@@ -65,7 +65,7 @@ public:
 
   int getType();
   bool isYield();
-  //bool isLinear();
+  // bool isLinear();
   String getName();
   virtual int getNumberOfParameters() = 0;
   virtual const char *getParameterName(int parameter) = 0;

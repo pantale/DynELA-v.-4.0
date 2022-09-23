@@ -84,7 +84,7 @@ void Parallel::setCores(int cores)
 }
 
 //-----------------------------------------------------------------------------
-void Parallel::dispatchElements(List <Element *> elements)
+void Parallel::dispatchElements(List<Element *> elements)
 //-----------------------------------------------------------------------------
 {
   // Set initial core

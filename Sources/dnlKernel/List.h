@@ -49,7 +49,7 @@ class ListIndex;
 template <class Type>
 class List
 {
-    friend class ListIndex <Type>;
+    friend class ListIndex<Type>;
 
 private:
     long sz;       // Current size of the list (number of objects refered by the List)
@@ -62,18 +62,18 @@ public:
     List(const long stack = DEFAULT_stack_size);
     virtual ~List();
 
-  // Interface methods excluded from SWIG
+    // Interface methods excluded from SWIG
 #ifndef SWIG
 #endif
 
-  // Interface methods excluded from basic SWIG support
+    // Interface methods excluded from basic SWIG support
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
     bool contains(const Type objet) const;
-    bool operator!=(const List <Type> &objet) const;
-    bool operator==(const List <Type> &objet) const;
-    List <Type> operator<<(const Type objet);
+    bool operator!=(const List<Type> &objet) const;
+    bool operator==(const List<Type> &objet) const;
+    List<Type> operator<<(const Type objet);
     long &stackIncrement();
     long getIndex(const Type objet) const;
     long getSize() const;
@@ -122,7 +122,7 @@ public:
   \endcode
 */
 template <class Type>
-class ListIndex : public List <Type>
+class ListIndex : public List<Type>
 {
     bool sorted;    // Bool flag defining that the current ListIndex is sorted (All elements are in sorted with increasing Id)
     bool compacted; // Bool flag defining that the current ListIndex is compacted (No hole in the list of objects)
@@ -131,11 +131,11 @@ public:
     ListIndex(const long stack = DEFAULT_stack_size);
     ~ListIndex();
 
-  // Interface methods excluded from SWIG
+    // Interface methods excluded from SWIG
 #ifndef SWIG
 #endif
 
-  // Interface methods excluded from basic SWIG support
+    // Interface methods excluded from basic SWIG support
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
@@ -169,7 +169,7 @@ public:
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-List <Type>::List(const long stack)
+List<Type>::List(const long stack)
 //-----------------------------------------------------------------------------
 {
     // Definition of the default constants
@@ -218,7 +218,7 @@ List <Type>::List(const long stack)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::redim(const long newSize)
+void List<Type>::redim(const long newSize)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
@@ -259,7 +259,7 @@ void List <Type>::redim(const long newSize)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::close()
+void List<Type>::close()
 //-----------------------------------------------------------------------------
 {
     // on fait un redim a la size_ reelle de la pile
@@ -278,7 +278,7 @@ void List <Type>::close()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type &List <Type>::operator()(const long index)
+Type &List<Type>::operator()(const long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
@@ -305,7 +305,7 @@ Type &List <Type>::operator()(const long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::operator()(const long index)
+Type List<Type>::operator()(const long index)
     const
 //-----------------------------------------------------------------------------
 {
@@ -329,7 +329,7 @@ Type List <Type>::operator()(const long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::next()
+Type List<Type>::next()
 //-----------------------------------------------------------------------------
 {
     if (pcurrent >= sz - 1)
@@ -348,7 +348,7 @@ Type List <Type>::next()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::currentUp()
+Type List<Type>::currentUp()
 //-----------------------------------------------------------------------------
 {
     if (pcurrent >= sz)
@@ -368,7 +368,7 @@ Type List <Type>::currentUp()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::currentDown()
+Type List<Type>::currentDown()
 //-----------------------------------------------------------------------------
 {
     if (pcurrent < 0)
@@ -387,7 +387,7 @@ Type List <Type>::currentDown()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::first()
+Type List<Type>::first()
 //-----------------------------------------------------------------------------
 {
     if (sz == 0)
@@ -405,7 +405,7 @@ Type List <Type>::first()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::last()
+Type List<Type>::last()
 //-----------------------------------------------------------------------------
 {
     if (sz == 0)
@@ -424,7 +424,7 @@ Type List <Type>::last()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::previous()
+Type List<Type>::previous()
 //-----------------------------------------------------------------------------
 {
     if (pcurrent == 0)
@@ -443,7 +443,7 @@ Type List <Type>::previous()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::current()
+Type List<Type>::current()
 //-----------------------------------------------------------------------------
 {
     if (sz == 0)
@@ -460,7 +460,7 @@ Type List <Type>::current()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long List <Type>::getSize() const
+long List<Type>::getSize() const
 //-----------------------------------------------------------------------------
 {
     return sz;
@@ -473,7 +473,7 @@ long List <Type>::getSize() const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long List <Type>::stackSize() const
+long List<Type>::stackSize() const
 //-----------------------------------------------------------------------------
 {
     return s_size;
@@ -486,7 +486,7 @@ long List <Type>::stackSize() const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long &List <Type>::stackIncrement()
+long &List<Type>::stackIncrement()
 //-----------------------------------------------------------------------------
 {
     return s_inc;
@@ -500,7 +500,7 @@ long &List <Type>::stackIncrement()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::flush()
+void List<Type>::flush()
 //-----------------------------------------------------------------------------
 {
     s_size = DEFAULT_stack_size;
@@ -525,7 +525,7 @@ void List <Type>::flush()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-List <Type> List <Type>::operator<<(const Type object)
+List<Type> List<Type>::operator<<(const Type object)
 //-----------------------------------------------------------------------------
 {
     add(object);
@@ -541,7 +541,7 @@ List <Type> List <Type>::operator<<(const Type object)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::insert(const Type objet, long index)
+void List<Type>::insert(const Type objet, long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
@@ -572,10 +572,10 @@ void List <Type>::insert(const Type objet, long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::insert(const Type objet, long index)
+void ListIndex<Type>::insert(const Type objet, long index)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::insert(objet, index);
+    List<Type>::insert(objet, index);
     sorted = false;
     compacted = false;
 }
@@ -588,7 +588,7 @@ void ListIndex <Type>::insert(const Type objet, long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::add(const Type object)
+void List<Type>::add(const Type object)
 //-----------------------------------------------------------------------------
 {
     // Test for memory reallocation
@@ -609,7 +609,7 @@ void List <Type>::add(const Type object)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::getInverse()
+void List<Type>::getInverse()
 //-----------------------------------------------------------------------------
 {
     Type v;
@@ -632,7 +632,7 @@ void List <Type>::getInverse()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::del(long start, long stop)
+void List<Type>::del(long start, long stop)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
@@ -663,10 +663,10 @@ void List <Type>::del(long start, long stop)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::del(long index)
+void List<Type>::del(long index)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::del(index, index);
+    List<Type>::del(index, index);
 }
 
 /*
@@ -678,7 +678,7 @@ void List <Type>::del(long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::delBefore(long index)
+void List<Type>::delBefore(long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
@@ -687,7 +687,7 @@ void List <Type>::delBefore(long index)
                    "index indice (%d) out of bounds (%d)\n", index, sz);
 #endif
 
-    List <Type>::del(0, index - 1);
+    List<Type>::del(0, index - 1);
 }
 
 /*
@@ -699,7 +699,7 @@ void List <Type>::delBefore(long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::delAfter(long index)
+void List<Type>::delAfter(long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
@@ -708,7 +708,7 @@ void List <Type>::delAfter(long index)
                    "index indice (%d) out of bounds (%d)\n", index, sz);
 #endif
 
-    List <Type>::del(index + 1, sz - 1);
+    List<Type>::del(index + 1, sz - 1);
 }
 
 /*
@@ -720,7 +720,7 @@ void List <Type>::delAfter(long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool List <Type>::operator==(const List <Type> &liste) const
+bool List<Type>::operator==(const List<Type> &liste) const
 //-----------------------------------------------------------------------------
 {
     // la comparaison porte sur la size_
@@ -748,7 +748,7 @@ bool List <Type>::operator==(const List <Type> &liste) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool List <Type>::operator!=(const List <Type> &liste) const
+bool List<Type>::operator!=(const List<Type> &liste) const
 //-----------------------------------------------------------------------------
 {
     return !(*this == liste);
@@ -763,7 +763,7 @@ bool List <Type>::operator!=(const List <Type> &liste) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long List <Type>::objectSize()
+long List<Type>::objectSize()
 //-----------------------------------------------------------------------------
 {
     return (sizeof(*this) + s_size * sizeof(ptr));
@@ -777,7 +777,7 @@ long List <Type>::objectSize()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::print(std::ostream &outputStream) const
+void List<Type>::print(std::ostream &outputStream) const
 //-----------------------------------------------------------------------------
 {
     outputStream << "list " << sz << "/" << s_size << "={";
@@ -802,7 +802,7 @@ void List <Type>::print(std::ostream &outputStream) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long List <Type>::getIndex(const Type objet) const
+long List<Type>::getIndex(const Type objet) const
 //-----------------------------------------------------------------------------
 {
     // recherche bourrin de base
@@ -828,7 +828,7 @@ long List <Type>::getIndex(const Type objet) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool List <Type>::contains(const Type objet) const
+bool List<Type>::contains(const Type objet) const
 //-----------------------------------------------------------------------------
 {
     for (long i = 0; i < sz; i++)
@@ -850,7 +850,7 @@ bool List <Type>::contains(const Type objet) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-ListIndex <Type>::ListIndex(const long stack) : List <Type>(stack)
+ListIndex<Type>::ListIndex(const long stack) : List<Type>(stack)
 //-----------------------------------------------------------------------------
 {
     // Definition of the default constants
@@ -863,7 +863,7 @@ ListIndex <Type>::ListIndex(const long stack) : List <Type>(stack)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-List <Type>::~List()
+List<Type>::~List()
 //-----------------------------------------------------------------------------
 {
 }
@@ -873,7 +873,7 @@ List <Type>::~List()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-ListIndex <Type>::~ListIndex()
+ListIndex<Type>::~ListIndex()
 //-----------------------------------------------------------------------------
 {
 }
@@ -906,7 +906,7 @@ ListIndex <Type>::~ListIndex()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List <Type>::dichotomySearch(long (*funct)(const Type objet1, const long in), const long seekForValue) const
+Type List<Type>::dichotomySearch(long (*funct)(const Type objet1, const long in), const long seekForValue) const
 //-----------------------------------------------------------------------------
 {
     long i;
@@ -952,7 +952,7 @@ Type List <Type>::dichotomySearch(long (*funct)(const Type objet1, const long in
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type ListIndex <Type>::AppN(const long seekForValue) const
+Type ListIndex<Type>::AppN(const long seekForValue) const
 //-----------------------------------------------------------------------------
 {
     long i;
@@ -1017,7 +1017,7 @@ Type ListIndex <Type>::AppN(const long seekForValue) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long ListIndex <Type>::IAppN(const long seekForValue) const
+long ListIndex<Type>::IAppN(const long seekForValue) const
 //-----------------------------------------------------------------------------
 {
     long i;
@@ -1079,7 +1079,7 @@ long ListIndex <Type>::IAppN(const long seekForValue) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool ListIndex <Type>::isSorted() const
+bool ListIndex<Type>::isSorted() const
 //-----------------------------------------------------------------------------
 {
     return sorted;
@@ -1093,7 +1093,7 @@ bool ListIndex <Type>::isSorted() const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool ListIndex <Type>::isCompacted() const
+bool ListIndex<Type>::isCompacted() const
 //-----------------------------------------------------------------------------
 {
     return compacted;
@@ -1107,7 +1107,7 @@ bool ListIndex <Type>::isCompacted() const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::flush()
+void ListIndex<Type>::flush()
 //-----------------------------------------------------------------------------
 {
     this->s_size = DEFAULT_stack_size;
@@ -1133,7 +1133,7 @@ void ListIndex <Type>::flush()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::add(const Type object)
+void ListIndex<Type>::add(const Type object)
 //-----------------------------------------------------------------------------
 {
     // Test for memory reallocation
@@ -1181,7 +1181,7 @@ void ListIndex <Type>::add(const Type object)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::forceSort()
+void ListIndex<Type>::forceSort()
 //-----------------------------------------------------------------------------
 {
     sorted = false;
@@ -1195,7 +1195,7 @@ void ListIndex <Type>::forceSort()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::sort()
+void ListIndex<Type>::sort()
 //-----------------------------------------------------------------------------
 {
     if (sorted == true)
@@ -1259,7 +1259,7 @@ void ListIndex <Type>::sort()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List <Type>::sort(bool (*funct)(const Type objet1, const Type objet2))
+void List<Type>::sort(bool (*funct)(const Type objet1, const Type objet2))
 //-----------------------------------------------------------------------------
 {
     Type v;
@@ -1296,7 +1296,7 @@ void List <Type>::sort(bool (*funct)(const Type objet1, const Type objet2))
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::compact()
+void ListIndex<Type>::compact()
 //-----------------------------------------------------------------------------
 {
     for (long i = 0; i < this->sz; i++)
@@ -1320,10 +1320,10 @@ void ListIndex <Type>::compact()
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::del(const Type start, const Type stop)
+void ListIndex<Type>::del(const Type start, const Type stop)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::del(IAppN(start->_listIndex), IAppN(stop->_listIndex));
+    List<Type>::del(IAppN(start->_listIndex), IAppN(stop->_listIndex));
 }
 
 /*
@@ -1335,11 +1335,11 @@ void ListIndex <Type>::del(const Type start, const Type stop)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::del(const Type object)
+void ListIndex<Type>::del(const Type object)
 //-----------------------------------------------------------------------------
 {
     long i = IAppN(object->_listIndex);
-    List <Type>::del(i, i);
+    List<Type>::del(i, i);
 }
 
 /*
@@ -1351,10 +1351,10 @@ void ListIndex <Type>::del(const Type object)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::delBefore(const Type object)
+void ListIndex<Type>::delBefore(const Type object)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::del(0, IAppN(object->_listIndex) - 1);
+    List<Type>::del(0, IAppN(object->_listIndex) - 1);
 }
 
 /*
@@ -1366,10 +1366,10 @@ void ListIndex <Type>::delBefore(const Type object)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::del(long index)
+void ListIndex<Type>::del(long index)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::del(index);
+    List<Type>::del(index);
 }
 /*
   Removes a set of elements from the ListIndex.
@@ -1382,10 +1382,10 @@ void ListIndex <Type>::del(long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::del(long start, long stop)
+void ListIndex<Type>::del(long start, long stop)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::del(start, stop);
+    List<Type>::del(start, stop);
 }
 
 /*
@@ -1397,10 +1397,10 @@ void ListIndex <Type>::del(long start, long stop)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::delBefore(long index)
+void ListIndex<Type>::delBefore(long index)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::delBefore(index);
+    List<Type>::delBefore(index);
 }
 
 /*
@@ -1412,10 +1412,10 @@ void ListIndex <Type>::delBefore(long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::delAfter(long index)
+void ListIndex<Type>::delAfter(long index)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::delAfter(index);
+    List<Type>::delAfter(index);
 }
 
 /*
@@ -1427,10 +1427,10 @@ void ListIndex <Type>::delAfter(long index)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::delAfter(const Type object)
+void ListIndex<Type>::delAfter(const Type object)
 //-----------------------------------------------------------------------------
 {
-    List <Type>::del(IAppN(object->_listIndex) + 1, this->sz - 1);
+    List<Type>::del(IAppN(object->_listIndex) + 1, this->sz - 1);
 }
 
 /*
@@ -1458,10 +1458,10 @@ void ListIndex <Type>::delAfter(const Type object)
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex <Type>::sort(bool (*funct)(const Type objet1, const Type objet2))
+void ListIndex<Type>::sort(bool (*funct)(const Type objet1, const Type objet2))
 //-----------------------------------------------------------------------------
 {
-    List <Type>::sort(*funct);
+    List<Type>::sort(*funct);
     sorted = false;
 }
 

@@ -134,7 +134,7 @@ public:
 
 //------inline functions-------------------------------------------------------
 
-//teste les bornes de la matrice
+// teste les bornes de la matrice
 /*
   Cette methode teste les bornes d'une matrice
   - i long de ligne
@@ -155,7 +155,7 @@ inline bool Matrix::indexOK(long i, long j) const
   return (false);
 }
 
-//acces aux valeurs d'une matrice
+// acces aux valeurs d'une matrice
 /*
   - i long de ligne
   - j long de colonne
@@ -171,7 +171,7 @@ inline double Matrix::operator()(long i, long j) const
   return _data[Ind(i, j, _rows, _cols)];
 }
 
-//acces aux valeurs d'une matrice
+// acces aux valeurs d'une matrice
 /*
   - i long de ligne
   - j long de colonne
@@ -187,7 +187,7 @@ inline double &Matrix::operator()(long i, long j)
   return _data[Ind(i, j, _rows, _cols)];
 }
 
-//somme de tous les termes d'une matrice
+// somme de tous les termes d'une matrice
 /*
   Cette methode calcule la somme de tous les termes d'une matrice
   Return : somme de tous les termes de la matrice

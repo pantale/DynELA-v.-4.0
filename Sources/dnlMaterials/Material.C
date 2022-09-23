@@ -107,7 +107,7 @@ Matrix Material::getHookeStiffnessMatrix(short type)
     matrix = 0;
     matrix(0, 0) = matrix(1, 1) = 1 - poissonRatio;
     matrix(2, 2) = 1 - 2 * poissonRatio;
-    //matrix(2, 2) = (1 - 2 * poissonRatio) / 2;
+    // matrix(2, 2) = (1 - 2 * poissonRatio) / 2;
     matrix(1, 0) = matrix(0, 1) = poissonRatio;
     matrix *= youngModulus / ((1 + poissonRatio) * (1 - 2 * poissonRatio));
     break;
@@ -118,7 +118,7 @@ Matrix Material::getHookeStiffnessMatrix(short type)
     matrix(0, 0) = 1;
     matrix(1, 1) = 1;
     matrix(2, 2) = 1 - poissonRatio;
-    //matrix(2, 2) = (1 - poissonRatio) / 2;
+    // matrix(2, 2) = (1 - poissonRatio) / 2;
     matrix(1, 0) = matrix(0, 1) = poissonRatio;
     matrix *= youngModulus / (1 - dnlSquare(poissonRatio));
     break;
@@ -128,7 +128,7 @@ Matrix Material::getHookeStiffnessMatrix(short type)
     matrix = 0;
     matrix(0, 0) = matrix(1, 1) = matrix(3, 3) = 1 - poissonRatio;
     matrix(2, 2) = 1 - 2 * poissonRatio;
-    //matrix(2, 2) = (1 - 2 * poissonRatio) / 2;
+    // matrix(2, 2) = (1 - 2 * poissonRatio) / 2;
     matrix(1, 0) = matrix(0, 1) = matrix(3, 0) = matrix(0, 3) = matrix(3, 1) = matrix(1, 3) = poissonRatio;
     matrix *= youngModulus / ((1 + poissonRatio) * (1 - 2 * poissonRatio));
     break;
@@ -138,9 +138,9 @@ Matrix Material::getHookeStiffnessMatrix(short type)
     matrix = 0;
     matrix(0, 0) = matrix(1, 1) = matrix(2, 2) = 1 - poissonRatio;
     matrix(3, 3) = matrix(4, 4) = matrix(5, 5) = 1 - 2 * poissonRatio;
-    //matrix(3, 3) = (1 - 2 * poissonRatio) / 2;
-    //matrix(4, 4) = (1 - 2 * poissonRatio) / 2;
-    //matrix(5, 5) = (1 - 2 * poissonRatio) / 2;
+    // matrix(3, 3) = (1 - 2 * poissonRatio) / 2;
+    // matrix(4, 4) = (1 - 2 * poissonRatio) / 2;
+    // matrix(5, 5) = (1 - 2 * poissonRatio) / 2;
     matrix(0, 1) = matrix(1, 0) = matrix(0, 2) = matrix(2, 0) = matrix(1, 2) = matrix(2, 1) = poissonRatio;
     matrix *= youngModulus / ((1 + poissonRatio) * (1 - 2 * poissonRatio));
     break;

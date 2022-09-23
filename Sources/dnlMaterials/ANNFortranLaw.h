@@ -62,7 +62,6 @@ class ANNFortranLaw : public HardeningLaw
   Vector b1, b2, b3;
   Vector logBase, minEntries, maxEntries, rangeEntries;
 
-
 public:
   ANNFortranLaw();
   ANNFortranLaw(const ANNFortranLaw &law);
@@ -82,7 +81,6 @@ public:
   void setParameters(char *filename);
   double getYieldStress(double plasticStrain, double plasticStrainRate = 0.0, double T = 0.0, double dtime = 0.0, IntegrationPoint *intPoint = NULL);
   double getDerivateYieldStress(double plasticStrain, double plasticStrainRate = 0.0, double T = 0.0, double dtime = 0.0, IntegrationPoint *intPoint = NULL);
-
 };
 
 #endif

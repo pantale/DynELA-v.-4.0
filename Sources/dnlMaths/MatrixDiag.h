@@ -94,7 +94,7 @@ public:
 
 //------inline functions-------------------------------------------------------
 
-//teste les bornes de la matrice
+// teste les bornes de la matrice
 /*
   Cette methode teste les bornes d'une matrice
   - i long de ligne
@@ -109,13 +109,13 @@ inline bool MatrixDiag::indexOK(long i) const
 
   printf("MatrixDiag::indexOK\nindice(s) [%ld] out of allowed range [0-%ld]", i, _rows - 1);
   exit(-1);
-  //fatalError ("MatrixDiag::indexOK","long(s) [%ld] out of allowed range [0-%ld]", i, _rows - 1);
+  // fatalError ("MatrixDiag::indexOK","long(s) [%ld] out of allowed range [0-%ld]", i, _rows - 1);
 
   // fonction inutile, mais necessaire pour le compilateur
   return (false);
 }
 
-//acces aux valeurs d'une matrice
+// acces aux valeurs d'une matrice
 /*
   - i long de ligne
   Return : valeur de la matrice à la ligne et colonne \c i
@@ -131,7 +131,7 @@ inline double &MatrixDiag::operator()(long i)
   return _data[i];
 }
 
-//acces aux valeurs d'une matrice
+// acces aux valeurs d'une matrice
 /*
   - i long de ligne
   Return : valeur de la matrice à la ligne et colonne \c i

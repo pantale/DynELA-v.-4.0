@@ -39,49 +39,49 @@ const ElementData ElHex8N3D::_elementData = {
             {1, 3, 4},                                                                                                     // List of the neighbour nodes
             Vector(8, (5.0 + 3.0 * sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, // Extrapolates integration points values to nodal values
                    (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (5.0 - 3.0 * sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4)},  //
-        // Node 2
+                                                                                                                          // Node 2
         {
             Vec3D(+1, -1, -1),                                                                                             // Coordinates of the node
             3,                                                                                                             // Number of neightbour nodes
             {0, 5, 2},                                                                                                     // List of the neighbour nodes
             Vector(8, (-1.0 - sqrt(3.0)) / 4, (5.0 + 3.0 * sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, // Extrapolates integration points values to nodal values
                    (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (5.0 - 3.0 * sqrt(3.0)) / 4)},  //
-        // Node 3
+                                                                                                                          // Node 3
         {
             Vec3D(+1, +1, -1),                                                                                             // Coordinates of the node
             3,                                                                                                             // Number of neightbour nodes
             {1, 6, 3},                                                                                                     // List of the neighbour nodes
             Vector(8, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (5.0 + 3.0 * sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, // Extrapolates integration points values to nodal values
                    (5.0 - 3.0 * sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4)},  //
-        // Node 4
+                                                                                                                          // Node 4
         {
             Vec3D(-1, +1, -1),                                                                                             // Coordinates of the node
             3,                                                                                                             // Number of neightbour nodes
             {2, 0, 7},                                                                                                     // List of the neighbour nodes
             Vector(8, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (5.0 + 3.0 * sqrt(3.0)) / 4, // Extrapolates integration points values to nodal values
                    (-1.0 + sqrt(3.0)) / 4, (5.0 - 3.0 * sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4)},  //
-        // Node 5
+                                                                                                                          // Node 5
         {
             Vec3D(-1, -1, +1),                                                                                             // Coordinates of the node
             3,                                                                                                             // Number of neightbour nodes
             {0, 5, 7},                                                                                                     // List of the neighbour nodes
             Vector(8, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (5.0 - 3.0 * sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, // Extrapolates integration points values to nodal values
                    (5.0 + 3.0 * sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4)},  //
-        // Node 6
+                                                                                                                          // Node 6
         {
             Vec3D(+1, -1, +1),                                                                                             // Coordinates of the node
             3,                                                                                                             // Number of neightbour nodes
             {1, 4, 6},                                                                                                     // List of the neighbour nodes
             Vector(8, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (5.0 - 3.0 * sqrt(3.0)) / 4, // Extrapolates integration points values to nodal values
                    (-1.0 - sqrt(3.0)) / 4, (5.0 + 3.0 * sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4)},  //
-        // Node 7
+                                                                                                                          // Node 7
         {
             Vec3D(+1, +1, +1),                                                                                             // Coordinates of the node
             3,                                                                                                             // Number of neightbour nodes
             {5, 7, 2},                                                                                                     // List of the neighbour nodes
             Vector(8, (5.0 - 3.0 * sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (-1.0 + sqrt(3.0)) / 4, // Extrapolates integration points values to nodal values
                    (-1.0 + sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4, (5.0 + 3.0 * sqrt(3.0)) / 4, (-1.0 - sqrt(3.0)) / 4)},  //
-        // Node 8
+                                                                                                                          // Node 8
         {
             Vec3D(-1, +1, +1),                                                                                             // Coordinates of the node
             3,                                                                                                             // Number of neightbour nodes
