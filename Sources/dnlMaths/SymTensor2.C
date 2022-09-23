@@ -26,6 +26,8 @@
 #include <NumpyInterface.h>
 #include <Tensor2.h>
 #include <Vec3D.h>
+#include <Eigen3x3.h>
+#include <lapacke.h>
 
 const Tensor2Index SymTensor2::_internalIndexes = {0, 1, 2, 1, 3, 4, 2, 4, 5};
 
@@ -1146,6 +1148,455 @@ Vec3D SymTensor2::solve(const Vec3D &b) const
 //-----------------------------------------------------------------------------
 {
   return Vec3D(getInverse() * b);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarExtract(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double sq[3];
+
+  // eigenVectors 1
+  double U0[6];
+  U0[0] = dnlSquare(eigenVectors[0][0]);
+  U0[1] = eigenVectors[0][0] * eigenVectors[1][0];
+  U0[2] = eigenVectors[0][0] * eigenVectors[2][0];
+  U0[3] = dnlSquare(eigenVectors[1][0]);
+  U0[4] = eigenVectors[1][0] * eigenVectors[2][0];
+  U0[5] = dnlSquare(eigenVectors[2][0]);
+  // eigenVectors 2
+  double U1[6];
+  U1[0] = dnlSquare(eigenVectors[0][1]);
+  U1[1] = eigenVectors[0][1] * eigenVectors[1][1];
+  U1[2] = eigenVectors[0][1] * eigenVectors[2][1];
+  U1[3] = dnlSquare(eigenVectors[1][1]);
+  U1[4] = eigenVectors[1][1] * eigenVectors[2][1];
+  U1[5] = dnlSquare(eigenVectors[2][1]);
+  // eigenVectors 3
+  double U2[6];
+  U2[0] = dnlSquare(eigenVectors[0][2]);
+  U2[1] = eigenVectors[0][2] * eigenVectors[1][2];
+  U2[2] = eigenVectors[0][2] * eigenVectors[2][2];
+  U2[3] = dnlSquare(eigenVectors[1][2]);
+  U2[4] = eigenVectors[1][2] * eigenVectors[2][2];
+  U2[5] = dnlSquare(eigenVectors[2][2]);
+
+  sq[0] = sqrt(eigenValues[0]);
+  sq[1] = sqrt(eigenValues[1]);
+  sq[2] = sqrt(eigenValues[2]);
+  U._data[0] = sq[0] * U0[0] + sq[1] * U1[0] + sq[2] * U2[0];
+  U._data[1] = sq[0] * U0[1] + sq[1] * U1[1] + sq[2] * U2[1];
+  U._data[2] = sq[0] * U0[2] + sq[1] * U1[2] + sq[2] * U2[2];
+  U._data[3] = sq[0] * U0[3] + sq[1] * U1[3] + sq[2] * U2[3];
+  U._data[4] = sq[0] * U0[4] + sq[1] * U1[4] + sq[2] * U2[4];
+  U._data[5] = sq[0] * U0[5] + sq[1] * U1[5] + sq[2] * U2[5];
+
+  double Um1[6];
+  double t1 = U._data[3] * U._data[5];
+  double t2 = U._data[2] * U._data[4];
+  double t4 = U._data[4] * U._data[4];
+  double t5 = U._data[1] * U._data[5];
+  double t6 = U._data[2] * U._data[3];
+
+  double deter = U._data[0] * t1 + 2.0 * U._data[1] * t2 - U._data[0] * t4 - U._data[1] * t5 - U._data[2] * t6;
+
+  Um1[0] = (t1 - t4) / deter;
+  Um1[1] = (t2 - t5) / deter;
+  Um1[2] = (U._data[1] * U._data[4] - t6) / deter;
+  Um1[3] = (U._data[0] * U._data[5] - U._data[2] * U._data[2]) / deter;
+  Um1[4] = (U._data[2] * U._data[1] - U._data[0] * U._data[4]) / deter;
+  Um1[5] = (U._data[0] * U._data[3] - U._data[1] * U._data[1]) / deter;
+
+  R._data[0] = _data[0] * Um1[0] + _data[1] * Um1[1] + _data[2] * Um1[2];
+  R._data[1] = _data[0] * Um1[1] + _data[1] * Um1[3] + _data[2] * Um1[4];
+  R._data[2] = _data[0] * Um1[2] + _data[1] * Um1[4] + _data[2] * Um1[5];
+  R._data[3] = _data[3] * Um1[0] + _data[4] * Um1[1] + _data[5] * Um1[2];
+  R._data[4] = _data[3] * Um1[1] + _data[4] * Um1[3] + _data[5] * Um1[4];
+  R._data[5] = _data[3] * Um1[2] + _data[4] * Um1[4] + _data[5] * Um1[5];
+  R._data[6] = _data[6] * Um1[0] + _data[7] * Um1[1] + _data[8] * Um1[2];
+  R._data[7] = _data[6] * Um1[1] + _data[7] * Um1[3] + _data[8] * Um1[4];
+  R._data[8] = _data[6] * Um1[2] + _data[7] * Um1[4] + _data[8] * Um1[5];
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarExtractLnU(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double sq[3];
+
+  // eigenVectors 1
+  double U0[6];
+  U0[0] = dnlSquare(eigenVectors[0][0]);
+  U0[1] = eigenVectors[0][0] * eigenVectors[1][0];
+  U0[2] = eigenVectors[0][0] * eigenVectors[2][0];
+  U0[3] = dnlSquare(eigenVectors[1][0]);
+  U0[4] = eigenVectors[1][0] * eigenVectors[2][0];
+  U0[5] = dnlSquare(eigenVectors[2][0]);
+  // eigenVectors 2
+  double U1[6];
+  U1[0] = dnlSquare(eigenVectors[0][1]);
+  U1[1] = eigenVectors[0][1] * eigenVectors[1][1];
+  U1[2] = eigenVectors[0][1] * eigenVectors[2][1];
+  U1[3] = dnlSquare(eigenVectors[1][1]);
+  U1[4] = eigenVectors[1][1] * eigenVectors[2][1];
+  U1[5] = dnlSquare(eigenVectors[2][1]);
+  // eigenVectors 3
+  double U2[6];
+  U2[0] = dnlSquare(eigenVectors[0][2]);
+  U2[1] = eigenVectors[0][2] * eigenVectors[1][2];
+  U2[2] = eigenVectors[0][2] * eigenVectors[2][2];
+  U2[3] = dnlSquare(eigenVectors[1][2]);
+  U2[4] = eigenVectors[1][2] * eigenVectors[2][2];
+  U2[5] = dnlSquare(eigenVectors[2][2]);
+
+  sq[0] = sqrt(eigenValues[0]);
+  sq[1] = sqrt(eigenValues[1]);
+  sq[2] = sqrt(eigenValues[2]);
+  U._data[0] = sq[0] * U0[0] + sq[1] * U1[0] + sq[2] * U2[0];
+  U._data[1] = sq[0] * U0[1] + sq[1] * U1[1] + sq[2] * U2[1];
+  U._data[2] = sq[0] * U0[2] + sq[1] * U1[2] + sq[2] * U2[2];
+  U._data[3] = sq[0] * U0[3] + sq[1] * U1[3] + sq[2] * U2[3];
+  U._data[4] = sq[0] * U0[4] + sq[1] * U1[4] + sq[2] * U2[4];
+  U._data[5] = sq[0] * U0[5] + sq[1] * U1[5] + sq[2] * U2[5];
+
+  double Um1[6];
+  double t1 = U._data[3] * U._data[5];
+  double t2 = U._data[2] * U._data[4];
+  double t4 = U._data[4] * U._data[4];
+  double t5 = U._data[1] * U._data[5];
+  double t6 = U._data[2] * U._data[3];
+
+  double deter = U._data[0] * t1 + 2.0 * U._data[1] * t2 - U._data[0] * t4 - U._data[1] * t5 - U._data[2] * t6;
+
+  Um1[0] = (t1 - t4) / deter;
+  Um1[1] = (t2 - t5) / deter;
+  Um1[2] = (U._data[1] * U._data[4] - t6) / deter;
+  Um1[3] = (U._data[0] * U._data[5] - U._data[2] * U._data[2]) / deter;
+  Um1[4] = (U._data[2] * U._data[1] - U._data[0] * U._data[4]) / deter;
+  Um1[5] = (U._data[0] * U._data[3] - U._data[1] * U._data[1]) / deter;
+
+  R._data[0] = _data[0] * Um1[0] + _data[1] * Um1[1] + _data[2] * Um1[2];
+  R._data[1] = _data[0] * Um1[1] + _data[1] * Um1[3] + _data[2] * Um1[4];
+  R._data[2] = _data[0] * Um1[2] + _data[1] * Um1[4] + _data[2] * Um1[5];
+  R._data[3] = _data[3] * Um1[0] + _data[4] * Um1[1] + _data[5] * Um1[2];
+  R._data[4] = _data[3] * Um1[1] + _data[4] * Um1[3] + _data[5] * Um1[4];
+  R._data[5] = _data[3] * Um1[2] + _data[4] * Um1[4] + _data[5] * Um1[5];
+  R._data[6] = _data[6] * Um1[0] + _data[7] * Um1[1] + _data[8] * Um1[2];
+  R._data[7] = _data[6] * Um1[1] + _data[7] * Um1[3] + _data[8] * Um1[4];
+  R._data[8] = _data[6] * Um1[2] + _data[7] * Um1[4] + _data[8] * Um1[5];
+
+  sq[0] = log(eigenValues[0]) / 2;
+  sq[1] = log(eigenValues[1]) / 2;
+  sq[2] = log(eigenValues[2]) / 2;
+  U._data[0] = sq[0] * U0[0] + sq[1] * U1[0] + sq[2] * U2[0];
+  U._data[1] = sq[0] * U0[1] + sq[1] * U1[1] + sq[2] * U2[1];
+  U._data[2] = sq[0] * U0[2] + sq[1] * U1[2] + sq[2] * U2[2];
+  U._data[3] = sq[0] * U0[3] + sq[1] * U1[3] + sq[2] * U2[3];
+  U._data[4] = sq[0] * U0[4] + sq[1] * U1[4] + sq[2] * U2[4];
+  U._data[5] = sq[0] * U0[5] + sq[1] * U1[5] + sq[2] * U2[5];
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::buildFTF(double FTF[3][3]) const
+//-----------------------------------------------------------------------------
+{
+  FTF[0][0] = dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]);
+  FTF[0][1] = _data[0] * _data[1] + _data[1] * _data[3] + _data[2] * _data[4];
+  FTF[0][2] = _data[0] * _data[2] + _data[1] * _data[4] + _data[2] * _data[5];
+  FTF[1][0] = FTF[0][1];
+  FTF[1][1] = dnlSquare(_data[1]) + dnlSquare(_data[3]) + dnlSquare(_data[4]);
+  FTF[1][2] = _data[1] * _data[2] + _data[3] * _data[4] + _data[4] * _data[5];
+  FTF[2][0] = FTF[0][2];
+  FTF[2][1] = FTF[1][2];
+  FTF[2][2] = dnlSquare(_data[2]) + dnlSquare(_data[4]) + dnlSquare(_data[5]);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeQL(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[3][3];
+  double eigenVectors[3][3];
+  double eigenValues[3];
+
+  // Build the F(T).F symmetric matrix
+  buildFTF(FTF);
+
+  // Compute the eigenvalues and eigenvectors
+  dsyevq3(FTF, eigenVectors, eigenValues); // QL with implicit shifts
+
+  // Extract the tensors for U and R
+  polarExtract(eigenVectors, eigenValues, U, R);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeQLLnU(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[3][3];
+  double eigenVectors[3][3];
+  double eigenValues[3];
+
+  // Build the F(T).F symmetric matrix
+  buildFTF(FTF);
+
+  // Compute the eigenvalues and eigenvectors
+  dsyevq3(FTF, eigenVectors, eigenValues); // QL with implicit shifts
+
+  // Extract the tensors for U and R
+  polarExtractLnU(eigenVectors, eigenValues, U, R);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeCuppen(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[3][3];
+  double eigenVectors[3][3];
+  double eigenValues[3];
+
+  // Build the F(T).F symmetric matrix
+  buildFTF(FTF);
+
+  // Compute the eigenvalues and eigenvectors
+  dsyevd3(FTF, eigenVectors, eigenValues); // Cuppen
+
+  // Extract the tensors for U and R
+  polarExtract(eigenVectors, eigenValues, U, R);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeCuppenLnU(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[3][3];
+  double eigenVectors[3][3];
+  double eigenValues[3];
+
+  // Build the F(T).F symmetric matrix
+  buildFTF(FTF);
+
+  // Compute the eigenvalues and eigenvectors
+  dsyevd3(FTF, eigenVectors, eigenValues); // Cuppen
+
+  // Extract the tensors for U and R
+  polarExtractLnU(eigenVectors, eigenValues, U, R);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeJacobi(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[3][3];
+  double eigenVectors[3][3];
+  double eigenValues[3];
+
+  // Build the F(T).F symmetric matrix
+  buildFTF(FTF);
+
+  // Compute the eigenvalues and eigenvectors
+  dsyevj3(FTF, eigenVectors, eigenValues); // Jacobi
+
+  // Extract the tensors for U and R
+  polarExtract(eigenVectors, eigenValues, U, R);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeJacobiLnU(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[3][3];
+  double eigenVectors[3][3];
+  double eigenValues[3];
+
+  // Build the F(T).F symmetric matrix
+  buildFTF(FTF);
+
+  // Compute the eigenvalues and eigenvectors
+  dsyevj3(FTF, eigenVectors, eigenValues); // Jacobi
+
+  // Extract the tensors for U and R
+  polarExtractLnU(eigenVectors, eigenValues, U, R);
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeLapack(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[9];
+
+  FTF[0] = dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]);
+  FTF[1] = _data[0] * _data[1] + _data[1] * _data[3] + _data[2] * _data[4];
+  FTF[2] = _data[0] * _data[2] + _data[1] * _data[4] + _data[2] * _data[5];
+  FTF[3] = FTF[1];
+  FTF[4] = dnlSquare(_data[1]) + dnlSquare(_data[3]) + dnlSquare(_data[4]);
+  FTF[5] = _data[1] * _data[2] + _data[3] * _data[4] + _data[4] * _data[5];
+  FTF[6] = FTF[2];
+  FTF[7] = FTF[5];
+  FTF[8] = dnlSquare(_data[2]) + dnlSquare(_data[4]) + dnlSquare(_data[5]);
+
+  double eigenVectors[9];
+  double tmpMatrix[9];
+  double eigenValues[3];
+  double tmpVector[3];
+  double sq[3];
+
+  int info = LAPACKE_dgeev(LAPACK_ROW_MAJOR, 'N', 'V', 3, FTF, 3, eigenValues, tmpVector, tmpMatrix, 3, eigenVectors, 3);
+
+  // eigenVectors 1
+  double U0[6];
+  U0[0] = dnlSquare(eigenVectors[0]);
+  U0[1] = eigenVectors[0] * eigenVectors[3];
+  U0[2] = eigenVectors[0] * eigenVectors[6];
+  U0[3] = dnlSquare(eigenVectors[3]);
+  U0[4] = eigenVectors[3] * eigenVectors[6];
+  U0[5] = dnlSquare(eigenVectors[6]);
+  // eigenVectors 2
+  double U1[6];
+  U1[0] = dnlSquare(eigenVectors[1]);
+  U1[1] = eigenVectors[1] * eigenVectors[4];
+  U1[2] = eigenVectors[1] * eigenVectors[7];
+  U1[3] = dnlSquare(eigenVectors[4]);
+  U1[4] = eigenVectors[4] * eigenVectors[7];
+  U1[5] = dnlSquare(eigenVectors[7]);
+  // eigenVectors 3
+  double U2[6];
+  U2[0] = dnlSquare(eigenVectors[2]);
+  U2[1] = eigenVectors[2] * eigenVectors[5];
+  U2[2] = eigenVectors[2] * eigenVectors[8];
+  U2[3] = dnlSquare(eigenVectors[5]);
+  U2[4] = eigenVectors[5] * eigenVectors[8];
+  U2[5] = dnlSquare(eigenVectors[8]);
+
+  sq[0] = sqrt(eigenValues[0]);
+  sq[1] = sqrt(eigenValues[1]);
+  sq[2] = sqrt(eigenValues[2]);
+  U._data[0] = sq[0] * U0[0] + sq[1] * U1[0] + sq[2] * U2[0];
+  U._data[1] = sq[0] * U0[1] + sq[1] * U1[1] + sq[2] * U2[1];
+  U._data[2] = sq[0] * U0[2] + sq[1] * U1[2] + sq[2] * U2[2];
+  U._data[3] = sq[0] * U0[3] + sq[1] * U1[3] + sq[2] * U2[3];
+  U._data[4] = sq[0] * U0[4] + sq[1] * U1[4] + sq[2] * U2[4];
+  U._data[5] = sq[0] * U0[5] + sq[1] * U1[5] + sq[2] * U2[5];
+
+  double Um1[6];
+  double t1 = U._data[3] * U._data[5];
+  double t2 = U._data[2] * U._data[4];
+  double t4 = U._data[4] * U._data[4];
+  double t5 = U._data[1] * U._data[5];
+  double t6 = U._data[2] * U._data[3];
+
+  double deter = U._data[0] * t1 + 2.0 * U._data[1] * t2 - U._data[0] * t4 - U._data[1] * t5 - U._data[2] * t6;
+  Um1[0] = (t1 - t4) / deter;
+  Um1[1] = (t2 - t5) / deter;
+  Um1[2] = (U._data[1] * U._data[4] - t6) / deter;
+  Um1[3] = (U._data[0] * U._data[5] - U._data[2] * U._data[2]) / deter;
+  Um1[4] = (U._data[2] * U._data[1] - U._data[0] * U._data[4]) / deter;
+  Um1[5] = (U._data[0] * U._data[3] - U._data[1] * U._data[1]) / deter;
+
+  R._data[0] = _data[0] * Um1[0] + _data[1] * Um1[1] + _data[2] * Um1[2];
+  R._data[1] = _data[0] * Um1[1] + _data[1] * Um1[3] + _data[2] * Um1[4];
+  R._data[2] = _data[0] * Um1[2] + _data[1] * Um1[4] + _data[2] * Um1[5];
+  R._data[3] = _data[3] * Um1[0] + _data[4] * Um1[1] + _data[5] * Um1[2];
+  R._data[4] = _data[3] * Um1[1] + _data[4] * Um1[3] + _data[5] * Um1[4];
+  R._data[5] = _data[3] * Um1[2] + _data[4] * Um1[4] + _data[5] * Um1[5];
+  R._data[6] = _data[6] * Um1[0] + _data[7] * Um1[1] + _data[8] * Um1[2];
+  R._data[7] = _data[6] * Um1[1] + _data[7] * Um1[3] + _data[8] * Um1[4];
+  R._data[8] = _data[6] * Um1[2] + _data[7] * Um1[4] + _data[8] * Um1[5];
+}
+
+//-----------------------------------------------------------------------------
+void SymTensor2::polarDecomposeLapackLnU(SymTensor2 &U, Tensor2 &R) const
+//-----------------------------------------------------------------------------
+{
+  double FTF[9];
+
+  FTF[0] = dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]);
+  FTF[1] = _data[0] * _data[1] + _data[1] * _data[3] + _data[2] * _data[4];
+  FTF[2] = _data[0] * _data[2] + _data[1] * _data[4] + _data[2] * _data[5];
+  FTF[3] = FTF[1];
+  FTF[4] = dnlSquare(_data[1]) + dnlSquare(_data[3]) + dnlSquare(_data[4]);
+  FTF[5] = _data[1] * _data[2] + _data[3] * _data[4] + _data[4] * _data[5];
+  FTF[6] = FTF[2];
+  FTF[7] = FTF[5];
+  FTF[8] = dnlSquare(_data[2]) + dnlSquare(_data[4]) + dnlSquare(_data[5]);
+
+  double eigenVectors[9];
+  double tmpMatrix[9];
+  double eigenValues[3];
+  double tmpVector[3];
+  double sq[3];
+
+  int info = LAPACKE_dgeev(LAPACK_ROW_MAJOR, 'N', 'V', 3, FTF, 3, eigenValues, tmpVector, tmpMatrix, 3, eigenVectors, 3);
+
+  // eigenVectors 1
+  double U0[6];
+  U0[0] = dnlSquare(eigenVectors[0]);
+  U0[1] = eigenVectors[0] * eigenVectors[3];
+  U0[2] = eigenVectors[0] * eigenVectors[6];
+  U0[3] = dnlSquare(eigenVectors[3]);
+  U0[4] = eigenVectors[3] * eigenVectors[6];
+  U0[5] = dnlSquare(eigenVectors[6]);
+  // eigenVectors 2
+  double U1[6];
+  U1[0] = dnlSquare(eigenVectors[1]);
+  U1[1] = eigenVectors[1] * eigenVectors[4];
+  U1[2] = eigenVectors[1] * eigenVectors[7];
+  U1[3] = dnlSquare(eigenVectors[4]);
+  U1[4] = eigenVectors[4] * eigenVectors[7];
+  U1[5] = dnlSquare(eigenVectors[7]);
+  // eigenVectors 3
+  double U2[6];
+  U2[0] = dnlSquare(eigenVectors[2]);
+  U2[1] = eigenVectors[2] * eigenVectors[5];
+  U2[2] = eigenVectors[2] * eigenVectors[8];
+  U2[3] = dnlSquare(eigenVectors[5]);
+  U2[4] = eigenVectors[5] * eigenVectors[8];
+  U2[5] = dnlSquare(eigenVectors[8]);
+
+  sq[0] = sqrt(eigenValues[0]);
+  sq[1] = sqrt(eigenValues[1]);
+  sq[2] = sqrt(eigenValues[2]);
+  U._data[0] = sq[0] * U0[0] + sq[1] * U1[0] + sq[2] * U2[0];
+  U._data[1] = sq[0] * U0[1] + sq[1] * U1[1] + sq[2] * U2[1];
+  U._data[2] = sq[0] * U0[2] + sq[1] * U1[2] + sq[2] * U2[2];
+  U._data[3] = sq[0] * U0[3] + sq[1] * U1[3] + sq[2] * U2[3];
+  U._data[4] = sq[0] * U0[4] + sq[1] * U1[4] + sq[2] * U2[4];
+  U._data[5] = sq[0] * U0[5] + sq[1] * U1[5] + sq[2] * U2[5];
+
+  double Um1[6];
+  double t1 = U._data[3] * U._data[5];
+  double t2 = U._data[2] * U._data[4];
+  double t4 = U._data[4] * U._data[4];
+  double t5 = U._data[1] * U._data[5];
+  double t6 = U._data[2] * U._data[3];
+
+  double deter = U._data[0] * t1 + 2.0 * U._data[1] * t2 - U._data[0] * t4 - U._data[1] * t5 - U._data[2] * t6;
+  Um1[0] = (t1 - t4) / deter;
+  Um1[1] = (t2 - t5) / deter;
+  Um1[2] = (U._data[1] * U._data[4] - t6) / deter;
+  Um1[3] = (U._data[0] * U._data[5] - U._data[2] * U._data[2]) / deter;
+  Um1[4] = (U._data[2] * U._data[1] - U._data[0] * U._data[4]) / deter;
+  Um1[5] = (U._data[0] * U._data[3] - U._data[1] * U._data[1]) / deter;
+
+  R._data[0] = _data[0] * Um1[0] + _data[1] * Um1[1] + _data[2] * Um1[2];
+  R._data[1] = _data[0] * Um1[1] + _data[1] * Um1[3] + _data[2] * Um1[4];
+  R._data[2] = _data[0] * Um1[2] + _data[1] * Um1[4] + _data[2] * Um1[5];
+  R._data[3] = _data[3] * Um1[0] + _data[4] * Um1[1] + _data[5] * Um1[2];
+  R._data[4] = _data[3] * Um1[1] + _data[4] * Um1[3] + _data[5] * Um1[4];
+  R._data[5] = _data[3] * Um1[2] + _data[4] * Um1[4] + _data[5] * Um1[5];
+  R._data[6] = _data[6] * Um1[0] + _data[7] * Um1[1] + _data[8] * Um1[2];
+  R._data[7] = _data[6] * Um1[1] + _data[7] * Um1[3] + _data[8] * Um1[4];
+  R._data[8] = _data[6] * Um1[2] + _data[7] * Um1[4] + _data[8] * Um1[5];
+
+  sq[0] = log(eigenValues[0]) / 2;
+  sq[1] = log(eigenValues[1]) / 2;
+  sq[2] = log(eigenValues[2]) / 2;
+  U._data[0] = sq[0] * U0[0] + sq[1] * U1[0] + sq[2] * U2[0];
+  U._data[1] = sq[0] * U0[1] + sq[1] * U1[1] + sq[2] * U2[1];
+  U._data[2] = sq[0] * U0[2] + sq[1] * U1[2] + sq[2] * U2[2];
+  U._data[3] = sq[0] * U0[3] + sq[1] * U1[3] + sq[2] * U2[3];
+  U._data[4] = sq[0] * U0[4] + sq[1] * U1[4] + sq[2] * U2[4];
+  U._data[5] = sq[0] * U0[5] + sq[1] * U1[5] + sq[2] * U2[5];
 }
 
 /*

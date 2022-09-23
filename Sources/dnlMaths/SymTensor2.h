@@ -36,6 +36,9 @@ class SymTensor2
 
 private:
   bool indexOK(short, short) const;
+  void buildFTF(double FTF[3][3]) const;
+  void polarExtract(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const;
+  void polarExtractLnU(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const;
 
 public:
   SymTensor2();
@@ -109,8 +112,16 @@ public:
   void numpyReadZ(std::string, std::string);
   void numpyWrite(std::string, bool initialize = false) const;
   void numpyWriteZ(std::string, std::string, bool initialize = false) const;
-  void polarDecompose(SymTensor2 &U, Tensor2 &R) const;
-  void polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const;
+  void polarDecompose(SymTensor2 &, Tensor2 &) const;
+  void polarDecomposeQL(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeJacobi(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeCuppen(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeLapack(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeLnU(SymTensor2 &, Tensor2 &) const;
+  void polarDecomposeQLLnU(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeJacobiLnU(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeCuppenLnU(SymTensor2 &U, Tensor2 &R) const;
+  void polarDecomposeLapackLnU(SymTensor2 &U, Tensor2 &R) const;
   void setToUnity();
   void setToValue(const double);
   void setToZero();

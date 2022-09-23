@@ -1331,10 +1331,13 @@ void Tensor2::polarDecomposeQL(SymTensor2 &U, Tensor2 &R) const
   double eigenVectors[3][3];
   double eigenValues[3];
 
+  // Build the F(T).F symmetric matrix
   buildFTF(FTF);
 
+  // Compute the eigenvalues and eigenvectors
   dsyevq3(FTF, eigenVectors, eigenValues); // QL with implicit shifts
 
+  // Extract the tensors for U and R
   polarExtract(eigenVectors, eigenValues, U, R);
 }
 
@@ -1346,10 +1349,13 @@ void Tensor2::polarDecomposeQLLnU(SymTensor2 &U, Tensor2 &R) const
   double eigenVectors[3][3];
   double eigenValues[3];
 
+  // Build the F(T).F symmetric matrix
   buildFTF(FTF);
 
+  // Compute the eigenvalues and eigenvectors
   dsyevq3(FTF, eigenVectors, eigenValues); // QL with implicit shifts
 
+  // Extract the tensors for U and R
   polarExtractLnU(eigenVectors, eigenValues, U, R);
 }
 
@@ -1361,10 +1367,13 @@ void Tensor2::polarDecomposeCuppen(SymTensor2 &U, Tensor2 &R) const
   double eigenVectors[3][3];
   double eigenValues[3];
 
+  // Build the F(T).F symmetric matrix
   buildFTF(FTF);
 
+  // Compute the eigenvalues and eigenvectors
   dsyevd3(FTF, eigenVectors, eigenValues); // Cuppen
 
+  // Extract the tensors for U and R
   polarExtract(eigenVectors, eigenValues, U, R);
 }
 
@@ -1376,10 +1385,13 @@ void Tensor2::polarDecomposeCuppenLnU(SymTensor2 &U, Tensor2 &R) const
   double eigenVectors[3][3];
   double eigenValues[3];
 
+  // Build the F(T).F symmetric matrix
   buildFTF(FTF);
 
+  // Compute the eigenvalues and eigenvectors
   dsyevd3(FTF, eigenVectors, eigenValues); // Cuppen
 
+  // Extract the tensors for U and R
   polarExtractLnU(eigenVectors, eigenValues, U, R);
 }
 
@@ -1391,10 +1403,13 @@ void Tensor2::polarDecomposeJacobi(SymTensor2 &U, Tensor2 &R) const
   double eigenVectors[3][3];
   double eigenValues[3];
 
+  // Build the F(T).F symmetric matrix
   buildFTF(FTF);
 
+  // Compute the eigenvalues and eigenvectors
   dsyevj3(FTF, eigenVectors, eigenValues); // Jacobi
 
+  // Extract the tensors for U and R
   polarExtract(eigenVectors, eigenValues, U, R);
 }
 
@@ -1406,10 +1421,13 @@ void Tensor2::polarDecomposeJacobiLnU(SymTensor2 &U, Tensor2 &R) const
   double eigenVectors[3][3];
   double eigenValues[3];
 
+  // Build the F(T).F symmetric matrix
   buildFTF(FTF);
 
+  // Compute the eigenvalues and eigenvectors
   dsyevj3(FTF, eigenVectors, eigenValues); // Jacobi
 
+  // Extract the tensors for U and R
   polarExtractLnU(eigenVectors, eigenValues, U, R);
 }
 
