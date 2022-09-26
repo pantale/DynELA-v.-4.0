@@ -1312,7 +1312,7 @@ void SymTensor2::buildFTF(double FTF[3][3]) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeQL(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarQL(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[3][3];
@@ -1330,7 +1330,7 @@ void SymTensor2::polarDecomposeQL(SymTensor2 &U, Tensor2 &R) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeQLLnU(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarQLLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[3][3];
@@ -1348,7 +1348,7 @@ void SymTensor2::polarDecomposeQLLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeCuppen(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarCuppen(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[3][3];
@@ -1366,7 +1366,7 @@ void SymTensor2::polarDecomposeCuppen(SymTensor2 &U, Tensor2 &R) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeCuppenLnU(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarCuppenLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[3][3];
@@ -1384,7 +1384,7 @@ void SymTensor2::polarDecomposeCuppenLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeJacobi(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarJacobi(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[3][3];
@@ -1402,7 +1402,7 @@ void SymTensor2::polarDecomposeJacobi(SymTensor2 &U, Tensor2 &R) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeJacobiLnU(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarJacobiLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[3][3];
@@ -1420,7 +1420,7 @@ void SymTensor2::polarDecomposeJacobiLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeLapack(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarLapack(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[9];
@@ -1505,7 +1505,7 @@ void SymTensor2::polarDecomposeLapack(SymTensor2 &U, Tensor2 &R) const
 }
 
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeLapackLnU(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polarLapackLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   double FTF[9];
@@ -1610,7 +1610,7 @@ void SymTensor2::polarDecomposeLapackLnU(SymTensor2 &U, Tensor2 &R) const
   - R Return second order tensor containing \f$ R \f$
 */
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const
+void SymTensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   short p, q;
@@ -1734,7 +1734,7 @@ void SymTensor2::polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const
   }
 
   std::cout << (*this) << std::endl;
-  fatalError("SymTensor2::polarDecomposeLnU", "No convergence");
+  fatalError("SymTensor2::polarLnU", "No convergence");
 }
 
 /*
@@ -1746,7 +1746,7 @@ void SymTensor2::polarDecomposeLnU(SymTensor2 &LnU, Tensor2 &R) const
   - R Return second order tensor containing \f$ R \f$
 */
 //-----------------------------------------------------------------------------
-void SymTensor2::polarDecompose(SymTensor2 &U, Tensor2 &R) const
+void SymTensor2::polar(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
 {
   short p, q;
@@ -1871,7 +1871,7 @@ void SymTensor2::polarDecompose(SymTensor2 &U, Tensor2 &R) const
   }
 
   std::cout << (*this) << std::endl;
-  fatalError("SymTensor2::polarDecompose", "No convergence");
+  fatalError("SymTensor2::polar", "No convergence");
 }
 
 /*

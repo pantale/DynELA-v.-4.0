@@ -1118,7 +1118,7 @@ void Element::computeStrains()
     computeDeformationGradient(F, 0);
 
     // Polar decomposition
-    F.polarDecomposeCuppenLnU(_integrationPoint->StrainInc, _integrationPoint->R);
+    F.polarCuppenLnU(_integrationPoint->StrainInc, _integrationPoint->R);
 
     // Compute the total strain tensor
     _integrationPoint->Strain += _integrationPoint->StrainInc;
@@ -1129,7 +1129,7 @@ void Element::computeStrains()
 void Element::computePressure()
 //-----------------------------------------------------------------------------
 {
-  int intPointId;
+  short intPointId;
   double K = material->getBulkModulus();
   double pressureIncrement = 0.0;
 
@@ -1150,7 +1150,7 @@ void Element::computePressure()
 void Element::computeFinalRotation()
 //-----------------------------------------------------------------------------
 {
-  int intPointId;
+  short intPointId;
 
   for (intPointId = 0; intPointId < getNumberOfIntegrationPoints(); intPointId++)
   {
@@ -1344,7 +1344,7 @@ void Element::computeStrainsOld(double timeStep)
     computeDeformationGradient(F, 1);
 
     // decomposition polaire et recup de U et R
-    F.polarDecomposeLnU(_integrationPoint->StrainInc, _integrationPoint->R);
+    F.polarLnU(_integrationPoint->StrainInc, _integrationPoint->R);
 
     // calcul de Strain
     _integrationPoint->Strain += _integrationPoint->StrainInc;
@@ -1445,7 +1445,7 @@ void Element::computeStressOld(double timeStep)
     // computeDeformationGradient(F, 0);
 
     // Polar decomposition of the gradient of deformation
-    // F.polarDecomposeLnU(_integrationPoint->StrainInc, _integrationPoint->R);
+    // F.polarLnU(_integrationPoint->StrainInc, _integrationPoint->R);
 
     // Cumulate the strain on the current integration point
     //_integrationPoint->Strain += _integrationPoint->StrainInc;

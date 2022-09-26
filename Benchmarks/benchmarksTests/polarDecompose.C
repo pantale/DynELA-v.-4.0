@@ -2,105 +2,105 @@
 #include <Tensor2.h>
 #include <SymTensor2.h>
 
-void polarDecomposeLapack(benchmark::State &state)
+void polarLapack(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeLapack(U, R);
+		T.polarLapack(U, R);
 }
-BENCHMARK(polarDecomposeLapack);
+BENCHMARK(polarLapack);
 
-void polarDecompose(benchmark::State &state)
+void polar(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecompose(U, R);
+		T.polar(U, R);
 }
-BENCHMARK(polarDecompose);
+BENCHMARK(polar);
 
-void polarDecomposeQL(benchmark::State &state)
+void polarQL(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeQL(U, R);
+		T.polarQL(U, R);
 }
-BENCHMARK(polarDecomposeQL);
+BENCHMARK(polarQL);
 
-void polarDecomposeJacobi(benchmark::State &state)
+void polarJacobi(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeJacobi(U, R);
+		T.polarJacobi(U, R);
 }
-BENCHMARK(polarDecomposeJacobi);
+BENCHMARK(polarJacobi);
 
-void polarDecomposeCuppen(benchmark::State &state)
+void polarCuppen(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeCuppen(U, R);
+		T.polarCuppen(U, R);
 }
-BENCHMARK(polarDecomposeCuppen);
+BENCHMARK(polarCuppen);
 
-void polarDecomposeLapackLnU(benchmark::State &state)
+void polarLapackLnU(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeLapackLnU(U, R);
+		T.polarLapackLnU(U, R);
 }
-BENCHMARK(polarDecomposeLapackLnU);
+BENCHMARK(polarLapackLnU);
 
-void polarDecomposeLnU(benchmark::State &state)
+void polarLnU(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeLnU(U, R);
+		T.polarLnU(U, R);
 }
-BENCHMARK(polarDecomposeLnU);
+BENCHMARK(polarLnU);
 
-void polarDecomposeQLLnU(benchmark::State &state)
+void polarQLLnU(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeQLLnU(U, R);
+		T.polarQLLnU(U, R);
 }
-BENCHMARK(polarDecomposeQLLnU);
+BENCHMARK(polarQLLnU);
 
-void polarDecomposeJacobiLnU(benchmark::State &state)
+void polarJacobiLnU(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeJacobiLnU(U, R);
+		T.polarJacobiLnU(U, R);
 }
-BENCHMARK(polarDecomposeJacobiLnU);
+BENCHMARK(polarJacobiLnU);
 
-void polarDecomposeCuppenLnU(benchmark::State &state)
+void polarCuppenLnU(benchmark::State &state)
 {
 	Tensor2 T(1, 5, 3, 7, 4, 5, 6, 8, -1);
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeCuppenLnU(U, R);
+		T.polarCuppenLnU(U, R);
 }
-BENCHMARK(polarDecomposeCuppenLnU);
+BENCHMARK(polarCuppenLnU);
 
 void symmetricPolarDecomposeLapack(benchmark::State &state)
 {
@@ -108,7 +108,7 @@ void symmetricPolarDecomposeLapack(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeLapack(U, R);
+		T.polarLapack(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeLapack);
 
@@ -118,7 +118,7 @@ void symmetricPolarDecompose(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecompose(U, R);
+		T.polar(U, R);
 }
 BENCHMARK(symmetricPolarDecompose);
 
@@ -128,7 +128,7 @@ void symmetricPolarDecomposeQL(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeQL(U, R);
+		T.polarQL(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeQL);
 
@@ -138,7 +138,7 @@ void symmetricPolarDecomposeJacobi(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeJacobi(U, R);
+		T.polarJacobi(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeJacobi);
 
@@ -148,7 +148,7 @@ void symmetricPolarDecomposeCuppen(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeCuppen(U, R);
+		T.polarCuppen(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeCuppen);
 
@@ -158,7 +158,7 @@ void symmetricPolarDecomposeLapackLnU(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeLapackLnU(U, R);
+		T.polarLapackLnU(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeLapackLnU);
 
@@ -168,7 +168,7 @@ void symmetricPolarDecomposeLnU(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeLnU(U, R);
+		T.polarLnU(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeLnU);
 
@@ -178,7 +178,7 @@ void symmetricPolarDecomposeQLLnU(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeQLLnU(U, R);
+		T.polarQLLnU(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeQLLnU);
 
@@ -188,7 +188,7 @@ void symmetricPolarDecomposeJacobiLnU(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeJacobiLnU(U, R);
+		T.polarJacobiLnU(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeJacobiLnU);
 
@@ -198,7 +198,7 @@ void symmetricPolarDecomposeCuppenLnU(benchmark::State &state)
 	Tensor2 R;
 	SymTensor2 U;
 	for (auto _ : state)
-		T.polarDecomposeCuppenLnU(U, R);
+		T.polarCuppenLnU(U, R);
 }
 BENCHMARK(symmetricPolarDecomposeCuppenLnU);
 
