@@ -121,32 +121,44 @@ def addDocToTex(data):
     return out
 
 def writeTex(out, key):
-    dc = docs[key]
     # Writes the warning
     out.append("%Warning :\n%This area is an automatic documentation generated from the DynELA source code.\n%Do not change anything in this latex file between this position and the @END keyword.")
     
     # Writes the header
     ln = "\\textcolor{purple}{\\textbf{" + texify(key) + "}}\\label{" + key + "}"
-    if dc[0]!='' :
-        ln += ' : ' + dc[0]
+    
     # Writes the cross index
     if '::' in key :
         ln2 = key.replace('::','!')
-        ln += '\\index[DL]{'+texify(ln2)+'}'    
-    # Writes the return
-    if dc[1]!='' :
-        ln += ("\\\\ \\hspace*{5mm}$\\hookrightarrow$ "+dc[1])
-    out.append(ln)
-    out.append('')
+        ln += '\\index[DL]{'+texify(ln2)+'}'   
         
-    # Writes the Warning
-    if dc[2]!='' :
-        out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :} '+dc[2]+'}')
-        out.append('')
-        
-    # Writes the documentation
-    for ln in dc[-1]:
+    # If key exists, write the corresponding documentation
+    if key in docs:
+        dc = docs[key]
+
+        # Writes the short documentation if exists
+        if dc[0]!='' :
+            ln += ' : ' + dc[0]
+ 
+        # Writes the return
+        if dc[1]!='' :
+            ln += ("\\\\ \\hspace*{5mm}$\\hookrightarrow$ "+dc[1])
         out.append(ln)
+        out.append('')
+            
+        # Writes the Warning
+        if dc[2]!='' :
+            out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :} '+dc[2]+'}')
+            out.append('')
+            
+        # Writes the documentation
+        for ln in dc[-1]:
+            out.append(ln)
+    # Else, writes that the documentation have to be written
+    else:
+        ln += " : \\textcolor{red}{\\textbf{No documentation defined in source files.}}"
+        out.append(ln)
+        out.append('')
     return out
 
 # Start of the main application
