@@ -22,6 +22,7 @@
 #include <cstring>
 #include <iostream>
 #include <Errors.h>
+#include <Defines.h>
 
 #define DEFAULT_stack_size 10 // Default stack size of the List
 #define DEFAULT_stack_inc 10  // Default stack increment of the List
@@ -57,6 +58,9 @@ private:
     long s_inc;    // Current stack increment for the List
     long pcurrent; // The current index of the current object in the List
     Type *ptr;     // A pointer to the current object in the List
+#ifdef VERIF_bounds
+    bool locked = false;
+#endif
 
 public:
     List(const long stack = DEFAULT_stack_size);
@@ -85,6 +89,8 @@ public:
     Type currentUp();
     Type dichotomySearch(long (*funct)(const Type objet1, const long i), const long i) const;
     Type first();
+    Type initLoop();
+    void endLoop();
     Type last();
     Type next();
     Type operator()(const long i) const;
@@ -321,6 +327,36 @@ Type List<Type>::operator()(const long index)
     return ptr[index];
 }
 
+//-----------------------------------------------------------------------------
+template <class Type>
+Type List<Type>::initLoop()
+//-----------------------------------------------------------------------------
+{
+#ifdef VERIF_bounds
+    if (locked == true)
+    {
+        std::cerr << "Fatal Error in template <class Type> Type List<Type>::initLoop()\n";
+        std::cerr << "Already in a previous loop\n";
+        exit(-1);
+    }
+    locked = true;
+#endif
+
+    if (sz == 0)
+        return NULL;
+
+    return ptr[pcurrent = 0];
+}
+
+//-----------------------------------------------------------------------------
+template <class Type>
+void List<Type>::endLoop()
+//-----------------------------------------------------------------------------
+{
+#ifdef VERIF_bounds
+    locked = false;
+#endif
+}
 /*
   Next element in the list
   This method uses an internal list lookup mechanism to return the next element in the list.
@@ -332,10 +368,18 @@ template <class Type>
 Type List<Type>::next()
 //-----------------------------------------------------------------------------
 {
-    if (pcurrent >= sz - 1)
+#ifdef VERIF_bounds
+    if (locked == false)
     {
-        return NULL;
+        std::cerr << "Fatal Error in template <class Type> Type List<Type>::next()\n";
+        std::cerr << "Not in a loop\n";
+        exit(-1);
     }
+#endif
+
+    if (pcurrent >= sz - 1)
+        return NULL;
+
     return ptr[++pcurrent];
 }
 
@@ -351,10 +395,17 @@ template <class Type>
 Type List<Type>::currentUp()
 //-----------------------------------------------------------------------------
 {
-    if (pcurrent >= sz)
+#ifdef VERIF_bounds
+    if (locked == false)
     {
-        return NULL;
+        std::cerr << "Fatal Error in template <class Type> Type List<Type>::currentUp()\n";
+        std::cerr << "Not in a loop\n";
+        exit(-1);
     }
+#endif
+
+    if (pcurrent >= sz)
+        return NULL;
 
     return ptr[pcurrent++];
 }
@@ -371,10 +422,17 @@ template <class Type>
 Type List<Type>::currentDown()
 //-----------------------------------------------------------------------------
 {
-    if (pcurrent < 0)
+#ifdef VERIF_bounds
+    if (locked == false)
     {
-        return NULL;
+        std::cerr << "Fatal Error in template <class Type> Type List<Type>::currentDown()\n";
+        std::cerr << "Not in a loop\n";
+        exit(-1);
     }
+#endif
+
+    if (pcurrent < 0)
+        return NULL;
 
     return ptr[pcurrent--];
 }
@@ -391,9 +449,8 @@ Type List<Type>::first()
 //-----------------------------------------------------------------------------
 {
     if (sz == 0)
-    {
         return NULL;
-    }
+
     return ptr[pcurrent = 0];
 }
 
@@ -409,9 +466,8 @@ Type List<Type>::last()
 //-----------------------------------------------------------------------------
 {
     if (sz == 0)
-    {
         return NULL;
-    }
+
     return ptr[pcurrent = sz - 1];
 }
 
@@ -427,10 +483,18 @@ template <class Type>
 Type List<Type>::previous()
 //-----------------------------------------------------------------------------
 {
-    if (pcurrent == 0)
+#ifdef VERIF_bounds
+    if (locked == false)
     {
-        return NULL;
+        std::cerr << "Fatal Error in template <class Type> Type List<Type>::previous()\n";
+        std::cerr << "Not in a loop\n";
+        exit(-1);
     }
+#endif
+
+    if (pcurrent == 0)
+        return NULL;
+
     return ptr[--pcurrent];
 }
 
@@ -447,9 +511,8 @@ Type List<Type>::current()
 //-----------------------------------------------------------------------------
 {
     if (sz == 0)
-    {
         return NULL;
-    }
+
     return ptr[pcurrent];
 }
 

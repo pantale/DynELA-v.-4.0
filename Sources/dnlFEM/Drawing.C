@@ -39,7 +39,7 @@ void Drawing::computeBoundBox()
   Vec3D coordinates = polygons.first()->vertices[0];
   bottomLeft = topRight = coordinates;
 
-  Polygon *polygon = polygons.first();
+  Polygon *polygon = polygons.initLoop();
   while ((polygon = polygons.currentUp()) != NULL)
   {
     for (int i = 0; i < polygon->points; i++)
@@ -54,6 +54,7 @@ void Drawing::computeBoundBox()
       }
     }
   }
+  polygons.endLoop();
 
   center = (topRight + bottomLeft) / 2;
 }
@@ -140,7 +141,7 @@ bool compareCentersZXY(Polygon *p1, Polygon *p2)
 void Drawing::initPolygons()
 //-----------------------------------------------------------------------------
 {
-  Element *pel = dynelaData->model.elements.first();
+  Element *pel = dynelaData->model.elements.initLoop();
   while ((pel = dynelaData->model.elements.currentUp()) != NULL)
   {
     for (int face = 0; face < pel->getNumberOfFaces(); face++)
@@ -161,6 +162,7 @@ void Drawing::initPolygons()
       polygons << polygon;
     }
   }
+  dynelaData->model.elements.endLoop();
 
   pel = dynelaData->model.elements.first();
   if (pel->getFamily() == Element::Threedimensional)
@@ -209,11 +211,12 @@ void Drawing::initPolygons()
 void Drawing::resetPolygons()
 //-----------------------------------------------------------------------------
 {
-  Polygon *polygon = polygons.first();
+  Polygon *polygon = polygons.initLoop();
   while ((polygon = polygons.currentUp()) != NULL)
   {
     polygon->resetCoordinates();
   }
+  polygons.endLoop();
 }
 
 //-----------------------------------------------------------------------------
@@ -237,11 +240,12 @@ void Drawing::rotate(Vec3D axis, double angle)
   Mat(2, 1) = axis(1) * axis(2) + axis(0) * sin(angleRadians) - axis(1) * axis(2) * cos(angleRadians);
   Mat(2, 2) = dnlSquare(axis(2)) + cos(angleRadians) * (-dnlSquare(axis(2)) + 1);
 
-  Polygon *polygon = polygons.first();
+  Polygon *polygon = polygons.initLoop();
   while ((polygon = polygons.currentUp()) != NULL)
   {
     polygon->rotate(Mat);
   }
+  polygons.endLoop();
 }
 
 //-----------------------------------------------------------------------------
@@ -252,11 +256,12 @@ void Drawing::mapToWorld()
   // if (dynelaData->model.elements.first()->getFamily() == Element::Threedimensional)
   zBufferSort();
 
-  Polygon *polygon = polygons.first();
+  Polygon *polygon = polygons.initLoop();
   while ((polygon = polygons.currentUp()) != NULL)
   {
     polygon->remapVertices(center, worldCenter, worldScale);
   }
+  polygons.endLoop();
 }
 
 //-----------------------------------------------------------------------------
@@ -273,10 +278,11 @@ void Drawing::zBufferSort()
   polygons.sort(zBufferCenters);
 
   Vec3D zAxis = Vec3D(0, 0, 1);
-  Polygon *polygon = polygons.first();
+  Polygon *polygon = polygons.initLoop();
   while ((polygon = polygons.currentUp()) != NULL)
   {
     polygon->computeNormal();
     polygon->visible = (polygon->normal.dotProduct(zAxis) >= 0 ? true : false);
   }
+  polygons.endLoop();
 }

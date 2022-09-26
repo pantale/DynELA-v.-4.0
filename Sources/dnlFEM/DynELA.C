@@ -782,7 +782,7 @@ void DynELA::getNodalValuesRange(short field, double &min, double &max)
     fatalError("DynELA::getNodalValuesRange", "field must be scalar");
   }
 
-  Node *pnd = model.nodes.first();
+  Node *pnd = model.nodes.initLoop();
   double val;
   min = max = pnd->getNodalValue(field);
   while ((pnd = model.nodes.currentUp()) != NULL)
@@ -793,6 +793,7 @@ void DynELA::getNodalValuesRange(short field, double &min, double &max)
     if (val > max)
       max = val;
   }
+  model.nodes.endLoop();
 }
 /*
 

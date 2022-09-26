@@ -218,7 +218,7 @@ String Polygon::getInterpolatedPolygonSvgCode(ColorMap &map, int decompLevel, sh
 
   _polygonPatches.createPatch(this, map, field);
 
-  patch = _polygonPatches._polygonPatches.first();
+  patch = _polygonPatches._polygonPatches.initLoop();
   while ((patch = _polygonPatches._polygonPatches.currentUp()) != NULL)
   {
     // Begin polygon
@@ -241,6 +241,7 @@ String Polygon::getInterpolatedPolygonSvgCode(ColorMap &map, int decompLevel, sh
     // End polygon
     svgcode += "\" />\n";
   }
+  _polygonPatches._polygonPatches.endLoop();
 
   if (stroke)
   {

@@ -102,11 +102,12 @@ void SvgInterface::initDrawing()
 
   if (_rotate)
   {
-    SvgRotate *rot = _rotateList.first();
+    SvgRotate *rot = _rotateList.initLoop();
     while ((rot = _rotateList.currentUp()) != NULL)
     {
       dynelaData->drawing.rotate(rot->axis, rot->angle);
     }
+    _rotateList.endLoop();
   }
 
   // Compute Bound Box of the model
@@ -175,7 +176,7 @@ void SvgInterface::meshWrite()
 {
   _stream << "<g id =\"mesh\">\n";
 
-  Polygon *polygon = dynelaData->drawing.polygons.first();
+  Polygon *polygon = dynelaData->drawing.polygons.initLoop();
   while ((polygon = dynelaData->drawing.polygons.currentUp()) != NULL)
   {
     if (polygon->isVisible())
@@ -183,6 +184,7 @@ void SvgInterface::meshWrite()
       _stream << polygon->getWhitePolygonSvgCode(_meshThickness);
     }
   }
+  dynelaData->drawing.polygons.endLoop();
   _stream << "</g>\n";
 }
 
@@ -192,7 +194,7 @@ void SvgInterface::flatPolygonsWrite()
 {
   _stream << "<g id =\"field\">\n";
 
-  Polygon *polygon = dynelaData->drawing.polygons.first();
+  Polygon *polygon = dynelaData->drawing.polygons.initLoop();
   while ((polygon = dynelaData->drawing.polygons.currentUp()) != NULL)
   {
     if (polygon->isVisible())
@@ -200,6 +202,7 @@ void SvgInterface::flatPolygonsWrite()
       _stream << polygon->getFlatPolygonSvgCode(colorMap, field, _meshDisplay, _meshThickness);
     }
   }
+  dynelaData->drawing.polygons.endLoop();
   _stream << "</g>\n";
 }
 
@@ -209,7 +212,7 @@ void SvgInterface::interpolatedPolygonsWrite()
 {
   _stream << "<g id =\"field\">\n";
 
-  Polygon *polygon = dynelaData->drawing.polygons.first();
+  Polygon *polygon = dynelaData->drawing.polygons.initLoop();
   while ((polygon = dynelaData->drawing.polygons.currentUp()) != NULL)
   {
     if (polygon->isVisible())
@@ -219,6 +222,7 @@ void SvgInterface::interpolatedPolygonsWrite()
       _stream << "</g>\n";
     }
   }
+  dynelaData->drawing.polygons.endLoop();
   _stream << "</g>\n";
 }
 

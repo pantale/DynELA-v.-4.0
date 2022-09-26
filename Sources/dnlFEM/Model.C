@@ -758,7 +758,7 @@ void Model::computeJacobian(bool reference)
   {
     ElementsChunk *chunk = dynelaData->parallel.getElementsOfCurrentCore();
 
-    Element *pel = chunk->elements.first();
+    Element *pel = chunk->elements.initLoop();
     while ((pel = chunk->elements.currentUp()) != NULL)
     {
       if (pel->computeJacobian(reference) == false)
@@ -769,6 +769,7 @@ void Model::computeJacobian(bool reference)
         exit(-1);
       }
     }
+    chunk->elements.endLoop();
   }
 }
 
@@ -780,7 +781,7 @@ void Model::computeUnderJacobian(bool reference)
   {
     ElementsChunk *chunk = dynelaData->parallel.getElementsOfCurrentCore();
 
-    Element *pel = chunk->elements.first();
+    Element *pel = chunk->elements.initLoop();
     while ((pel = chunk->elements.currentUp()) != NULL)
     {
       if (pel->computeUnderJacobian(reference) == false)
@@ -791,6 +792,7 @@ void Model::computeUnderJacobian(bool reference)
         exit(-1);
       }
     }
+    chunk->elements.endLoop();
   }
 }
 
@@ -802,11 +804,12 @@ void Model::computeStrains()
   {
     ElementsChunk *chunk = dynelaData->parallel.getElementsOfCurrentCore();
 
-    Element *pel = chunk->elements.first();
+    Element *pel = chunk->elements.initLoop();
     while ((pel = chunk->elements.currentUp()) != NULL)
     {
       pel->computeStrains();
     }
+    chunk->elements.endLoop();
   }
 }
 
@@ -951,12 +954,13 @@ double Model::computePowerIterationTimeStep(bool underIntegration)
   // matrices globales
   long numberOfDDL = _numberOfDimensions * nodes.getSize();
 
-  pel = elements.first();
+  pel = elements.initLoop();
   while ((pel = elements.currentUp()) != NULL)
   {
     // recuperation de l'element
     pel->computeElasticStiffnessMatrix(underIntegration);
   }
+  elements.endLoop();
 
   // initialisation du vecteur si besoin
   if ((_powerIterationFreqMax == 0) || (_powerIterationEV.getSize() != numberOfDDL))
@@ -971,7 +975,7 @@ double Model::computePowerIterationTimeStep(bool underIntegration)
   {
     iteration++;
     powerIterationEV0 = _powerIterationEV;
-    pel = elements.first();
+    pel = elements.initLoop();
     while ((pel = elements.currentUp()) != NULL)
     {
       localValues.redim(pel->stiffnessMatrix.rows());
@@ -982,6 +986,7 @@ double Model::computePowerIterationTimeStep(bool underIntegration)
       localValues = pel->stiffnessMatrix * localValues;
       _powerIterationEV.gatherFrom(localValues, localIndices, _numberOfDimensions);
     }
+    elements.endLoop();
 
     massMatrix.divideBy(_powerIterationEV);
     fmax = _powerIterationEV.maxAbsoluteValue();
