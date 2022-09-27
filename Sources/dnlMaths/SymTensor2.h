@@ -50,9 +50,9 @@ class SymTensor2
 
 private:
   bool indexOK(short, short) const;
-  void buildFTF(double FTF[3][3]) const;
-  void polarExtract(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const;
-  void polarExtractLnU(double eigenVectors[3][3], double eigenValues[3], SymTensor2 &U, Tensor2 &R) const;
+  void buildFTF(double[3][3]) const;
+  void polarExtract(double[3][3], double[3], SymTensor2 &, Tensor2 &) const;
+  void polarExtractLnU(double[3][3], double[3], SymTensor2 &, Tensor2 &) const;
 
 public:
   SymTensor2();
@@ -109,8 +109,8 @@ public:
   SymTensor2 operator*(const double) const;
   SymTensor2 operator/(const double) const;
   SymTensor2 operator+(const SymTensor2 &) const;
-  SymTensor2 productByRTxR(const Tensor2 R) const;
-  SymTensor2 productByRxRT(const Tensor2 R) const;
+  SymTensor2 productByRTxR(const Tensor2) const;
+  SymTensor2 productByRxRT(const Tensor2) const;
   SymTensor2 singleProduct() const;
   Tensor2 operator*(const SymTensor2 &) const;
   Tensor2 operator*(const Tensor2 &) const;
@@ -121,21 +121,21 @@ public:
   Vec3D operator*(const Vec3D &) const;
   Vec3D rowSum() const;
   Vec3D solve(const Vec3D &) const;
-  void computeDeviator(SymTensor2 &deviator, double &pressure) const;
+  void computeDeviator(SymTensor2 &, double &) const;
   void numpyRead(std::string);
   void numpyReadZ(std::string, std::string);
-  void numpyWrite(std::string, bool initialize = false) const;
-  void numpyWriteZ(std::string, std::string, bool initialize = false) const;
+  void numpyWrite(std::string, bool = false) const;
+  void numpyWriteZ(std::string, std::string, bool = false) const;
   void polar(SymTensor2 &, Tensor2 &) const;
-  void polarQL(SymTensor2 &U, Tensor2 &R) const;
-  void polarJacobi(SymTensor2 &U, Tensor2 &R) const;
-  void polarCuppen(SymTensor2 &U, Tensor2 &R) const;
-  void polarLapack(SymTensor2 &U, Tensor2 &R) const;
+  void polarQL(SymTensor2 &, Tensor2 &) const;
+  void polarJacobi(SymTensor2 &, Tensor2 &) const;
+  void polarCuppen(SymTensor2 &, Tensor2 &) const;
+  void polarLapack(SymTensor2 &, Tensor2 &) const;
   void polarLnU(SymTensor2 &, Tensor2 &) const;
-  void polarQLLnU(SymTensor2 &U, Tensor2 &R) const;
-  void polarJacobiLnU(SymTensor2 &U, Tensor2 &R) const;
-  void polarCuppenLnU(SymTensor2 &U, Tensor2 &R) const;
-  void polarLapackLnU(SymTensor2 &U, Tensor2 &R) const;
+  void polarQLLnU(SymTensor2 &, Tensor2 &) const;
+  void polarJacobiLnU(SymTensor2 &, Tensor2 &) const;
+  void polarCuppenLnU(SymTensor2 &, Tensor2 &) const;
+  void polarLapackLnU(SymTensor2 &, Tensor2 &) const;
   void setToUnity();
   void setToValue(const double);
   void setToZero();

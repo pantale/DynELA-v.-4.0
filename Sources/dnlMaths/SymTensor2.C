@@ -49,27 +49,34 @@ All components are initialized to zero by default.
 SymTensor2::SymTensor2()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0.0);
+  setToValue(0);
 }
 
 /*
-@LABEL:SymTensor2::SymTensor2(SymTensor2)
+@LABEL:SymTensor2::SymTensor2(SymTensor2 T)
 @SHORT:Copy constructor of the SymTensor2 class.
 @RETURN:SymTensor2
+@ARG:SymTensor2&T&Tensor to copy.
 @END
 */
 //-----------------------------------------------------------------------------
-SymTensor2::SymTensor2(const SymTensor2 &tensor)
+SymTensor2::SymTensor2(const SymTensor2 &T)
 //-----------------------------------------------------------------------------
 {
-  memcpy(_data, tensor._data, 6 * sizeof(double));
+  memcpy(_data, T._data, 6 * sizeof(double));
 }
 
 /*
 @LABEL:SymTensor2::SymTensor2(double,...)
 @SHORT:Constructor of the SymTensor2 class.
 @RETURN:SymTensor2
-Constructor of a second order tensor with initialization of the 9 values.
+Constructor of a second order symmetric tensor with explicit initialization of the 6 components of the tensor.
+@ARG:double&t1&Component $t_{11}$ of the tensor.
+@ARG:double&t2&Component $t_{12}$ of the tensor.
+@ARG:double&t3&Component $t_{13}$ of the tensor.
+@ARG:double&t4&Component $t_{22}$ of the tensor.
+@ARG:double&t5&Component $t_{23}$ of the tensor.
+@ARG:double&t6&Component $t_{33}$ of the tensor.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -160,12 +167,12 @@ This method transforms the current tensor to a unity tensor.
 void SymTensor2::setToUnity()
 //-----------------------------------------------------------------------------
 {
-  _data[0] = 1.0;
-  _data[1] = 0.0;
-  _data[2] = 0.0;
-  _data[3] = 1.0;
-  _data[4] = 0.0;
-  _data[5] = 1.0;
+  _data[0] = 1;
+  _data[1] = 0;
+  _data[2] = 0;
+  _data[3] = 1;
+  _data[4] = 0;
+  _data[5] = 1;
 }
 
 /*
@@ -185,13 +192,14 @@ void SymTensor2::setToUnity()
 void SymTensor2::setToZero()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0.0);
+  setToValue(0);
 }
 
 /*
-@LABEL:SymTensor2::operator=(double)
+@LABEL:SymTensor2::operator=(double val)
 @SHORT:Fill a second order tensor with a scalar value.
 @RETURN:SymTensor2
+@ARG:double&val&Value to use for the operation.
 This method is a surdefinition of the = operator for the symmetric second order tensor class.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
@@ -221,10 +229,10 @@ SymTensor2 &SymTensor2::operator=(const double &val)
   - tensor Second second order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
-SymTensor2 &SymTensor2::operator=(const SymTensor2 &tensor)
+SymTensor2 &SymTensor2::operator=(const SymTensor2 &T)
 //-----------------------------------------------------------------------------
 {
-  memcpy(_data, tensor._data, 6 * sizeof(double));
+  memcpy(_data, T._data, 6 * sizeof(double));
   return *this;
 }
 
@@ -359,7 +367,7 @@ SymTensor2 SymTensor2::operator/(const double lambda) const
   SymTensor2 result;
 
 #ifdef VERIF_maths
-  if (lambda == 0.0)
+  if (lambda == 0)
   {
     fatalError("SymTensor2:: operator /", "divide by zero");
   }
@@ -434,9 +442,10 @@ SymTensor2 SymTensor2::singleProduct() const
 }
 
 /*
-@LABEL:SymTensor2::operator*(SymTensor2)
+@LABEL:SymTensor2::operator*(SymTensor2 T)
 @SHORT:Multiplication of 2 second order tensors.
 @RETURN:Tensor2
+@ARG:Tensor2&T&Second Tensor for the multiplication operation.
 This method defines a single contracted product of two symmetric second order tensors.
 The result of this operation is also a second order tensor defined by:
 \begin{equation*}
@@ -446,28 +455,29 @@ where $\A$ and $\B$ are two symmetric second order tensors.
 @END
 */
 //-----------------------------------------------------------------------------
-Tensor2 SymTensor2::operator*(const SymTensor2 &tensor) const
+Tensor2 SymTensor2::operator*(const SymTensor2 &T) const
 //-----------------------------------------------------------------------------
 {
   Tensor2 result;
 
-  result._data[0] = _data[0] * tensor._data[0] + _data[1] * tensor._data[1] + _data[2] * tensor._data[2];
-  result._data[1] = _data[0] * tensor._data[1] + _data[1] * tensor._data[3] + _data[2] * tensor._data[4];
-  result._data[2] = _data[0] * tensor._data[2] + _data[1] * tensor._data[4] + _data[2] * tensor._data[5];
-  result._data[3] = _data[1] * tensor._data[0] + _data[3] * tensor._data[1] + _data[4] * tensor._data[2];
-  result._data[4] = _data[1] * tensor._data[1] + _data[3] * tensor._data[3] + _data[4] * tensor._data[4];
-  result._data[5] = _data[1] * tensor._data[2] + _data[3] * tensor._data[4] + _data[4] * tensor._data[5];
-  result._data[6] = _data[2] * tensor._data[0] + _data[4] * tensor._data[1] + _data[5] * tensor._data[2];
-  result._data[7] = _data[2] * tensor._data[1] + _data[4] * tensor._data[3] + _data[5] * tensor._data[4];
-  result._data[8] = _data[2] * tensor._data[2] + _data[4] * tensor._data[4] + _data[5] * tensor._data[5];
+  result._data[0] = _data[0] * T._data[0] + _data[1] * T._data[1] + _data[2] * T._data[2];
+  result._data[1] = _data[0] * T._data[1] + _data[1] * T._data[3] + _data[2] * T._data[4];
+  result._data[2] = _data[0] * T._data[2] + _data[1] * T._data[4] + _data[2] * T._data[5];
+  result._data[3] = _data[1] * T._data[0] + _data[3] * T._data[1] + _data[4] * T._data[2];
+  result._data[4] = _data[1] * T._data[1] + _data[3] * T._data[3] + _data[4] * T._data[4];
+  result._data[5] = _data[1] * T._data[2] + _data[3] * T._data[4] + _data[4] * T._data[5];
+  result._data[6] = _data[2] * T._data[0] + _data[4] * T._data[1] + _data[5] * T._data[2];
+  result._data[7] = _data[2] * T._data[1] + _data[4] * T._data[3] + _data[5] * T._data[4];
+  result._data[8] = _data[2] * T._data[2] + _data[4] * T._data[4] + _data[5] * T._data[5];
 
   return result;
 }
 
 /*
-@LABEL:SymTensor2::operator*(Tensor2)
+@LABEL:SymTensor2::operator*(Tensor2 T)
 @SHORT:Multiplication of 2 second order tensors.
 @RETURN:Tensor2
+@ARG:Tensor2&T&Second Tensor for the multiplication operation.
 This method defines a single contracted product of two symmetric second order tensors.
 The result of this operation is also a second order tensor defined by:
 \begin{equation*}
@@ -477,28 +487,29 @@ where $\B$ is a second order tensor and $\A$ is a symmetric second order tensor.
 @END
 */
 //-----------------------------------------------------------------------------
-Tensor2 SymTensor2::operator*(const Tensor2 &tensor) const
+Tensor2 SymTensor2::operator*(const Tensor2 &T) const
 //-----------------------------------------------------------------------------
 {
   Tensor2 result;
 
-  result._data[0] = _data[0] * tensor._data[0] + _data[1] * tensor._data[3] + _data[2] * tensor._data[6];
-  result._data[1] = _data[0] * tensor._data[1] + _data[1] * tensor._data[4] + _data[2] * tensor._data[7];
-  result._data[2] = _data[0] * tensor._data[2] + _data[1] * tensor._data[5] + _data[2] * tensor._data[8];
-  result._data[3] = _data[1] * tensor._data[0] + _data[3] * tensor._data[3] + _data[4] * tensor._data[6];
-  result._data[4] = _data[1] * tensor._data[1] + _data[3] * tensor._data[4] + _data[4] * tensor._data[7];
-  result._data[5] = _data[1] * tensor._data[2] + _data[3] * tensor._data[5] + _data[4] * tensor._data[8];
-  result._data[6] = _data[2] * tensor._data[0] + _data[5] * tensor._data[3] + _data[5] * tensor._data[6];
-  result._data[7] = _data[2] * tensor._data[1] + _data[4] * tensor._data[4] + _data[5] * tensor._data[7];
-  result._data[8] = _data[2] * tensor._data[2] + _data[4] * tensor._data[5] + _data[5] * tensor._data[8];
+  result._data[0] = _data[0] * T._data[0] + _data[1] * T._data[3] + _data[2] * T._data[6];
+  result._data[1] = _data[0] * T._data[1] + _data[1] * T._data[4] + _data[2] * T._data[7];
+  result._data[2] = _data[0] * T._data[2] + _data[1] * T._data[5] + _data[2] * T._data[8];
+  result._data[3] = _data[1] * T._data[0] + _data[3] * T._data[3] + _data[4] * T._data[6];
+  result._data[4] = _data[1] * T._data[1] + _data[3] * T._data[4] + _data[4] * T._data[7];
+  result._data[5] = _data[1] * T._data[2] + _data[3] * T._data[5] + _data[4] * T._data[8];
+  result._data[6] = _data[2] * T._data[0] + _data[5] * T._data[3] + _data[5] * T._data[6];
+  result._data[7] = _data[2] * T._data[1] + _data[4] * T._data[4] + _data[5] * T._data[7];
+  result._data[8] = _data[2] * T._data[2] + _data[4] * T._data[5] + _data[5] * T._data[8];
 
   return result;
 }
 
 /*
-@LABEL:SymTensor2::productByRxRT(Tensor2)
+@LABEL:SymTensor2::productByRxRT(Tensor2 R)
 @SHORT:Special combination for a multiplication of 3 second order tensors.
 @RETURN:Tensor2
+@ARG:Tensor2&R&Second Tensor for the multiplication operation.
 This method defines the product of a symmetric tensor by two rotations defined by the following equation:
 \begin{equation*}
 \R = \Q \cdot \A \cdot \Q^T =\left[\begin{array}{ccc}
@@ -536,9 +547,10 @@ SymTensor2 SymTensor2::productByRxRT(const Tensor2 R) const
 }
 
 /*
-@LABEL:SymTensor2::productByRTxR(Tensor2)
+@LABEL:SymTensor2::productByRTxR(Tensor2 R)
 @SHORT:Special combination for a multiplication of 3 second order tensors.
 @RETURN:Tensor2
+@ARG:Tensor2&R&Second Tensor for the multiplication operation.
 This method defines the product of a symmetric tensor by two rotations defined by the following equation:
 \begin{equation*}
 \R = \Q^T \cdot \A \cdot \Q =\left[\begin{array}{ccc}
@@ -576,11 +588,12 @@ SymTensor2 SymTensor2::productByRTxR(const Tensor2 R) const
 }
 
 /*
-@LABEL:SymTensor2::operator*(Vec3D)
+@LABEL:SymTensor2::operator*(Vec3D V)
 @SHORT:Multiplication of a symmetric second order tensor by a vector.
 @RETURN:Vec3D
-  This method defines the product of a symmetric second order tensor by a vector.
-  The result of this operation is also a vector defined by:
+@ARG:Vec3D&V&Vec3D to use for the multiplication operation.
+This method defines the product of a symmetric second order tensor by a vector.
+The result of this operation is also a vector defined by:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
 \end{equation*}
@@ -588,22 +601,23 @@ where $\A$ is a symmetric second order tensor and $\overrightarrow{x}$ and $\ove
 @END
 */
 //-----------------------------------------------------------------------------
-Vec3D SymTensor2::operator*(const Vec3D &vector) const
+Vec3D SymTensor2::operator*(const Vec3D &V) const
 //-----------------------------------------------------------------------------
 {
   Vec3D result;
 
-  result._data[0] = _data[0] * vector._data[0] + _data[1] * vector._data[1] + _data[2] * vector._data[2];
-  result._data[1] = _data[1] * vector._data[0] + _data[3] * vector._data[1] + _data[4] * vector._data[2];
-  result._data[2] = _data[2] * vector._data[0] + _data[4] * vector._data[1] + _data[5] * vector._data[2];
+  result._data[0] = _data[0] * V._data[0] + _data[1] * V._data[1] + _data[2] * V._data[2];
+  result._data[1] = _data[1] * V._data[0] + _data[3] * V._data[1] + _data[4] * V._data[2];
+  result._data[2] = _data[2] * V._data[0] + _data[4] * V._data[1] + _data[5] * V._data[2];
 
   return result;
 }
 
 /*
-@LABEL:SymTensor2::singleProduct(SymTensor2)
+@LABEL:SymTensor2::singleProduct(SymTensor2 T)
 @SHORT:Contracted product of two symmetric second order tensors.
 @RETURN:Tensor2
+@ARG:SymTensor2&T&Second Tensor for the multiplication operation.
 This method defines a single contracted product of two symmetric second order tensors.
 The result of this operation is also a second order tensor defined by:
 \begin{equation*}
@@ -617,28 +631,29 @@ where $\A$ and $\B$ are two symmetric second order tensors, the result is a non 
 @END
 */
 //-----------------------------------------------------------------------------
-Tensor2 SymTensor2::singleProduct(const SymTensor2 tensor) const
+Tensor2 SymTensor2::singleProduct(const SymTensor2 T) const
 //-----------------------------------------------------------------------------
 {
   Tensor2 result;
 
-  result._data[0] = _data[0] * tensor._data[0] + _data[1] * tensor._data[1] + _data[2] * tensor._data[2];
-  result._data[1] = _data[0] * tensor._data[1] + _data[1] * tensor._data[3] + _data[2] * tensor._data[4];
-  result._data[2] = _data[0] * tensor._data[2] + _data[1] * tensor._data[4] + _data[2] * tensor._data[5];
-  result._data[3] = _data[1] * tensor._data[0] + _data[3] * tensor._data[1] + _data[4] * tensor._data[2];
-  result._data[4] = _data[1] * tensor._data[1] + _data[3] * tensor._data[3] + _data[4] * tensor._data[4];
-  result._data[5] = _data[1] * tensor._data[2] + _data[3] * tensor._data[4] + _data[4] * tensor._data[5];
-  result._data[6] = _data[2] * tensor._data[0] + _data[4] * tensor._data[1] + _data[5] * tensor._data[2];
-  result._data[7] = _data[2] * tensor._data[1] + _data[4] * tensor._data[3] + _data[5] * tensor._data[4];
-  result._data[8] = _data[2] * tensor._data[2] + _data[4] * tensor._data[4] + _data[5] * tensor._data[5];
+  result._data[0] = _data[0] * T._data[0] + _data[1] * T._data[1] + _data[2] * T._data[2];
+  result._data[1] = _data[0] * T._data[1] + _data[1] * T._data[3] + _data[2] * T._data[4];
+  result._data[2] = _data[0] * T._data[2] + _data[1] * T._data[4] + _data[2] * T._data[5];
+  result._data[3] = _data[1] * T._data[0] + _data[3] * T._data[1] + _data[4] * T._data[2];
+  result._data[4] = _data[1] * T._data[1] + _data[3] * T._data[3] + _data[4] * T._data[4];
+  result._data[5] = _data[1] * T._data[2] + _data[3] * T._data[4] + _data[4] * T._data[5];
+  result._data[6] = _data[2] * T._data[0] + _data[4] * T._data[1] + _data[5] * T._data[2];
+  result._data[7] = _data[2] * T._data[1] + _data[4] * T._data[3] + _data[5] * T._data[4];
+  result._data[8] = _data[2] * T._data[2] + _data[4] * T._data[4] + _data[5] * T._data[5];
 
   return result;
 }
 
 /*
-@LABEL:SymTensor2::doubleProduct(SymTensor2)
+@LABEL:SymTensor2::doubleProduct(SymTensor2 T)
 @SHORT:Double contracted product of 2 second order tensors.
 @RETURN:double
+@ARG:SymTensor2&T&Second Tensor for the multiplication operation.
 This method defines a double contracted product of two symmetric second order tensors.
 The result of this operation is a scalar defined by:
 \begin{equation*}
@@ -648,15 +663,15 @@ where $\A$ and $\B$ are two symmetric second order tensors.
 @END
 */
 //-----------------------------------------------------------------------------
-double SymTensor2::doubleProduct(const SymTensor2 tensor) const
+double SymTensor2::doubleProduct(const SymTensor2 T) const
 //-----------------------------------------------------------------------------
 {
-  return (_data[0] * tensor._data[0] +
-          _data[3] * tensor._data[3] +
-          _data[5] * tensor._data[5] +
-          2.0 * (_data[1] * tensor._data[1] +
-                 _data[2] * tensor._data[2] +
-                 _data[4] * tensor._data[4]));
+  return (_data[0] * T._data[0] +
+          _data[3] * T._data[3] +
+          _data[5] * T._data[5] +
+          2.0 * (_data[1] * T._data[1] +
+                 _data[2] * T._data[2] +
+                 _data[4] * T._data[4]));
 }
 
 /*
@@ -692,17 +707,17 @@ double SymTensor2::doubleProduct() const
   Return : Deviator of a symmetric second order tensor
 */
 //-----------------------------------------------------------------------------
-void SymTensor2::computeDeviator(SymTensor2 &deviator, double &pressure) const
+void SymTensor2::computeDeviator(SymTensor2 &dev, double &p) const
 //-----------------------------------------------------------------------------
 {
-  pressure = getThirdTrace();
+  p = getThirdTrace();
 
-  deviator._data[0] = _data[0] - pressure;
-  deviator._data[3] = _data[3] - pressure;
-  deviator._data[5] = _data[5] - pressure;
-  deviator._data[1] = _data[1];
-  deviator._data[2] = _data[2];
-  deviator._data[4] = _data[4];
+  dev._data[0] = _data[0] - p;
+  dev._data[3] = _data[3] - p;
+  dev._data[5] = _data[5] - p;
+  dev._data[1] = _data[1];
+  dev._data[2] = _data[2];
+  dev._data[4] = _data[4];
 }
 
 /*
@@ -730,21 +745,6 @@ SymTensor2 SymTensor2::getDeviator() const
 
   return result;
 }
-
-/*
-  getTranspose of a second order tensor
-
-  This method defines the transpose of a second second order tensor.
-  The result of this operation is a second order tensor defined by:
-  \f[ T_2 = T_1^T \f]
-  Return : getTranspose of a second order tensor
-*/
-/* //-----------------------------------------------------------------------------
-SymTensor2 SymTensor2::getTranspose() const
-//-----------------------------------------------------------------------------
-{
-  return *this;
-} */
 
 /*
 @LABEL:SymTensor2::rowSum()
@@ -787,51 +787,10 @@ Vec3D SymTensor2::columnSum() const
 }
 
 /*
-  Symmetric part of a second order tensor
-
-  This method returns the symmetric part of a second second order tensor.
-  The result of this operation is a second second order tensor defined by:
-  \f[
-  s = \left[\begin{array}{ccc}
- v_{11} & \frac{v{12} + v{21}}{2} & \frac{v{13} + v{31}}{2}\\
- \frac{v{12} + v{21}}{2} & v_{22} & \frac {v{23} + v{32}}{2}\\
- \frac{v{13} + v{31}}{2} & \frac {v{23} + v{32}}{2} & v_{33}\end{array}
-\right]
-  \f]
-  - s_v Returned symmetric part of a second order tensor
-*/
-/* //-----------------------------------------------------------------------------
-SymTensor2 SymTensor2::getSymetricPart() const
-//-----------------------------------------------------------------------------
-{
-  return *this;
-} */
-
-/*
-  Skew-symmetric part of a second order tensor
-
-  This method returns the skew-symmetric part of a second second order tensor.
-  The result of this operation is a second second order tensor defined by:
-  \f[
-  s = \left[\begin{array}{ccc}
- v_{11} & \frac{v{12} - v{21}}{2} & \frac{v{13} - v{31}}{2}\\
- -\frac{v{12} -  v{21}}{2} & v_{22} & \frac {v{23} - v{32}}{2}\\
- -\frac{v{13} - v{31}}{2} & -\frac {v{23} - v{32}}{2} & v_{33}\end{array}
-\right]
-  \f]
-  - a_v Returned skew-symmetric part of a second order tensor
-*/
-/* //-----------------------------------------------------------------------------
-SymTensor2 SymTensor2::getSkewSymetricPart() const
-//-----------------------------------------------------------------------------
-{
-  return SymTensor2();
-} */
-
-/*
-@LABEL:SymTensor2::getRow(short)
+@LABEL:SymTensor2::getRow(short row)
 @SHORT:Extraction of a row from a second order tensor.
 @RETURN:Vec3D
+@ARG:short&row&Row to extract
 This method returns a vector as part of a second second order tensor.
 The result of this operation with the argument j is a vector defined by:
 \begin{equation*}
@@ -854,9 +813,10 @@ Vec3D SymTensor2::getRow(short row) const
 }
 
 /*
-@LABEL:SymTensor2::getColumn(short)
+@LABEL:SymTensor2::getColumn(short col)
 @SHORT:Extraction of a column from a second order tensor.
 @RETURN:Vec3D
+@ARG:short&col&Column to extract
 This method returns a vector as part of a second second order tensor.
 The result of this operation with the argument j is a vector defined by:
 \begin{equation*}
@@ -887,13 +847,13 @@ Vec3D SymTensor2::getColumn(short col) const
   - tensor Second second order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
-bool SymTensor2::operator==(const SymTensor2 &tensor) const
+bool SymTensor2::operator==(const SymTensor2 &T) const
 //-----------------------------------------------------------------------------
 {
   short i;
 
   for (i = 0; i < 6; i++)
-    if (_data[i] != tensor._data[i])
+    if (_data[i] != T._data[i])
     {
       return false;
     }
@@ -1101,7 +1061,7 @@ SymTensor2 SymTensor2::getInverse() const
   double t5 = _data[1] * _data[5];
   double t6 = _data[2] * _data[3];
 
-  double unSurDeter = 1.0 / (_data[0] * t1 + 2.0 * _data[1] * t2 - _data[0] * t4 - _data[1] * t5 - _data[2] * t6);
+  double unSurDeter = 1 / (_data[0] * t1 + 2.0 * _data[1] * t2 - _data[0] * t4 - _data[1] * t5 - _data[2] * t6);
   return SymTensor2((t1 - t4) * unSurDeter,
                     (t2 - t5) * unSurDeter,
                     (_data[1] * _data[4] - t6) * unSurDeter,
@@ -1312,9 +1272,11 @@ void SymTensor2::buildFTF(double FTF[3][3]) const
 }
 
 /*
-@LABEL:SymTensor2::polarQL(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarQL(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\U$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1340,9 +1302,11 @@ void SymTensor2::polarQL(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarQLLnU(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarQLLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1371,9 +1335,11 @@ void SymTensor2::polarQLLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarCuppen(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarCuppen(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1399,9 +1365,11 @@ void SymTensor2::polarCuppen(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarCuppenLnU(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1430,9 +1398,11 @@ void SymTensor2::polarCuppenLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarJacobi(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarJacobi(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1458,9 +1428,11 @@ void SymTensor2::polarJacobi(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarJacobiLnU(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1489,14 +1461,16 @@ void SymTensor2::polarJacobiLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarLapack(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarLapack(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
-It uses the LAPACKE\_dgeev function of the Lapack library.
+It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -1585,9 +1559,11 @@ void SymTensor2::polarLapack(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarLapackLnU(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarLapackLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1595,7 +1571,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
-It uses the LAPACKE\_dgeev function of the Lapack library.
+It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -1694,9 +1670,11 @@ void SymTensor2::polarLapackLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polarLnU(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polarLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the old \DynELA algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1726,15 +1704,15 @@ void SymTensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
   FF._data[5] = dnlSquare(_data[2]) + dnlSquare(_data[4]) + dnlSquare(_data[5]);
 
   // initialisation de Rot
-  Rot11 = 1.0;
-  Rot22 = 1.0;
-  Rot33 = 1.0;
-  Rot12 = 0.0;
-  Rot13 = 0.0;
-  Rot21 = 0.0;
-  Rot23 = 0.0;
-  Rot31 = 0.0;
-  Rot32 = 0.0;
+  Rot11 = 1;
+  Rot22 = 1;
+  Rot33 = 1;
+  Rot12 = 0;
+  Rot13 = 0;
+  Rot21 = 0;
+  Rot23 = 0;
+  Rot31 = 0;
+  Rot32 = 0;
 
   while (it < 30)
   {
@@ -1757,9 +1735,9 @@ void SymTensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
       LnU._data[2] = (Rot11 * Rot31 * _tmp1 + Rot12 * Rot32 * _tmp2 + Rot13 * Rot33 * _tmp3);
       LnU._data[4] = (Rot21 * Rot31 * _tmp1 + Rot22 * Rot32 * _tmp2 + Rot23 * Rot33 * _tmp3);
 
-      _tmp1 = 1.0 / sqrt(FF._data[0]);
-      _tmp2 = 1.0 / sqrt(FF._data[3]);
-      _tmp3 = 1.0 / sqrt(FF._data[5]);
+      _tmp1 = 1 / sqrt(FF._data[0]);
+      _tmp2 = 1 / sqrt(FF._data[3]);
+      _tmp3 = 1 / sqrt(FF._data[5]);
       _tmp4 = (Rot13 * _data[0] + Rot23 * _data[1] + Rot33 * _data[2]) * _tmp3;
       _tmp5 = (Rot12 * _data[0] + Rot22 * _data[1] + Rot32 * _data[2]) * _tmp2;
       _tmp6 = (Rot11 * _data[0] + Rot21 * _data[1] + Rot31 * _data[2]) * _tmp1;
@@ -1783,10 +1761,10 @@ void SymTensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
 
     // calcul de l'angle
     alpha = (FF._data[_internalIndexes.index[q][q]] - FF._data[_internalIndexes.index[p][p]]) / (2. * FF._data[_internalIndexes.index[p][q]]);
-    t = (alpha != 0.0 ? 1.0 / (alpha + sqrt(alpha * alpha + 1.0) * (alpha > 0.0 ? 1.0 : -1.0)) : 1.0);
+    t = (alpha != 0 ? 1 / (alpha + sqrt(alpha * alpha + 1) * (alpha > 0 ? 1 : -1)) : 1);
 
     // calcul des cosinus
-    Ctheta = 1.0 / (sqrt(1.0 + t * t));
+    Ctheta = 1 / (sqrt(1 + t * t));
     Stheta = t * Ctheta;
 
     // calcul du nouveau tenseur
@@ -1835,9 +1813,11 @@ void SymTensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
 }
 
 /*
-@LABEL:SymTensor2::polar(SymTensor2,Tensor2)
+@LABEL:SymTensor2::polar(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the old \DynELA algorithm.
 @RETURN:SymTensor2 and Tensor2
+@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
+@ARG:Tensor2&R&Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1864,15 +1844,15 @@ void SymTensor2::polar(SymTensor2 &U, Tensor2 &R) const
   FF._data[5] = dnlSquare(_data[2]) + dnlSquare(_data[4]) + dnlSquare(_data[5]);
 
   // initialisation de Rot
-  Rot11 = 1.0;
-  Rot22 = 1.0;
-  Rot33 = 1.0;
-  Rot12 = 0.0;
-  Rot13 = 0.0;
-  Rot21 = 0.0;
-  Rot23 = 0.0;
-  Rot31 = 0.0;
-  Rot32 = 0.0;
+  Rot11 = 1;
+  Rot22 = 1;
+  Rot33 = 1;
+  Rot12 = 0;
+  Rot13 = 0;
+  Rot21 = 0;
+  Rot23 = 0;
+  Rot31 = 0;
+  Rot32 = 0;
 
   while (it < 30)
   {
@@ -1895,9 +1875,9 @@ void SymTensor2::polar(SymTensor2 &U, Tensor2 &R) const
       U._data[2] = (Rot11 * Rot31 * _tmp1 + Rot12 * Rot32 * _tmp2 + Rot13 * Rot33 * _tmp3);
       U._data[4] = (Rot21 * Rot31 * _tmp1 + Rot22 * Rot32 * _tmp2 + Rot23 * Rot33 * _tmp3);
 
-      _tmp1 = 1.0 / sqrt(FF._data[0]);
-      _tmp2 = 1.0 / sqrt(FF._data[3]);
-      _tmp3 = 1.0 / sqrt(FF._data[5]);
+      _tmp1 = 1 / sqrt(FF._data[0]);
+      _tmp2 = 1 / sqrt(FF._data[3]);
+      _tmp3 = 1 / sqrt(FF._data[5]);
       _tmp4 = (Rot13 * _data[0] + Rot23 * _data[1] + Rot33 * _data[2]) * _tmp3;
       _tmp5 = (Rot12 * _data[0] + Rot22 * _data[1] + Rot32 * _data[2]) * _tmp2;
       _tmp6 = (Rot11 * _data[0] + Rot21 * _data[1] + Rot31 * _data[2]) * _tmp1;
@@ -1921,10 +1901,10 @@ void SymTensor2::polar(SymTensor2 &U, Tensor2 &R) const
 
     // calcul de l'angle
     alpha = (FF._data[_internalIndexes.index[q][q]] - FF._data[_internalIndexes.index[p][p]]) / (2. * FF._data[_internalIndexes.index[p][q]]);
-    t = (alpha != 0.0 ? 1.0 / (alpha + sqrt(alpha * alpha + 1.0) * (alpha > 0.0 ? 1.0 : -1.0)) : 1.0);
+    t = (alpha != 0 ? 1 / (alpha + sqrt(alpha * alpha + 1) * (alpha > 0 ? 1 : -1)) : 1);
 
     // calcul des cosinus
-    Ctheta = 1.0 / (sqrt(1.0 + t * t));
+    Ctheta = 1 / (sqrt(1 + t * t));
     Stheta = t * Ctheta;
 
     // calcul du nouveau tenseur

@@ -28,28 +28,28 @@
 #include <IntegrationPoint.h>
 
 /*
-  \file Node.C
-  fichier .C de definition des noeuds du maillage
-  \ingroup femLibrary
-
-  Ce fichier sert à la definition des noeuds du maillage elements finis sur DynELA.
-
-  \since DynELA 0.9.5
+@LABEL:Node::Node(long n, double x, double y, double z)
+@SHORT:Constructor of the Node class with initialization.
+@RETURN:Node
+@ARG:long&n&Node number to create.
+@ARG:double&x&X coordinate of the node to create.
+@ARG:double&y&Y coordinate of the node to create.
+@ARG:double&z&Z coordinate of the node to create.
+@END
 */
-
 //-----------------------------------------------------------------------------
-Node::Node(long nodeNumber, double xCoord, double yCoord, double zCoord)
+Node::Node(long n, double x, double y, double z)
 //-----------------------------------------------------------------------------
 {
-  // init du nodeNumber du noeud
-  //_listIndex = nodeNumber;
-  number = nodeNumber;
+  // init du n du noeud
+  //_listIndex = n;
+  number = n;
 
   // init des donnees
   mass = 0.;
 
   // init par defaut des coordonnees
-  coordinates.setValue(xCoord, yCoord, zCoord);
+  coordinates.setValue(x, y, z);
   // normal = 0.;
 
   // init par defaut de deux champs de donnees
@@ -63,17 +63,28 @@ Node::Node(long nodeNumber, double xCoord, double yCoord, double zCoord)
   boundary = NULL;
 }
 
+/*
+@LABEL:Node::Node(Node node)
+@SHORT:Copy constructor of the Node class.
+@RETURN:Node
+@ARG:Node&node&Node to copy.
+@END
+*/
 //-----------------------------------------------------------------------------
-Node::Node(const Node &nd)
+Node::Node(const Node &node)
 //-----------------------------------------------------------------------------
 {
   exit(-1);
   std::cout << "Copy of a Node" << std::endl;
 
-  coordinates = nd.coordinates;
-  // normal = nd.normal;
+  coordinates = node.coordinates;
 }
 
+/*
+@LABEL:Node::~Node()
+@SHORT:Destructor of the Node class.
+@END
+*/
 //-----------------------------------------------------------------------------
 Node::~Node()
 //-----------------------------------------------------------------------------
@@ -82,20 +93,6 @@ Node::~Node()
   delete currentField;
 }
 
-/* //-----------------------------------------------------------------------------
-bool Node::operator<(const Node &node) const
-//-----------------------------------------------------------------------------
-{
-  return (_listIndex < node._listIndex);
-}
-
-//-----------------------------------------------------------------------------
-bool Node::operator>(const Node &node) const
-//-----------------------------------------------------------------------------
-{
-  return (_listIndex > node._listIndex);
-}
- */
 //-----------------------------------------------------------------------------
 void Node::print(std::ostream &os) const
 //-----------------------------------------------------------------------------

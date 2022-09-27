@@ -18,13 +18,20 @@ class NodalField;
 class BoundaryCondition;
 class Element;
 
-//-----------------------------------------------------------------------------
-// Class : Node
-//
-// Used to manage Nodes in DynELA
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:Node::Node
+@SHORT:Finite Element Node class.
+This class is used to store information for Finite Element Nodes.
+@ARG:BoundaryCondition&*boundary&Boundary conditions on the current node.
+@ARG:double&mass&Nodal mass.
+@ARG:List<Element *>&elements&List of the elements that contains a reference to the current node.
+@ARG:long&number&Identification number of the node.
+@ARG:NodalField&*currentField&Nodal field of the node.
+@ARG:NodalField&*newField&Nodal field of the node.
+@ARG:Vec3D&coordinates&Coordinates of the corresponding node.
+@ARG:Vec3D&displacement&Displacement at the current node $\overrightarrow{d}$.
+@END
+*/
 class Node
 {
   friend class ListIndex<Node *>; // To be able to use ListIndex
@@ -45,8 +52,8 @@ public:
   Vec3D displacement = 0.0;    // Displacement at the current node \f$ \overrightarrow{d} \f$
 
 public:
-  Node(long nodeNumber = 1, double xCoord = 0.0, double yCoord = 0.0, double zCoord = 0.0);
-  Node(const Node &X);
+  Node(long = 1, double = 0.0, double = 0.0, double = 0.0);
+  Node(const Node &);
   ~Node();
 
   // Interface methods excluded from SWIG
@@ -66,17 +73,17 @@ public:
   /*   bool operator<(const Node &node) const;
   bool operator>(const Node &node) const;
  */
-  bool operator!=(const Node &node) const;
-  bool operator==(const Node &node) const;
-  double getNodalValue(short field);
+  bool operator!=(const Node &) const;
+  bool operator==(const Node &) const;
+  double getNodalValue(short);
   long &internalNumber();
   long objectSize();
-  NodalField *getNodalField(short time);
-  SymTensor2 getNodalSymTensor(short field);
-  Tensor2 getNodalTensor(short field);
-  Vec3D getNodalVec3D(short field);
-  void swapNodalFields();
+  NodalField *getNodalField(short);
+  SymTensor2 getNodalSymTensor(short);
+  Tensor2 getNodalTensor(short);
+  Vec3D getNodalVec3D(short);
   void copyNodalFieldToNew();
+  void swapNodalFields();
 
   /**Attach an element. This method is used to add a new reference to an element in the list of the elements connected to the current point. There is no limit in the number of elements connected to the current node, so there is no verification procedure to see if this is correct for the structure.*/
   /*

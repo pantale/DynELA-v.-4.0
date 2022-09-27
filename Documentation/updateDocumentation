@@ -9,8 +9,8 @@ Created on Mon Sep 19 09:41:29 2022
 from pathlib import Path
 import fnmatch
 
-def formDoc(label, brief, ret, warn, doc):
-    return label, [brief, ret, warn, doc]
+def formDoc(label, brief, ret, arg, warn, doc):
+    return label, [brief, ret, arg, warn, doc]
 
 def findFiles(path, pattern):
     lst = []
@@ -46,25 +46,34 @@ def extractDoc(files):
 def after(s, delim):
     return s.partition(delim)[2]
 
-def texify(str):
+def before(s, delim):
+    return s.partition(delim)[0]
+
+def texify(str, et=False):
     str = str.replace('~','$\sim$')
     str = str.replace('()','(~)')
+    if et:
+        str = str.replace('&','\&')    
     return str
 
 def returnDoc(data):
     Docs = {}
     doc = []
     label = ''
+    arg = []
     desc = ''
     ret = ''
     warn = ''
-    go = False;
+    go = False
     for line in data:
         if (go):
             ok = False
             if '@SHORT' in line:
                 desc = after(line,'@SHORT:')
                 ok = True
+            if '@ARG' in line:
+                arg.append(after(line,'@ARG:'))
+                ok = True     
             if '@RETURN' in line:
                 ret = after(line,'@RETURN:')
                 ok = True                
@@ -76,14 +85,14 @@ def returnDoc(data):
                     doc.append(line)
         if '@LABEL' in line:
             label = after(line,'@LABEL:')
-            #doc.append(label)
             go = True
         if '@END' in line:
             go = False
-            k, l = formDoc(label, desc, ret, warn, doc)
+            k, l = formDoc(label, desc, ret, arg, warn, doc)
             Docs[k] = l
             doc = []
             label = ''
+            arg = []
             desc = ''
             ret = ''
             warn = ''
@@ -125,7 +134,7 @@ def writeTex(out, key):
     out.append("%Warning :\n%This area is an automatic documentation generated from the DynELA source code.\n%Do not change anything in this latex file between this position and the @END keyword.")
     
     # Writes the header
-    ln = "\\textcolor{purple}{\\textbf{" + texify(key) + "}}\\label{" + key + "}"
+    ln = "\\textcolor{purple}{\\textbf{" + texify(key,True) + "}}\\label{" + key + "}"
     
     # Writes the cross index
     if '::' in key :
@@ -138,22 +147,34 @@ def writeTex(out, key):
 
         # Writes the short documentation if exists
         if dc[0]!='' :
-            ln += ' : ' + dc[0]
+            ln += '\\\\\n' + dc[0]
  
         # Writes the return
         if dc[1]!='' :
-            ln += ("\\\\ \\hspace*{5mm}$\\hookrightarrow$ "+dc[1])
+            ln += ("\\\\ \\hspace*{10mm}$\\hookrightarrow$ "+dc[1])
         out.append(ln)
         out.append('')
             
         # Writes the Warning
-        if dc[2]!='' :
-            out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :} '+dc[2]+'}')
+        if dc[3]!='' :
+            out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :} '+dc[3]+'}')
             out.append('')
-            
+
+        # Scan args
+        if (dc[2] != []):
+            ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R},title=Arguments of '+before(key,'(')+']\n'
+            for arg in dc[2]:
+                ln += arg 
+                if arg != dc[2][-1]:
+                    ln += '\\\\'
+                ln += '\n'
+            ln += '\\end{tcolorbox}\n'
+            out.append(ln)            
+
         # Writes the documentation
         for ln in dc[-1]:
             out.append(ln)
+            
     # Else, writes that the documentation have to be written
     else:
         ln += " : \\textcolor{red}{\\textbf{No documentation defined in source files.}}"

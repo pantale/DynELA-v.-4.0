@@ -59,8 +59,6 @@
 \usepackage{tabto}
 \usetikzlibrary{shadows.blur}
 \tcbuselibrary{skins}
-\usepackage{tocbibind}
-
 
 % Define the macros for color tables
 \newcolumntype{L}{>{\raggedleft\arraybackslash}X}
@@ -69,6 +67,9 @@
 \tcbset{myTab/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize,
 colback=gray!10!white,colframe=gray!75!black,colbacktitle=gray,
 coltitle=white,center title}}
+\tcbset{myArgs/.style={enhanced,fonttitle=\bfseries,fontupper=\normalsize,
+colback=gray!10!white,colframe=gray!75!black,colbacktitle=gray,
+coltitle=white,halign title=left, frame hidden}}
 
 % Sets the caption of all figures
 \usepackage{caption}
@@ -296,11 +297,16 @@ coltitle=white,center title}}
 }
 
 \ifx\pdfoutput\undefined
-\usepackage[ps2pdf,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
+\usepackage[ps2pdf,hypertexnames=false,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
 \else
-\usepackage[pdftex,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
+\usepackage[pdftex,hypertexnames=false,pagebackref=true,colorlinks=true,linkcolor=myRed,citecolor=myRed]{hyperref}
 \fi
 \makeindex
+
+\makeatletter
+\usepackage{etoolbox}
+\patchcmd\Hy@EveryPageBoxHook{\Hy@EveryPageAnchor}{\Hy@hypertexnamestrue\Hy@EveryPageAnchor}{}{\fail}
+\makeatother
 
 \newcommand{\DynELA}{DynELA Finite Element Code}
 
