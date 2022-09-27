@@ -172,6 +172,12 @@ bool Node::operator!=(const Node &node) const
   return !(*this == node);
 }
 
+/*
+@LABEL:Node::swapNodalFields()
+@SHORT:Swap the two nodalFields of the node.
+This method swaps the two nodalField of the element. So that the currentField becomes the newField and vice versa.
+@END
+*/
 //-----------------------------------------------------------------------------
 void Node::swapNodalFields()
 //-----------------------------------------------------------------------------
@@ -182,6 +188,11 @@ void Node::swapNodalFields()
   currentField = tmp;
 }
 
+/*
+@LABEL:Node::copyNodalFieldToNew()
+@SHORT:Copy the content of the nodalField to the newField.
+@END
+*/
 //-----------------------------------------------------------------------------
 void Node::copyNodalFieldToNew()
 //-----------------------------------------------------------------------------
@@ -310,6 +321,13 @@ long substractNodesNumber(Node *node1, const long number)
       return tensor(2, 2);                                                                                                   \
   }
 
+/*
+@LABEL:Node::getNodalValue(short field)
+@SHORT:Get back a nodalField value.
+@RETURN:double
+@ARG:short&field&Field to extract (see NodalField for informations).
+@END
+*/
 //-----------------------------------------------------------------------------
 double Node::getNodalValue(short field)
 //-----------------------------------------------------------------------------
@@ -372,6 +390,13 @@ double Node::getNodalValue(short field)
   return 0.0;
 }
 
+/*
+@LABEL:Node::getNodalVec3D(short field)
+@SHORT:Get back a nodalField Vec3D.
+@RETURN:Vec3D
+@ARG:short&field&Field to extract (see NodalField for informations).
+@END
+*/
 //-----------------------------------------------------------------------------
 Vec3D Node::getNodalVec3D(short field)
 //-----------------------------------------------------------------------------
@@ -396,6 +421,13 @@ Vec3D Node::getNodalVec3D(short field)
   return Vec3D();
 }
 
+/*
+@LABEL:Node::getNodalSymTensor(short field)
+@SHORT:Get back a nodalField SymTensor2.
+@RETURN:SymTensor2
+@ARG:short&field&Field to extract (see NodalField for informations).
+@END
+*/
 //-----------------------------------------------------------------------------
 SymTensor2 Node::getNodalSymTensor(short field)
 //-----------------------------------------------------------------------------
@@ -413,6 +445,13 @@ SymTensor2 Node::getNodalSymTensor(short field)
   return SymTensor2();
 }
 
+/*
+@LABEL:Node::getNodalTensor(short field)
+@SHORT:Get back a nodalField Tensor2.
+@RETURN:Tensor2
+@ARG:short&field&Field to extract (see NodalField for informations).
+@END
+*/
 //-----------------------------------------------------------------------------
 Tensor2 Node::getNodalTensor(short field)
 //-----------------------------------------------------------------------------

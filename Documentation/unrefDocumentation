@@ -213,7 +213,7 @@ for t in tagsList:
 
 for t in docsList:
     if not t in tagsList:
-        st = "%@DOC:"+t+"\n%@END\n\n"
+        st = "%@DOC:"+t+"\n%@END\n"
         moreTex.append(st)
         print("TeX files missing : "+t)
 

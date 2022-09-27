@@ -10,11 +10,54 @@
 \startcontents[chapters]
 \printmyminitoc[2]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. 
 
-\section{Introduction}
+\section{MacAdresses}
+
+%@DOC:MacAddresses::MacAddresses()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{MacAddresses::MacAddresses(~)}}\label{MacAddresses::MacAddresses()}\index[DL]{MacAddresses!MacAddresses(~)}\\
+Default constructor of the MacAddresses class.\\ \hspace*{10mm}$\hookrightarrow$ MacAddresses
+
+%@END
+
+%@DOC:MacAddresses::getAddress(int n)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{MacAddresses::getAddress(int n)}}\label{MacAddresses::getAddress(int n)}\index[DL]{MacAddresses!getAddress(int n)}\\
+Return the Mac Address \#n from the list.\\ \hspace*{10mm}$\hookrightarrow$ String
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of MacAddresses::getAddress]
+int&n&The index of the MacAddresses to return.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:MacAddresses::getInterface(int n)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{MacAddresses::getInterface(int n)}}\label{MacAddresses::getInterface(int n)}\index[DL]{MacAddresses!getInterface(int n)}\\
+Return the Internet interface \#n from the list.\\ \hspace*{10mm}$\hookrightarrow$ String
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of MacAddresses::getInterface]
+int&n&The index of the Internet interface to return.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:MacAddresses::getNumber()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{MacAddresses::getNumber(~)}}\label{MacAddresses::getNumber()}\index[DL]{MacAddresses!getNumber(~)}\\
+Return the number of internet interfaces of the computer.\\ \hspace*{10mm}$\hookrightarrow$ int
+
+%@END
+
 
 \#include 'LogFile.h'
-
-\#include 'MacAddress.h'
 
 \#include 'Settings.h'
 

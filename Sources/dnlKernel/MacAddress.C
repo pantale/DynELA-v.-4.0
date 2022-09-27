@@ -23,8 +23,11 @@
 #include <stdio.h>
 
 /*
-  default constructor of the MacAddresses class
-  */
+@LABEL:MacAddresses::MacAddresses()
+@SHORT:Default constructor of the MacAddresses class.
+@RETURN:MacAddresses
+@END
+*/
 //-----------------------------------------------------------------------------
 MacAddresses::MacAddresses()
 //-----------------------------------------------------------------------------
@@ -60,22 +63,23 @@ MacAddresses::MacAddresses()
 }
 
 /*
-  Returns a string containing the ith MacAddress of the computer
-
-  - num ith mac adress of the computer
-  \returns the mac adress of the computer
-  */
+@LABEL:MacAddresses::getAddress(int n)
+@SHORT:Return the Mac Address \#n from the list.
+@RETURN:String
+@ARG:int&n&The index of the MacAddresses to return.
+@END
+*/
 //-----------------------------------------------------------------------------
-String MacAddresses::getAddress(int num)
+String MacAddresses::getAddress(int n)
 //-----------------------------------------------------------------------------
 {
     String address;
-    if ((num < 0) || (num >= macs.getSize()))
+    if ((n < 0) || (n >= macs.getSize()))
         return "none";
     char tmp[8];
     for (int i = 0; i < 6; i++)
     {
-        sprintf(tmp, "%02x", macs(num)->mac[i]);
+        sprintf(tmp, "%02x", macs(n)->mac[i]);
         if (i >= 1)
             address += ":";
         address += tmp;
@@ -85,25 +89,27 @@ String MacAddresses::getAddress(int num)
 }
 
 /*
-  Returns a string containing the ith interface of the computer
-
-  - num ith interface of the computer
-  \returns the interface of the computer
-  */
+@LABEL:MacAddresses::getInterface(int n)
+@SHORT:Return the Internet interface \#n from the list.
+@RETURN:String
+@ARG:int&n&The index of the Internet interface to return.
+@END
+*/
 //-----------------------------------------------------------------------------
-String MacAddresses::getInterface(int num)
+String MacAddresses::getInterface(int n)
 //-----------------------------------------------------------------------------
 {
-    if ((num < 0) || (num >= macs.getSize()))
+    if ((n < 0) || (n >= macs.getSize()))
         return "none";
-    return macs(num)->interface;
+    return macs(n)->interface;
 }
 
 /*
-  Returns the number of MacAddresses
-
-  \returns the number of MacAddresses
-  */
+@LABEL:MacAddresses::getNumber()
+@SHORT:Return the number of Internet interfaces of the computer.
+@RETURN:int
+@END
+*/
 //-----------------------------------------------------------------------------
 int MacAddresses::getNumber()
 //-----------------------------------------------------------------------------

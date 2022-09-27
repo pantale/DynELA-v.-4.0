@@ -73,6 +73,80 @@ Destructor of the Node class.
 
 %@END
 
+\subsection{Basic methods}
+
+%@DOC:Node::swapNodalFields()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Node::swapNodalFields(~)}}\label{Node::swapNodalFields()}\index[DL]{Node!swapNodalFields(~)}\\
+Swap the two nodalFields of the node.
+
+This method swaps the two nodalField of the element. So that the currentField becomes the newField and vice versa.
+%@END
+
+%@DOC:Node::copyNodalFieldToNew()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Node::copyNodalFieldToNew(~)}}\label{Node::copyNodalFieldToNew()}\index[DL]{Node!copyNodalFieldToNew(~)}\\
+Copy the content of the nodalField to the newField.
+
+%@END
+
+%@DOC:Node::getNodalValue(short field)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Node::getNodalValue(short field)}}\label{Node::getNodalValue(short field)}\index[DL]{Node!getNodalValue(short field)}\\
+Get back a nodalField value.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalValue]
+short&field&Field to extract (see NodalField for informations).
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Node::getNodalVec3D(short field)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Node::getNodalVec3D(short field)}}\label{Node::getNodalVec3D(short field)}\index[DL]{Node!getNodalVec3D(short field)}\\
+Get back a nodalField Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalVec3D]
+short&field&Field to extract (see NodalField for informations).
+\end{tcolorbox}
+
+%@END
+
+
+%@DOC:Node::getNodalSymTensor(short field)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Node::getNodalSymTensor(short field)}}\label{Node::getNodalSymTensor(short field)}\index[DL]{Node!getNodalSymTensor(short field)}\\
+Get back a nodalField SymTensor2.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalSymTensor]
+short&field&Field to extract (see NodalField for informations).
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Node::getNodalTensor(short field)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Node::getNodalTensor(short field)}}\label{Node::getNodalTensor(short field)}\index[DL]{Node!getNodalTensor(short field)}\\
+Get back a nodalField Tensor2.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalTensor]
+short&field&Field to extract (see NodalField for informations).
+\end{tcolorbox}
+
+%@END
+
 \section{Planar elements}
 
 \subsection{ElQua4N2D element}
