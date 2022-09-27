@@ -19,13 +19,27 @@
 class Vec3D;
 class Tensor2;
 
-//-----------------------------------------------------------------------------
-// Class : SymTensor2
-//
-// Used to manage SymTensor2
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:SymTensor2::SymTensor2
+@SHORT:Second order tensor class.
+The SymTensor2 library is used to store symmetric second order tensors defined in the \DynELA. A symmetric second order tensor is a like a matrix with the following form:
+\begin{equation*}
+T=\left[\begin{array}{ccc}
+  T_{11} & T_{12} & T_{13}\\
+  T_{12} & T_{22} & T_{23}\\
+  T_{13} & T_{23} & T_{33}
+  \end{array}\right]
+\end{equation*}
+Concerning the internal storage of data, the SymTensor2 data is stored in a vector \_data of 6 components using the following storage scheme:
+\begin{equation*}
+T=\left[\begin{array}{ccc}
+    T_{0} & T_{1} & T_{2}\\
+    T_{1} & T_{3} & T_{4}\\
+    T_{2} & T_{4} & T_{5}
+    \end{array}\right]
+\end{equation*}
+@END
+*/
 class SymTensor2
 {
   static const Tensor2Index _internalIndexes;

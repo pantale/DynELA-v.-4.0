@@ -1311,6 +1311,16 @@ void SymTensor2::buildFTF(double FTF[3][3]) const
   FTF[2][2] = dnlSquare(_data[2]) + dnlSquare(_data[4]) + dnlSquare(_data[5]);
 }
 
+/*
+@LABEL:SymTensor2::polarQL(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarQL(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1329,6 +1339,19 @@ void SymTensor2::polarQL(SymTensor2 &U, Tensor2 &R) const
   polarExtract(eigenVectors, eigenValues, U, R);
 }
 
+/*
+@LABEL:SymTensor2::polarQLLnU(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarQLLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1347,6 +1370,16 @@ void SymTensor2::polarQLLnU(SymTensor2 &U, Tensor2 &R) const
   polarExtractLnU(eigenVectors, eigenValues, U, R);
 }
 
+/*
+@LABEL:SymTensor2::polarCuppen(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarCuppen(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1365,6 +1398,19 @@ void SymTensor2::polarCuppen(SymTensor2 &U, Tensor2 &R) const
   polarExtract(eigenVectors, eigenValues, U, R);
 }
 
+/*
+@LABEL:SymTensor2::polarCuppenLnU(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarCuppenLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1383,6 +1429,16 @@ void SymTensor2::polarCuppenLnU(SymTensor2 &U, Tensor2 &R) const
   polarExtractLnU(eigenVectors, eigenValues, U, R);
 }
 
+/*
+@LABEL:SymTensor2::polarJacobi(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarJacobi(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1401,6 +1457,19 @@ void SymTensor2::polarJacobi(SymTensor2 &U, Tensor2 &R) const
   polarExtract(eigenVectors, eigenValues, U, R);
 }
 
+/*
+@LABEL:SymTensor2::polarJacobiLnU(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarJacobiLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1419,6 +1488,17 @@ void SymTensor2::polarJacobiLnU(SymTensor2 &U, Tensor2 &R) const
   polarExtractLnU(eigenVectors, eigenValues, U, R);
 }
 
+/*
+@LABEL:SymTensor2::polarLapack(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+It uses the LAPACKE\_dgeev function of the Lapack library.
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarLapack(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1504,6 +1584,20 @@ void SymTensor2::polarLapack(SymTensor2 &U, Tensor2 &R) const
   R._data[8] = _data[6] * Um1[2] + _data[7] * Um1[4] + _data[8] * Um1[5];
 }
 
+/*
+@LABEL:SymTensor2::polarLapackLnU(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
+It uses the LAPACKE\_dgeev function of the Lapack library.
+@END
+*/
 //-----------------------------------------------------------------------------
 void SymTensor2::polarLapackLnU(SymTensor2 &U, Tensor2 &R) const
 //-----------------------------------------------------------------------------
@@ -1600,14 +1694,17 @@ void SymTensor2::polarLapackLnU(SymTensor2 &U, Tensor2 &R) const
 }
 
 /*
-  Polar decomposition of a second order tensor with computation of the \f$ ln[U] \f$ and \f$ R \f$ tensors.
-
-  This method computes the polar decomposition of a second order tensor with computation of the \f$ ln[U] \f$ and \f$ R \f$ tensors as the returning arguments.
-  The logarithm of a symmetric tensor is givent by the following formulation:
-  \f[ \ln U =\sum _{i=1}^{3}\ln \lambda _{i}(u_{i}\otimes u_{i}) \f]
-
-  - U Return second order tensor containing \f$ ln[U] \f$
-  - R Return second order tensor containing \f$ R \f$
+@LABEL:SymTensor2::polarLnU(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the old \DynELA algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 void SymTensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
@@ -1738,12 +1835,14 @@ void SymTensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
 }
 
 /*
-  Polar decomposition of a second order tensor with computation of the \f$ U \f$ and \f$ R \f$ tensors.
-
-  This method computes the polar decomposition of a second order tensor with computation of the \f$ U \f$ and \f$ R \f$ tensors as the returning arguments.
-
-  - U Return second order tensor containing \f$ U \f$
-  - R Return second order tensor containing \f$ R \f$
+@LABEL:SymTensor2::polar(SymTensor2,Tensor2)
+@SHORT:Polar decomposition of a second order tensor using the old \DynELA algorithm.
+@RETURN:SymTensor2 and Tensor2
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 void SymTensor2::polar(SymTensor2 &U, Tensor2 &R) const

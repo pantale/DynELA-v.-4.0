@@ -12,24 +12,29 @@
 
 \section{The Tensor2 library}
 
-The Tensor2 library is used to store second order tensors defined in the \DynELA.
+%@DOC:Tensor2::Tensor2
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::Tensor2}}\label{Tensor2::Tensor2}\index[DL]{Tensor2!Tensor2} : Second order tensor class.
 
-A second order tensor is a like a matrix with the following form:
-\begin{equation}
+The Tensor2 library is used to store second order tensors defined in the \DynELA. A second order tensor is a like a matrix with the following form:
+\begin{equation*}
 T=\left[\begin{array}{ccc}
   T_{11} & T_{12} & T_{13}\\
   T_{21} & T_{22} & T_{23}\\
   T_{31} & T_{32} & T_{33}
   \end{array}\right]
-\end{equation}
-Concerning the internal storage of data, the Tensor2 data is stored in a vector of 9 components using the following storage scheme:
-\begin{equation}
+\end{equation*}
+Concerning the internal storage of data, the Tensor2 data is stored in a vector of 9 components named \_data using the following storage scheme:
+\begin{equation*}
 T=\left[\begin{array}{ccc}
     T_{0} & T_{1} & T_{2}\\
     T_{3} & T_{4} & T_{5}\\
     T_{6} & T_{7} & T_{8}
     \end{array}\right]
-\end{equation}
+\end{equation*}
+%@END
 
 \subsection{Initialization and basic operations}
 %@DOC:Tensor2::Tensor2()
@@ -490,103 +495,175 @@ This method returns the J2 norm of a second order tensor defined by:
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarQL(SymTensor2,Tensor2)}}\label{Tensor2::polarQL(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarQL(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarQL(SymTensor2,Tensor2)}}\label{Tensor2::polarQL(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarQL(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::polarQLLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarQLLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarQLLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarQLLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarQLLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarQLLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarQLLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::polarCuppen(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarCuppen(SymTensor2,Tensor2)}}\label{Tensor2::polarCuppen(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarCuppen(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarCuppen(SymTensor2,Tensor2)}}\label{Tensor2::polarCuppen(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarCuppen(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::polarCuppenLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarCuppenLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarCuppenLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarCuppenLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarCuppenLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarCuppenLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarCuppenLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::polarJacobi(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarJacobi(SymTensor2,Tensor2)}}\label{Tensor2::polarJacobi(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarJacobi(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarJacobi(SymTensor2,Tensor2)}}\label{Tensor2::polarJacobi(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarJacobi(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::polarJacobiLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarJacobiLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarJacobiLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarJacobiLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarJacobiLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarJacobiLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarJacobiLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::polarLapack(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarLapack(SymTensor2,Tensor2)}}\label{Tensor2::polarLapack(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarLapack(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarLapack(SymTensor2,Tensor2)}}\label{Tensor2::polarLapack(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarLapack(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+It uses the LAPACKE\_dgeev function of the Lapack library.
 %@END
 
 %@DOC:Tensor2::polarLapackLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarLapackLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarLapackLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarLapackLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarLapackLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarLapackLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarLapackLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
+It uses the LAPACKE\_dgeev function of the Lapack library.
 %@END
 
 %@DOC:Tensor2::polar(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polar(SymTensor2,Tensor2)}}\label{Tensor2::polar(SymTensor2,Tensor2)}\index[DL]{Tensor2!polar(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polar(SymTensor2,Tensor2)}}\label{Tensor2::polar(SymTensor2,Tensor2)}\index[DL]{Tensor2!polar(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::polarLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::polarLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{Tensor2::polarLnU(SymTensor2,Tensor2)}}\label{Tensor2::polarLnU(SymTensor2,Tensor2)}\index[DL]{Tensor2!polarLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
 
+\begin{tcolorbox}[width=0.95\textwidth,myTab,tabularx={l||C|C|C},title=Performance of the polar algorithms]%,boxrule=0.5pt]
+ & $\U$ version& $\log[\U]$ & Precision\\
+ & CPU (ns) & CPU (ns) & $\F-\R\cdot\U$\\\hline\hline
+polarLapack & $2163$ & $2360$ & $1.4210\times10^{-14}$ \\\hline
+polar & $397$ & $432$ & $3.5527\times10^{-15}$\\\hline
+polarQL & $246$ & $292$ & $1.0658\times10^{-14}$\\\hline
+polarJacobi & $368$ & $390$ & $5.3291\times10^{-15}$\\\hline
+polarCuppen & $234$ & $243$ & $3.5527\times10^{-15}$
+\end{tcolorbox}
 
 \section{The Symmetric Tensor2 library}
 
-The SymTensor2 library is used to store symmetric second order tensors defined in the \DynELA.
+%@DOC:SymTensor2::SymTensor2
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::SymTensor2}}\label{SymTensor2::SymTensor2}\index[DL]{SymTensor2!SymTensor2} : Second order tensor class.
 
-A symmetric second order tensor is a like a matrix with the following form:
-\begin{equation}
+The SymTensor2 library is used to store symmetric second order tensors defined in the \DynELA. A symmetric second order tensor is a like a matrix with the following form:
+\begin{equation*}
 T=\left[\begin{array}{ccc}
   T_{11} & T_{12} & T_{13}\\
   T_{12} & T_{22} & T_{23}\\
   T_{13} & T_{23} & T_{33}
   \end{array}\right]
-\end{equation}
-Concerning the internal storage of data, the SymTensor2 data is stored in a vector of 9 components using the following storage scheme:
-\begin{equation}
+\end{equation*}
+Concerning the internal storage of data, the SymTensor2 data is stored in a vector \_data of 6 components using the following storage scheme:
+\begin{equation*}
 T=\left[\begin{array}{ccc}
     T_{0} & T_{1} & T_{2}\\
     T_{1} & T_{3} & T_{4}\\
     T_{2} & T_{4} & T_{5}
     \end{array}\right]
-\end{equation}
+\end{equation*}
+%@END
+
 \subsection{Initialization and basic operations}
 %@DOC:SymTensor2::SymTensor2()
 %Warning :
@@ -1036,81 +1113,148 @@ where $\A$ is a symmetric second order tensor and $\Q$ an orthogonal tensor.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarQL(SymTensor2,Tensor2)}}\label{SymTensor2::polarQL(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarQL(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarQL(SymTensor2,Tensor2)}}\label{SymTensor2::polarQL(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarQL(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:SymTensor2::polarQLLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarQLLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarQLLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarQLLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarQLLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarQLLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarQLLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
 
 %@DOC:SymTensor2::polarCuppen(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarCuppen(SymTensor2,Tensor2)}}\label{SymTensor2::polarCuppen(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarCuppen(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarCuppen(SymTensor2,Tensor2)}}\label{SymTensor2::polarCuppen(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarCuppen(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:SymTensor2::polarCuppenLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarCuppenLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarCuppenLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarCuppenLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarCuppenLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarCuppenLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarCuppenLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
 
 %@DOC:SymTensor2::polarJacobi(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarJacobi(SymTensor2,Tensor2)}}\label{SymTensor2::polarJacobi(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarJacobi(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarJacobi(SymTensor2,Tensor2)}}\label{SymTensor2::polarJacobi(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarJacobi(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:SymTensor2::polarJacobiLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarJacobiLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarJacobiLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarJacobiLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarJacobiLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarJacobiLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarJacobiLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
 
 %@DOC:SymTensor2::polarLapack(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarLapack(SymTensor2,Tensor2)}}\label{SymTensor2::polarLapack(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarLapack(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarLapack(SymTensor2,Tensor2)}}\label{SymTensor2::polarLapack(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarLapack(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+It uses the LAPACKE\_dgeev function of the Lapack library.
 %@END
 
 %@DOC:SymTensor2::polarLapackLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarLapackLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarLapackLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarLapackLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarLapackLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarLapackLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarLapackLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
+It uses the LAPACKE\_dgeev function of the Lapack library.
 %@END
 
 %@DOC:SymTensor2::polar(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polar(SymTensor2,Tensor2)}}\label{SymTensor2::polar(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polar(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polar(SymTensor2,Tensor2)}}\label{SymTensor2::polar(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polar(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
 %@END
 
 %@DOC:SymTensor2::polarLnU(SymTensor2,Tensor2)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::polarLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarLnU(SymTensor2,Tensor2)} : \textcolor{red}{\textbf{No documentation defined in source files.}}
+\textcolor{purple}{\textbf{SymTensor2::polarLnU(SymTensor2,Tensor2)}}\label{SymTensor2::polarLnU(SymTensor2,Tensor2)}\index[DL]{SymTensor2!polarLnU(SymTensor2,Tensor2)} : Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{5mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
+This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
+\begin{equation*}
+\F = \R \cdot \U
+\end{equation*}
+\begin{equation*}
+\log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
+\end{equation*}
 %@END
+
+\begin{tcolorbox}[width=0.95\textwidth,myTab,tabularx={l||C|C|C},title=Performance of the polar algorithms for symmetric tensors]%,boxrule=0.5pt]
+ & $\U$ version& $\log[\U]$ & Precision\\
+ & CPU (ns) & CPU (ns) & $\F-\R\cdot\U$\\\hline\hline
+polarLapack & $2441$ & $2151$& $1.4210\times10^{-14}$ \\\hline
+polar & $435$ & $436$& $3.5527\times10^{-15}$\\\hline
+polarQL & $260$ & $281$& $1.0658\times10^{-14}$\\\hline
+polarJacobi & $350$ & $356$ & $5.3291\times10^{-15}$\\\hline
+polarCuppen & $206$ & $233$& $3.5527\times10^{-15}$
+\end{tcolorbox}
 
 \section{The Tensor3 library}
 
