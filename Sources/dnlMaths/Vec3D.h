@@ -19,13 +19,20 @@
 class Tensor2;
 class SymTensor2;
 
-//-----------------------------------------------------------------------------
-// Class : Vec3D
-//
-// Used to manage Vec3D
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:Vec3D::Vec3D
+@SHORT:Vec3D class.
+This class is used to store information for Coordinate Vectors.
+This file is the declaration file for the 3D vector class. A 3D vector class is a vector with the following form:
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}\\
+  x_{2}\\
+  x_{3}
+  \end{array}\right]
+\end{equation*}
+@END
+*/
 class Vec3D
 {
   friend class Tensor2;    // allows a direct access to private data for class Tensor2
@@ -36,7 +43,7 @@ private:
   bool indexOK(int) const;
 
 public:
-  Vec3D(double x = 0, double y = 0, double z = 0);
+  Vec3D(double = 0, double = 0, double = 0);
   Vec3D(const Vec3D &);
   ~Vec3D();
 
@@ -63,14 +70,14 @@ public:
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
-  bool isInsideBox(const Vec3D &mini, const Vec3D &maxi) const;
+  bool isInsideBox(const Vec3D &, const Vec3D &) const;
   bool operator!=(const Vec3D &) const;
   bool operator==(const Vec3D &) const;
   double distance(const Vec3D &) const;
   double dot(const Vec3D &) const;
   double getNorm();
   double getSquareNorm();
-  double innerProduct();
+  double dot();
   double maxAbsoluteValue();
   double maxValue();
   double minAbsoluteValue();
@@ -92,11 +99,11 @@ public:
   void normalize();
   void numpyRead(std::string);
   void numpyReadZ(std::string, std::string);
-  void numpyWrite(std::string, bool initialize = false) const;
-  void numpyWriteZ(std::string, std::string, bool initialize = false) const;
+  void numpyWrite(std::string, bool = false) const;
+  void numpyWriteZ(std::string, std::string, bool = false) const;
   void setNegativeValuesToZero();
-  void setValue(double val = 0.0);
-  void setValue(double x, double y, double z);
+  void setValue(double = 0.0);
+  void setValue(double, double, double);
 };
 
 //------inline functions-------------------------------------------------------
@@ -423,22 +430,27 @@ inline double Vec3D::getSquareNorm()
   return dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]);
 }
 
-// Returns the inner product of a 3D vector by itself
 /*
-  This method returns inner product of a 3D vector by itself defined by:
-  \f[ \left\Vert \overrightarrow{_data} \right\Vert  = v_{1}^2 + v_{2}^2 + v_{3}^2 \f]
-  Return : inner product of a 3D vector by itself
+@LABEL:Vec3D::dot()
+@SHORT:Returns the dot product of a Vec3D by itself.
+This method returns dot product of a Vec3D by itself defined by:
+\begin{equation*}
+\left\Vert \overrightarrow{_data} \right\Vert  = v_{1}^2 + v_{2}^2 + v_{3}^2
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
-inline double Vec3D::innerProduct()
+inline double Vec3D::dot()
 //-----------------------------------------------------------------------------
 {
   return (dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]));
 }
 
-// Normalization of a 3D vector
 /*
-  This method modifies the given vector and makes its norm equal to 1.0
+@LABEL:Vec3D::normalize()
+@SHORT:Normalize the Vec3D.
+This method modifies the given vector and makes its norm equal to $1$.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Vec3D::normalize()
@@ -453,10 +465,11 @@ inline void Vec3D::normalize()
   _data[2] /= norm;
 }
 
-// Nomalized 3D vector
 /*
-  This method returns an colinear vector with a unary norm.
-  Return : colinear vector with a norm equal to 1.
+@LABEL:Vec3D::normalize()
+@SHORT:Get the normalized Vec3D.
+This method returns a colinear Vec3D with a norm equal to $1$.
+@END
 */
 //-----------------------------------------------------------------------------
 inline Vec3D Vec3D::getNormalized()
@@ -484,12 +497,15 @@ inline void Vec3D::setNegativeValuesToZero()
     _data[2] = 0.;
 }
 
-// Distance between two points
 /*
-  This method computes the distance between two points using an Euclidian getNorm.
-  - vect Second vector to use
-  \f[ d = \left\Vert \overrightarrow{v2} - \overrightarrow{v1} \right\Vert \f]
-  Return : Distance between both points
+@LABEL:Vec3D::distance(Vec3D y)
+@SHORT:Distance between two points.
+This method computes the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert 
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 inline double Vec3D::distance(const Vec3D &vect) const
@@ -506,12 +522,22 @@ inline double Vec3D::distance(const Vec3D &vect) const
   \f[ d = {\left\Vert \overrightarrow{v2} - \overrightarrow{v1} \right\Vert}^2 \f]
   Return : Square value of the distance between two points
 */
+/*
+@LABEL:Vec3D::squareDistance(Vec3D y)
+@SHORT:Square of distance between two points.
+This method computes the square of the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2 
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
 inline double Vec3D::squareDistance(const Vec3D &vect) const
 //-----------------------------------------------------------------------------
 {
   Vec3D x = vect - *this;
-  return x.innerProduct();
+  return x.dot();
 }
 
 #endif

@@ -30,7 +30,7 @@ Tensor3::Tensor3()
 }
 
 /*
-@LABEL:Tensor3::Tensor3(const Tensor3)
+@LABEL:Tensor3::Tensor3(Tensor3)
 @SHORT:Copy constructor of the Tensor3 class.
 @RETURN:Tensor3
 @END

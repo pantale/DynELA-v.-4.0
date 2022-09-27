@@ -8,44 +8,17 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*
-  \file Vector.C
-  Declaration file for the Vector class
-
-  This file is the declaration file for the Vector class. A Vector class is a vector with the following form:
-  \f[ \overrightarrow{_data}=\left[\begin{array}{c}
-  v_{1}\\
-  v_{2}\\
-  ...\\
-  v_{n}
-  \end{array}\right] \f]
-
-  \ingroup dnlMaths
-*/
-
 #include <Vector.h>
 #include <Matrix.h>
 #include <NumpyInterface.h>
 
-// Constructor of the Vector class
 /*
-  This method is a constructor of the Vector class with a null size.
-*/
-/* //-----------------------------------------------------------------------------
-Vector::Vector()
-//-----------------------------------------------------------------------------
-{
-  _dataLength = 0;
-  _data = NULL;
-}
- */
-// Constructor of the Vector class with memory allocation
-/*
-  This method is a constructor of the Vector class with a given size. If the initial value is not provided, the initial value of all components of the vector is set to zero.
-  - len Number of components of the vector
-  - value Initial value for the components of the vector
+@LABEL:Vector::Vector(long l, double val)
+@SHORT:Constructor of the Vector class with initialization.
+@RETURN:Vector
+@ARG:long&l&Length of the Vector to create.
+@ARG:double&val&Value to give to each element of the new Vector.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector::Vector(long len, double value)
@@ -58,7 +31,13 @@ Vector::Vector(long len, double value)
     _data[i] = value;
 }
 
-// Copy constructor of the Vector class
+/*
+@LABEL:Vector::Vector(Vector y)
+@SHORT:Copy constructor of the Vec3D class.
+@ARG:Vector&y&Vector $\overrightarrow{y}$ to copy
+@RETURN:Vector
+@END
+*/
 //-----------------------------------------------------------------------------
 Vector::Vector(const Vector &vect)
 //-----------------------------------------------------------------------------
@@ -70,6 +49,15 @@ Vector::Vector(const Vector &vect)
   memcpy(_data, vect._data, _dataLength * sizeof(double));
 }
 
+/*
+@LABEL:Vector::Vector(int l, double x1, double x2, ...)
+@SHORT:Constructor of the Vector class with initialization.
+@RETURN:Vector
+@ARG:int&l&Number of components.
+@ARG:double&x1&first component of the Vector to create.
+@ARG:double&x2&second component of the Vector to create.
+@END
+*/
 //-----------------------------------------------------------------------------
 Vector::Vector(int vectorLength, double firstValue, double secondValue, ...)
 //-----------------------------------------------------------------------------
@@ -97,7 +85,11 @@ Vector::Vector(int vectorLength, double firstValue, double secondValue, ...)
   va_end(arguments);
 }
 
-// Destructor of the Vector class
+/*
+@LABEL:Vector::~Vector()
+@SHORT:Destructor of the Vector class.
+@END
+*/
 //-----------------------------------------------------------------------------
 Vector::~Vector()
 //-----------------------------------------------------------------------------
@@ -124,28 +116,39 @@ void Vector::desallocate()
   _dataLength = 0;
 }
 
-// Swap two vectors of the same size
 /*
-  This method swaps the storage of two vectors. The twio vectors must have the exact same size.
+@LABEL:Vector::swap(Vector y)
+@SHORT:Swap the content of two vectors.
+@ARG:Vector&y&Second vector for the swap operation.
+This method swaps the storage of two vectors. The two vectors must have the exact same size.
+@END
 */
 //-----------------------------------------------------------------------------
-void Vector::swapWith(Vector &vec)
+void Vector::swap(Vector &V)
 //-----------------------------------------------------------------------------
 {
   double *tmp;
 
   // test the vector sizes
 #ifdef VERIF_maths
-  if (vec._dataLength != _dataLength)
-    fatalError("Vector::swapWith", "Only for same size vectors\n");
+  if (V._dataLength != _dataLength)
+    fatalError("Vector::swap", "Only for same size vectors\n");
 #endif
 
   // swap storages
   tmp = _data;
-  _data = vec._data;
-  vec._data = tmp;
+  _data = V._data;
+  V._data = tmp;
 }
 
+/*
+@LABEL:Vector::redim(long s)
+@SHORT:Change the allocation size of a vector.
+@ARG:long&s&New allocation size of the vector after the operation.
+@WARNING:This method cleans the content of the vector.
+This method changes the size of a vector.
+@END
+*/
 //-----------------------------------------------------------------------------
 void Vector::redim(const long newSize)
 //-----------------------------------------------------------------------------
@@ -157,15 +160,17 @@ void Vector::redim(const long newSize)
   allocate(newSize);
 }
 
-// Resize a vector
 /*
-  This method is used to specify a new vector dimension of the one given during initialization by the constructor.
-  This method makes a copy of the prevoius vector according to the new size, i.e. it can shrink or expand the vector.
-  If the new vector size is greater than the previous one, zeros are added at the end of the vector.
-  - new_vectorLength new size off the vector
+@LABEL:Vector::resize(long s)
+@SHORT:Change the size of a vector.
+@ARG:long&s&New size of the vector after the operation.
+This method is used to specify a new vector dimension of the one given during initialization by the constructor.
+This method makes a copy of the previous vector according to the new size, \ie it can shrink or expand the vector.
+If the new vector size is greater than the previous one, zeros are added at the end of the vector.
+@END
 */
 //-----------------------------------------------------------------------------
-void Vector::resizeVector(const long new_vectorLength)
+void Vector::resize(const long vLength)
 //-----------------------------------------------------------------------------
 {
   double *v2;
@@ -173,7 +178,7 @@ void Vector::resizeVector(const long new_vectorLength)
   if (_data == NULL)
   {
     // new memory allocation
-    _data = new double[new_vectorLength];
+    _data = new double[vLength];
 
     // fill with default a default value of zero
     for (long i = 0; i < _dataLength; i++)
@@ -183,13 +188,13 @@ void Vector::resizeVector(const long new_vectorLength)
   else
   {
     // new memory allocation
-    v2 = new double[new_vectorLength];
-    memcpy(v2, _data, new_vectorLength * sizeof(double));
+    v2 = new double[vLength];
+    memcpy(v2, _data, vLength * sizeof(double));
 
-    if (new_vectorLength > _dataLength)
+    if (vLength > _dataLength)
     {
       // initialisation
-      for (long i = _dataLength; i < new_vectorLength; i++)
+      for (long i = _dataLength; i < vLength; i++)
         v2[i] = 0.;
     }
     delete[] _data;
@@ -197,7 +202,7 @@ void Vector::resizeVector(const long new_vectorLength)
   }
 
   // set new size
-  _dataLength = new_vectorLength;
+  _dataLength = vLength;
 }
 
 // Display the content of a Vector
@@ -244,10 +249,13 @@ void Vector::print(std::ostream &os) const
   os << "}";
 }
 
-// Displays the content of the vector on stdout
 /*
-  This method displays the content of the vector on the screen in a predefined format. The selection of the display format is made using the method \ref setOutType().
- The output type is defined by the variables listed in \ref OutVector.
+@LABEL:Vector::printOut()
+@SHORT:Displays the content of the vector on stdout.
+This method displays the content of the vector on the screen in a predefined format.
+The selection of the display format is made using the method setOutType().
+The output type is defined by the variables listed in OutVector.
+@END
 */
 //-----------------------------------------------------------------------------
 void Vector::printOut()
@@ -283,16 +291,11 @@ void Vector::printOut()
   }
 }
 
-// Fill a vector with a scalar value
 /*
-  This method affect a value to a vector class.
-
-  Example :
-  \code
-  Vector v1;
-  v1 = setToValue(1.0); // All components of the vector are set to 1.0
-  \endcode
-  - val double value to give to all components of the vector.
+@LABEL:Vector::setToValue(double val)
+@SHORT:This method affect a value to a vector.
+@ARG:double&val&Scalar value to use for the  operation.
+@END
 */
 //-----------------------------------------------------------------------------
 void Vector::setToValue(double val)
@@ -302,16 +305,11 @@ void Vector::setToValue(double val)
     _data[index] = val;
 }
 
-// Fill a vector with a scalar value
 /*
-  This method is a surdefinition of the = operator for the vector class.
-
-  Example :
-  \code
-  Vector v1;
-  v1 = 1.0; // All components of the vector are set to 1.0
-  \endcode
-  - val double value to give to all components of the vector
+@LABEL:Vector::operator=(double val)
+@SHORT:This method affect a value to a vector.
+@ARG:double&val&Scalar value to use for the  operation.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector &Vector::operator=(double val)
@@ -652,11 +650,14 @@ Vector operator*(const double lambda, const Vector &vect)
   return resu;
 }
 
-// Returns the norm of a vector
 /*
-  This method returns norm of a vector defined by:
-  \f[ \left\Vert \overrightarrow{_data} \right\Vert = \sqrt {v_{1}^2 + v_{2}^2 + ... + v_{n}^2} \f]
-  Return : norm of a vector
+@LABEL:Vector::getNorm()
+@SHORT:Returns the norm of a vector.
+This method returns norm of a vector defined by:
+\begin{equation*}
+\left\Vert \overrightarrow{v} \right\Vert = \sqrt {v_{1}^2 + v_{2}^2 + ... + v_{n}^2}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
 double Vector::getNorm()
@@ -670,14 +671,17 @@ double Vector::getNorm()
   return sqrt(getNorm);
 }
 
-// Returns the inner product of a vector by itself
 /*
-  This method returns inner product of a vector by itself defined by:
-  \f[ \left\Vert \overrightarrow{_data} \right\Vert  = v_{1}^2 + v_{2}^2 + ... + v_{n}^2 \f]
-  Return : inner product of a vector by itself
+@LABEL:Vector::dot()
+@SHORT:Returns the dot product of a vector by itself.
+This method returns dot product of a vector by itself defined by:
+\begin{equation*}
+ \left\Vert \overrightarrow{v} \right\Vert  = v_{1}^2 + v_{2}^2 + ... + v_{n}^2
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
-double Vector::innerProduct()
+double Vector::dot()
 //-----------------------------------------------------------------------------
 {
   long i;
@@ -688,6 +692,17 @@ double Vector::innerProduct()
   return getNorm;
 }
 
+/*
+@LABEL:Vector::dyadic()
+@SHORT:Dyadic product of a Vector by itsefl.
+@RETURN:Matrix
+This method returns the dyadic product of two Vector defined by the following equation:
+\begin{equation*}
+\M = \overrightarrow{x}\otimes\overrightarrow{x},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself. The result of this operation is a symmetric second order tensor.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Vector::dyadic()
 //-----------------------------------------------------------------------------
@@ -701,6 +716,18 @@ Matrix Vector::dyadic()
   return result;
 }
 
+/*
+@LABEL:Vector::dyadic(Vector y)
+@SHORT:Dyadic product of two Vector.
+@RETURN:Tensor2
+@ARG:Vector&y&Vector $\overrightarrow{y}$ to use for the dyadic product operation.
+This method returns the dyadic product of two Vector defined by the following equation:
+\begin{equation*}
+\M = \overrightarrow{x}\otimes\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Vector::dyadic(const Vector &vec)
 //-----------------------------------------------------------------------------
@@ -714,9 +741,11 @@ Matrix Vector::dyadic(const Vector &vec)
   return result;
 }
 
-// Normalization of a 3D vector
 /*
-  This method modifies the given vector and makes its norm equal to 1.0
+@LABEL:Vector::normalize()
+@SHORT:Normalize the Vector.
+This method modifies the given vector and makes its norm equal to $1$.
+@END
 */
 //-----------------------------------------------------------------------------
 void Vector::normalize()
@@ -730,10 +759,11 @@ void Vector::normalize()
     _data[i] /= norm;
 }
 
-// Nomalized vector
 /*
-  This method returns an colinear vector with a unary norm.
-  Return : colinear vector with a norm equal to 1.
+@LABEL:Vector::normalize()
+@SHORT:Get the normalized Vector.
+This method returns a colinear vector with a norm equal to $1$.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Vector::getNormalized()
@@ -751,9 +781,12 @@ Vector Vector::getNormalized()
   return vect;
 }
 
-// Maximum _data in a vector
 /*
-  This method returns the maximum _data of a vector
+@LABEL:Vector::maxValue()
+@SHORT:Maximum value in a Vector.
+@RETURN:double
+This method returns the maximum value in a Vector.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vector::maxValue()
@@ -768,9 +801,12 @@ double Vector::maxValue()
   return val;
 }
 
-// Minimum _data in a vector
 /*
-  This method returns the minimum _data of a vector
+@LABEL:Vector::minValue()
+@SHORT:Minumum value in a Vector.
+@RETURN:double
+This method returns the minimum value in a Vector.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vector::minValue()
@@ -785,9 +821,12 @@ double Vector::minValue()
   return val;
 }
 
-// Absolute maximum _data in a vector
 /*
-  This method returns the absolute maximum _data of a vector
+@LABEL:Vector::maxmaxAbsoluteValueValue()
+@SHORT:Maximum absolute value in a Vector.
+@RETURN:double
+This method returns the maximum absolute value in a Vector.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vector::maxAbsoluteValue()
@@ -802,9 +841,12 @@ double Vector::maxAbsoluteValue()
   return val;
 }
 
-// Absolute minimum _data in a vector
 /*
-  This method returns the absolute minimum _data of a vector
+@LABEL:Vector::minAbsoluteValue()
+@SHORT:Minumum absolute value in a Vector.
+@RETURN:double
+This method returns the minimum absolute value in a Vector.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vector::minAbsoluteValue()
@@ -1024,12 +1066,15 @@ bool Vector::operator!=(const Vector &vec) const
   return !(*this == vec);
 }
 
-// Distance between two vectors
 /*
-  This method computes the distance between two vectors using an Euclidian getNorm.
-  - vect Second vector to use
-  \f[ d = \left\Vert \overrightarrow{v2} - \overrightarrow{v1} \right\Vert \f]
-  Return : Distance between both vectors
+@LABEL:Vector::distance(Vector y)
+@SHORT:Distance between two points.
+This method computes the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vector::distance(const Vector &vect) const
@@ -1048,12 +1093,15 @@ double Vector::distance(const Vector &vect) const
   return x.getNorm();
 }
 
-// Square value of the distance between two vectors
 /*
-  This method computes the distance between two vectors using an Euclidian getNorm and returns the square value of this distance.
-  - vect Second vector to use
-  \f[ d = {\left\Vert \overrightarrow{v2} - \overrightarrow{v1} \right\Vert}^2 \f]
-  Return : Square value of the distance between two vectors
+@LABEL:Vector::squareDistance(Vector y)
+@SHORT:Square of distance between two points.
+This method computes the square of the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vector::squareDistance(const Vector &vect) const
@@ -1069,43 +1117,53 @@ double Vector::squareDistance(const Vector &vect) const
 #endif
 
   Vector x = vect - *this;
-  return x.innerProduct();
+  return x.dot();
 }
 
-// Dot product of two vectors
 /*
-  This method computes the dot product of two vectors defined by:
-  \f[ s = \overrightarrow{a} . \overrightarrow{b} \f]
-  - vect second vector to use for the operation
-  Return : Result of the dot product of the two vectors
+@LABEL:Vector::dot(Vector y)
+@SHORT:Dot product of two Vector.
+@RETURN:double
+@ARG:Vector&y&Vector $\overrightarrow{y}$ to use for the dot product operation.
+This method returns the dot product of two Vector defined by the following equation:
+\begin{equation*}
+m = \overrightarrow{x}\cdot\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
-double Vector::dot(const Vector &vect) const
+double Vector::dot(const Vector &V) const
 //-----------------------------------------------------------------------------
 {
   double prod = 0.0;
 
 #ifdef VERIF_maths
-  if (_dataLength != vect._dataLength)
+  if (_dataLength != V._dataLength)
   {
     fatalErrorLine("Vector::dot",
                    "non compatible sizes of vectors v1(%d) and v2(%d)", _dataLength,
-                   vect._dataLength);
+                   V._dataLength);
   }
 #endif
 
   for (long i = 0; i < _dataLength; i++)
-    prod += _data[i] * vect._data[i];
+    prod += _data[i] * V._data[i];
   return prod;
 }
 
-// Vectorial product of two vectors
 /*
-  This method computes the vectorProduct product of two vectors defined by:
-  \f[ \overrightarrow{v} = \overrightarrow{a} \land \overrightarrow{b} \f]
-  \warning This method only works for two vectors with 3 components.
-  - vect second vector to use for the operation
-  Return : Vector result of the vectorProduct product of the two vectors
+@LABEL:Vector::vectorProduct(Vector y)
+@SHORT:Vector product of two Vector.
+@RETURN:Vector
+@WARNING:This method only works for two vectors with 3 components.
+@ARG:Vector&y&Vector $\overrightarrow{y}$ to use for the vector product operation.
+This method returns the vector product of two Vector defined by the following equation:
+\begin{equation*}
+\overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Vector::vectorProduct(const Vector &vect) const
@@ -1133,11 +1191,18 @@ Vector Vector::vectorProduct(const Vector &vect) const
   return resu;
 }
 
-// Element Wise inversion of a vector
 /*
-  This method computes the element wise inverse of a vector
-  Return : Vector result of the element wise inverse
+@LABEL:Vector::ewInverse()
+@SHORT:Element-wise inverse of a vector
+@RETURN:Vector
+This method returns a vector containing the inverse of all elements of the vector.
+\begin{equation*}
+y_i = 1/x_i,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
+
 //-----------------------------------------------------------------------------
 Vector Vector::ewInverse()
 //-----------------------------------------------------------------------------
@@ -1148,10 +1213,16 @@ Vector Vector::ewInverse()
   return result;
 }
 
-// Element Wise exp of a vector
 /*
-  This method computes the element wise exp of a vector
-  Return : Vector result of the element wise exp
+@LABEL:Vector::ewExp()
+@SHORT:Element-wise exponential of a vector
+@RETURN:Vector
+This method returns a vector containing the exponential of all elements of the vector.
+\begin{equation*}
+y_i = \exp(x_i),
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Vector::ewExp()
@@ -1163,11 +1234,17 @@ Vector Vector::ewExp()
   return result;
 }
 
-// Element Wise multiplication of two vectors
 /*
-  This method computes the element wise multiplication of two vectors
-  - v2 : second vector to use for the operation
-  Return : Vector result of the element wise multiplication of two vectors
+@LABEL:Vector::ewProduct(Vector y)
+@SHORT:Element-wise product of two vectors.
+@RETURN:Vector
+@ARG:Vector&y&Vector $\overrightarrow{y}$ to use for the element-wise product operation.
+This method returns the vector product of two Vector defined by the following equation:
+\begin{equation*}
+w_i = x_i y_i,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Vector::ewProduct(const Vector &v2)
@@ -1179,10 +1256,16 @@ Vector Vector::ewProduct(const Vector &v2)
   return result;
 }
 
-// Element Wise square of a vector
 /*
-  This method computes the element wise square of a vector
-  Return : Vector result of the element wise square
+@LABEL:Vector::ewSquare()
+@SHORT:Element-wise square of a vector
+@RETURN:Vector
+This method returns a vector containing the square of all elements of the vector.
+\begin{equation*}
+y_i = (x_i)^2,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Vector::ewSquare()
@@ -1194,10 +1277,17 @@ Vector Vector::ewSquare()
   return result;
 }
 
-// Element Wise add a value to a vector
 /*
-  This method computes the element wise add a value to a vector
-  Return : Vector result of the element wise add a value
+@LABEL:Vector::ewSquare(double m)
+@SHORT:Element-wise addition of a real to a vector
+@ARG:double&m&Value to add to all components of the vector
+@RETURN:Vector
+This method returns a vector containing all elements of the given vector plus a quantity.
+\begin{equation*}
+y_i = x_i + m,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Vector::ewAddReal(const double val)

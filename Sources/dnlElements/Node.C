@@ -524,7 +524,7 @@ void Node::toFile (FILE * pfile)
 void Node::toFileBound (FILE * pfile)
 //-----------------------------------------------------------------------------
 {
-  if (currentField->speed.innerProduct () != 0.0)
+  if (currentField->speed.dot () != 0.0)
     {
       fprintf (pfile, "%8ld  %8.3E %8.3E %8.3E\n",
          number,

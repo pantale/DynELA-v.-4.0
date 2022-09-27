@@ -618,7 +618,7 @@ double Model::getTotalKineticEnergy()
   // Loop over all nodes of the model and sum of kinetic energies of nodes
   for (long nodeId = 0; nodeId < nodes.getSize(); nodeId++)
   {
-    kineticEnergy += (nodes(nodeId)->mass * nodes(nodeId)->currentField->speed.innerProduct()) / 2.0;
+    kineticEnergy += (nodes(nodeId)->mass * nodes(nodeId)->currentField->speed.dot()) / 2.0;
   }
 
   // return the value

@@ -10,6 +10,317 @@
 \startcontents[chapters]
 \printmyminitoc[2]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. 
 
+\section{The Vec3D library}
+
+%@DOC:Vec3D::Vec3D
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::Vec3D}}\label{Vec3D::Vec3D}\index[DL]{Vec3D!Vec3D}\\
+Vec3D class.
+
+This class is used to store information for Coordinate Vectors.
+This file is the declaration file for the 3D vector class. A 3D vector class is a vector with the following form:
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}\\
+  x_{2}\\
+  x_{3}
+  \end{array}\right]
+\end{equation*}
+%@END
+
+\subsection{Constructor and destructor}
+
+%@DOC:Vec3D::Vec3D(double x1, double x2, double x3)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::Vec3D(double x1, double x2, double x3)}}\label{Vec3D::Vec3D(double x1, double x2, double x3)}\index[DL]{Vec3D!Vec3D(double x1, double x2, double x3)}\\
+Constructor of the Vec3D class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::Vec3D]
+double&x1&first component of the Vec3D to create.\\
+double&x2&second component of the Vec3D to create.\\
+double&x3&third component of the Vec3D to create.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Vec3D::Vec3D(Vec3D y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::Vec3D(Vec3D y)}}\label{Vec3D::Vec3D(Vec3D y)}\index[DL]{Vec3D!Vec3D(Vec3D y)}\\
+Copy constructor of the Vec3D class.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::Vec3D]
+Vec3D&y&Vec3D $\overrightarrow{y}$ to copy
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Vec3D::~Vec3D()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::$\sim$Vec3D(~)}}\label{Vec3D::~Vec3D()}\index[DL]{Vec3D!$\sim$Vec3D(~)}\\
+Destructor of the Vec3D class.
+
+%@END
+
+\subsection{Basic operations}
+
+%@DOC:Vec3D::operator*(double val, Vec3D V)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::operator*(double val, Vec3D V)}}\label{Vec3D::operator*(double val, Vec3D V)}\index[DL]{Vec3D!operator*(double val, Vec3D V)}\\
+Multiplication of a vector by a scalar value.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::operator*]
+double&val&Scalar value to use for the multiplication operation.\\
+Vec3D&V&Vec3D to use for the multiplication operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \lambda \overrightarrow{x}
+\end{equation*}
+%@END
+
+%@DOC:Vec3D::operator*(double val)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::operator*(double val)}}\label{Vec3D::operator*(double val)}\index[DL]{Vec3D!operator*(double val)}\\
+Multiplication of a vector by a scalar value.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::operator*]
+double&val&Scalar value to use for the multiplication operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \lambda \overrightarrow{x}
+\end{equation*}
+%@END
+
+%@DOC:Vec3D::operator/(double val)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::operator/(double val)}}\label{Vec3D::operator/(double val)}\index[DL]{Vec3D!operator/(double val)}\\
+Division of a vector by a scalar value.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::operator/]
+double&val&Scalar value to use for the division operation.
+\end{tcolorbox}
+
+This method defines the division of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \frac{1}{\lambda}\overrightarrow{x}
+\end{equation*}
+%@END
+
+%@DOC:Vec3D::maxValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::maxValue(~)}}\label{Vec3D::maxValue()}\index[DL]{Vec3D!maxValue(~)}\\
+Maximum value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the maximum value in a Vec3D.
+%@END
+
+%@DOC:Vec3D::minValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::minValue(~)}}\label{Vec3D::minValue()}\index[DL]{Vec3D!minValue(~)}\\
+Minumum value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the minimum value in a Vec3D.
+%@END
+
+%@DOC:Vec3D::maxmaxAbsoluteValueValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::maxmaxAbsoluteValueValue(~)}}\label{Vec3D::maxmaxAbsoluteValueValue()}\index[DL]{Vec3D!maxmaxAbsoluteValueValue(~)}\\
+Maximum absolute value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the maximum absolute value in a Vec3D.
+%@END
+
+%@DOC:Vec3D::minAbsoluteValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::minAbsoluteValue(~)}}\label{Vec3D::minAbsoluteValue()}\index[DL]{Vec3D!minAbsoluteValue(~)}\\
+Minumum absolute value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the minimum absolute value in a Vec3D.
+%@END
+
+%@DOC:Vec3D::dot(Vec3D y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::dot(Vec3D y)}}\label{Vec3D::dot(Vec3D y)}\index[DL]{Vec3D!dot(Vec3D y)}\\
+Dot product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::dot]
+Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the dot product operation.
+\end{tcolorbox}
+
+This method returns the dot product of two Vec3D defined by the following equation:
+\begin{equation*}
+m = \overrightarrow{x}\cdot\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vec3D::vectorProduct(Vec3D y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::vectorProduct(Vec3D y)}}\label{Vec3D::vectorProduct(Vec3D y)}\index[DL]{Vec3D!vectorProduct(Vec3D y)}\\
+Vector product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::vectorProduct]
+Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the vector product operation.
+\end{tcolorbox}
+
+This method returns the vector product of two Vec3D defined by the following equation:
+\begin{equation*}
+\overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vec3D::ewProduct(Vec3D y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::ewProduct(Vec3D y)}}\label{Vec3D::ewProduct(Vec3D y)}\index[DL]{Vec3D!ewProduct(Vec3D y)}\\
+Element-wise product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::ewProduct]
+Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the element-wise product operation.
+\end{tcolorbox}
+
+This method returns the vector product of two Vec3D defined by the following equation:
+\begin{equation*}
+w_i = x_i y_i,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vec3D::ewProduct(Tensor2 T)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::ewProduct(Tensor2 T)}}\label{Vec3D::ewProduct(Tensor2 T)}\index[DL]{Vec3D!ewProduct(Tensor2 T)}\\
+Element-wise product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::ewProduct]
+Tensor2&y&Tensor2 $\overrightarrow{y}$ to use for the element-wise product operation.
+\end{tcolorbox}
+
+This method returns the vector product of a Vec3D and a Tensor2 defined by the following equation:
+\begin{equation*}
+A_{ij} = x_i T_{ij},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vec3D::dyadic(Vec3D y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::dyadic(Vec3D y)}}\label{Vec3D::dyadic(Vec3D y)}\index[DL]{Vec3D!dyadic(Vec3D y)}\\
+Dyadic product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::dyadic]
+Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the dyadic product operation.
+\end{tcolorbox}
+
+This method returns the dyadic product of two Vec3D defined by the following equation:
+\begin{equation*}
+\T = \overrightarrow{x}\otimes\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vec3D::dyadic()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::dyadic(~)}}\label{Vec3D::dyadic()}\index[DL]{Vec3D!dyadic(~)}\\
+Dyadic product of a Vec3D by itsefl.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+
+This method returns the dyadic product of two Vec3D defined by the following equation:
+\begin{equation*}
+\T = \overrightarrow{x}\otimes\overrightarrow{x},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself. The result of this operation is a symmetric second order tensor.
+%@END
+
+%@DOC:Vec3D::dot()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::dot(~)}}\label{Vec3D::dot()}\index[DL]{Vec3D!dot(~)}\\
+Returns the dot product of a Vec3D by itself.
+
+This method returns dot product of a Vec3D by itself defined by:
+\begin{equation*}
+\left\Vert \overrightarrow{_data} \right\Vert  = v_{1}^2 + v_{2}^2 + v_{3}^2
+\end{equation*}
+%@END
+
+%@DOC:Vec3D::normalize()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::normalize(~)}}\label{Vec3D::normalize()}\index[DL]{Vec3D!normalize(~)}\\
+Get the normalized Vec3D.
+
+This method returns a colinear Vec3D with a norm equal to $1$.
+%@END
+
+%@DOC:Vec3D::distance(Vec3D y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::distance(Vec3D y)}}\label{Vec3D::distance(Vec3D y)}\index[DL]{Vec3D!distance(Vec3D y)}\\
+Distance between two points.
+
+This method computes the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert 
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vec3D::squareDistance(Vec3D y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vec3D::squareDistance(Vec3D y)}}\label{Vec3D::squareDistance(Vec3D y)}\index[DL]{Vec3D!squareDistance(Vec3D y)}\\
+Square of distance between two points.
+
+This method computes the square of the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2 
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
 \section{The Tensor2 library}
 
 %@DOC:Tensor2::Tensor2
@@ -1590,11 +1901,11 @@ Destructor of the Tensor3 class.
 
 %@END
 
-%@DOC:Tensor3::Tensor3(const Tensor3)
+%@DOC:Tensor3::Tensor3(Tensor3)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor3::Tensor3(const Tensor3)}}\label{Tensor3::Tensor3(const Tensor3)}\index[DL]{Tensor3!Tensor3(const Tensor3)}\\
+\textcolor{purple}{\textbf{Tensor3::Tensor3(Tensor3)}}\label{Tensor3::Tensor3(Tensor3)}\index[DL]{Tensor3!Tensor3(Tensor3)}\\
 Copy constructor of the Tensor3 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3
 
 %@END
@@ -1645,3 +1956,427 @@ Unity tensor.
 
 This method transforms the current tensor to a unity tensor.
 %@END
+
+\section{The Vector library}
+
+%@DOC:Vector::Vector
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::Vector}}\label{Vector::Vector}\index[DL]{Vector!Vector}\\
+Vector class.
+
+This class is used to store information for Vectors.
+This file is the declaration file for the Vector class. A Vector class is a vector with the following form:
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}\\
+  x_{2}\\
+  \vdots\\
+  x_{n}
+  \end{array}\right]
+\end{equation*}
+%@END
+
+\subsection{Constructor and destructor}
+
+%@DOC:Vector::getSize()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::getSize(~)}}\label{Vector::getSize()}\index[DL]{Vector!getSize(~)}\\
+Returns the length of the vector.\\ \hspace*{10mm}$\hookrightarrow$ long
+
+This method returns the length of the vector, \ie the number of components of the vector.
+%@END
+
+%@DOC:Vector::Vector(long l, double val)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::Vector(long l, double val)}}\label{Vector::Vector(long l, double val)}\index[DL]{Vector!Vector(long l, double val)}\\
+Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::Vector]
+long&l&Length of the Vector to create.\\
+double&val&Value to give to each element of the new Vector.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Vector::Vector(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::Vector(Vector y)}}\label{Vector::Vector(Vector y)}\index[DL]{Vector!Vector(Vector y)}\\
+Copy constructor of the Vec3D class.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::Vector]
+Vector&y&Vector $\overrightarrow{y}$ to copy
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Vector::Vector(int l, double x1, double x2, ...)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::Vector(int l, double x1, double x2, ...)}}\label{Vector::Vector(int l, double x1, double x2, ...)}\index[DL]{Vector!Vector(int l, double x1, double x2, ...)}\\
+Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::Vector]
+int&l&Number of components.\\
+double&x1&first component of the Vector to create.\\
+double&x2&second component of the Vector to create.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Vector::~Vector()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::$\sim$Vector(~)}}\label{Vector::~Vector()}\index[DL]{Vector!$\sim$Vector(~)}\\
+Destructor of the Vector class.
+
+%@END
+
+\subsection{Basic operations}
+
+%@DOC:Vector::swap(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::swap(Vector y)}}\label{Vector::swap(Vector y)}\index[DL]{Vector!swap(Vector y)}\\
+Swap the content of two vectors.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::swap]
+Vector&y&Second vector for the swap operation.
+\end{tcolorbox}
+
+This method swaps the storage of two vectors. The two vectors must have the exact same size.
+%@END
+
+%@DOC:Vector::redim(long s)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::redim(long s)}}\label{Vector::redim(long s)}\index[DL]{Vector!redim(long s)}\\
+Change the allocation size of a vector.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method cleans the content of the vector.}
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::redim]
+long&s&New allocation size of the vector after the operation.
+\end{tcolorbox}
+
+This method changes the size of a vector.
+%@END
+
+%@DOC:Vector::resize(long s)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::resize(long s)}}\label{Vector::resize(long s)}\index[DL]{Vector!resize(long s)}\\
+Change the size of a vector.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::resize]
+long&s&New size of the vector after the operation.
+\end{tcolorbox}
+
+This method is used to specify a new vector dimension of the one given during initialization by the constructor.
+This method makes a copy of the previous vector according to the new size, \ie it can shrink or expand the vector.
+If the new vector size is greater than the previous one, zeros are added at the end of the vector.
+%@END
+
+%@DOC:Vector::printOut()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::printOut(~)}}\label{Vector::printOut()}\index[DL]{Vector!printOut(~)}\\
+Displays the content of the vector on stdout.
+
+This method displays the content of the vector on the screen in a predefined format.
+The selection of the display format is made using the method setOutType().
+The output type is defined by the variables listed in OutVector.
+%@END
+
+%@DOC:Vector::setToValue(double val)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::setToValue(double val)}}\label{Vector::setToValue(double val)}\index[DL]{Vector!setToValue(double val)}\\
+This method affect a value to a vector.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::setToValue]
+double&val&Scalar value to use for the  operation.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Vector::operator=(double val)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator=(double val)}}\label{Vector::operator=(double val)}\index[DL]{Vector!operator=(double val)}\\
+This method affect a value to a vector.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::operator=]
+double&val&Scalar value to use for the  operation.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Vector::getNorm()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::getNorm(~)}}\label{Vector::getNorm()}\index[DL]{Vector!getNorm(~)}\\
+Returns the norm of a vector.
+
+This method returns norm of a vector defined by:
+\begin{equation*}
+\left\Vert \overrightarrow{v} \right\Vert = \sqrt {v_{1}^2 + v_{2}^2 + ... + v_{n}^2}
+\end{equation*}
+%@END
+
+%@DOC:Vector::dot()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::dot(~)}}\label{Vector::dot()}\index[DL]{Vector!dot(~)}\\
+Returns the dot product of a vector by itself.
+
+This method returns dot product of a vector by itself defined by:
+\begin{equation*}
+ \left\Vert \overrightarrow{v} \right\Vert  = v_{1}^2 + v_{2}^2 + ... + v_{n}^2
+\end{equation*}
+%@END
+
+%@DOC:Vector::dyadic()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::dyadic(~)}}\label{Vector::dyadic()}\index[DL]{Vector!dyadic(~)}\\
+Dyadic product of a Vector by itsefl.\\ \hspace*{10mm}$\hookrightarrow$ Matrix
+
+This method returns the dyadic product of two Vector defined by the following equation:
+\begin{equation*}
+\M = \overrightarrow{x}\otimes\overrightarrow{x},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself. The result of this operation is a symmetric second order tensor.
+%@END
+
+%@DOC:Vector::dyadic(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::dyadic(Vector y)}}\label{Vector::dyadic(Vector y)}\index[DL]{Vector!dyadic(Vector y)}\\
+Dyadic product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::dyadic]
+Vector&y&Vector $\overrightarrow{y}$ to use for the dyadic product operation.
+\end{tcolorbox}
+
+This method returns the dyadic product of two Vector defined by the following equation:
+\begin{equation*}
+\M = \overrightarrow{x}\otimes\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::normalize()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::normalize(~)}}\label{Vector::normalize()}\index[DL]{Vector!normalize(~)}\\
+Get the normalized Vector.
+
+This method returns a colinear vector with a norm equal to $1$.
+%@END
+
+%@DOC:Vector::maxValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::maxValue(~)}}\label{Vector::maxValue()}\index[DL]{Vector!maxValue(~)}\\
+Maximum value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the maximum value in a Vector.
+%@END
+
+%@DOC:Vector::minValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::minValue(~)}}\label{Vector::minValue()}\index[DL]{Vector!minValue(~)}\\
+Minumum value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the minimum value in a Vector.
+%@END
+
+%@DOC:Vector::maxmaxAbsoluteValueValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::maxmaxAbsoluteValueValue(~)}}\label{Vector::maxmaxAbsoluteValueValue()}\index[DL]{Vector!maxmaxAbsoluteValueValue(~)}\\
+Maximum absolute value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the maximum absolute value in a Vector.
+%@END
+
+%@DOC:Vector::minAbsoluteValue()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::minAbsoluteValue(~)}}\label{Vector::minAbsoluteValue()}\index[DL]{Vector!minAbsoluteValue(~)}\\
+Minumum absolute value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+This method returns the minimum absolute value in a Vector.
+%@END
+
+%@DOC:Vector::distance(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::distance(Vector y)}}\label{Vector::distance(Vector y)}\index[DL]{Vector!distance(Vector y)}\\
+Distance between two points.
+
+This method computes the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::squareDistance(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::squareDistance(Vector y)}}\label{Vector::squareDistance(Vector y)}\index[DL]{Vector!squareDistance(Vector y)}\\
+Square of distance between two points.
+
+This method computes the square of the distance between two points using an Euclidian getNorm.
+\begin{equation*}
+d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::dot(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::dot(Vector y)}}\label{Vector::dot(Vector y)}\index[DL]{Vector!dot(Vector y)}\\
+Dot product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::dot]
+Vector&y&Vector $\overrightarrow{y}$ to use for the dot product operation.
+\end{tcolorbox}
+
+This method returns the dot product of two Vector defined by the following equation:
+\begin{equation*}
+m = \overrightarrow{x}\cdot\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::vectorProduct(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::vectorProduct(Vector y)}}\label{Vector::vectorProduct(Vector y)}\index[DL]{Vector!vectorProduct(Vector y)}\\
+Vector product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method only works for two vectors with 3 components.}
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::vectorProduct]
+Vector&y&Vector $\overrightarrow{y}$ to use for the vector product operation.
+\end{tcolorbox}
+
+This method returns the vector product of two Vector defined by the following equation:
+\begin{equation*}
+\overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::ewInverse()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::ewInverse(~)}}\label{Vector::ewInverse()}\index[DL]{Vector!ewInverse(~)}\\
+Element-wise inverse of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+This method returns a vector containing the inverse of all elements of the vector.
+\begin{equation*}
+y_i = 1/x_i,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::ewExp()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::ewExp(~)}}\label{Vector::ewExp()}\index[DL]{Vector!ewExp(~)}\\
+Element-wise exponential of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+This method returns a vector containing the exponential of all elements of the vector.
+\begin{equation*}
+y_i = \exp(x_i),
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::ewProduct(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::ewProduct(Vector y)}}\label{Vector::ewProduct(Vector y)}\index[DL]{Vector!ewProduct(Vector y)}\\
+Element-wise product of two vectors.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::ewProduct]
+Vector&y&Vector $\overrightarrow{y}$ to use for the element-wise product operation.
+\end{tcolorbox}
+
+This method returns the vector product of two Vector defined by the following equation:
+\begin{equation*}
+w_i = x_i y_i,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::ewSquare()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::ewSquare(~)}}\label{Vector::ewSquare()}\index[DL]{Vector!ewSquare(~)}\\
+Element-wise square of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+This method returns a vector containing the square of all elements of the vector.
+\begin{equation*}
+y_i = (x_i)^2,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+%@DOC:Vector::ewSquare(double m)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::ewSquare(double m)}}\label{Vector::ewSquare(double m)}\index[DL]{Vector!ewSquare(double m)}\\
+Element-wise addition of a real to a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::ewSquare]
+double&m&Value to add to all components of the vector
+\end{tcolorbox}
+
+This method returns a vector containing all elements of the given vector plus a quantity.
+\begin{equation*}
+y_i = x_i + m,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
+

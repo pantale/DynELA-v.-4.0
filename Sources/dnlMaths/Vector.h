@@ -25,13 +25,21 @@ enum OutVector
 class Matrix;
 #endif
 
-//-----------------------------------------------------------------------------
-// Class : Vector
-//
-// Used to manage Vector
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:Vector::Vector
+@SHORT:Vector class.
+This class is used to store information for Vectors.
+This file is the declaration file for the Vector class. A Vector class is a vector with the following form:
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}\\
+  x_{2}\\
+  \vdots\\
+  x_{n}
+  \end{array}\right]
+\end{equation*}
+@END
+*/
 class Vector
 {
   friend class Matrix;
@@ -45,7 +53,7 @@ class Vector
   void desallocate();
 
 public:
-  Vector(long = 3, double = 0.0);
+  Vector(long = 3, double = 0);
   Vector(const Vector &);
   ~Vector();
 
@@ -60,7 +68,7 @@ public:
   Vector &operator=(const Vector &);
   Vector &operator=(double);
   Vector &read(std::ifstream &);
-  Vector(int vectorLength, double firstValue, double secondValue, ...);
+  Vector(int, double, double, ...);
   void operator-=(const Vector &);
   void operator*=(const double);
   void operator/=(const double);
@@ -79,7 +87,7 @@ public:
   double distance(const Vector &) const;
   double dot(const Vector &) const;
   double getNorm();
-  double innerProduct();
+  double dot();
   double maxAbsoluteValue();
   double maxValue();
   double minAbsoluteValue();
@@ -109,11 +117,11 @@ public:
   void numpyWriteZ(std::string, std::string, bool = false) const;
   void printOut();
   void redim(const long);
-  void resizeVector(const long);
+  void resize(const long);
   void scatterFrom(const Vector &, long *, int);
   void setOutType(char);
   void setToValue(double);
-  void swapWith(Vector &);
+  void swap(Vector &);
 };
 
 //------inline functions-------------------------------------------------------
@@ -163,10 +171,12 @@ inline double Vector::operator()(long i) const
   return _data[i];
 }
 
-// Size of the vector
 /*
-  This method returns the size of the vector.
-  Return : Size of the vector
+@LABEL:Vector::getSize()
+@SHORT:Returns the length of the vector.
+@RETURN:long
+This method returns the length of the vector, \ie the number of components of the vector.
+@END
 */
 //-----------------------------------------------------------------------------
 inline long Vector::getSize() const

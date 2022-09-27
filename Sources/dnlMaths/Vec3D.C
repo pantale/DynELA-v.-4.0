@@ -8,136 +8,121 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*
-  \file Vec3D.C
-  Declaration file for the 3D vector class
-
-  This file is the declaration file for the 3D vector class. A 3D vector class is a vector with the following form:
-  \f[ \overrightarrow{_data}=\left[\begin{array}{c}
-  v_{1}\\
-  v_{2}\\
-  v_{3}
-  \end{array}\right] \f]
-  This type of data structure is useful for storing three-dimensional coordinates (for example nodal coordinates, vectors forces,...).
-
-  \ingroup dnlMaths
-*/
-
 #include <fstream>
-
 #include <Vec3D.h>
 #include <NumpyInterface.h>
 #include <Tensor2.h>
 #include <SymTensor2.h>
 
-// Constructor of the Vec3D class with initialization
 /*
-  This method is a  constructor of the Vec3D class. All components are initialized with given values.
-  If all values are omitted, initial value is a zero vector, i.e. all components are set to zero.
-  - v1 first value of the vector
-  - v2 second value of the vector
-  - v3 third value of the vector
+@LABEL:Vec3D::Vec3D(double x1, double x2, double x3)
+@SHORT:Constructor of the Vec3D class with initialization.
+@RETURN:Vec3D
+@ARG:double&x1&first component of the Vec3D to create.
+@ARG:double&x2&second component of the Vec3D to create.
+@ARG:double&x3&third component of the Vec3D to create.
+@END
 */
 //-----------------------------------------------------------------------------
-Vec3D::Vec3D(double v1, double v2, double v3)
+Vec3D::Vec3D(double x1, double x2, double x3)
 //-----------------------------------------------------------------------------
 {
-    _data[0] = v1;
-    _data[1] = v2;
-    _data[2] = v3;
+    _data[0] = x1;
+    _data[1] = x2;
+    _data[2] = x3;
 }
 
-// Copy constructor of the Vec3D class
+/*
+@LABEL:Vec3D::Vec3D(Vec3D y)
+@SHORT:Copy constructor of the Vec3D class.
+@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to copy
+@RETURN:Vec3D
+@END
+*/
 //-----------------------------------------------------------------------------
-Vec3D::Vec3D(const Vec3D &vect)
+Vec3D::Vec3D(const Vec3D &V)
 //-----------------------------------------------------------------------------
 {
-    memcpy(_data, vect._data, 3 * sizeof(double));
+    memcpy(_data, V._data, 3 * sizeof(double));
 }
 
-// Destructor of the Vec3D class
+/*
+@LABEL:Vec3D::~Vec3D()
+@SHORT:Destructor of the Vec3D class.
+@END
+*/
 //-----------------------------------------------------------------------------
 Vec3D::~Vec3D()
 //-----------------------------------------------------------------------------
 {
 }
 
-// Multiplication of a vector by a scalar value
 /*
-  This method defines the multiplication of a vector by a scalar value
-  The result of this operation is also a vector defined by:
-  \f[ \overrightarrow{_data} = \lambda . \overrightarrow{a} \f]
-
-  Example :
-  \code
-  Vec3D t1, t2;
-  double l;
-  t2 = l * t1; // multiplication by a scalar
-  \endcode
-  - lambda Scalar value to use for the multiplication
+@LABEL:Vec3D::operator*(double val, Vec3D V)
+@SHORT:Multiplication of a vector by a scalar value.
+@ARG:double&val&Scalar value to use for the multiplication operation.
+@ARG:Vec3D&V&Vec3D to use for the multiplication operation.
+This method defines the multiplication of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \lambda \overrightarrow{x}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
-Vec3D operator*(const double lambda, const Vec3D &vect)
+Vec3D operator*(const double val, const Vec3D &V)
 //-----------------------------------------------------------------------------
 {
     Vec3D resu;
 
-    resu._data[0] = lambda * vect._data[0];
-    resu._data[1] = lambda * vect._data[1];
-    resu._data[2] = lambda * vect._data[2];
+    resu._data[0] = val * V._data[0];
+    resu._data[1] = val * V._data[1];
+    resu._data[2] = val * V._data[2];
 
     return resu;
 }
 
-// Multiplication of a vector by a scalar value
 /*
-  This method defines the multiplication of a vector by a scalar value
-  The result of this operation is also a vector defined by:
-  \f[ \overrightarrow{_data} = \overrightarrow{a} . \lambda \f]
-
-  Example :
-  \code
-  Vec3D t1, t2;
-  double l;
-  t2=t1*l; // multiplication by a scalar
-  \endcode
-  - lambda Scalar value to use for the multiplication
+@LABEL:Vec3D::operator*(double val)
+@SHORT:Multiplication of a vector by a scalar value.
+@ARG:double&val&Scalar value to use for the multiplication operation.
+This method defines the multiplication of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \lambda \overrightarrow{x}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
-Vec3D Vec3D::operator*(const double lambda) const
+Vec3D Vec3D::operator*(const double val) const
 //-----------------------------------------------------------------------------
 {
-    return Vec3D(lambda * _data[0], lambda * _data[1], lambda * _data[2]);
+    return Vec3D(val * _data[0], val * _data[1], val * _data[2]);
 }
 
-// Division of a vector by a scalar value
 /*
-  This method defines the division of a vector by a scalar value
-  The result of this operation is also a vector defined by:
-  \f[ \overrightarrow{_data} = \overrightarrow{a} / \lambda \f]
-
-  Example :
-  \code
-  Vec3D t1, t2;
-  double l;
-  t1 = t2 / l; // division by a scalar
-  \endcode
-  - lambda Scalar value to use for the division
+@LABEL:Vec3D::operator/(double val)
+@SHORT:Division of a vector by a scalar value.
+@ARG:double&val&Scalar value to use for the division operation.
+This method defines the division of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \frac{1}{\lambda}\overrightarrow{x}
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
-Vec3D Vec3D::operator/(const double lambda) const
+Vec3D Vec3D::operator/(const double val) const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
-    if (lambda == 0.)
+    if (val == 0)
     {
         fatalError("Vec3D:: operator /", "divide by zero");
     }
 #endif
 
-    return Vec3D(_data[0] / lambda, _data[1] / lambda, _data[2] / lambda);
+    return Vec3D(_data[0] / val, _data[1] / val, _data[2] / val);
 }
 
 // Test the equality of two vectors
@@ -175,9 +160,12 @@ bool Vec3D::operator!=(const Vec3D &vect) const
     return !(*this == vect);
 }
 
-// Maximum component in a vector
 /*
-  This method returns the maximum component of a vector
+@LABEL:Vec3D::maxValue()
+@SHORT:Maximum value in a Vec3D.
+@RETURN:double
+This method returns the maximum value in a Vec3D.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vec3D::maxValue()
@@ -199,9 +187,12 @@ double Vec3D::maxValue()
     }
 }
 
-// Minimum component in a vector
 /*
-  This method returns the minimum component of a vector
+@LABEL:Vec3D::minValue()
+@SHORT:Minumum value in a Vec3D.
+@RETURN:double
+This method returns the minimum value in a Vec3D.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vec3D::minValue()
@@ -223,9 +214,12 @@ double Vec3D::minValue()
     }
 }
 
-// Maximum absolute component in a vector
 /*
-  This method returns the maximum absolute component of a vector
+@LABEL:Vec3D::maxmaxAbsoluteValueValue()
+@SHORT:Maximum absolute value in a Vec3D.
+@RETURN:double
+This method returns the maximum absolute value in a Vec3D.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vec3D::maxAbsoluteValue()
@@ -247,9 +241,12 @@ double Vec3D::maxAbsoluteValue()
     }
 }
 
-// Minimum absolute component in a vector
 /*
-  This method returns the minimum absolute component of a vector
+@LABEL:Vec3D::minAbsoluteValue()
+@SHORT:Minumum absolute value in a Vec3D.
+@RETURN:double
+This method returns the minimum absolute value in a Vec3D.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vec3D::minAbsoluteValue()
@@ -291,12 +288,17 @@ bool Vec3D::isInsideBox(const Vec3D &vect_m, const Vec3D &vect_M) const
     return true;
 }
 
-// Dot product of two vectors
 /*
-  This method computes the dot product of two vectors defined by:
-  \f[ s = \overrightarrow{a} . \overrightarrow{b} \f]
-  - vect second vector to use for the operation
-  Return : Result of the dot product of the two vectors
+@LABEL:Vec3D::dot(Vec3D y)
+@SHORT:Dot product of two Vec3D.
+@RETURN:double
+@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the dot product operation.
+This method returns the dot product of two Vec3D defined by the following equation:
+\begin{equation*}
+m = \overrightarrow{x}\cdot\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 double Vec3D::dot(const Vec3D &V) const
@@ -305,12 +307,17 @@ double Vec3D::dot(const Vec3D &V) const
     return (_data[0] * V._data[0] + _data[1] * V._data[1] + _data[2] * V._data[2]);
 }
 
-// Vectorial product of two vectors
 /*
-  This method computes the vectorialProduct product of two vectors defined by:
-  \f[ \overrightarrow{_data} = \overrightarrow{a} \land \overrightarrow{b} \f]
-  - vect second vector to use for the operation
-  Return : Vector result of the vectorialProduct product of the two vectors
+@LABEL:Vec3D::vectorProduct(Vec3D y)
+@SHORT:Vector product of two Vec3D.
+@RETURN:Vec3D
+@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the vector product operation.
+This method returns the vector product of two Vec3D defined by the following equation:
+\begin{equation*}
+\overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vec3D Vec3D::vectorProduct(const Vec3D &V) const
@@ -321,57 +328,67 @@ Vec3D Vec3D::vectorProduct(const Vec3D &V) const
                  _data[0] * V._data[1] - _data[1] * V._data[0]);
 }
 
-// Components product of two vectors
 /*
-  This method computes the component product of two vectors defined by:
-  \f[ v_i = a_i * b_i \f]
+@LABEL:Vec3D::ewProduct(Vec3D y)
+@SHORT:Element-wise product of two Vec3D.
+@RETURN:Vec3D
+@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the element-wise product operation.
+This method returns the vector product of two Vec3D defined by the following equation:
+\begin{equation*}
+w_i = x_i y_i,
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
-Vec3D Vec3D::ewProduct(const Vec3D &vect) const
+Vec3D Vec3D::ewProduct(const Vec3D &V) const
 //-----------------------------------------------------------------------------
 {
-    return Vec3D(_data[0] * vect._data[0], _data[1] * vect._data[1], _data[2] * vect._data[2]);
+    return Vec3D(_data[0] * V._data[0], _data[1] * V._data[1], _data[2] * V._data[2]);
 }
 
-// Components product of a vec3D and a Tensor2
 /*
-  This method computes the component product of a vec3D and a Tensor2:
-  \f[ A_{ij} = a_i * B_{ij} \f]
-  - v2 Second order tensor to use for the operation
-  Return : A second order tensor resulting from the computation
+@LABEL:Vec3D::ewProduct(Tensor2 T)
+@SHORT:Element-wise product of two Vec3D.
+@RETURN:Tensor2
+@ARG:Tensor2&y&Tensor2 $\overrightarrow{y}$ to use for the element-wise product operation.
+This method returns the vector product of a Vec3D and a Tensor2 defined by the following equation:
+\begin{equation*}
+A_{ij} = x_i T_{ij},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
-Tensor2 Vec3D::ewProduct(const Tensor2 &tensor) const
+Tensor2 Vec3D::ewProduct(const Tensor2 &T) const
 //-----------------------------------------------------------------------------
 {
     Tensor2 result;
 
-    result._data[0] = _data[0] * tensor._data[0];
-    result._data[1] = _data[0] * tensor._data[1];
-    result._data[2] = _data[0] * tensor._data[2];
-    result._data[3] = _data[1] * tensor._data[3];
-    result._data[4] = _data[1] * tensor._data[4];
-    result._data[5] = _data[1] * tensor._data[5];
-    result._data[6] = _data[2] * tensor._data[6];
-    result._data[7] = _data[2] * tensor._data[7];
-    result._data[8] = _data[2] * tensor._data[8];
+    result._data[0] = _data[0] * T._data[0];
+    result._data[1] = _data[0] * T._data[1];
+    result._data[2] = _data[0] * T._data[2];
+    result._data[3] = _data[1] * T._data[3];
+    result._data[4] = _data[1] * T._data[4];
+    result._data[5] = _data[1] * T._data[5];
+    result._data[6] = _data[2] * T._data[6];
+    result._data[7] = _data[2] * T._data[7];
+    result._data[8] = _data[2] * T._data[8];
 
     return result;
 }
 
-// Dyadic product of two vectors
 /*
-  This method defines the dyadic product of 2 vectors that gives a second order tensor.
-  The result of this operation is a second order tensor defined by:
-  \f[ T = \overrightarrow{a} \otimes \overrightarrow{b} \f]
-
-  Exemple :
-  \code
-  Vec3D v1,v2;
-  Tensor2 t1 = v1.dyadicProduct(v2); // dyadic product
-  \endcode
-  - v2 Second vector to use for the operation
-  Return : A second order tensor resulting from the computation
+@LABEL:Vec3D::dyadic(Vec3D y)
+@SHORT:Dyadic product of two Vec3D.
+@RETURN:Tensor2
+@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the dyadic product operation.
+This method returns the dyadic product of two Vec3D defined by the following equation:
+\begin{equation*}
+\T = \overrightarrow{x}\otimes\overrightarrow{y},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Tensor2 Vec3D::dyadic(const Vec3D &V) const
@@ -392,19 +409,16 @@ Tensor2 Vec3D::dyadic(const Vec3D &V) const
     return result;
 }
 
-// Dyadic product of two vectors
 /*
-  This method defines the dyadic product of 2 vectors that gives a second order tensor.
-  The result of this operation is a second order tensor defined by:
-  \f[ T = \overrightarrow{a} \otimes \overrightarrow{b} \f]
-
-  Exemple :
-  \code
-  Vec3D v1,v2;
-  Tensor2 t1 = v1.dyadicProduct(v2); // dyadic product
-  \endcode
-  - v2 Second vector to use for the operation
-  Return : A second order tensor resulting from the computation
+@LABEL:Vec3D::dyadic()
+@SHORT:Dyadic product of a Vec3D by itsefl.
+@RETURN:SymTensor2
+This method returns the dyadic product of two Vec3D defined by the following equation:
+\begin{equation*}
+\T = \overrightarrow{x}\otimes\overrightarrow{x},
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself. The result of this operation is a symmetric second order tensor.
+@END
 */
 //-----------------------------------------------------------------------------
 SymTensor2 Vec3D::dyadic() const
