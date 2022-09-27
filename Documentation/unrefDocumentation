@@ -98,9 +98,8 @@ def returnDoc(data):
             warn = ''
     return Docs
 
-def getTexKeys(targetFile):
+def getTexKeys(targetFile, out):
     data = readFile(targetFile)
-    out = []
     for line in data:
         if '%@DOC:' in line:
             out.append(after(line.replace('  ',' '),'%@DOC:'))
@@ -191,7 +190,7 @@ def writeTex(out, key):
     return out
 
 # Start of the main application
-print("updateDocumentation")
+print("unrefDocumentation")
 print("(c) by Olivier Pantalé 2022")
 
 sources = "../Sources"
@@ -201,9 +200,23 @@ sourceFiles = findFiles(sources, "*.[Ch]")
 targetFiles = findFiles(target, "*.tex")
 
 docs = returnDoc(extractDoc(sourceFiles))
-
+docsList = list(docs.keys())
+tagsList = []
 for targetFile in targetFiles:
-    cl = cleanTex(targetFile)
-    tex = addDocToTex(cl)
-    writeFile(targetFile, tex)
+    tags = getTexKeys(targetFile, tagsList)
+
+moreTex = []
+    
+for t in tagsList:
+    if not t in docsList:
+        print("Source files missing : "+t)
+
+for t in docsList:
+    if not t in tagsList:
+        st = "%@DOC:"+t+"\n%@END\n\n"
+        moreTex.append(st)
+        print("TeX files missing : "+t)
+
+if (moreTex != []):
+    writeFile('Unreferenced-tex.txt', moreTex)
     
