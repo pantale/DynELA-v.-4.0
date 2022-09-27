@@ -89,6 +89,11 @@ public:
   long getSize() const;
   Matrix dyadicProduct();
   Matrix dyadicProduct(const Vector &);
+  Vector ewAddReal(const double);
+  Vector ewExp();
+  Vector ewInverse();
+  Vector ewProduct(const Vector &);
+  Vector ewSquare();
   Vector getNormalized();
   Vector operator-() const;
   Vector operator-(const Vector &) const;
@@ -109,13 +114,6 @@ public:
   void setOutType(char);
   void setToValue(double);
   void swapWith(Vector &);
-
-  // Element Wise operations on vectors
-  Vector EWInverse();
-  Vector EWExp();
-  Vector EWAddReal(const double);
-  Vector EWSquare();
-  Vector EWMultiply(const Vector &);
 };
 
 //------inline functions-------------------------------------------------------

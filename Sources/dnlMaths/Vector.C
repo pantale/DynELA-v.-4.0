@@ -1139,7 +1139,7 @@ Vector Vector::vectorialProduct(const Vector &vect) const
   Return : Vector result of the element wise inverse
 */
 //-----------------------------------------------------------------------------
-Vector Vector::EWInverse()
+Vector Vector::ewInverse()
 //-----------------------------------------------------------------------------
 {
   Vector result(_dataLength);
@@ -1154,7 +1154,7 @@ Vector Vector::EWInverse()
   Return : Vector result of the element wise exp
 */
 //-----------------------------------------------------------------------------
-Vector Vector::EWExp()
+Vector Vector::ewExp()
 //-----------------------------------------------------------------------------
 {
   Vector result(_dataLength);
@@ -1170,7 +1170,7 @@ Vector Vector::EWExp()
   Return : Vector result of the element wise multiplication of two vectors
 */
 //-----------------------------------------------------------------------------
-Vector Vector::EWMultiply(const Vector &v2)
+Vector Vector::ewProduct(const Vector &v2)
 //-----------------------------------------------------------------------------
 {
   Vector result(_dataLength);
@@ -1185,7 +1185,7 @@ Vector Vector::EWMultiply(const Vector &v2)
   Return : Vector result of the element wise square
 */
 //-----------------------------------------------------------------------------
-Vector Vector::EWSquare()
+Vector Vector::ewSquare()
 //-----------------------------------------------------------------------------
 {
   Vector result(_dataLength);
@@ -1200,7 +1200,7 @@ Vector Vector::EWSquare()
   Return : Vector result of the element wise add a value
 */
 //-----------------------------------------------------------------------------
-Vector Vector::EWAddReal(const double val)
+Vector Vector::ewAddReal(const double val)
 //-----------------------------------------------------------------------------
 {
   Vector result(_dataLength);

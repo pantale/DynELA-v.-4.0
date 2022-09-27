@@ -113,7 +113,7 @@ void Polygon::remapVertices(Vec3D center, Vec3D worldCenter, Vec3D worldScale)
 {
   for (int i = 0; i < points; i++)
   {
-    vertices[i] = worldScale.componentsProduct(vertices[i] - center) + worldCenter;
+    vertices[i] = worldScale.ewProduct(vertices[i] - center) + worldCenter;
   }
 }
 

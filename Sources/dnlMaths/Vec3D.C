@@ -325,7 +325,7 @@ Vec3D Vec3D::vectorialProduct(const Vec3D &vect) const
   \f[ v_i = a_i * b_i \f]
 */
 //-----------------------------------------------------------------------------
-Vec3D Vec3D::componentsProduct(const Vec3D &vect) const
+Vec3D Vec3D::ewProduct(const Vec3D &vect) const
 //-----------------------------------------------------------------------------
 {
     return Vec3D(_data[0] * vect._data[0], _data[1] * vect._data[1], _data[2] * vect._data[2]);
@@ -339,7 +339,7 @@ Vec3D Vec3D::componentsProduct(const Vec3D &vect) const
   Return : A second order tensor resulting from the computation
 */
 //-----------------------------------------------------------------------------
-Tensor2 Vec3D::componentsProduct(const Tensor2 &tensor) const
+Tensor2 Vec3D::ewProduct(const Tensor2 &tensor) const
 //-----------------------------------------------------------------------------
 {
     Tensor2 result;

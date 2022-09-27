@@ -187,13 +187,13 @@ double ANN2SigLaw::getYieldStress(double _epsp, double _depsp, double _T, double
   }
   inputData(2) = (_T - minEntries(2)) / rangeEntries(2);
 
-  Vector za = (-(w1 * inputData + b1)).EWExp();
+  Vector za = (-(w1 * inputData + b1)).ewExp();
 
-  Vector zb = za.EWAddReal(1);
+  Vector zb = za.ewAddReal(1);
 
-  Vector zc = (-((w2 * zb.EWInverse()) + b2)).EWExp();
+  Vector zc = (-((w2 * zb.ewInverse()) + b2)).ewExp();
 
-  double y = (w3 * ((zc.EWAddReal(1)).EWInverse()))(0) + b3(0);
+  double y = (w3 * ((zc.ewAddReal(1)).ewInverse()))(0) + b3(0);
 
   double Yield = rangeEntries(3) * y + minEntries(3);
 
@@ -219,19 +219,19 @@ double ANN2SigLaw::getDerivateYieldStress(double _epsp, double _depsp, double _T
   }
   inputData(2) = (_T - minEntries(2)) / rangeEntries(2);
 
-  Vector za = (-(w1 * inputData + b1)).EWExp();
+  Vector za = (-(w1 * inputData + b1)).ewExp();
 
-  Vector zb = za.EWAddReal(1);
+  Vector zb = za.ewAddReal(1);
 
-  Vector zc = (-((w2 * zb.EWInverse()) + b2)).EWExp();
+  Vector zc = (-((w2 * zb.ewInverse()) + b2)).ewExp();
 
-  double y = (w3 * ((zc.EWAddReal(1)).EWInverse()))(0) + b3(0);
+  double y = (w3 * ((zc.ewAddReal(1)).ewInverse()))(0) + b3(0);
 
-  Vector zd = zc.EWAddReal(1).EWSquare().EWInverse().EWMultiply(zc).EWMultiply(w3.getRow(0));
+  Vector zd = zc.ewAddReal(1).ewSquare().ewInverse().ewProduct(zc).ewProduct(w3.getRow(0));
 
-  Vector ze = zb.EWSquare().EWInverse().EWMultiply(za);
+  Vector ze = zb.ewSquare().ewInverse().ewProduct(za);
 
-  Vector zf = (w2.getTranspose() * zd).EWMultiply(ze);
+  Vector zf = (w2.getTranspose() * zd).ewProduct(ze);
 
   Vector yd = w1.getTranspose() * zf;
 

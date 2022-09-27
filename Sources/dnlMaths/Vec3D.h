@@ -79,9 +79,9 @@ public:
   double squareDistance(const Vec3D &) const;
   int getSize() const;
   SymTensor2 dyadicProduct() const;
-  Tensor2 componentsProduct(const Tensor2 &) const;
+  Tensor2 ewProduct(const Tensor2 &) const;
   Tensor2 dyadicProduct(const Vec3D &) const;
-  Vec3D componentsProduct(const Vec3D &) const;
+  Vec3D ewProduct(const Vec3D &) const;
   Vec3D getNormalized();
   Vec3D operator-() const;
   Vec3D operator-(const Vec3D &) const;
