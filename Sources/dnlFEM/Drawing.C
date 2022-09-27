@@ -282,7 +282,7 @@ void Drawing::zBufferSort()
   while ((polygon = polygons.currentUp()) != NULL)
   {
     polygon->computeNormal();
-    polygon->visible = (polygon->normal.dotProduct(zAxis) >= 0 ? true : false);
+    polygon->visible = (polygon->normal.dot(zAxis) >= 0 ? true : false);
   }
   polygons.endLoop();
 }

@@ -77,7 +77,7 @@ public:
   bool operator!=(const Vector &) const;
   bool operator==(const Vector &) const;
   double distance(const Vector &) const;
-  double dotProduct(const Vector &) const;
+  double dot(const Vector &) const;
   double getNorm();
   double innerProduct();
   double maxAbsoluteValue();
@@ -87,8 +87,8 @@ public:
   double operator()(long) const;
   double squareDistance(const Vector &) const;
   long getSize() const;
-  Matrix dyadicProduct();
-  Matrix dyadicProduct(const Vector &);
+  Matrix dyadic();
+  Matrix dyadic(const Vector &);
   Vector ewAddReal(const double);
   Vector ewExp();
   Vector ewInverse();
@@ -100,7 +100,7 @@ public:
   Vector operator*(const double) const;
   Vector operator/(const double) const;
   Vector operator+(const Vector &) const;
-  Vector vectorialProduct(const Vector &) const;
+  Vector vectorProduct(const Vector &) const;
   void gatherFrom(const Vector &, long *, int);
   void normalize();
   void numpyRead(std::string);

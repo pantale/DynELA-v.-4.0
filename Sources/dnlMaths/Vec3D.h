@@ -67,7 +67,7 @@ public:
   bool operator!=(const Vec3D &) const;
   bool operator==(const Vec3D &) const;
   double distance(const Vec3D &) const;
-  double dotProduct(const Vec3D &) const;
+  double dot(const Vec3D &) const;
   double getNorm();
   double getSquareNorm();
   double innerProduct();
@@ -78,9 +78,9 @@ public:
   double operator()(int) const;
   double squareDistance(const Vec3D &) const;
   int getSize() const;
-  SymTensor2 dyadicProduct() const;
+  SymTensor2 dyadic() const;
   Tensor2 ewProduct(const Tensor2 &) const;
-  Tensor2 dyadicProduct(const Vec3D &) const;
+  Tensor2 dyadic(const Vec3D &) const;
   Vec3D ewProduct(const Vec3D &) const;
   Vec3D getNormalized();
   Vec3D operator-() const;
@@ -88,7 +88,7 @@ public:
   Vec3D operator*(const double) const;
   Vec3D operator/(const double) const;
   Vec3D operator+(const Vec3D &) const;
-  Vec3D vectorialProduct(const Vec3D &) const;
+  Vec3D vectorProduct(const Vec3D &) const;
   void normalize();
   void numpyRead(std::string);
   void numpyReadZ(std::string, std::string);

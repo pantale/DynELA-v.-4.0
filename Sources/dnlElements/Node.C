@@ -542,7 +542,7 @@ void Node::toFileBound (FILE * pfile)
     {\
       if (component==0)\
       return currentField-> VAR.getNorm();\
-      if (component>3) fatalError("Node::getNodalValue::get","No sense for component >3 for a vectorialProduct quantity");\
+      if (component>3) fatalError("Node::getNodalValue::get","No sense for component >3 for a vectorProduct quantity");\
       return currentField-> VAR(component-1);\
     }
 #define getNodalFieldVec3DLocal(FIELD,VAR)  if (field==#FIELD) \
@@ -562,7 +562,7 @@ void Node::toFileBound (FILE * pfile)
     {\
       if (component==0)\
       return  VAR.getNorm();\
-      if (component>3) fatalError("Node::getNodalValue::get","No sense for component >3 for a vectorialProduct quantity");\
+      if (component>3) fatalError("Node::getNodalValue::get","No sense for component >3 for a vectorProduct quantity");\
       return  VAR(component-1);\
     }
 

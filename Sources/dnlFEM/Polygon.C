@@ -90,7 +90,7 @@ void Polygon::computeNormal()
   v1 = vertices[2] - vertices[1];
   v2 = vertices[0] - vertices[1];
 
-  normal = v1.vectorialProduct(v2);
+  normal = v1.vectorProduct(v2);
   normal.normalize();
 }
 

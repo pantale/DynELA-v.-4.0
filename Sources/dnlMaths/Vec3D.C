@@ -299,10 +299,10 @@ bool Vec3D::isInsideBox(const Vec3D &vect_m, const Vec3D &vect_M) const
   Return : Result of the dot product of the two vectors
 */
 //-----------------------------------------------------------------------------
-double Vec3D::dotProduct(const Vec3D &vect) const
+double Vec3D::dot(const Vec3D &V) const
 //-----------------------------------------------------------------------------
 {
-    return (_data[0] * vect._data[0] + _data[1] * vect._data[1] + _data[2] * vect._data[2]);
+    return (_data[0] * V._data[0] + _data[1] * V._data[1] + _data[2] * V._data[2]);
 }
 
 // Vectorial product of two vectors
@@ -313,10 +313,12 @@ double Vec3D::dotProduct(const Vec3D &vect) const
   Return : Vector result of the vectorialProduct product of the two vectors
 */
 //-----------------------------------------------------------------------------
-Vec3D Vec3D::vectorialProduct(const Vec3D &vect) const
+Vec3D Vec3D::vectorProduct(const Vec3D &V) const
 //-----------------------------------------------------------------------------
 {
-    return Vec3D(_data[1] * vect._data[2] - _data[2] * vect._data[1], _data[2] * vect._data[0] - _data[0] * vect._data[2], _data[0] * vect._data[1] - _data[1] * vect._data[0]);
+    return Vec3D(_data[1] * V._data[2] - _data[2] * V._data[1],
+                 _data[2] * V._data[0] - _data[0] * V._data[2],
+                 _data[0] * V._data[1] - _data[1] * V._data[0]);
 }
 
 // Components product of two vectors
@@ -372,20 +374,20 @@ Tensor2 Vec3D::ewProduct(const Tensor2 &tensor) const
   Return : A second order tensor resulting from the computation
 */
 //-----------------------------------------------------------------------------
-Tensor2 Vec3D::dyadicProduct(const Vec3D &vector) const
+Tensor2 Vec3D::dyadic(const Vec3D &V) const
 //-----------------------------------------------------------------------------
 {
     Tensor2 result;
 
-    result._data[0] = _data[0] * vector._data[0];
-    result._data[1] = _data[0] * vector._data[1];
-    result._data[2] = _data[0] * vector._data[2];
-    result._data[3] = _data[1] * vector._data[0];
-    result._data[4] = _data[1] * vector._data[1];
-    result._data[5] = _data[1] * vector._data[2];
-    result._data[6] = _data[2] * vector._data[0];
-    result._data[7] = _data[2] * vector._data[1];
-    result._data[8] = _data[2] * vector._data[2];
+    result._data[0] = _data[0] * V._data[0];
+    result._data[1] = _data[0] * V._data[1];
+    result._data[2] = _data[0] * V._data[2];
+    result._data[3] = _data[1] * V._data[0];
+    result._data[4] = _data[1] * V._data[1];
+    result._data[5] = _data[1] * V._data[2];
+    result._data[6] = _data[2] * V._data[0];
+    result._data[7] = _data[2] * V._data[1];
+    result._data[8] = _data[2] * V._data[2];
 
     return result;
 }
@@ -405,7 +407,7 @@ Tensor2 Vec3D::dyadicProduct(const Vec3D &vector) const
   Return : A second order tensor resulting from the computation
 */
 //-----------------------------------------------------------------------------
-SymTensor2 Vec3D::dyadicProduct() const
+SymTensor2 Vec3D::dyadic() const
 //-----------------------------------------------------------------------------
 {
     SymTensor2 result;

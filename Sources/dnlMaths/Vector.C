@@ -689,7 +689,7 @@ double Vector::innerProduct()
 }
 
 //-----------------------------------------------------------------------------
-Matrix Vector::dyadicProduct()
+Matrix Vector::dyadic()
 //-----------------------------------------------------------------------------
 {
   Matrix result(_dataLength, _dataLength);
@@ -702,7 +702,7 @@ Matrix Vector::dyadicProduct()
 }
 
 //-----------------------------------------------------------------------------
-Matrix Vector::dyadicProduct(const Vector &vec)
+Matrix Vector::dyadic(const Vector &vec)
 //-----------------------------------------------------------------------------
 {
   Matrix result(_dataLength, vec._dataLength);
@@ -1080,7 +1080,7 @@ double Vector::squareDistance(const Vector &vect) const
   Return : Result of the dot product of the two vectors
 */
 //-----------------------------------------------------------------------------
-double Vector::dotProduct(const Vector &vect) const
+double Vector::dot(const Vector &vect) const
 //-----------------------------------------------------------------------------
 {
   double prod = 0.0;
@@ -1088,7 +1088,7 @@ double Vector::dotProduct(const Vector &vect) const
 #ifdef VERIF_maths
   if (_dataLength != vect._dataLength)
   {
-    fatalErrorLine("Vector::dotProduct",
+    fatalErrorLine("Vector::dot",
                    "non compatible sizes of vectors v1(%d) and v2(%d)", _dataLength,
                    vect._dataLength);
   }
@@ -1101,25 +1101,25 @@ double Vector::dotProduct(const Vector &vect) const
 
 // Vectorial product of two vectors
 /*
-  This method computes the vectorialProduct product of two vectors defined by:
+  This method computes the vectorProduct product of two vectors defined by:
   \f[ \overrightarrow{v} = \overrightarrow{a} \land \overrightarrow{b} \f]
   \warning This method only works for two vectors with 3 components.
   - vect second vector to use for the operation
-  Return : Vector result of the vectorialProduct product of the two vectors
+  Return : Vector result of the vectorProduct product of the two vectors
 */
 //-----------------------------------------------------------------------------
-Vector Vector::vectorialProduct(const Vector &vect) const
+Vector Vector::vectorProduct(const Vector &vect) const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
   if (_dataLength != 3)
   {
-    fatalErrorLine("Vector::vectorialProduct",
+    fatalErrorLine("Vector::vectorProduct",
                    "getSize of v1(%d) not allowed for this operation", _dataLength);
   }
   if (vect._dataLength != 3)
   {
-    fatalErrorLine("Vector::vectorialProduct",
+    fatalErrorLine("Vector::vectorProduct",
                    "getSize of v2(%d) not allowed for this operation", vect._dataLength);
   }
 #endif

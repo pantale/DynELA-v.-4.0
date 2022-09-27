@@ -656,28 +656,28 @@ double ElHex8N3D::getVolume()
     double height;
     double volume = 0.0;
 
-    base = (((nodes(1)->coordinates - nodes(0)->coordinates).vectorialProduct(nodes(2)->coordinates - nodes(0)->coordinates)).getNorm() +
-            ((nodes(3)->coordinates - nodes(0)->coordinates).vectorialProduct(nodes(2)->coordinates - nodes(0)->coordinates)).getNorm()) /
+    base = (((nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(2)->coordinates - nodes(0)->coordinates)).getNorm() +
+            ((nodes(3)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(2)->coordinates - nodes(0)->coordinates)).getNorm()) /
            2.0;
-    norm = (nodes(1)->coordinates - nodes(0)->coordinates).vectorialProduct(nodes(3)->coordinates - nodes(0)->coordinates);
+    norm = (nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(3)->coordinates - nodes(0)->coordinates);
     norm.normalize();
-    height = dnlAbs(norm.dotProduct(nodes(7)->coordinates - nodes(0)->coordinates));
+    height = dnlAbs(norm.dot(nodes(7)->coordinates - nodes(0)->coordinates));
     volume += base * height / 3.0;
 
-    base = (((nodes(1)->coordinates - nodes(0)->coordinates).vectorialProduct(nodes(5)->coordinates - nodes(0)->coordinates)).getNorm() +
-            ((nodes(4)->coordinates - nodes(0)->coordinates).vectorialProduct(nodes(5)->coordinates - nodes(0)->coordinates)).getNorm()) /
+    base = (((nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(5)->coordinates - nodes(0)->coordinates)).getNorm() +
+            ((nodes(4)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(5)->coordinates - nodes(0)->coordinates)).getNorm()) /
            2.0;
-    norm = (nodes(1)->coordinates - nodes(0)->coordinates).vectorialProduct(nodes(4)->coordinates - nodes(0)->coordinates);
+    norm = (nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(4)->coordinates - nodes(0)->coordinates);
     norm.normalize();
-    height = dnlAbs(norm.dotProduct(nodes(7)->coordinates - nodes(0)->coordinates));
+    height = dnlAbs(norm.dot(nodes(7)->coordinates - nodes(0)->coordinates));
     volume += base * height / 3.0;
 
-    base = (((nodes(2)->coordinates - nodes(1)->coordinates).vectorialProduct(nodes(6)->coordinates - nodes(1)->coordinates)).getNorm() +
-            ((nodes(5)->coordinates - nodes(1)->coordinates).vectorialProduct(nodes(6)->coordinates - nodes(1)->coordinates)).getNorm()) /
+    base = (((nodes(2)->coordinates - nodes(1)->coordinates).vectorProduct(nodes(6)->coordinates - nodes(1)->coordinates)).getNorm() +
+            ((nodes(5)->coordinates - nodes(1)->coordinates).vectorProduct(nodes(6)->coordinates - nodes(1)->coordinates)).getNorm()) /
            2.0;
-    norm = (nodes(2)->coordinates - nodes(1)->coordinates).vectorialProduct(nodes(5)->coordinates - nodes(1)->coordinates);
+    norm = (nodes(2)->coordinates - nodes(1)->coordinates).vectorProduct(nodes(5)->coordinates - nodes(1)->coordinates);
     norm.normalize();
-    height = dnlAbs(norm.dotProduct(nodes(7)->coordinates - nodes(1)->coordinates));
+    height = dnlAbs(norm.dot(nodes(7)->coordinates - nodes(1)->coordinates));
     volume += base * height / 3.0;
 
     return volume;
