@@ -54,6 +54,7 @@ def texify(str, et=False):
     str = str.replace('()','(~)')
     if et:
         str = str.replace('&','\&')    
+        str = str.replace('*','$\star$')
     return str
 
 def returnDoc(data):
@@ -147,7 +148,7 @@ def writeTex(out, key):
     # Writes the cross index
     if '::' in key :
         ln2 = key.replace('::','!')
-        ln += '\\index[DL]{'+texify(ln2)+'}'   
+        ln += '\\index[DL]{'+texify(ln2,True)+'}'   
         
     # If key exists, write the corresponding documentation
     if key in docs:
@@ -170,7 +171,7 @@ def writeTex(out, key):
 
         # Scan args
         if (dc[2] != []):
-            ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R},title=Arguments of '+before(key,'(')+']\n'
+            ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R},title=Arguments of '+before(texify(key,True),'(')+']\n'
             for arg in dc[2]:
                 ln += arg 
                 if arg != dc[2][-1]:
