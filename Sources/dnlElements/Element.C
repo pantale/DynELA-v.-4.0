@@ -312,11 +312,11 @@ void Element::computeMassMatrix(MatrixDiag &elementMassMatrix)
 
 #ifdef VERIF_maths
   // verifier la taille de la matrice elementMassMatrix
-  if ((elementMassMatrix.rows() != _elementData->numberOfNodes) || (elementMassMatrix.columns() != _elementData->numberOfNodes))
+  if ((elementMassMatrix.rows() != _elementData->numberOfNodes) || (elementMassMatrix.cols() != _elementData->numberOfNodes))
   {
     std::cerr << "Error in Element::computeMassMatrix()\nincompatible getSize of matrices elementMassMatrix\n";
     std::cerr << "expected " << _elementData->numberOfNodes << "x" << _elementData->numberOfNodes << std::endl;
-    std::cerr << "getting  " << elementMassMatrix.rows() << "x" << elementMassMatrix.columns() << std::endl;
+    std::cerr << "getting  " << elementMassMatrix.rows() << "x" << elementMassMatrix.cols() << std::endl;
     exit(-1);
   }
 #endif
@@ -1641,11 +1641,11 @@ void Element::computeMassEquation(MatrixDiag &M, Vector &F)
 
 #ifdef VERIF_maths
   // verifier la taille de la matrice M
-  if ((M.rows() != _elementData->numberOfNodes) || (M.columns() != _elementData->numberOfNodes))
+  if ((M.rows() != _elementData->numberOfNodes) || (M.cols() != _elementData->numberOfNodes))
   {
     std::cerr << "Error in computeMassEquation()\nincompatible getSize of matrices M\n";
     std::cerr << "expected " << _elementData->numberOfNodes << "x" << _elementData->numberOfNodes << std::endl;
-    std::cerr << "getting  " << M.rows() << "x" << M.columns() << std::endl;
+    std::cerr << "getting  " << M.rows() << "x" << M.cols() << std::endl;
     exit(-1);
   }
 
@@ -1709,11 +1709,11 @@ void Element::computeMomentumEquation(MatrixDiag &M, Vector &F)
 
 #ifdef VERIF_maths
   // verifier la taille de la matrice M
-  if ((M.rows() != _elementData->numberOfNodes * getNumberOfDimensions()) || (M.columns() != _elementData->numberOfNodes * getNumberOfDimensions()))
+  if ((M.rows() != _elementData->numberOfNodes * getNumberOfDimensions()) || (M.cols() != _elementData->numberOfNodes * getNumberOfDimensions()))
   {
     std::cerr << "Error in computeMomentumEquation()\nincompatible getSize of matrices M\n";
     std::cerr << "expected " << getNumberOfDimensions() * _elementData->numberOfNodes << "x" << getNumberOfDimensions() * _elementData->numberOfNodes << std::endl;
-    std::cerr << "getting  " << M.rows() << "x" << M.columns() << std::endl;
+    std::cerr << "getting  " << M.rows() << "x" << M.cols() << std::endl;
     exit(-1);
   }
 
@@ -1947,12 +1947,12 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
 
 #ifdef VERIF_maths
   // verifier la taille de la matrice M
-  if ((M.rows () != _elementData->numberOfNodes) || (M.columns () != _elementData->numberOfNodes))
+  if ((M.rows () != _elementData->numberOfNodes) || (M.cols () != _elementData->numberOfNodes))
     {
       cerr <<
   "Error in computeEnergyEquation()\nincompatible getSize of matrices M\n";
       cerr << "expected " << _elementData->numberOfNodes << "x" << _elementData->numberOfNodes << std::endl;
-      cerr << "getting  " << M.rows () << "x" << M.columns () << std::endl;
+      cerr << "getting  " << M.rows () << "x" << M.cols () << std::endl;
       exit (-1);
     }
 

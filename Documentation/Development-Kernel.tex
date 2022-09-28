@@ -56,15 +56,75 @@ Return the number of Internet interfaces of the computer.\\ \hspace*{10mm}$\hook
 
 %@END
 
+\section{Settings}
 
-\#include 'LogFile.h'
 
-\#include 'Settings.h'
+%@DOC:Settings::Settings
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Settings::Settings}}\label{Settings::Settings}\index[DL]{Settings!Settings}\\
+Settings class.
 
-\#include 'String.h'
+This class is used to store settings information for \DynELA.
+%@END
 
-\#include 'System.h'
+%@DOC:Settings::Settings()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Settings::Settings(~)}}\label{Settings::Settings()}\index[DL]{Settings!Settings(~)}\\
+Constructor of the Settings class.\\ \hspace*{10mm}$\hookrightarrow$ Settings
 
-\#include 'Timer.h'
+%@END
 
-\#include 'Field.h'
+%@DOC:Settings::~Settings()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Settings::$\sim$Settings(~)}}\label{Settings::~Settings()}\index[DL]{Settings!$\sim$Settings(~)}\\
+Destructor of the Settings class.
+
+%@END
+
+%@DOC:Settings::load(string name)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Settings::load(string name)}}\label{Settings::load(string name)}\index[DL]{Settings!load(string name)}\\
+Load settings from a file.\\ \hspace*{10mm}$\hookrightarrow$ bool
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Settings::load]
+string & name & Name of the file to read settings from
+\end{tcolorbox}
+
+%@END
+
+%@DOC:Settings::save()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Settings::save(~)}}\label{Settings::save()}\index[DL]{Settings!save(~)}\\
+Saves settings.\\ \hspace*{10mm}$\hookrightarrow$ bool
+
+%@END
+
+%@DOC:Settings::dump()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Settings::dump(~)}}\label{Settings::dump()}\index[DL]{Settings!dump(~)}\\
+Dumps the conttent of the settings file to the output.
+
+%@END
+
+%@DOC:Settings::isChanged()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Settings::isChanged(~)}}\label{Settings::isChanged()}\index[DL]{Settings!isChanged(~)}\\
+Checks if settings has been changed and needs rewrite.\\ \hspace*{10mm}$\hookrightarrow$ bool
+
+%@END
+
+

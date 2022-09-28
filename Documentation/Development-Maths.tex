@@ -1990,18 +1990,19 @@ Returns the length of the vector.\\ \hspace*{10mm}$\hookrightarrow$ long
 This method returns the length of the vector, \ie the number of components of the vector.
 %@END
 
-%@DOC:Vector::Vector(long l, double val)
+%@DOC:Vector::Vector(long l, double x)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::Vector(long l, double val)}}\label{Vector::Vector(long l, double val)}\index[DL]{Vector!Vector(long l, double val)}\\
+\textcolor{purple}{\textbf{Vector::Vector(long l, double x)}}\label{Vector::Vector(long l, double x)}\index[DL]{Vector!Vector(long l, double x)}\\
 Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::Vector]
-long&l&Length of the Vector to create.\\
-double&val&Value to give to each element of the new Vector.
+long&l&Length of the vector to create.\\
+double&x&Value to give to each element of the new vector.
 \end{tcolorbox}
 
+This method creates a new vector of length $l$ where all values are initialized to $x$.
 %@END
 
 %@DOC:Vector::Vector(Vector y)

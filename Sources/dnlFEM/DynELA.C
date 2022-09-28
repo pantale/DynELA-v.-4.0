@@ -694,7 +694,7 @@ void DynELA::writeVTKFile()
   fileName = _VTKresultFileName + number + ".vtk";
 
   // Initialize the vtk data file
-  dataFile->open(fileName);
+  dataFile->openFile(fileName);
 
   // Write the vtk data file
   dataFile->write();

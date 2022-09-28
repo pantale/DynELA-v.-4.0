@@ -34,8 +34,8 @@ public:
   String name = "VtkInterface::_noname_"; // Name of the VTK interface
 
   // constructeurs
-  VtkInterface(char *newName = NULL);
-  VtkInterface(const VtkInterface &VtkInterface);
+  VtkInterface(char * = NULL);
+  VtkInterface(const VtkInterface &);
   ~VtkInterface();
 
   // Interface methods excluded from SWIG
@@ -52,12 +52,12 @@ public:
 #endif
 
   int getNumberOfFields();
-  short existField(short field);
-  void addField(short field);
+  short existField(short);
+  void addField(short);
   void close();
-  void open(String fileName);
+  void openFile(String);
   void initFields();
-  void removeField(short field);
+  void removeField(short);
   void write();
 };
 

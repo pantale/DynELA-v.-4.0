@@ -64,20 +64,20 @@ public:
 
   // Interface methods excluded from SWIG
 #ifndef SWIG
-  int getIntColor(double value);
-  String getStringColor(double value, bool steps = false);
-  Vec3D getVec3DColor(double value, bool steps = false);
-  void getBounds(double &min, double &max, int &levels);
+  int getIntColor(double);
+  String getStringColor(double, bool = false);
+  Vec3D getVec3DColor(double, bool = false);
+  void getBounds(double &, double &, int &);
 #endif
 
   double getMax();
   double getMin();
   int getLevels();
-  void setBounds(double min, double max);
+  void setBounds(double, double);
   void setColorMap();
   void setDeepColorMap();
   void setGrayMap();
-  void setLevels(int levels);
+  void setLevels(int);
   void setReverseColorMap();
   void setReverseDeepColorMap();
   void setReverseGrayMap();

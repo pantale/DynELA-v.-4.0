@@ -92,6 +92,8 @@ public:
   double maxValue();
   double minAbsoluteValue();
   double minValue();
+  double getMean() const;
+  double getSum() const;
   double operator()(long) const;
   double squareDistance(const Vector &) const;
   long getSize() const;
@@ -195,6 +197,26 @@ inline void Vector::setOutType(char outT)
 //-----------------------------------------------------------------------------
 {
   outType = outT;
+}
+
+//-----------------------------------------------------------------------------
+inline double Vector::getSum() const
+//-----------------------------------------------------------------------------
+{
+  double val = 0;
+  for (long i = 0; i < _dataLength; i++)
+    val += _data[i];
+  return val;
+}
+
+//-----------------------------------------------------------------------------
+inline double Vector::getMean() const
+//-----------------------------------------------------------------------------
+{
+  double val = 0;
+  for (long i = 0; i < _dataLength; i++)
+    val += _data[i];
+  return val / _dataLength;
 }
 
 #endif

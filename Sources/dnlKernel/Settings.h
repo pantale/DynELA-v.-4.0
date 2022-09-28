@@ -17,13 +17,12 @@
 #include <sstream>
 #include <iostream>
 
-//-----------------------------------------------------------------------------
-// Class : Settings
-//
-// Used to manage Settings
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:Settings::Settings
+@SHORT:Settings class.
+This class is used to store settings information for \DynELA.
+@END
+*/
 class Settings
 {
     bool _isChanged;
@@ -33,11 +32,11 @@ class Settings
 
     bool read();
     bool write() const;
-    std::pair<std::string, std::string> parseLine(const std::string &line) const;
+    std::pair<std::string, std::string> parseLine(const std::string &) const;
     template <typename T>
-    std::string convertToStr(const T input) const;
+    std::string convertToStr(const T) const;
     template <typename T>
-    T convertToType(const std::string &input) const;
+    T convertToType(const std::string &) const;
 
 public:
     Settings();
@@ -52,16 +51,16 @@ public:
 #endif
 
     bool isChanged() const;
-    bool loadFromFile(const std::string &filename);
-    bool saveToFile();
+    bool load(const std::string &);
+    bool save();
     template <typename T>
-    void getValue(const std::string &key, std::vector<T> &value) const;
+    void getValue(const std::string &, std::vector<T> &) const;
     template <typename T>
-    void getValue(const std::string &key, T &value) const;
+    void getValue(const std::string &, T &) const;
     template <typename T>
-    void setValue(const std::string &key, const std::vector<T> value);
+    void setValue(const std::string &, const std::vector<T>);
     template <typename T>
-    void setValue(const std::string &key, const T value);
+    void setValue(const std::string &, const T);
     void dump() const;
 };
 
@@ -260,25 +259,7 @@ inline void Settings::getValue(const std::string &key, T &value) const
     {
         value = convertToType<T>(it->second);
     }
-/*     else
-    {
-        int itr = 0;
-        std::string locKey;
-        bool endSeek = false;
-        while (!endSeek)
-        {
-            locKey = settingsDefauts[itr].key;
-            if (locKey == "END")
-                endSeek = true;
-            if (locKey == key)
-            {
-                value = convertToType<T>(settingsDefauts[itr].value);
-                endSeek = true;
-            }
-            itr++;
-        }
-    }
- */}
+}
 
 /**
  * This method tries to read the value of a key into a vector. The values have to be

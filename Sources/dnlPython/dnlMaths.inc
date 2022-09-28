@@ -198,15 +198,15 @@
   char *__str__()
   {
     static char temp[1024];
-    if (self->rows() == 3 && self->columns()==3)
+    if (self->rows() == 3 && self->cols()==3)
     {
       sprintf(temp,"[[%g, %g, %g],\n [%g, %g, %g],\n [%g, %g, %g]]", (*self)(0,0),(*self)(0,1),(*self)(0,2),(*self)(1,0),(*self)(1,1),(*self)(1,2),(*self)(2,0),(*self)(2,1),(*self)(2,2));
     }
-    else if (self->rows() == 2 && self->columns()==2)
+    else if (self->rows() == 2 && self->cols()==2)
     {
       sprintf(temp,"[[%g, %g],\n [%g, %g]]", (*self)(0,0),(*self)(0,1),(*self)(1,0),(*self)(1,1));
     }
-    else if (self->rows() == 4 && self->columns()==4)
+    else if (self->rows() == 4 && self->cols()==4)
     {
       sprintf(temp,"[[%g, %g, %g, %g],\n [%g, %g, %g, %g],\n [%g, %g, %g, %g],\n [%g, %g, %g, %g]]]", 
         (*self)(0,0),(*self)(0,1),(*self)(0,2),(*self)(0,3),
@@ -216,7 +216,7 @@
     }
     else 
     {
-      sprintf(temp,"Matrix of size %ldx%ld is too complex to be displayed",self->rows(),self->columns());
+      sprintf(temp,"Matrix of size %ldx%ld is too complex to be displayed",self->rows(),self->cols());
     }
     return &temp[0];
   }
@@ -258,7 +258,7 @@
     }
     else 
     {
-      sprintf(temp,"MatrixDiag of size %ldx%ld is too complex to be displayed",self->rows(),self->columns());
+      sprintf(temp,"MatrixDiag of size %ldx%ld is too complex to be displayed",self->rows(),self->cols());
     }
     return &temp[0];
   }

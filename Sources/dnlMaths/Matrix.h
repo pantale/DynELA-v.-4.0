@@ -39,18 +39,18 @@ public:
   Matrix(const Matrix &);
   // Constructor excluded from SWIG
 #ifndef SWIG
-  Matrix(int rows, int cols, double firstValue, double secondValue, ...);
+  Matrix(int, int, double, double, ...);
 #endif
   ~Matrix();
 
   // Interface methods excluded from SWIG
 #ifndef SWIG
   double &operator()(long, long);
-  friend Matrix operator*(const double &val, const Matrix &);
+  friend Matrix operator*(const double &, const Matrix &);
   friend std::ifstream &operator>>(std::ifstream &, Matrix &);
   friend std::ofstream &operator<<(std::ofstream &, const Matrix &);
   friend std::ostream &operator<<(std::ostream &, const Matrix &);
-  Matrix &operator=(const double &val);
+  Matrix &operator=(const double &);
   Matrix &operator=(const Matrix &);
   Matrix &operator=(const Tensor2 &);
   void operator-=(const Matrix &);
@@ -78,10 +78,11 @@ public:
   double getTrace() const;
   double maxAbsoluteValue() const;
   double maxValue() const;
+  double getMean() const;
   double minAbsoluteValue() const;
   double minValue() const;
   double operator()(long, long) const;
-  double sumTerms() const;
+  double getSum() const;
   long Memory() const;
   Matrix getCofactor() const;
   Matrix getInverse() const;
@@ -105,14 +106,14 @@ public:
   Vector columnSum() const;
   Vector getColumn(long) const;
   Vector getRow(long) const;
-  Vector getSolve(const Vector &x) const;
+  Vector getSolve(const Vector &) const;
   Vector operator*(const Vector &) const;
   Vector rowSum() const;
   Vector trans_mult(const Vector &) const;
   void computeEigenVectors2(Vector &, Matrix &);
   void computeEigenVectors2(Vector &);
-  void computeInverse2x2(double det, Matrix &inverse) const;
-  void computeInverse3x3(double det, Matrix &inverse) const;
+  void computeInverse2x2(double, Matrix &) const;
+  void computeInverse3x3(double, Matrix &) const;
   void computePseudoInverse(Matrix &, Matrix &, bool = false, double = 1e-10);
   void computeSVD(Vector &, Matrix &, Matrix &);
   void gatherFrom(const Matrix &, long *, int);
@@ -127,7 +128,7 @@ public:
   void scatterFrom(const Matrix &, long *, int);
   void setToUnity();
   void setToValue(double);
-  void solve(Vector &x);
+  void solve(Vector &);
   void squareDivideBy(const MatrixDiag &);
   void squareMultiplyBy(const MatrixDiag &);
 };
@@ -193,13 +194,23 @@ inline double &Matrix::operator()(long i, long j)
   Return : somme de tous les termes de la matrice
 */
 //-----------------------------------------------------------------------------
-inline double Matrix::sumTerms() const
+inline double Matrix::getSum() const
 //-----------------------------------------------------------------------------
 {
   double val = 0;
-  for (long i = 0; i < _cols * _rows; i++)
+  for (long i = 0; i < _dataLength; i++)
     val += _data[i];
   return val;
+}
+
+//-----------------------------------------------------------------------------
+inline double Matrix::getMean() const
+//-----------------------------------------------------------------------------
+{
+  double val = 0;
+  for (long i = 0; i < _dataLength; i++)
+    val += _data[i];
+  return val / (_dataLength);
 }
 
 #endif

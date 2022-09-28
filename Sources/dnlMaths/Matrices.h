@@ -60,7 +60,7 @@ public:
 #endif
 
   long rows() const;
-  long columns() const;
+  long cols() const;
   void setOutType(char outT);
   virtual long Memory() const = 0; // calcule la taille requise pour le stockage de la matrice en memoire
 };
@@ -117,7 +117,7 @@ inline long Matrices::rows() const
   \nombre de colonnes de la matrice
 */
 //-----------------------------------------------------------------------------
-inline long Matrices::columns() const
+inline long Matrices::cols() const
 //-----------------------------------------------------------------------------
 {
   return _cols;

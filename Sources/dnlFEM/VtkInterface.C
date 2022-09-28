@@ -38,7 +38,7 @@ VtkInterface::~VtkInterface()
 }
 
 //-----------------------------------------------------------------------------
-void VtkInterface::open(String fileName)
+void VtkInterface::openFile(String fileName)
 //-----------------------------------------------------------------------------
 {
   if (fileName == "")

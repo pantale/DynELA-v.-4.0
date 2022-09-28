@@ -13,11 +13,12 @@
 #include <NumpyInterface.h>
 
 /*
-@LABEL:Vector::Vector(long l, double val)
+@LABEL:Vector::Vector(long l, double x)
 @SHORT:Constructor of the Vector class with initialization.
 @RETURN:Vector
-@ARG:long&l&Length of the Vector to create.
-@ARG:double&val&Value to give to each element of the new Vector.
+@ARG:long&l&Length of the vector to create.
+@ARG:double&x&Value to give to each element of the new vector.
+This method creates a new vector of length $l$ where all values are initialized to $x$.
 @END
 */
 //-----------------------------------------------------------------------------

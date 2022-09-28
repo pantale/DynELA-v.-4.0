@@ -703,7 +703,7 @@ Matrix Matrix::singleProduct(const Matrix mat) const
     fatalError("Matrix::squareMultiplyBy (const MatrixDiag & mat)",
                "matrix sizes incompatible\n"
                "You're about to multiply a [%d,%d] and a [%d,%d] matrix",
-               _rows, _cols, mat.rows(), mat.columns());
+               _rows, _cols, mat.rows(), mat.cols());
 #endif
 
   cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, _rows, mat._cols, _cols, 1.0, _data, _cols, mat._data, mat._cols, 0.0, resu._data, mat._cols);
@@ -775,13 +775,13 @@ Matrix Matrix::operator*(const MatrixDiag &mat) const
 {
   long i, k;
 
-  Matrix resu(_rows, mat.columns());
+  Matrix resu(_rows, mat.cols());
 
   for (i = 0; i < _rows; i++)
   {
-    for (k = 0; k < mat.columns(); k++)
+    for (k = 0; k < mat.cols(); k++)
     {
-      resu._data[Ind(i, k, _rows, mat.columns())] = _data[Ind(i, k, _rows, _cols)] * mat(k);
+      resu._data[Ind(i, k, _rows, mat.cols())] = _data[Ind(i, k, _rows, _cols)] * mat(k);
     }
   }
 
@@ -807,7 +807,7 @@ void Matrix::squareMultiplyBy(const MatrixDiag &mat)
     fatalError("Matrix::squareMultiplyBy (const MatrixDiag & mat)",
                "matrix sizes incompatible\n"
                "You're about to multiply a [%d,%d] and a [%d,%d] matrix",
-               _rows, _cols, mat.rows(), mat.columns());
+               _rows, _cols, mat.rows(), mat.cols());
   if (_cols != _rows)
     fatalError("Matrix::squareMultiplyBy (const MatrixDiag & mat)",
                "matrix sizes incompatible\n"
@@ -845,7 +845,7 @@ void Matrix::squareDivideBy(const MatrixDiag &mat)
     fatalError("Matrix::squareMultiplyBy (const MatrixDiag & mat)",
                "matrix sizes incompatible\n"
                "You're about to multiply a [%d,%d] and a [%d,%d] matrix",
-               _rows, _cols, mat.rows(), mat.columns());
+               _rows, _cols, mat.rows(), mat.cols());
   if (_cols != _rows)
     fatalError("Matrix::squareMultiplyBy (const MatrixDiag & mat)",
                "matrix sizes incompatible\n"
@@ -1603,7 +1603,7 @@ Matrix Matrix::getNullSpace(bool relative, double tol)
   //  min(m,n) diagonal elements, U is an M-by-M orthogonal matrix, and
   //  V is an N-by-N orthogonal matrix.  The diagonal elements of SIGMA
   //  are the singular values of A; they are double and non-negative, and
-  //  are returned in descending order.  The first min(m,n) columns of
+  //  are returned in descending order.  The first min(m,n) cols of
   //  U and V are the left and right singular vectors of A.
 
   //  Note that the routine returns V**T, not V.
@@ -1700,7 +1700,7 @@ Matrix Matrix::getNullSpace2(bool relative, double tol)
   //  min(m,n) diagonal elements, U is an M-by-M orthogonal matrix, and
   //  V is an N-by-N orthogonal matrix.  The diagonal elements of SIGMA
   //  are the singular values of A; they are double and non-negative, and
-  //  are returned in descending order.  The first min(m,n) columns of
+  //  are returned in descending order.  The first min(m,n) cols of
   //  U and V are the left and right singular vectors of A.
 
   //  Note that the routine returns V**T, not V.
@@ -1840,7 +1840,7 @@ void Matrix::computeEigenVectors2(Vector &eigenValues, Matrix &eigenVectors)
   //  min(m,n) diagonal elements, U is an M-by-M orthogonal matrix, and
   //  V is an N-by-N orthogonal matrix.  The diagonal elements of SIGMA
   //  are the singular values of A; they are double and non-negative, and
-  //  are returned in descending order.  The first min(m,n) columns of
+  //  are returned in descending order.  The first min(m,n) cols of
   //  U and V are the left and right singular vectors of A.
 
   //  Note that the routine returns V**T, not V.
@@ -1907,7 +1907,7 @@ void Matrix::computeEigenVectors2(Vector &eigenValues)
   //  min(m,n) diagonal elements, U is an M-by-M orthogonal matrix, and
   //  V is an N-by-N orthogonal matrix.  The diagonal elements of SIGMA
   //  are the singular values of A; they are double and non-negative, and
-  //  are returned in descending order.  The first min(m,n) columns of
+  //  are returned in descending order.  The first min(m,n) cols of
   //  U and V are the left and right singular vectors of A.
 
   //  Note that the routine returns V**T, not V.
@@ -2078,7 +2078,7 @@ void Matrix::gatherFrom(const Matrix &M, long *ind0, int numberOfDim)
 //-----------------------------------------------------------------------------
 {
   //   long mr=M.rows();
-  //   long mc=M.columns();
+  //   long mc=M.cols();
   long mr = M._rows;
   long mc = M._cols;
   long loop_I = mc / numberOfDim;
@@ -2164,7 +2164,7 @@ void Matrix::scatterFrom(const Matrix &M, long *ind0, int numberOfDim)
 //-----------------------------------------------------------------------------
 {
   //   long mr=M.rows();
-  //   long mc=M.columns();
+  //   long mc=M.cols();
   long mr = _rows;
   long mc = _cols;
   long loop_I = mc / numberOfDim;

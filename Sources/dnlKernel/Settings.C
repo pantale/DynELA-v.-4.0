@@ -20,6 +20,12 @@
 #include <System.h>
 #include <fstream>
 
+/*
+@LABEL:Settings::Settings()
+@SHORT:Constructor of the Settings class.
+@RETURN:Settings
+@END
+*/
 //-----------------------------------------------------------------------------
 Settings::Settings() : _isChanged(false)
 //-----------------------------------------------------------------------------
@@ -31,20 +37,32 @@ Settings::Settings() : _isChanged(false)
     // Loads the settings from configuration file
     if (path != "")
     {
-        loadFromFile(path + "/configuration.dnl");
-        _filename = "";
+        load(path + "/configuration.dnl");
+       // _filename = "";
     }
 }
 
+/*
+@LABEL:Settings::~Settings()
+@SHORT:Destructor of the Settings class.
+@END
+*/
 //-----------------------------------------------------------------------------
 Settings::~Settings()
 //-----------------------------------------------------------------------------
 {
-    saveToFile();
+    save();
 }
 
+/*
+@LABEL:Settings::load(string name)
+@SHORT:Load settings from a file.
+@ARG:string & name & Name of the file to read settings from
+@RETURN:bool
+@END
+*/
 //-----------------------------------------------------------------------------
-bool Settings::loadFromFile(const std::string &filename)
+bool Settings::load(const std::string &filename)
 //-----------------------------------------------------------------------------
 {
     _data.clear();
@@ -52,8 +70,14 @@ bool Settings::loadFromFile(const std::string &filename)
     return read();
 }
 
+/*
+@LABEL:Settings::save()
+@SHORT:Saves settings.
+@RETURN:bool
+@END
+*/
 //-----------------------------------------------------------------------------
-bool Settings::saveToFile()
+bool Settings::save()
 //-----------------------------------------------------------------------------
 {
     if (_isChanged)
@@ -194,6 +218,11 @@ std::pair<std::string, std::string> Settings::parseLine(const std::string &line)
     return std::make_pair(std::string(), std::string());
 }
 
+/*
+@LABEL:Settings::dump()
+@SHORT:Dumps the conttent of the settings file to the output.
+@END
+*/
 //-----------------------------------------------------------------------------
 void Settings::dump() const
 //-----------------------------------------------------------------------------
@@ -205,6 +234,12 @@ void Settings::dump() const
               << "Size: " << _data.size() << std::endl;
 }
 
+/*
+@LABEL:Settings::isChanged()
+@SHORT:Checks if settings has been changed and needs rewrite.
+@RETURN:bool
+@END
+*/
 //-----------------------------------------------------------------------------
 bool Settings::isChanged() const
 //-----------------------------------------------------------------------------
