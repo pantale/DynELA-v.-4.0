@@ -10,7 +10,7 @@
 \startcontents[chapters]
 \printmyminitoc[2]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. 
 
-\section{The Vec3D library}
+\section{The Vec3D class}
 
 %@DOC:Vec3D::Vec3D
 %Warning :
@@ -39,7 +39,7 @@ This file is the declaration file for the 3D vector class. A 3D vector class is 
 \textcolor{purple}{\textbf{Vec3D::Vec3D(double x1, double x2, double x3)}}\label{Vec3D::Vec3D(double x1, double x2, double x3)}\index[DL]{Vec3D!Vec3D(double x1, double x2, double x3)}\\
 Constructor of the Vec3D class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::Vec3D]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&x1&first component of the Vec3D to create.\\
 double&x2&second component of the Vec3D to create.\\
 double&x3&third component of the Vec3D to create.
@@ -54,7 +54,7 @@ double&x3&third component of the Vec3D to create.
 \textcolor{purple}{\textbf{Vec3D::Vec3D(Vec3D y)}}\label{Vec3D::Vec3D(Vec3D y)}\index[DL]{Vec3D!Vec3D(Vec3D y)}\\
 Copy constructor of the Vec3D class.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::Vec3D]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D&y&Vec3D $\overrightarrow{y}$ to copy
 \end{tcolorbox}
 
@@ -75,10 +75,10 @@ Destructor of the Vec3D class.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vec3D::operator*(double val, Vec3D V)}}\label{Vec3D::operator*(double val, Vec3D V)}\index[DL]{Vec3D!operator*(double val, Vec3D V)}\\
+\textcolor{purple}{\textbf{Vec3D::operator$\star$(double val, Vec3D V)}}\label{Vec3D::operator*(double val, Vec3D V)}\index[DL]{Vec3D!operator$\star$(double val, Vec3D V)}\\
 Multiplication of a vector by a scalar value.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&val&Scalar value to use for the multiplication operation.\\
 Vec3D&V&Vec3D to use for the multiplication operation.
 \end{tcolorbox}
@@ -94,10 +94,10 @@ The result of this operation is also a vector defined by:
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vec3D::operator*(double val)}}\label{Vec3D::operator*(double val)}\index[DL]{Vec3D!operator*(double val)}\\
+\textcolor{purple}{\textbf{Vec3D::operator$\star$(double val)}}\label{Vec3D::operator*(double val)}\index[DL]{Vec3D!operator$\star$(double val)}\\
 Multiplication of a vector by a scalar value.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&val&Scalar value to use for the multiplication operation.
 \end{tcolorbox}
 
@@ -115,7 +115,7 @@ The result of this operation is also a vector defined by:
 \textcolor{purple}{\textbf{Vec3D::operator/(double val)}}\label{Vec3D::operator/(double val)}\index[DL]{Vec3D!operator/(double val)}\\
 Division of a vector by a scalar value.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::operator/]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&val&Scalar value to use for the division operation.
 \end{tcolorbox}
 
@@ -173,7 +173,7 @@ This method returns the minimum absolute value in a Vec3D.
 \textcolor{purple}{\textbf{Vec3D::dot(Vec3D y)}}\label{Vec3D::dot(Vec3D y)}\index[DL]{Vec3D!dot(Vec3D y)}\\
 Dot product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::dot]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the dot product operation.
 \end{tcolorbox}
 
@@ -191,7 +191,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vec3D::vectorProduct(Vec3D y)}}\label{Vec3D::vectorProduct(Vec3D y)}\index[DL]{Vec3D!vectorProduct(Vec3D y)}\\
 Vector product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::vectorProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the vector product operation.
 \end{tcolorbox}
 
@@ -209,7 +209,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vec3D::ewProduct(Vec3D y)}}\label{Vec3D::ewProduct(Vec3D y)}\index[DL]{Vec3D!ewProduct(Vec3D y)}\\
 Element-wise product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::ewProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the element-wise product operation.
 \end{tcolorbox}
 
@@ -227,7 +227,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vec3D::ewProduct(Tensor2 T)}}\label{Vec3D::ewProduct(Tensor2 T)}\index[DL]{Vec3D!ewProduct(Tensor2 T)}\\
 Element-wise product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::ewProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&y&Tensor2 $\overrightarrow{y}$ to use for the element-wise product operation.
 \end{tcolorbox}
 
@@ -245,7 +245,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vec3D::dyadic(Vec3D y)}}\label{Vec3D::dyadic(Vec3D y)}\index[DL]{Vec3D!dyadic(Vec3D y)}\\
 Dyadic product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vec3D::dyadic]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the dyadic product operation.
 \end{tcolorbox}
 
@@ -321,7 +321,7 @@ d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
 where the $\overrightarrow{x}$ is the object itself.
 %@END
 
-\section{The Tensor2 library}
+\section{The Tensor2 class}
 
 %@DOC:Tensor2::Tensor2
 %Warning :
@@ -373,7 +373,7 @@ All components are initialized to zero by default.
 \textcolor{purple}{\textbf{Tensor2::Tensor2(double,...)}}\label{Tensor2::Tensor2(double,...)}\index[DL]{Tensor2!Tensor2(double,...)}\\
 Constructor of the Tensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::Tensor2]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&t1&Component $t_{11}$ of the tensor.\\
 double&t2&Component $t_{12}$ of the tensor.\\
 double&t3&Component $t_{13}$ of the tensor.\\
@@ -395,7 +395,7 @@ Constructor of a second order tensor with explicit initialization of the 9 compo
 \textcolor{purple}{\textbf{Tensor2::Tensor2(Tensor2 T)}}\label{Tensor2::Tensor2(Tensor2 T)}\index[DL]{Tensor2!Tensor2(Tensor2 T)}\\
 Copy constructor of the Tensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::Tensor2]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&T&Tensor to copy.
 \end{tcolorbox}
 
@@ -408,7 +408,7 @@ SymTensor2&T&Tensor to copy.
 \textcolor{purple}{\textbf{Tensor2::operator=(SymTensor2 T)}}\label{Tensor2::operator=(SymTensor2 T)}\index[DL]{Tensor2!operator=(SymTensor2 T)}\\
 Copy a SymTensor2 into a Tensor2.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::operator=]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&T&Symmetric tensor 2 to copy.
 \end{tcolorbox}
 
@@ -487,7 +487,7 @@ The result of this operation is a second order tensor defined by the following e
 \textcolor{purple}{\textbf{Tensor2::operator=(double val)}}\label{Tensor2::operator=(double val)}\index[DL]{Tensor2!operator=(double val)}\\
 Fill a second order tensor with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::operator=]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&val&Value to use for the operation.
 \end{tcolorbox}
 
@@ -536,7 +536,7 @@ v_{i}=\sum_{j=1}^{3}T_{ij}
 \textcolor{purple}{\textbf{Tensor2::getRow(short row)}}\label{Tensor2::getRow(short row)}\index[DL]{Tensor2!getRow(short row)}\\
 Extraction of a row from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::getRow]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&row&Row to extract
 \end{tcolorbox}
 
@@ -554,7 +554,7 @@ v_{i} = T_{ij}
 \textcolor{purple}{\textbf{Tensor2::getColumn(short col)}}\label{Tensor2::getColumn(short col)}\index[DL]{Tensor2!getColumn(short col)}\\
 Extraction of a column from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::getColumn]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&col&Column to extract
 \end{tcolorbox}
 
@@ -640,7 +640,7 @@ v = \frac{1}{3} tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
 \textcolor{purple}{\textbf{Tensor2::singleProduct(Tensor2 T)}}\label{Tensor2::singleProduct(Tensor2 T)}\index[DL]{Tensor2!singleProduct(Tensor2 T)}\\
 Contracted product of two second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::singleProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -701,10 +701,10 @@ where $\A$ is a second order tensor. Result is a symmetric second order tensor.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::operator*(Tensor2 T)}}\label{Tensor2::operator*(Tensor2 T)}\index[DL]{Tensor2!operator*(Tensor2 T)}\\
+\textcolor{purple}{\textbf{Tensor2::operator$\star$(Tensor2 T)}}\label{Tensor2::operator*(Tensor2 T)}\index[DL]{Tensor2!operator$\star$(Tensor2 T)}\\
 Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -720,10 +720,10 @@ where $\A$ and $\B$ are two second order tensors.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::operator*(SymTensor2 T)}}\label{Tensor2::operator*(SymTensor2 T)}\index[DL]{Tensor2!operator*(SymTensor2 T)}\\
+\textcolor{purple}{\textbf{Tensor2::operator$\star$(SymTensor2 T)}}\label{Tensor2::operator*(SymTensor2 T)}\index[DL]{Tensor2!operator$\star$(SymTensor2 T)}\\
 Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -742,7 +742,7 @@ where $\A$ is a second order tensor and $\B$ is a symmetric second order tensor.
 \textcolor{purple}{\textbf{Tensor2::doubleProduct(Tensor2 T)}}\label{Tensor2::doubleProduct(Tensor2 T)}\index[DL]{Tensor2!doubleProduct(Tensor2 T)}\\
 Double contracted product of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ double
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::doubleProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -773,10 +773,10 @@ where $\A$ is a second order tensor.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::operator*(Vec3D V)}}\label{Tensor2::operator*(Vec3D V)}\index[DL]{Tensor2!operator*(Vec3D V)}\\
+\textcolor{purple}{\textbf{Tensor2::operator$\star$(Vec3D V)}}\label{Tensor2::operator*(Vec3D V)}\index[DL]{Tensor2!operator$\star$(Vec3D V)}\\
 Multiplication of a second order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D&V&Vec3D to use for the multiplication operation.
 \end{tcolorbox}
 
@@ -853,11 +853,11 @@ D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} 
 \end{equation*}
 %@END
 
-%@DOC:Tensor2::getInverse()
+%@DOC:Tensor2::inverse()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getInverse(~)}}\label{Tensor2::getInverse()}\index[DL]{Tensor2!getInverse(~)}\\
+\textcolor{purple}{\textbf{Tensor2::inverse(~)}}\label{Tensor2::inverse()}\index[DL]{Tensor2!inverse(~)}\\
 Inverse of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
 This method returns the inverse of a second second order tensor.
@@ -909,7 +909,7 @@ This method returns the J2 norm of a second order tensor defined by:
 \textcolor{purple}{\textbf{Tensor2::polarQL(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarQL(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarQL(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarQL]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\U$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -927,7 +927,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{Tensor2::polarQLLnU(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarQLLnU(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarQLLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarQLLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -948,7 +948,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{Tensor2::polarCuppen(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarCuppen(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarCuppen(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarCuppen]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\U$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -966,7 +966,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{Tensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarCuppenLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarCuppenLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -987,7 +987,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{Tensor2::polarJacobi(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarJacobi(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarJacobi(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarJacobi]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\U$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1005,7 +1005,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{Tensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarJacobiLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarJacobiLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1026,7 +1026,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{Tensor2::polarLapack(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarLapack(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarLapack(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarLapack]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\U$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1045,7 +1045,7 @@ It uses the LAPACKE\_dgeev function of the Lapack library which is far from effi
 \textcolor{purple}{\textbf{Tensor2::polarLapackLnU(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarLapackLnU(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarLapackLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarLapackLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1067,7 +1067,7 @@ It uses the LAPACKE\_dgeev function of the Lapack library which is far from effi
 \textcolor{purple}{\textbf{Tensor2::polar(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polar(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polar(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polar]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1085,7 +1085,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{Tensor2::polarLnU(SymTensor2 U, Tensor2 R)}}\label{Tensor2::polarLnU(SymTensor2 U, Tensor2 R)}\index[DL]{Tensor2!polarLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Tensor2::polarLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\U$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1109,7 +1109,7 @@ polarJacobi & $368$ & $390$ & $5.3291\times10^{-15}$\\\hline
 polarCuppen & $234$ & $243$ & $3.5527\times10^{-15}$
 \end{tcolorbox}
 
-\section{The Symmetric Tensor2 library}
+\section{The Symmetric Tensor2 class}
 
 %@DOC:SymTensor2::SymTensor2
 %Warning :
@@ -1162,7 +1162,7 @@ All components are initialized to zero by default.
 \textcolor{purple}{\textbf{SymTensor2::SymTensor2(double,...)}}\label{SymTensor2::SymTensor2(double,...)}\index[DL]{SymTensor2!SymTensor2(double,...)}\\
 Constructor of the SymTensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::SymTensor2]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&t1&Component $t_{11}$ of the tensor.\\
 double&t2&Component $t_{12}$ of the tensor.\\
 double&t3&Component $t_{13}$ of the tensor.\\
@@ -1181,7 +1181,7 @@ Constructor of a second order symmetric tensor with explicit initialization of t
 \textcolor{purple}{\textbf{SymTensor2::SymTensor2(SymTensor2 T)}}\label{SymTensor2::SymTensor2(SymTensor2 T)}\index[DL]{SymTensor2!SymTensor2(SymTensor2 T)}\\
 Copy constructor of the SymTensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::SymTensor2]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&T&Tensor to copy.
 \end{tcolorbox}
 
@@ -1242,7 +1242,7 @@ This method transforms the current tensor to a unity tensor.
 \textcolor{purple}{\textbf{SymTensor2::operator=(double val)}}\label{SymTensor2::operator=(double val)}\index[DL]{SymTensor2!operator=(double val)}\\
 Fill a second order tensor with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::operator=]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&val&Value to use for the operation.
 \end{tcolorbox}
 
@@ -1291,7 +1291,7 @@ v_{i}=\sum_{j=1}^{3}T_{ij}
 \textcolor{purple}{\textbf{SymTensor2::getRow(short row)}}\label{SymTensor2::getRow(short row)}\index[DL]{SymTensor2!getRow(short row)}\\
 Extraction of a row from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::getRow]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&row&Row to extract
 \end{tcolorbox}
 
@@ -1309,7 +1309,7 @@ v_{i} = T_{ij}
 \textcolor{purple}{\textbf{SymTensor2::getColumn(short col)}}\label{SymTensor2::getColumn(short col)}\index[DL]{SymTensor2!getColumn(short col)}\\
 Extraction of a column from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::getColumn]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&col&Column to extract
 \end{tcolorbox}
 
@@ -1395,7 +1395,7 @@ v = \frac{1}{3} tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
 \textcolor{purple}{\textbf{SymTensor2::singleProduct(SymTensor2 T)}}\label{SymTensor2::singleProduct(SymTensor2 T)}\index[DL]{SymTensor2!singleProduct(SymTensor2 T)}\\
 Contracted product of two symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::singleProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -1430,10 +1430,10 @@ where $\A$ is a two symmetric second order tensor.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::operator*(SymTensor2 T)}}\label{SymTensor2::operator*(SymTensor2 T)}\index[DL]{SymTensor2!operator*(SymTensor2 T)}\\
+\textcolor{purple}{\textbf{SymTensor2::operator$\star$(SymTensor2 T)}}\label{SymTensor2::operator*(SymTensor2 T)}\index[DL]{SymTensor2!operator$\star$(SymTensor2 T)}\\
 Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -1449,10 +1449,10 @@ where $\A$ and $\B$ are two symmetric second order tensors.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::operator*(Tensor2 T)}}\label{SymTensor2::operator*(Tensor2 T)}\index[DL]{SymTensor2!operator*(Tensor2 T)}\\
+\textcolor{purple}{\textbf{SymTensor2::operator$\star$(Tensor2 T)}}\label{SymTensor2::operator*(Tensor2 T)}\index[DL]{SymTensor2!operator$\star$(Tensor2 T)}\\
 Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -1471,7 +1471,7 @@ where $\B$ is a second order tensor and $\A$ is a symmetric second order tensor.
 \textcolor{purple}{\textbf{SymTensor2::doubleProduct(SymTensor2 T)}}\label{SymTensor2::doubleProduct(SymTensor2 T)}\index[DL]{SymTensor2!doubleProduct(SymTensor2 T)}\\
 Double contracted product of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ double
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::doubleProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&T&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -1502,10 +1502,10 @@ where $\A$ is a second order tensor.
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::operator*(Vec3D V)}}\label{SymTensor2::operator*(Vec3D V)}\index[DL]{SymTensor2!operator*(Vec3D V)}\\
+\textcolor{purple}{\textbf{SymTensor2::operator$\star$(Vec3D V)}}\label{SymTensor2::operator*(Vec3D V)}\index[DL]{SymTensor2!operator$\star$(Vec3D V)}\\
 Multiplication of a symmetric second order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::operator*]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D&V&Vec3D to use for the multiplication operation.
 \end{tcolorbox}
 
@@ -1546,11 +1546,11 @@ D = T_{11} T_{22} T_{33} + 2 T_{12} T_{23} T_{13} - T_{22} T_{13}^2 - T_{11} T_{
 \end{equation*}
 %@END
 
-%@DOC:SymTensor2::getInverse()
+%@DOC:SymTensor2::inverse()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getInverse(~)}}\label{SymTensor2::getInverse()}\index[DL]{SymTensor2!getInverse(~)}\\
+\textcolor{purple}{\textbf{SymTensor2::inverse(~)}}\label{SymTensor2::inverse()}\index[DL]{SymTensor2!inverse(~)}\\
 Inverse of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
 This method returns the inverse of a second second order tensor.
@@ -1616,7 +1616,7 @@ This method returns the von Mises stress of a symmetric second order tensor defi
 \textcolor{purple}{\textbf{SymTensor2::productByRxRT(Tensor2 R)}}\label{SymTensor2::productByRxRT(Tensor2 R)}\index[DL]{SymTensor2!productByRxRT(Tensor2 R)}\\
 Special combination for a multiplication of 3 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::productByRxRT]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&R&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -1647,7 +1647,7 @@ where $\A$ is a symmetric second order tensor and $\Q$ an orthogonal tensor.
 \textcolor{purple}{\textbf{SymTensor2::productByRTxR(Tensor2 R)}}\label{SymTensor2::productByRTxR(Tensor2 R)}\index[DL]{SymTensor2!productByRTxR(Tensor2 R)}\\
 Special combination for a multiplication of 3 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::productByRTxR]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&R&Second Tensor for the multiplication operation.
 \end{tcolorbox}
 
@@ -1678,7 +1678,7 @@ where $\A$ is a symmetric second order tensor and $\Q$ an orthogonal tensor.
 \textcolor{purple}{\textbf{SymTensor2::polarQL(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarQL(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarQL(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarQL]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\U$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1696,7 +1696,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{SymTensor2::polarQLLnU(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarQLLnU(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarQLLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarQLLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1717,7 +1717,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{SymTensor2::polarCuppen(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarCuppen(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarCuppen(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarCuppen]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1735,7 +1735,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{SymTensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarCuppenLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarCuppenLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1756,7 +1756,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{SymTensor2::polarJacobi(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarJacobi(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarJacobi(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarJacobi]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1774,7 +1774,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{SymTensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarJacobiLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarJacobiLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1795,7 +1795,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{SymTensor2::polarLapack(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarLapack(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarLapack(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarLapack]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1814,7 +1814,7 @@ It uses the LAPACKE\_dgeev function of the Lapack library which is far from effi
 \textcolor{purple}{\textbf{SymTensor2::polarLapackLnU(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarLapackLnU(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarLapackLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the Jacobi algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarLapackLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1836,7 +1836,7 @@ It uses the LAPACKE\_dgeev function of the Lapack library which is far from effi
 \textcolor{purple}{\textbf{SymTensor2::polar(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polar(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polar(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polar]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1854,7 +1854,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \textcolor{purple}{\textbf{SymTensor2::polarLnU(SymTensor2 U, Tensor2 R)}}\label{SymTensor2::polarLnU(SymTensor2 U, Tensor2 R)}\index[DL]{SymTensor2!polarLnU(SymTensor2 U, Tensor2 R)}\\
 Polar decomposition of a second order tensor using the old \DynELA algorithm.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 and Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of SymTensor2::polarLnU]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 SymTensor2&U&Symmetric tensor $\log[\U]$\\
 Tensor2&R&Rotation tensor $\R$
 \end{tcolorbox}
@@ -1878,7 +1878,7 @@ polarJacobi & $350$ & $356$ & $5.3291\times10^{-15}$\\\hline
 polarCuppen & $206$ & $233$& $3.5527\times10^{-15}$
 \end{tcolorbox}
 
-\section{The Tensor3 library}
+\section{The Tensor3 class}
 
 The Tensor3 library is used to store third order tensors defined in the \DynELA.
 
@@ -1922,7 +1922,7 @@ Returns an identity third order tensor.
 This method transforms the current tensor to a unity tensor.
 %@END
 
-\section{The Tensor4 library}
+\section{The Tensor4 class}
 
 The Tensor4 library is used to store fourth order tensors defined in the \DynELA.
 
@@ -1957,7 +1957,7 @@ Unity tensor.
 This method transforms the current tensor to a unity tensor.
 %@END
 
-\section{The Vector library}
+\section{The Vector class}
 
 %@DOC:Vector::Vector
 %Warning :
@@ -1980,11 +1980,11 @@ This file is the declaration file for the Vector class. A Vector class is a vect
 
 \subsection{Constructor and destructor}
 
-%@DOC:Vector::getSize()
+%@DOC:Vector::size()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::getSize(~)}}\label{Vector::getSize()}\index[DL]{Vector!getSize(~)}\\
+\textcolor{purple}{\textbf{Vector::size(~)}}\label{Vector::size()}\index[DL]{Vector!size(~)}\\
 Returns the length of the vector.\\ \hspace*{10mm}$\hookrightarrow$ long
 
 This method returns the length of the vector, \ie the number of components of the vector.
@@ -1997,7 +1997,7 @@ This method returns the length of the vector, \ie the number of components of th
 \textcolor{purple}{\textbf{Vector::Vector(long l, double x)}}\label{Vector::Vector(long l, double x)}\index[DL]{Vector!Vector(long l, double x)}\\
 Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::Vector]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 long&l&Length of the vector to create.\\
 double&x&Value to give to each element of the new vector.
 \end{tcolorbox}
@@ -2012,7 +2012,7 @@ This method creates a new vector of length $l$ where all values are initialized 
 \textcolor{purple}{\textbf{Vector::Vector(Vector y)}}\label{Vector::Vector(Vector y)}\index[DL]{Vector!Vector(Vector y)}\\
 Copy constructor of the Vec3D class.\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::Vector]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector&y&Vector $\overrightarrow{y}$ to copy
 \end{tcolorbox}
 
@@ -2025,7 +2025,7 @@ Vector&y&Vector $\overrightarrow{y}$ to copy
 \textcolor{purple}{\textbf{Vector::Vector(int l, double x1, double x2, ...)}}\label{Vector::Vector(int l, double x1, double x2, ...)}\index[DL]{Vector!Vector(int l, double x1, double x2, ...)}\\
 Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::Vector]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 int&l&Number of components.\\
 double&x1&first component of the Vector to create.\\
 double&x2&second component of the Vector to create.
@@ -2051,7 +2051,7 @@ Destructor of the Vector class.
 \textcolor{purple}{\textbf{Vector::swap(Vector y)}}\label{Vector::swap(Vector y)}\index[DL]{Vector!swap(Vector y)}\\
 Swap the content of two vectors.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::swap]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector&y&Second vector for the swap operation.
 \end{tcolorbox}
 
@@ -2067,7 +2067,7 @@ Change the allocation size of a vector.
 
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method cleans the content of the vector.}
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::redim]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 long&s&New allocation size of the vector after the operation.
 \end{tcolorbox}
 
@@ -2081,7 +2081,7 @@ This method changes the size of a vector.
 \textcolor{purple}{\textbf{Vector::resize(long s)}}\label{Vector::resize(long s)}\index[DL]{Vector!resize(long s)}\\
 Change the size of a vector.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::resize]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 long&s&New size of the vector after the operation.
 \end{tcolorbox}
 
@@ -2109,7 +2109,7 @@ The output type is defined by the variables listed in OutVector.
 \textcolor{purple}{\textbf{Vector::setToValue(double val)}}\label{Vector::setToValue(double val)}\index[DL]{Vector!setToValue(double val)}\\
 This method affect a value to a vector.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::setToValue]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&val&Scalar value to use for the  operation.
 \end{tcolorbox}
 
@@ -2122,7 +2122,7 @@ double&val&Scalar value to use for the  operation.
 \textcolor{purple}{\textbf{Vector::operator=(double val)}}\label{Vector::operator=(double val)}\index[DL]{Vector!operator=(double val)}\\
 This method affect a value to a vector.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::operator=]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&val&Scalar value to use for the  operation.
 \end{tcolorbox}
 
@@ -2175,7 +2175,7 @@ where the $\overrightarrow{x}$ is the object itself. The result of this operatio
 \textcolor{purple}{\textbf{Vector::dyadic(Vector y)}}\label{Vector::dyadic(Vector y)}\index[DL]{Vector!dyadic(Vector y)}\\
 Dyadic product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::dyadic]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector&y&Vector $\overrightarrow{y}$ to use for the dyadic product operation.
 \end{tcolorbox}
 
@@ -2271,7 +2271,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vector::dot(Vector y)}}\label{Vector::dot(Vector y)}\index[DL]{Vector!dot(Vector y)}\\
 Dot product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::dot]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector&y&Vector $\overrightarrow{y}$ to use for the dot product operation.
 \end{tcolorbox}
 
@@ -2291,7 +2291,7 @@ Vector product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method only works for two vectors with 3 components.}
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::vectorProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector&y&Vector $\overrightarrow{y}$ to use for the vector product operation.
 \end{tcolorbox}
 
@@ -2337,7 +2337,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vector::ewProduct(Vector y)}}\label{Vector::ewProduct(Vector y)}\index[DL]{Vector!ewProduct(Vector y)}\\
 Element-wise product of two vectors.\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::ewProduct]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector&y&Vector $\overrightarrow{y}$ to use for the element-wise product operation.
 \end{tcolorbox}
 
@@ -2369,7 +2369,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vector::ewSquare(double m)}}\label{Vector::ewSquare(double m)}\index[DL]{Vector!ewSquare(double m)}\\
 Element-wise addition of a real to a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Vector::ewSquare]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&m&Value to add to all components of the vector
 \end{tcolorbox}
 

@@ -234,8 +234,8 @@ short Timer::getLevel()
 Timer *Timers::timer(int index)
 //-----------------------------------------------------------------------------
 {
-  if (index >= timers.getSize())
-    return timers(timers.getSize() - 1);
+  if (index >= timers.size())
+    return timers(timers.size() - 1);
   return timers(index);
 }
 
@@ -248,7 +248,7 @@ Timer *Timers::timer(int index)
 Timer *Timers::timer(const char *timerName)
 //-----------------------------------------------------------------------------
 {
-  for (short index = 0; index < timers.getSize(); index++)
+  for (short index = 0; index < timers.size(); index++)
   {
     if (timers(index)->getName() == timerName)
       return timers(index);
@@ -278,7 +278,7 @@ void Timers::add(Timer *newTimer)
 void Timers::setFlags(bool flag)
 //-----------------------------------------------------------------------------
 {
-  for (short tim = 0; tim < timers.getSize(); tim++)
+  for (short tim = 0; tim < timers.size(); tim++)
   {
     timers(tim)->setFlag(flag);
   }
@@ -364,12 +364,12 @@ void Timers::saveReport(const char *filename)
   }
 
   _stream << "# CPU Computing times report\n\n";
-  _stream << "Number of tracked processes: " << timers.getSize() << "\n\n";
+  _stream << "Number of tracked processes: " << timers.size() << "\n\n";
 
   // Set all flags to false
   setFlags(false);
 
-  for (short tim = 0; tim < timers.getSize(); tim++)
+  for (short tim = 0; tim < timers.size(); tim++)
   {
     Timer *t = timers(tim);
     String father = t->getFather();
@@ -382,7 +382,7 @@ void Timers::saveReport(const char *filename)
         double fatherTime = timer(t->getFather().chars())->getTotal();
         double cumul = 0;
         _stream << "Group: " << t->getFather() << " (" << conv(fatherTime) << ")\n";
-        for (short tim2 = 0; tim2 < timers.getSize(); tim2++)
+        for (short tim2 = 0; tim2 < timers.size(); tim2++)
         {
           Timer *t2 = timers(tim2);
           if (!t2->getFlag() && t2->getFather() == t->getFather())
@@ -421,7 +421,7 @@ void Timers::stop()
 //-----------------------------------------------------------------------------
 {
   Timer *t;
-  for (short tim = 0; tim < timers.getSize(); tim++)
+  for (short tim = 0; tim < timers.size(); tim++)
   {
     t = timers(tim);
     if (t->running())
@@ -442,7 +442,7 @@ double Timers::getTotalChilds(const char *father)
   Timer *t;
   double total = 0;
   bool found = false;
-  for (i = 0; i < timers.getSize(); i++)
+  for (i = 0; i < timers.size(); i++)
   {
     t = timers(i);
     if (t->getFather() == father)
@@ -453,7 +453,7 @@ double Timers::getTotalChilds(const char *father)
   }
   if (!found)
   {
-    for (i = 0; i < timers.getSize(); i++)
+    for (i = 0; i < timers.size(); i++)
     {
       t = timers(i);
       if (t->getName() == father)

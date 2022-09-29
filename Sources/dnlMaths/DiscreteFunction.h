@@ -107,7 +107,7 @@ public:
   DiscreteFunction *ZeroForcing1Derivate();
   DiscreteFunction *ZeroForcing2Derivate();
   double getAverage();
-  double getInverseValue(double);
+  double inverseValue(double);
   double getSlope(double);
   double getValue(double);
   double getXPoint(long);
@@ -117,7 +117,7 @@ public:
   double minX();
   double minY();
   long getNumberOfPoints();
-  long getSize();
+  long size();
   String convertToDynELASourceFile();
   void add(double, double);
   void autoSort(bool);
@@ -149,7 +149,7 @@ inline void DiscreteFunction::autoSort(bool setSorted)
 inline long DiscreteFunction::getNumberOfPoints()
 //-----------------------------------------------------------------------------
 {
-  return lpoints.getSize();
+  return lpoints.size();
 }
 
 /*

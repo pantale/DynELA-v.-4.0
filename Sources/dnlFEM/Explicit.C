@@ -445,7 +445,7 @@ void Explicit::computePredictions()
 #endif
 
   // boucle sur les noeuds du modele
-  for (long nodeId = 0; nodeId < model->nodes.getSize(); nodeId++)
+  for (long nodeId = 0; nodeId < model->nodes.size(); nodeId++)
   {
     // recuperation du noeud courant
     node = model->nodes(nodeId);
@@ -503,7 +503,7 @@ void Explicit::explicitSolve()
   int numberOfDimensions = model->getNumberOfDimensions();
 
   // update du champ des accelerations
-  for (long nodeId = 0; nodeId < model->nodes.getSize(); nodeId++)
+  for (long nodeId = 0; nodeId < model->nodes.size(); nodeId++)
   {
     node = model->nodes(nodeId);
 
@@ -555,7 +555,7 @@ void Explicit::endStep()
 void Explicit::computeDensity()
 //-----------------------------------------------------------------------------
 {
-  for (long elementId = 0; elementId < model->elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < model->elements.size(); elementId++)
   {
     model->elements(elementId)->computeDensity();
   }

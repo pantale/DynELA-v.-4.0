@@ -102,7 +102,7 @@ public:
   SymTensor2 singleProductTxN() const;
   Tensor2 getCofactor() const;
   Tensor2 getDeviator() const;
-  Tensor2 getInverse() const;
+  Tensor2 inverse() const;
   Tensor2 getMinor() const;
   Tensor2 getSkewSymetricPart() const;
   Tensor2 getSymetricPart() const;

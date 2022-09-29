@@ -122,14 +122,14 @@ Node *DynELA::getNodeByNum(long nodeNumber)
 //-----------------------------------------------------------------------------
 {
   // pehaps it's just the last one (often assumed)
-  if (model.nodes.getSize() > 0)
+  if (model.nodes.size() > 0)
   {
     if (model.nodes.last()->number == nodeNumber)
       return model.nodes.last();
   }
 
   // no so search for it
-  return model.nodes.dichotomySearch(substractNodesNumber, nodeNumber);
+  return model.nodes.search(substractNodesNumber, nodeNumber);
 }
 
 // recherche d'un element dans la structure en fonction de son numero
@@ -145,14 +145,14 @@ Element *DynELA::getElementByNum(long elementNumber)
 //-----------------------------------------------------------------------------
 {
   // pehaps it's just the last one (often assumed)
-  if (model.elements.getSize() > 0)
+  if (model.elements.size() > 0)
   {
     if (model.elements.last()->number == elementNumber)
       return model.elements.last();
   }
 
   // no so search for it
-  return model.elements.dichotomySearch(substractElementsNumber, elementNumber);
+  return model.elements.search(substractElementsNumber, elementNumber);
 }
 
 // creation d'un noeud et ajout à la structure
@@ -204,14 +204,14 @@ bool DynELA::createNode(long nodeNumber, Vec3D coords)
 long DynELA::getNodesNumber()
 //-----------------------------------------------------------------------------
 {
-  return model.nodes.getSize();
+  return model.nodes.size();
 }
 
 //-----------------------------------------------------------------------------
 long DynELA::getElementsNumber()
 //-----------------------------------------------------------------------------
 {
-  return model.elements.getSize();
+  return model.elements.size();
 }
 
 //-----------------------------------------------------------------------------
@@ -331,7 +331,7 @@ void DynELA::add(Material *material, ElementSet *elementSet)
   bool already = false;
 
   // attach all elements of the group
-  for (i = 0; i < elementSet->getSize(); i++)
+  for (i = 0; i < elementSet->size(); i++)
   {
     elementSet->elements(i)->add(material);
 
@@ -343,12 +343,12 @@ void DynELA::add(Material *material, ElementSet *elementSet)
   material->_elementsSet << elementSet;
 
   // attach the material to the structure if not already done
-  for (i = 0; i < model.materials.getSize(); i++)
+  for (i = 0; i < model.materials.size(); i++)
   {
     if (model.materials(i) == material)
     {
       already = true;
-      i = model.materials.getSize();
+      i = model.materials.size();
     }
   }
   if (already == false)
@@ -369,7 +369,7 @@ void DynELA::addMaterial(Material *pmat)
 
   if (pmat->name != "")
   {
-    for (i = 0; i < model.materials.getSize(); i++)
+    for (i = 0; i < model.materials.size(); i++)
     {
       if (model.materials(i)->name == pmat->name)
       {
@@ -412,7 +412,7 @@ void DynELA::attachInitialBC(Boundary *boundary, NodeSet *nodeSet)
 {
   BoundaryCondition *boundaryCondition;
 
-  for (long i = 0; i < nodeSet->getSize(); i++)
+  for (long i = 0; i < nodeSet->size(); i++)
   {
 
     // test if boundary exists already
@@ -450,7 +450,7 @@ void DynELA::attachConstantBC(Boundary *boundary, NodeSet *nodeSet)
 {
   BoundaryCondition *boundaryCondition;
 
-  for (long i = 0; i < nodeSet->getSize(); i++)
+  for (long i = 0; i < nodeSet->size(); i++)
   {
 
     // test if boundary exists already
@@ -543,10 +543,10 @@ void DynELA::translate(Vec3D translateVector, NodeSet *nodeSet)
 //-----------------------------------------------------------------------------
 {
   if (nodeSet != NULL)
-    for (long i = 0; i < nodeSet->getSize(); i++)
+    for (long i = 0; i < nodeSet->size(); i++)
       nodeSet->nodes(i)->coordinates += translateVector;
   else
-    for (long i = 0; i < model.nodes.getSize(); i++)
+    for (long i = 0; i < model.nodes.size(); i++)
       model.nodes(i)->coordinates += translateVector;
 }
 
@@ -555,10 +555,10 @@ void DynELA::scale(double scaleValue, NodeSet *nodeSet)
 //-----------------------------------------------------------------------------
 {
   if (nodeSet != NULL)
-    for (long i = 0; i < nodeSet->getSize(); i++)
+    for (long i = 0; i < nodeSet->size(); i++)
       nodeSet->nodes(i)->coordinates *= scaleValue;
   else
-    for (long i = 0; i < model.nodes.getSize(); i++)
+    for (long i = 0; i < model.nodes.size(); i++)
       model.nodes(i)->coordinates *= scaleValue;
 }
 
@@ -567,11 +567,11 @@ void DynELA::scale(Vec3D scaleVector, NodeSet *nodeSet)
 //-----------------------------------------------------------------------------
 {
   if (nodeSet != NULL)
-    for (long i = 0; i < nodeSet->getSize(); i++)
+    for (long i = 0; i < nodeSet->size(); i++)
       for (long c = 0; c < 3; c++)
         nodeSet->nodes(i)->coordinates(c) *= scaleVector(c);
   else
-    for (long i = 0; i < model.nodes.getSize(); i++)
+    for (long i = 0; i < model.nodes.size(); i++)
       for (long c = 0; c < 3; c++)
         model.nodes(i)->coordinates(c) *= scaleVector(c);
 }
@@ -616,10 +616,10 @@ void DynELA::rotate(String set, double angle, NodeSet *nodeSet)
   }
 
   if (nodeSet != NULL)
-    for (long i = 0; i < nodeSet->getSize(); i++)
+    for (long i = 0; i < nodeSet->size(); i++)
       nodeSet->nodes(i)->coordinates = Mat * nodeSet->nodes(i)->coordinates;
   else
-    for (long i = 0; i < model.nodes.getSize(); i++)
+    for (long i = 0; i < model.nodes.size(); i++)
       model.nodes(i)->coordinates = Mat * model.nodes(i)->coordinates;
 }
 
@@ -645,10 +645,10 @@ void DynELA::rotate(Vec3D axis, double angle, NodeSet *nodeSet)
   Mat(2, 2) = dnlSquare(axis(2)) + cos(angleRadians) * (-dnlSquare(axis(2)) + 1);
 
   if (nodeSet != NULL)
-    for (long i = 0; i < nodeSet->getSize(); i++)
+    for (long i = 0; i < nodeSet->size(); i++)
       nodeSet->nodes(i)->coordinates = Mat * nodeSet->nodes(i)->coordinates;
   else
-    for (long i = 0; i < model.nodes.getSize(); i++)
+    for (long i = 0; i < model.nodes.size(); i++)
       model.nodes(i)->coordinates = Mat * model.nodes(i)->coordinates;
 }
 
@@ -670,7 +670,7 @@ void DynELA::getGlobalBox(Vec3D &minPoint, Vec3D &maxPoint)
   maxPoint = minPoint = model.nodes(0)->coordinates;
 
   // boucle de recherche
-  for (i = 1; i < model.nodes.getSize(); i++)
+  for (i = 1; i < model.nodes.size(); i++)
   {
     coordinates = model.nodes(i)->coordinates;
 
@@ -817,12 +817,12 @@ bool DynELA::initSolve ()
   logFile << "\nInitialisation of solver phase ........\n\nStructure architecture\n";
 
   // log file
-  logFile << elements.getSize()<<" elements\n"<<nodes.getSize()<<" nodes\n";
+  logFile << elements.size()<<" elements\n"<<nodes.size()<<" nodes\n";
 
   // initialisation du temps
   currentTime=0;
   // initialisation des modeles
-  for (i=0; i<models.getSize();i++)
+  for (i=0; i<models.size();i++)
     {
       logFile << "\nVerification of model "<<i<<" ...\n";
       if (models(i)->initSolve()==false)
@@ -839,17 +839,17 @@ bool DynELA::initSolve ()
   // si pas de modeles, alors pas de physique
 
   // si pas de dommaines, alors pas de structure
-  if (models.getSize()==0) return (false);
+  if (models.size()==0) return (false);
 
   // verification de la coherence des materiaux
-  for (i = 0; i < model.materials.getSize (); i++)
+  for (i = 0; i < model.materials.size (); i++)
     {
       logFile << "Verification of material "<<i<<" named "<<model.materials (i)->name<<" ...\n";
       model.materials (i)->checkValues ();
     }
 
   // calcul des materiaux
-  for (i = 0; i < model.materials.getSize (); i++)
+  for (i = 0; i < model.materials.size (); i++)
     {
       logFile << "Initialisation of material "<<i<<" named "<<model.materials (i)->name<<" ...\n";
       model.materials (i)->computeHookeTensor ();
@@ -880,7 +880,7 @@ Material * DynELA::getMaterial (String name)
 //-----------------------------------------------------------------------------
 {
   // balayage de la liste des materiaux
-  for (long i = 0; i < model.materials.getSize (); i++)
+  for (long i = 0; i < model.materials.size (); i++)
     {
       // materiau trouve
       if (model.materials (i)->name == name)
@@ -903,7 +903,7 @@ Material * DynELA::getMaterial (String name)
 void DynELA::attachBCToNodes(BoundaryCondition* BC, NodeSet* nds)
 //-----------------------------------------------------------------------------
 {
-  for (long i=0;i<nds->getSize();i++){
+  for (long i=0;i<nds->size();i++){
     nds->nodes(i)->boundary=BC;
 
   // logFile
@@ -1009,7 +1009,7 @@ void DynELA::setModel(Model* model)
     }
 
   // change the current index
-  models(models.getIndex(model));
+  models(models.index(model));
   logFile << "DynELA: "<<name << " model: "<<models.current()->name<<" selected\n";
 }
 
@@ -1027,15 +1027,15 @@ void DynELA::displayOnline()
 //  long doms=0;
 
   // memoire du modele
-//  long indDom=models.getIndex(models.current());
+//  long indDom=models.index(models.current());
 
-//  for (long i=0;i<models.getSize();i++) doms+=physics(i)->models.getSize();
+//  for (long i=0;i<models.size();i++) doms+=physics(i)->models.size();
 
   printf("\rRead %ld model%s %ld node%s %ld element%s %ld material%s",
-   models.getSize(),(models.getSize() > 1 ? "s" : ""),
-   nodes.getSize(),(nodes.getSize()>1 ? "s" : ""),
-   elements.getSize(),(elements.getSize()>1 ? "s" : ""),
-   model.materials.getSize(),(model.materials.getSize()>1 ? "s" : ""));
+   models.size(),(models.size() > 1 ? "s" : ""),
+   nodes.size(),(nodes.size()>1 ? "s" : ""),
+   elements.size(),(elements.size()>1 ? "s" : ""),
+   model.materials.size(),(model.materials.size()>1 ? "s" : ""));
 
   // reset currentModel
  // physics(indPhy);
@@ -1092,7 +1092,7 @@ void DynELA::readData (ifstream & pfile)
   //  models(currentModel);
 
   // load the models
-  for (i = 0; i < models.getSize (); i++)
+  for (i = 0; i < models.size (); i++)
     {
       models(i)->readData(pfile);
       if (checkBinaryVersion (pfile, 1) != Ok)
@@ -1113,7 +1113,7 @@ void DynELA::writeData (ofstream & pfile)
   pfile.write ((char *) &currentTime, sizeof (double));
 
   // load the models
-  for (i = 0; i < models.getSize (); i++)
+  for (i = 0; i < models.size (); i++)
     {
       models(i)->writeData(pfile);
       checkBinaryVersionWrite (pfile, 1);
@@ -1220,22 +1220,22 @@ void DynELA::compact()
 //  Grid* pgrid;
   long elementNum,nodeNum;
 
-//  for (i=0;i<physics.getSize();i++)
+//  for (i=0;i<physics.size();i++)
 //    {
 //      pphysic=physics(i);
-      for (j=0;j<models.getSize();j++)
+      for (j=0;j<models.size();j++)
   {
     pmodel=models(j);
-//	  for(k=0;k<pmodel.grids.getSize();k++)
+//	  for(k=0;k<pmodel.grids.size();k++)
 //	    {
         elementNum=1;
         nodeNum=1;
 //	      pgrid=pmodel.grids(k);
-        for (l=0;l<pmodel.nodes.getSize();l++)
+        for (l=0;l<pmodel.nodes.size();l++)
     {
       pmodel.nodes(l)->number=nodeNum++;
     }
-        for (l=0;l<pmodel.elements.getSize();l++)
+        for (l=0;l<pmodel.elements.size();l++)
     {
       pmodel.elements(l)->number=elementNum++;
     }
@@ -1363,7 +1363,7 @@ void DynELA::mergeModels()
 //-----------------------------------------------------------------------------
 {
   // if only one grid;
-  if (models.getSize()==1) return;
+  if (models.size()==1) return;
 
   long nnum=1,elnum=1;
   long i,j;
@@ -1371,35 +1371,35 @@ void DynELA::mergeModels()
 
   pmodeld=models(0);
 
-  for (j=0;j<pmodeld->elements.getSize();j++)
+  for (j=0;j<pmodeld->elements.size();j++)
     {
       pmodeld->elements(j)->number=elnum++;
     }
-  for (j=0;j<pmodeld->nodes.getSize();j++)
+  for (j=0;j<pmodeld->nodes.size();j++)
     {
       pmodeld->nodes(j)->number=nnum++;
     }
 
-  for (i=1; i<models.getSize();i++)
+  for (i=1; i<models.size();i++)
     {
       pmodelo=models(i);
 
       // copy elements
-      for (j=0;j<pmodelo->elements.getSize();j++)
+      for (j=0;j<pmodelo->elements.size();j++)
   {
     pmodeld->elements << pmodelo->elements(j);
     pmodelo->elements(j)->number=elnum++;
   }
 
       // copy nodes
-      for (j=0;j<pmodelo->nodes.getSize();j++)
+      for (j=0;j<pmodelo->nodes.size();j++)
   {
     pmodeld->nodes << pmodelo->nodes(j);
     pmodelo->nodes(j)->number=nnum++;
   }
     }
 
-  models.del(1,models.getSize()-1);
+  models.del(1,models.size()-1);
 }
 */
 

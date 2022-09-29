@@ -71,7 +71,7 @@ void NodeSet::add(Node *node)
 void NodeSet::add(NodeSet *nodesSet)
 //-----------------------------------------------------------------------------
 {
-  for (long i = 0; i < nodesSet->nodes.getSize(); i++)
+  for (long i = 0; i < nodesSet->nodes.size(); i++)
   {
     nodes << nodesSet->nodes(i);
   }
@@ -84,10 +84,10 @@ void NodeSet::add(NodeSet *nodesSet)
 
 */
 //-----------------------------------------------------------------------------
-long NodeSet::getSize()
+long NodeSet::size()
 //-----------------------------------------------------------------------------
 {
-  return nodes.getSize();
+  return nodes.size();
 }
 
 // recupere un pointeur sur le ieme noeud d'un node set
@@ -123,10 +123,10 @@ void NodeSet::intersect(NodeSet *nodeSet)
 //-----------------------------------------------------------------------------
 {
   bool ok;
-  for (long i = nodes.getSize() - 1; i >= 0; i--)
+  for (long i = nodes.size() - 1; i >= 0; i--)
   {
     ok = false;
-    for (long j = 0; j < nodeSet->nodes.getSize(); j++)
+    for (long j = 0; j < nodeSet->nodes.size(); j++)
     {
       if (nodes(i) == nodeSet->nodes(j))
       {
@@ -143,9 +143,9 @@ void NodeSet::intersect(NodeSet *nodeSet)
 void NodeSet::substract(NodeSet *nodeSet)
 //-----------------------------------------------------------------------------
 {
-  for (long i = nodes.getSize() - 1; i >= 0; i--)
+  for (long i = nodes.size() - 1; i >= 0; i--)
   {
-    for (long j = 0; j < nodeSet->nodes.getSize(); j++)
+    for (long j = 0; j < nodeSet->nodes.size(); j++)
     {
       if (nodes(i) == nodeSet->nodes(j))
       {
@@ -174,7 +174,7 @@ void NodeSet::surface(ElementSet *eset)
   LateralSurface *sr1;
   LateralSurface *sr2;
 
-  for (i = 0; i < eset->getSize(); i++)
+  for (i = 0; i < eset->size(); i++)
   {
     // get the element
     pel = eset->elements(i);
@@ -204,7 +204,7 @@ void NodeSet::surface(ElementSet *eset)
 
   // now detect doubles
   bool ok;
-  for (i = 1; i < lat.getSize(); i++)
+  for (i = 1; i < lat.size(); i++)
   {
     sr1 = lat(i - 1);
     sr2 = lat(i);
@@ -235,7 +235,7 @@ void NodeSet::surface(ElementSet *eset)
   nodes.flush();
 
   // creer la liste des noeuds
-  for (i = 0; i < lat.getSize(); i++)
+  for (i = 0; i < lat.size(); i++)
   {
     sr1 = lat(i);
     for (j = 0; j < sr1->pel->getNumberOfNodesOnSideFace(sr1->face); j++)
@@ -248,7 +248,7 @@ void NodeSet::surface(ElementSet *eset)
   nodes.sort();
 
   // suppress doubles
-  for (i = 1; i < nodes.getSize(); i++)
+  for (i = 1; i < nodes.size(); i++)
   {
     if (nodes(i - 1) == nodes(i))
     {
@@ -258,7 +258,7 @@ void NodeSet::surface(ElementSet *eset)
   }
 
   // detruire la liste des surfaces temporaires
-  for (i = 0; i < lat.getSize(); i++)
+  for (i = 0; i < lat.size(); i++)
   {
     delete lat(i);
   }

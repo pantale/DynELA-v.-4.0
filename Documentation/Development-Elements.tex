@@ -21,7 +21,7 @@
 \textcolor{purple}{\textbf{Node::Node}}\label{Node::Node}\index[DL]{Node!Node}\\
 Finite Element Node class.
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::Node]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 BoundaryCondition&*boundary&Boundary conditions on the current node.\\
 double&mass&Nodal mass.\\
 List<Element *>&elements&List of the elements that contains a reference to the current node.\\
@@ -42,7 +42,7 @@ This class is used to store information for Finite Element Nodes.
 \textcolor{purple}{\textbf{Node::Node(long n, double x, double y, double z)}}\label{Node::Node(long n, double x, double y, double z)}\index[DL]{Node!Node(long n, double x, double y, double z)}\\
 Constructor of the Node class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Node
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::Node]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 long&n&Node number to create.\\
 double&x&X coordinate of the node to create.\\
 double&y&Y coordinate of the node to create.\\
@@ -58,7 +58,7 @@ double&z&Z coordinate of the node to create.
 \textcolor{purple}{\textbf{Node::Node(Node node)}}\label{Node::Node(Node node)}\index[DL]{Node!Node(Node node)}\\
 Copy constructor of the Node class.\\ \hspace*{10mm}$\hookrightarrow$ Node
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::Node]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Node&node&Node to copy.
 \end{tcolorbox}
 
@@ -101,7 +101,7 @@ Copy the content of the nodalField to the newField.
 \textcolor{purple}{\textbf{Node::getNodalValue(short field)}}\label{Node::getNodalValue(short field)}\index[DL]{Node!getNodalValue(short field)}\\
 Get back a nodalField value.\\ \hspace*{10mm}$\hookrightarrow$ double
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalValue]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&field&Field to extract (see NodalField for informations).
 \end{tcolorbox}
 
@@ -114,7 +114,7 @@ short&field&Field to extract (see NodalField for informations).
 \textcolor{purple}{\textbf{Node::getNodalVec3D(short field)}}\label{Node::getNodalVec3D(short field)}\index[DL]{Node!getNodalVec3D(short field)}\\
 Get back a nodalField Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalVec3D]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&field&Field to extract (see NodalField for informations).
 \end{tcolorbox}
 
@@ -128,7 +128,7 @@ short&field&Field to extract (see NodalField for informations).
 \textcolor{purple}{\textbf{Node::getNodalSymTensor(short field)}}\label{Node::getNodalSymTensor(short field)}\index[DL]{Node!getNodalSymTensor(short field)}\\
 Get back a nodalField SymTensor2.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalSymTensor]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&field&Field to extract (see NodalField for informations).
 \end{tcolorbox}
 
@@ -141,7 +141,7 @@ short&field&Field to extract (see NodalField for informations).
 \textcolor{purple}{\textbf{Node::getNodalTensor(short field)}}\label{Node::getNodalTensor(short field)}\index[DL]{Node!getNodalTensor(short field)}\\
 Get back a nodalField Tensor2.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Node::getNodalTensor]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 short&field&Field to extract (see NodalField for informations).
 \end{tcolorbox}
 

@@ -58,15 +58,15 @@
   char *__str__()
   {
     static char temp[256];
-    if (self->getSize() >= 5)
+    if (self->size() >= 5)
     {
-      sprintf(temp,"[ %g, %g, %g, ..., %g ]", (*self)(0),(*self)(1),(*self)(2),(*self)(self->getSize()-1));
+      sprintf(temp,"[ %g, %g, %g, ..., %g ]", (*self)(0),(*self)(1),(*self)(2),(*self)(self->size()-1));
     }
-    if (self->getSize() == 4) sprintf(temp,"[ %g, %g, %g, %g ]", (*self)(0),(*self)(1),(*self)(2),(*self)(3));
-    if (self->getSize() == 3) sprintf(temp,"[ %g, %g, %g ]", (*self)(0),(*self)(1),(*self)(2));
-    if (self->getSize() == 2) sprintf(temp,"[ %g, %g ]", (*self)(0),(*self)(1));
-    if (self->getSize() == 1) sprintf(temp,"[ %g ]", (*self)(0));
-    if (self->getSize() == 0) sprintf(temp,"[]");
+    if (self->size() == 4) sprintf(temp,"[ %g, %g, %g, %g ]", (*self)(0),(*self)(1),(*self)(2),(*self)(3));
+    if (self->size() == 3) sprintf(temp,"[ %g, %g, %g ]", (*self)(0),(*self)(1),(*self)(2));
+    if (self->size() == 2) sprintf(temp,"[ %g, %g ]", (*self)(0),(*self)(1));
+    if (self->size() == 1) sprintf(temp,"[ %g ]", (*self)(0));
+    if (self->size() == 0) sprintf(temp,"[]");
     return &temp[0];
   }
   double __getitem__(int i)

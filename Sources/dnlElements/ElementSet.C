@@ -88,10 +88,10 @@ void ElementSet::add(Element *element)
 
 */
 //-----------------------------------------------------------------------------
-long ElementSet::getSize()
+long ElementSet::size()
 //-----------------------------------------------------------------------------
 {
-  return elements.getSize();
+  return elements.size();
 }
 
 // ajoute un ElementSet à un ElementSet
@@ -103,7 +103,7 @@ long ElementSet::getSize()
 void ElementSet::add(ElementSet *elementSet)
 //-----------------------------------------------------------------------------
 {
-  for (long i = 0; i < elementSet->elements.getSize(); i++)
+  for (long i = 0; i < elementSet->elements.size(); i++)
   {
     elements << elementSet->elements(i);
   }
@@ -142,10 +142,10 @@ void ElementSet::intersect(ElementSet *elementSet)
 //-----------------------------------------------------------------------------
 {
   bool ok;
-  for (long i = elements.getSize() - 1; i >= 0; i--)
+  for (long i = elements.size() - 1; i >= 0; i--)
   {
     ok = false;
-    for (long j = 0; j < elementSet->elements.getSize(); j++)
+    for (long j = 0; j < elementSet->elements.size(); j++)
     {
       if (elements(i) == elementSet->elements(j))
       {
@@ -162,9 +162,9 @@ void ElementSet::intersect(ElementSet *elementSet)
 void ElementSet::substract(ElementSet *elementSet)
 //-----------------------------------------------------------------------------
 {
-  for (long i = elements.getSize() - 1; i >= 0; i--)
+  for (long i = elements.size() - 1; i >= 0; i--)
   {
-    for (long j = 0; j < elementSet->elements.getSize(); j++)
+    for (long j = 0; j < elementSet->elements.size(); j++)
     {
       if (elements(i) == elementSet->elements(j))
       {

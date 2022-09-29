@@ -123,7 +123,7 @@ long substractNodesNumber(Node *node1, const long number);
 inline long Node::NoElements ()
 //-----------------------------------------------------------------------------
 {
-    return elements.getSize ();
+    return elements.size ();
 }
 */
 

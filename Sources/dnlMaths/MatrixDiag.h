@@ -73,7 +73,7 @@ public:
   double minAbsoluteValue();
   double minValue();
   long Memory() const;
-  MatrixDiag getInverse() const;
+  MatrixDiag inverse() const;
   MatrixDiag getTranspose();
   MatrixDiag singleProduct(const MatrixDiag &) const;
   Vector getSolve(Vector &);

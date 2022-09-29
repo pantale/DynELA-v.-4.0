@@ -96,7 +96,7 @@ public:
   double getSum() const;
   double operator()(long) const;
   double squareDistance(const Vector &) const;
-  long getSize() const;
+  long size() const;
   Matrix dyadic();
   Matrix dyadic(const Vector &);
   Vector ewAddReal(const double);
@@ -174,14 +174,14 @@ inline double Vector::operator()(long i) const
 }
 
 /*
-@LABEL:Vector::getSize()
+@LABEL:Vector::size()
 @SHORT:Returns the length of the vector.
 @RETURN:long
 This method returns the length of the vector, \ie the number of components of the vector.
 @END
 */
 //-----------------------------------------------------------------------------
-inline long Vector::getSize() const
+inline long Vector::size() const
 //-----------------------------------------------------------------------------
 {
   return _dataLength;

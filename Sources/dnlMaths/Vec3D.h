@@ -84,7 +84,7 @@ public:
   double minValue();
   double operator()(int) const;
   double squareDistance(const Vec3D &) const;
-  int getSize() const;
+  int size() const;
   SymTensor2 dyadic() const;
   Tensor2 ewProduct(const Tensor2 &) const;
   Tensor2 dyadic(const Vec3D &) const;
@@ -199,7 +199,7 @@ inline void Vec3D::setValue(double xVal, double yVal, double zVal)
   Return : Size of the 3D vector
 */
 //-----------------------------------------------------------------------------
-inline int Vec3D::getSize() const
+inline int Vec3D::size() const
 //-----------------------------------------------------------------------------
 {
   return 3;

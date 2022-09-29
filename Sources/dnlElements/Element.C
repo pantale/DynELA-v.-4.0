@@ -78,7 +78,7 @@ std::ifstream &operator>>(std::ifstream &is, Element &element)
 void Element::write(std::ofstream &pfile) const
 //-----------------------------------------------------------------------------
 {
-  for (long i = 0; i < integrationPoints.getSize(); i++)
+  for (long i = 0; i < integrationPoints.size(); i++)
   {
     integrationPoints(i)->write(pfile);
   }
@@ -88,7 +88,7 @@ void Element::write(std::ofstream &pfile) const
 Element &Element::read(std::ifstream &pfile)
 //-----------------------------------------------------------------------------
 {
-  for (long i = 0; i < integrationPoints.getSize(); i++)
+  for (long i = 0; i < integrationPoints.size(); i++)
   {
     pfile >> *(integrationPoints(i));
   }
@@ -204,7 +204,7 @@ void Element::add(IntegrationPoint *field, short intPointId)
   assert(_elementData != NULL);
 #endif
 #ifdef VERIF_bounds
-  if (integrationPoints.getSize() > _elementData->numberOfIntegrationPoints)
+  if (integrationPoints.size() > _elementData->numberOfIntegrationPoints)
     fatalError("Element::add",
                "integration point %d is out of bounds %d-%d\n", intPointId, 0, _elementData->numberOfIntegrationPoints);
 #endif
@@ -233,7 +233,7 @@ void Element::add(UnderIntegrationPoint *field, short intPointId)
 #endif
 
 #ifdef VERIF_bounds
-  if (underIntegrationPoints.getSize() > _elementData->numberOfUnderIntegrationPoints)
+  if (underIntegrationPoints.size() > _elementData->numberOfUnderIntegrationPoints)
     fatalError("Element::add",
                "underIntegration point %d is out of bounds %d-%d\n", intPointId, 0, _elementData->numberOfUnderIntegrationPoints);
 #endif
@@ -268,7 +268,7 @@ void Element::initializeData()
   assert(material != NULL);
 #endif
 
-  for (int nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (int nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     // Get the node
     node = nodes(nodeId);
@@ -277,14 +277,14 @@ void Element::initializeData()
 #endif
   }
 
-  for (int intPoint = 0; intPoint < integrationPoints.getSize(); intPoint++)
+  for (int intPoint = 0; intPoint < integrationPoints.size(); intPoint++)
   {
     setCurrentIntegrationPoint(intPoint);
     _integrationPoint->temperature = material->initialTemperature;
     _integrationPoint->density = material->density;
   }
 
-  /*   for (int intPoint = 0; intPoint < underIntegrationPoint.getSize(); intPoint++)
+  /*   for (int intPoint = 0; intPoint < underIntegrationPoint.size(); intPoint++)
   {
     setCurrentUnderIntegrationPoint(intPoint);
     _underIntegrationPoint->temperature = material->initialTemperature;
@@ -293,7 +293,7 @@ void Element::initializeData()
   // Compute Jacobian of the element
   // computeJacobian(true);
 
-  /*   for (int intPoint = 0; intPoint < integrationPoints.getSize(); intPoint++)
+  /*   for (int intPoint = 0; intPoint < integrationPoints.size(); intPoint++)
   {
     setCurrentIntegrationPoint(intPoint);
     _integrationPoint->detJ0 = _integrationPoint->detJ;
@@ -314,7 +314,7 @@ void Element::computeMassMatrix(MatrixDiag &elementMassMatrix)
   // verifier la taille de la matrice elementMassMatrix
   if ((elementMassMatrix.rows() != _elementData->numberOfNodes) || (elementMassMatrix.cols() != _elementData->numberOfNodes))
   {
-    std::cerr << "Error in Element::computeMassMatrix()\nincompatible getSize of matrices elementMassMatrix\n";
+    std::cerr << "Error in Element::computeMassMatrix()\nincompatible size of matrices elementMassMatrix\n";
     std::cerr << "expected " << _elementData->numberOfNodes << "x" << _elementData->numberOfNodes << std::endl;
     std::cerr << "getting  " << elementMassMatrix.rows() << "x" << elementMassMatrix.cols() << std::endl;
     exit(-1);
@@ -324,7 +324,7 @@ void Element::computeMassMatrix(MatrixDiag &elementMassMatrix)
   // Initialize the Element Mass Matrix
   elementMassMatrix = 0.0;
 
-  for (short intPoint = 0; intPoint < integrationPoints.getSize(); intPoint++)
+  for (short intPoint = 0; intPoint < integrationPoints.size(); intPoint++)
   {
     // Get the current integration point
     setCurrentIntegrationPoint(intPoint);
@@ -351,12 +351,12 @@ double Element::getElongationWaveSpeed()
   double poissonRatio = material->poissonRatio;
 
   // Computes mean density of the element
-  for (short intPoint = 0; intPoint < integrationPoints.getSize(); intPoint++)
+  for (short intPoint = 0; intPoint < integrationPoints.size(); intPoint++)
   {
     // Sum of the densities over all integration points
     density += getIntegrationPoint(intPoint)->density;
   }
-  density /= integrationPoints.getSize();
+  density /= integrationPoints.size();
 
   // Get back the elongational wave speed of the material
   return sqrt((material->youngModulus * (1.0 - poissonRatio)) / (density * (1.0 + poissonRatio) * (1.0 - 2.0 * poissonRatio)));
@@ -1086,10 +1086,10 @@ bool Element::check()
 //-----------------------------------------------------------------------------
 {
   // check the number of nodes of the element
-  if (nodes.getSize() != _elementData->numberOfNodes)
+  if (nodes.size() != _elementData->numberOfNodes)
     fatalError("Element::check",
                "Element %d has only %d nodes while this must have %d nodes\n",
-               number, nodes.getSize(), _elementData->numberOfNodes);
+               number, nodes.size(), _elementData->numberOfNodes);
 
   // check for the material
   if (material == NULL)
@@ -1643,18 +1643,18 @@ void Element::computeMassEquation(MatrixDiag &M, Vector &F)
   // verifier la taille de la matrice M
   if ((M.rows() != _elementData->numberOfNodes) || (M.cols() != _elementData->numberOfNodes))
   {
-    std::cerr << "Error in computeMassEquation()\nincompatible getSize of matrices M\n";
+    std::cerr << "Error in computeMassEquation()\nincompatible size of matrices M\n";
     std::cerr << "expected " << _elementData->numberOfNodes << "x" << _elementData->numberOfNodes << std::endl;
     std::cerr << "getting  " << M.rows() << "x" << M.cols() << std::endl;
     exit(-1);
   }
 
   // verifier la taille du vecteur F
-  if (F.getSize() != _elementData->numberOfNodes)
+  if (F.size() != _elementData->numberOfNodes)
   {
-    std::cerr << "Error in computeMassEquation()\nincompatible getSize of vector F\n";
+    std::cerr << "Error in computeMassEquation()\nincompatible size of vector F\n";
     std::cerr << "expected " << _elementData->numberOfNodes << std::endl;
-    std::cerr << "getting  " << F.getSize() << std::endl;
+    std::cerr << "getting  " << F.size() << std::endl;
     exit(-1);
   }
 #endif
@@ -1711,18 +1711,18 @@ void Element::computeMomentumEquation(MatrixDiag &M, Vector &F)
   // verifier la taille de la matrice M
   if ((M.rows() != _elementData->numberOfNodes * getNumberOfDimensions()) || (M.cols() != _elementData->numberOfNodes * getNumberOfDimensions()))
   {
-    std::cerr << "Error in computeMomentumEquation()\nincompatible getSize of matrices M\n";
+    std::cerr << "Error in computeMomentumEquation()\nincompatible size of matrices M\n";
     std::cerr << "expected " << getNumberOfDimensions() * _elementData->numberOfNodes << "x" << getNumberOfDimensions() * _elementData->numberOfNodes << std::endl;
     std::cerr << "getting  " << M.rows() << "x" << M.cols() << std::endl;
     exit(-1);
   }
 
   // verifier la taille du vecteur F
-  if (F.getSize() != _elementData->numberOfNodes * getNumberOfDimensions())
+  if (F.size() != _elementData->numberOfNodes * getNumberOfDimensions())
   {
-    std::cerr << "Error in computeMomentumEquation()\nincompatible getSize of vector F\n";
+    std::cerr << "Error in computeMomentumEquation()\nincompatible size of vector F\n";
     std::cerr << "expected " << _elementData->numberOfNodes * getNumberOfDimensions() << std::endl;
-    std::cerr << "getting  " << F.getSize() << std::endl;
+    std::cerr << "getting  " << F.size() << std::endl;
     exit(-1);
   }
 #endif
@@ -1854,7 +1854,7 @@ void Element::getUnderIntegrationPoint (long pt)
 long Element::getLocalNumber (Node * nd)
 //-----------------------------------------------------------------------------
 {
-  for (long i = 0; i < nodes.getSize (); i++)
+  for (long i = 0; i < nodes.size (); i++)
     {
       if (nodes (i) == nd)
   return i;
@@ -1950,19 +1950,19 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
   if ((M.rows () != _elementData->numberOfNodes) || (M.cols () != _elementData->numberOfNodes))
     {
       cerr <<
-  "Error in computeEnergyEquation()\nincompatible getSize of matrices M\n";
+  "Error in computeEnergyEquation()\nincompatible size of matrices M\n";
       cerr << "expected " << _elementData->numberOfNodes << "x" << _elementData->numberOfNodes << std::endl;
       cerr << "getting  " << M.rows () << "x" << M.cols () << std::endl;
       exit (-1);
     }
 
   // verifier la taille du vecteur F
-  if (F.getSize () != _elementData->numberOfNodes)
+  if (F.size () != _elementData->numberOfNodes)
     {
       cerr <<
-  "Error in computeEnergyEquation()\nincompatible getSize of vector F\n";
+  "Error in computeEnergyEquation()\nincompatible size of vector F\n";
       cerr << "expected " << _elementData->numberOfNodes << std::endl;
-      cerr << "getting  " << F.getSize () << std::endl;
+      cerr << "getting  " << F.size () << std::endl;
       exit (-1);
     }
 #endif
@@ -2124,7 +2124,7 @@ void Element::getSigmaAtPoint (Tensor2 & Stress, const Vec3D & point)
   Element *pel; \
   long j, pt, nb = 0; \
   VAR = 0.; \
-  for (j = 0; j < pnd->elements.getSize (); j++) \
+  for (j = 0; j < pnd->elements.size (); j++) \
     { \
       pel = pnd->elements (j); \
       long loc = pel->nodes.IAppN (pnd->_listIndex); \
@@ -2182,7 +2182,7 @@ void Element::computeBoundBox ()
   // initialisation du vecteur
   _nodeMin = _nodeMax = nodes (0)->coordinates;
 
-  for (i = 1; i < nodes.getSize (); i++)
+  for (i = 1; i < nodes.size (); i++)
     {
       pnd = nodes (i);
       for (j = 0; j < 3; j++)

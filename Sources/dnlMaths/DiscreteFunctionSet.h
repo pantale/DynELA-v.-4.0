@@ -44,7 +44,7 @@ public:
   void add(DiscreteFunction *);
   void remove(long);
   void remove(String);
-  long getSize();
+  long size();
 };
 
 #endif

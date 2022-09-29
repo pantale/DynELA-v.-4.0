@@ -28,7 +28,7 @@ IntegrationPointBase::IntegrationPointBase(int dimension, int numberOfNodes)
   // derivees des fonctions d'interpolation
   dShapeFunction.redim(numberOfNodes, dimension);
 
-  // Jacobien et getInverse
+  // Jacobien et inverse
   JxW.redim(dimension, dimension);
   invJxW.redim(dimension, dimension);
 
@@ -48,7 +48,7 @@ void IntegrationPointBase::baseFlush()
   // fonctions d'interpolation
   dShapeFunction = 0.;
 
-  // Jacobien et getInverse
+  // Jacobien et inverse
   JxW = 0.;
   invJxW = 0.;
   detJ = 0.;

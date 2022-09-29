@@ -56,7 +56,7 @@ void DiscreteFunctionSet::read(String st)
     char str[100];
     long firstOne;
 
-    firstOne = curves.getSize();
+    firstOne = curves.size();
 
     if ((pfile = fopen(st.c_str(), "r")) == NULL)
     {
@@ -148,7 +148,7 @@ void DiscreteFunctionSet::write(String filename)
 {
     String nn;
 
-    for (long j = 0; j < curves.getSize(); j++)
+    for (long j = 0; j < curves.size(); j++)
     {
 
         if (filename.contains(plotFileExtension))
@@ -173,7 +173,7 @@ void DiscreteFunctionSet::write(String filename)
 DiscreteFunction *DiscreteFunctionSet::get(String name)
 //-----------------------------------------------------------------------------
 {
-    for (long i = 0; i < curves.getSize(); i++)
+    for (long i = 0; i < curves.size(); i++)
     {
         if (curves(i)->name == name) // if (curves(i)->name == name)
         {
@@ -213,7 +213,7 @@ void DiscreteFunctionSet::remove(long i)
 void DiscreteFunctionSet::remove(String name)
 //-----------------------------------------------------------------------------
 {
-    for (long i = 0; i < curves.getSize(); i++)
+    for (long i = 0; i < curves.size(); i++)
     {
         if (curves(i)->name == name)
         {
@@ -228,8 +228,8 @@ void DiscreteFunctionSet::remove(String name)
   Return : Number of discrete functions in the set
 */
 //-----------------------------------------------------------------------------
-long DiscreteFunctionSet::getSize()
+long DiscreteFunctionSet::size()
 //-----------------------------------------------------------------------------
 {
-    return curves.getSize();
+    return curves.size();
 }

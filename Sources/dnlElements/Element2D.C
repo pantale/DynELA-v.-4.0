@@ -60,7 +60,7 @@ void Element2D::computeDeformationGradient(Tensor2 &F, short time)
   F.setToUnity();
 
   // calcul de F en ajoutant le terme du/dX
-  for (nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     field = nodes(nodeId)->getNodalField(time);
     F(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(0);

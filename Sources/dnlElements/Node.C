@@ -269,7 +269,7 @@ long substractNodesNumber(Node *node1, const long number)
     long elementId, intPt;                                                                                                \
     TYPE VAR;                                                                                                             \
     VAR = 0.0;                                                                                                            \
-    for (elementId = 0; elementId < elements.getSize(); elementId++)                                                      \
+    for (elementId = 0; elementId < elements.size(); elementId++)                                                      \
     {                                                                                                                     \
       element = elements(elementId);                                                                                      \
       long loc = element->nodes.IAppN(_listIndex);                                                                        \
@@ -278,7 +278,7 @@ long substractNodesNumber(Node *node1, const long number)
         VAR += element->_elementData->nodes[loc].integrationPointsToNode(intPt) * element->integrationPoints(intPt)->VAR; \
       }                                                                                                                   \
     }                                                                                                                     \
-    VAR = VAR / elements.getSize();                                                                                       \
+    VAR = VAR / elements.size();                                                                                       \
     return VAR;                                                                                                           \
   }
 
@@ -289,7 +289,7 @@ long substractNodesNumber(Node *node1, const long number)
     long elementId, intPt;                                                                                                   \
     SymTensor2 tensor;                                                                                                       \
     tensor = 0.0;                                                                                                            \
-    for (elementId = 0; elementId < elements.getSize(); elementId++)                                                         \
+    for (elementId = 0; elementId < elements.size(); elementId++)                                                         \
     {                                                                                                                        \
       element = elements(elementId);                                                                                         \
       long loc = element->nodes.IAppN(_listIndex);                                                                           \
@@ -298,7 +298,7 @@ long substractNodesNumber(Node *node1, const long number)
         tensor += element->_elementData->nodes[loc].integrationPointsToNode(intPt) * element->integrationPoints(intPt)->VAR; \
       }                                                                                                                      \
     }                                                                                                                        \
-    tensor = tensor / elements.getSize();                                                                                    \
+    tensor = tensor / elements.size();                                                                                    \
     if (field == Field::FIELD)                                                                                               \
       return tensor.getNorm();                                                                                               \
     if (field == Field::FIELD##XX)                                                                                           \
@@ -372,7 +372,7 @@ double Node::getNodalValue(short field)
     Element *pel;
     long j, pt;
     double value = 0.0;
-    for (j = 0; j < elements.getSize(); j++)
+    for (j = 0; j < elements.size(); j++)
     {
       pel = elements(j);
       long loc = pel->nodes.IAppN(_listIndex);
@@ -382,7 +382,7 @@ double Node::getNodalValue(short field)
         // tensor += pel->_elementData->nodes[loc].integrationPointsToNode(pt) * pel->integrationPoints(pt)->Stress;
       }
     }
-    return value / elements.getSize();
+    return value / elements.size();
   }
 
   Field fakeField;
@@ -593,11 +593,11 @@ double Node::getNodalValue(String field, long component)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_Sig_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     if (component==0)
       return V1.getMisesEquivalent();
     else
@@ -608,11 +608,11 @@ double Node::getNodalValue(String field, long component)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_Eps_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     if (component==0)
       return V1.getJ2();
     else
@@ -623,11 +623,11 @@ double Node::getNodalValue(String field, long component)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_dEps_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     if (component==0)
       return V1.getJ2();
     else
@@ -638,11 +638,11 @@ double Node::getNodalValue(String field, long component)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_EpsPlas_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     if (component==0)
       return V1.getJ2();
     else
@@ -683,11 +683,11 @@ Tensor2 Node::getNodalTensor(String field)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_Sig_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     return V1;
   }
 
@@ -695,11 +695,11 @@ Tensor2 Node::getNodalTensor(String field)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_Eps_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     return V1;
   }
 
@@ -707,11 +707,11 @@ Tensor2 Node::getNodalTensor(String field)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_dEps_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     return V1;
   }
 
@@ -719,11 +719,11 @@ Tensor2 Node::getNodalTensor(String field)
     Tensor2 V,V1;
     long i;
     V1=0;
-    for (i=0;i<elements.getSize();i++) {
+    for (i=0;i<elements.size();i++) {
       elements(i)->get_EpsPlas_atNode(V,elements(i)->getLocalNumber(this));
       V1+=V;
     }
-    V1=V1/elements.getSize();
+    V1=V1/elements.size();
     return V1;
   }
 

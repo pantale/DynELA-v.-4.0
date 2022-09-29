@@ -1032,7 +1032,7 @@ double SymTensor2::minAbsoluteValue()
 }
 
 /*
-@LABEL:SymTensor2::getInverse()
+@LABEL:SymTensor2::inverse()
 @SHORT:Inverse of a second order tensor.
 @RETURN:SymTensor2
 This method returns the inverse of a second second order tensor.
@@ -1051,7 +1051,7 @@ T^{-1} = \frac {1}{D} \left[\begin{array}{ccc}
 @END
 */
 //-----------------------------------------------------------------------------
-SymTensor2 SymTensor2::getInverse() const
+SymTensor2 SymTensor2::inverse() const
 //-----------------------------------------------------------------------------
 {
 
@@ -1107,7 +1107,7 @@ SymTensor2 SymTensor2::getCofactor() const
 Vec3D SymTensor2::solve(const Vec3D &b) const
 //-----------------------------------------------------------------------------
 {
-  return Vec3D(getInverse() * b);
+  return Vec3D(inverse() * b);
 }
 
 //-----------------------------------------------------------------------------

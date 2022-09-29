@@ -98,7 +98,7 @@ public:
 #endif
 
   double getTotalChilds(const char *father);
-  int getNumber() { return timers.getSize(); } // Get the number of timers
+  int getNumber() { return timers.size(); } // Get the number of timers
   String conv(double value);
   Timer *timer(const char *timerName);
   Timer *timer(int);

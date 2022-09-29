@@ -99,7 +99,7 @@ public:
   double operator()(short, short) const;
   SymTensor2 getCofactor() const;
   SymTensor2 getDeviator() const;
-  SymTensor2 getInverse() const;
+  SymTensor2 inverse() const;
   SymTensor2 getMinor() const;
   /*   SymTensor2 getSkewSymetricPart() const;
     SymTensor2 getSymetricPart() const; */

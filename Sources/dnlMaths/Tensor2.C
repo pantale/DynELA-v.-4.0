@@ -1097,7 +1097,7 @@ double Tensor2::minAbsoluteValue()
 }
 
 /*
-@LABEL:Tensor2::getInverse()
+@LABEL:Tensor2::inverse()
 @SHORT:Inverse of a second order tensor.
 @RETURN:Tensor2
 This method returns the inverse of a second second order tensor.
@@ -1116,7 +1116,7 @@ T^{-1} = \frac {1}{D} \left[\begin{array}{ccc}
 @END
 */
 //-----------------------------------------------------------------------------
-Tensor2 Tensor2::getInverse() const
+Tensor2 Tensor2::inverse() const
 //-----------------------------------------------------------------------------
 {
   double t1 = _data[4] * _data[8];
@@ -1186,7 +1186,7 @@ Tensor2 Tensor2::getCofactor() const
 Vec3D Tensor2::solve(const Vec3D &b) const
 //-----------------------------------------------------------------------------
 {
-  return Vec3D(getInverse() * b);
+  return Vec3D(inverse() * b);
 }
 
 //-----------------------------------------------------------------------------

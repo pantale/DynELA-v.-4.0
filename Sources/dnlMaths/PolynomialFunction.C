@@ -41,7 +41,7 @@ double PolynomialFunction::getValue(double x)
   long i;
   double val;
   val = 0;
-  for (i = 0; i < fragment.getSize(); i++)
+  for (i = 0; i < fragment.size(); i++)
   {
     val += fragment(i).value * pow(x, fragment(i).factor);
   }
@@ -53,7 +53,7 @@ void PolynomialFunction::setFunction(long fac, double val)
 //-----------------------------------------------------------------------------
 {
   long i;
-  for (i = 0; i < fragment.getSize(); i++)
+  for (i = 0; i < fragment.size(); i++)
   {
     if (fragment(i).factor == fac)
     {
@@ -72,7 +72,7 @@ double PolynomialFunction::get(long fac)
 //-----------------------------------------------------------------------------
 {
   long i;
-  for (i = 0; i < fragment.getSize(); i++)
+  for (i = 0; i < fragment.size(); i++)
   {
     if (fragment(i).factor == fac)
     {
@@ -89,7 +89,7 @@ double PolynomialFunction::getSlope(double x)
   long i;
   double val;
   val = 0;
-  for (i = 0; i < fragment.getSize(); i++)
+  for (i = 0; i < fragment.size(); i++)
   {
     if (fragment(i).factor != 0)
       val += fragment(i).value * fragment(i).factor * pow(x, fragment(i).factor - 1);
@@ -101,7 +101,7 @@ double PolynomialFunction::getSlope(double x)
 long PolynomialFunction::getNumberOfFragments()
 //-----------------------------------------------------------------------------
 {
-  return fragment.getSize();
+  return fragment.size();
 }
 
 //-----------------------------------------------------------------------------
@@ -125,7 +125,7 @@ void PolynomialFunction::print()
   long i;
   printf("Polynomial Fonction : %s\n", name.chars());
   printf("f(x) = ");
-  for (i = 0; i < fragment.getSize(); i++)
+  for (i = 0; i < fragment.size(); i++)
   {
     if (fragment(i).value < 0)
       printf(" - ");

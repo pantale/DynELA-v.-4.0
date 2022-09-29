@@ -44,7 +44,7 @@ public:
   void add(Node *node);
   void setName(char *_name);
   void add(NodeSet *);
-  long getSize();
+  long size();
   Node *getNode(long item);
   long getNumber(long item);
   void intersect(NodeSet *nodeSet);

@@ -85,7 +85,7 @@ public:
   double getSum() const;
   long Memory() const;
   Matrix getCofactor() const;
-  Matrix getInverse() const;
+  Matrix inverse() const;
   Matrix getNullSpace(bool = false, double = 1e-10);
   Matrix getNullSpace2(bool = false, double = 1e-10);
   Matrix getPseudoInverse(bool = false, double = 1e-10);

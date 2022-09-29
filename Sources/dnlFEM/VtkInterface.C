@@ -90,7 +90,7 @@ void VtkInterface::headerWrite()
 void VtkInterface::nodesWrite()
 //-----------------------------------------------------------------------------
 {
-  long nbNodes = dynelaData->model.nodes.getSize();
+  long nbNodes = dynelaData->model.nodes.size();
   _stream << "POINTS " << nbNodes << " float\n";
 
   for (long i = 0; i < nbNodes; i++)
@@ -105,13 +105,13 @@ void VtkInterface::nodesWrite()
 void VtkInterface::elementsWrite()
 //-----------------------------------------------------------------------------
 {
-  long nbElements = dynelaData->model.elements.getSize();
+  long nbElements = dynelaData->model.elements.size();
   long totNodes = 0;
   long nbNodes;
   Element *pElement;
 
   for (long i = 0; i < nbElements; i++)
-    totNodes += dynelaData->model.elements(i)->nodes.getSize();
+    totNodes += dynelaData->model.elements(i)->nodes.size();
   totNodes += nbElements;
 
   _stream << "CELLS " << nbElements << " " << totNodes << "\n";
@@ -119,7 +119,7 @@ void VtkInterface::elementsWrite()
   for (long i = 0; i < nbElements; i++)
   {
     pElement = dynelaData->model.elements(i);
-    nbNodes = pElement->nodes.getSize();
+    nbNodes = pElement->nodes.size();
     _stream << nbNodes << " ";
     for (int j = 0; j < nbNodes; j++)
       _stream << pElement->nodes(j)->internalNumber() << " ";
@@ -139,7 +139,7 @@ void VtkInterface::elementsWrite()
 void VtkInterface::nodesNumbersWrite()
 //-----------------------------------------------------------------------------
 {
-  long nbNodes = dynelaData->model.nodes.getSize();
+  long nbNodes = dynelaData->model.nodes.size();
   _stream << "SCALARS nodesNumbers" << nbNodes << " float\n";
 
   _stream << "\n";
@@ -149,14 +149,14 @@ void VtkInterface::nodesNumbersWrite()
 void VtkInterface::dataWrite()
 //-----------------------------------------------------------------------------
 {
-  long nbNodes = dynelaData->model.nodes.getSize();
+  long nbNodes = dynelaData->model.nodes.size();
   short field;
   Field fields;
   bool lookupWriten = false;
 
   _stream << "POINT_DATA " << nbNodes << "\n";
 
-  for (int i = 0; i < _outputFields.getSize(); i++)
+  for (int i = 0; i < _outputFields.size(); i++)
   {
     field = _outputFields(i);
 
@@ -245,7 +245,7 @@ void VtkInterface::initFields()
 short VtkInterface::existField(short field)
 //-----------------------------------------------------------------------------
 {
-  for (int i = 0; i < _outputFields.getSize(); i++)
+  for (int i = 0; i < _outputFields.size(); i++)
     if (_outputFields(i) == field)
       return i;
   return -1;
@@ -274,5 +274,5 @@ void VtkInterface::removeField(short field)
 int VtkInterface::getNumberOfFields()
 //-----------------------------------------------------------------------------
 {
-  return _outputFields.getSize();
+  return _outputFields.size();
 }

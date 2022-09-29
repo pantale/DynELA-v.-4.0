@@ -119,7 +119,7 @@ void Matrix::allocate(const long rows, const long cols)
     internalFatalErrorLine("Matrix::allocate()",
                            "new double[%d] for a [%d,%d] Matrixrix allocation Error\n"
                            "Seems to have an overflow memory error\n"
-                           "Check your memory getSize, and memory consumption first\n",
+                           "Check your memory size, and memory consumption first\n",
                            _dataLength, _rows, _cols);
   }
 #endif
@@ -826,9 +826,9 @@ void Matrix::squareMultiplyBy(const MatrixDiag &mat)
   }
 }
 
-// multiplication d'une matrices par l'getInverse d'une matrice diagonale
+// multiplication d'une matrices par l'inverse d'une matrice diagonale
 /*
-  Cette methode permet de surdefinir l'operation de multiplication d'une matrice par l'getInverse d'une matrice diagonale et de stocker le resultat dans la matrice sur laquelle on applique la methode. Les deux matrices doivent etre de meme dimension pour que cette methode soit utilisable.
+  Cette methode permet de surdefinir l'operation de multiplication d'une matrice par l'inverse d'une matrice diagonale et de stocker le resultat dans la matrice sur laquelle on applique la methode. Les deux matrices doivent etre de meme dimension pour que cette methode soit utilisable.
   Exemple :
   \code
   Matrix t1;
@@ -883,11 +883,11 @@ Vector Matrix::trans_mult(const Vector &vec) const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
-  if (_rows != vec.getSize())
+  if (_rows != vec.size())
     fatalError("Matrix::operator *",
                "matrix and vector sizes incompatible\n"
                "You're about to multiply a [%d,%d] matrix and a [%d] vector",
-               _rows, _cols, vec.getSize());
+               _rows, _cols, vec.size());
 #endif
 
   Vector resu(_cols);
@@ -916,11 +916,11 @@ Vector Matrix::operator*(const Vector &vec) const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
-  if (_cols != vec.getSize())
+  if (_cols != vec.size())
     fatalError("Matrix::operator *",
                "matrix and vector sizes incompatible\n"
                "You're about to multiply a [%d,%d] matrix and a [%d] vector",
-               _rows, _cols, vec.getSize());
+               _rows, _cols, vec.size());
 #endif
 
   Vector resu(_rows);
@@ -940,11 +940,11 @@ void Matrix::productBy(Vector &resu) const
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 
-  if (_cols != resu.getSize())
+  if (_cols != resu.size())
     fatalError("Matrix::operator *",
                "matrix and vector sizes incompatible\n"
                "You're about to multiply a [%d,%d] matrix and a [%d] vector",
-               _rows, _cols, resu.getSize());
+               _rows, _cols, resu.size());
 #endif
 
   Vector vec = resu;
@@ -1370,7 +1370,7 @@ double Matrix::getDeterminant() const
 Matrix Matrix::getCofactor() const
 //-----------------------------------------------------------------------------
 {
-  Matrix result = getInverse();
+  Matrix result = inverse();
   return (result.getTranspose() * getDeterminant());
 }
 
@@ -1422,13 +1422,13 @@ void Matrix::computeInverse3x3(double det, Matrix &inverse) const
   inverse._data[8] = (_data[0] * _data[4] - _data[1] * _data[3]) / det;
 }
 
-// getInverse d'une matrice
+// inverse d'une matrice
 /*
-  Cette methode calcule l'getInverse d'une matrice et le renvoie. Elle utilise les fonctions DGETRF et DGETRI de la librairie Lapack. La matrice initiale est preservee par cette methode.
-  Return : valeur de l'getInverse d'une matrice
+  Cette methode calcule l'inverse d'une matrice et le renvoie. Elle utilise les fonctions DGETRF et DGETRI de la librairie Lapack. La matrice initiale est preservee par cette methode.
+  Return : valeur de l'inverse d'une matrice
 */
 //-----------------------------------------------------------------------------
-Matrix Matrix::getInverse() const
+Matrix Matrix::inverse() const
 //-----------------------------------------------------------------------------
 {
   Matrix inv(_rows, _cols);
@@ -1447,13 +1447,13 @@ Matrix Matrix::getInverse() const
   {
     if (info < 0)
     {
-      internalFatalErrorLine("Matrix::getInverse",
+      internalFatalErrorLine("Matrix::inverse",
                              "parameter (%d) of function dgetrf_ has illegal value",
                              -info);
     }
     if (info > 0)
     {
-      fatalError("Matrix::getInverse",
+      fatalError("Matrix::inverse",
                  "pivot (%d) is exactly zero\n"
                  "The factorization has been completed, but this factor is exactly singular, and division by zero will occur if it is used to solve a system of equations",
                  info);
@@ -1465,7 +1465,7 @@ Matrix Matrix::getInverse() const
   {
     if (info < 0)
     {
-      internalFatalErrorLine("Matrix::getInverse",
+      internalFatalErrorLine("Matrix::inverse",
                              "parameter %d of function dgetri_ has illegal value",
                              -info);
     }
@@ -1943,17 +1943,17 @@ void Matrix::computeEigenVectors2(Vector &eigenValues)
   }
 }
 
-// evaluation de la pseudo getInverse d'une matrice
+// evaluation de la pseudo inverse d'une matrice
 /*
   Cette methode calcule la pseudoInverse d'une matrice \f$ \textbf{A} \f$. Cette methode utilise la routine DGESVD de la librairie Lapack.
 
-  La pseudo getInverse d'une matrice, egalement appelee getInverse de Moore-Penrose est generalement notee par \f$ A^{+} \f$
+  La pseudo inverse d'une matrice, egalement appelee inverse de Moore-Penrose est generalement notee par \f$ A^{+} \f$
 
   Cette methode utilise des copies de vecteurs et matrices donnes en argument et ne modifie pas les valeurs contenues dans ceux-ci au cours de l'appel. De plus, les matrices et vecteurs de retour donnes en argument n'on pas besoin d'etre dimensionnes à un taille correcte avant appel (ceci est fait en interne dans la routine).
   \warning Pour plus d'efficacite, cette methode est (Me semble-t-il !!!) restreinte au calcul des matrices carrees symetriques uniquement. Dans le cas d'une matrice non symetrique, il conviendra de verifier le comportement.
   - relative Parametre booleen indiquant si la tolerance de recherche est relative ou non. Dans le cas d'une tolerance relative, la tolerance de recherche de la plus patite valeur preopres est recalculee par rapport à la plus grande valeur propre.
   - tol tolerance de recherche du Null-Space par defaut 1e-10.
-  Return : pseudo getInverse de la matrice donnee en argument
+  Return : pseudo inverse de la matrice donnee en argument
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::getPseudoInverse(bool relative, double tol)
@@ -1973,27 +1973,27 @@ Matrix Matrix::getPseudoInverse(bool relative, double tol)
     tol *= ev(0);
 
   // calcul des inverses des valeurs propres (si dans la tolerance)
-  for (i = 0; i < ev.getSize(); i++)
+  for (i = 0; i < ev.size(); i++)
   {
     result(i, i) = (ev(i) >= tol ? 1.0 / ev(i) : 0.0);
   }
 
-  // compute the pseudo getInverse
+  // compute the pseudo inverse
   result = (V.getTranspose() * result * U.getTranspose());
 
   // retour
   return result;
 }
 
-// evaluation de la pseudo getInverse d'une matrice et du Null-Space
+// evaluation de la pseudo inverse d'une matrice et du Null-Space
 /*
   Cette methode calcule la pseudoInverse et le Null-Space d'une matrice \f$ \textbf{A} \f$. Cette methode utilise la routine DGESVD de la librairie Lapack.
 
-  La pseudo getInverse d'une matrice, egalement appelee getInverse de Moore-Penrose est generalement notee par \f$ A^{+} \f$.
+  La pseudo inverse d'une matrice, egalement appelee inverse de Moore-Penrose est generalement notee par \f$ A^{+} \f$.
 
   Cette methode utilise des copies de vecteurs et matrices donnes en argument et ne modifie pas les valeurs contenues dans ceux-ci au cours de l'appel. De plus, les matrices et vecteurs de retour donnes en argument n'on pas besoin d'etre dimensionnes à un taille correcte avant appel (ceci est fait en interne dans la routine).
   \warning Pour plus d'efficacite, cette methode est (Me semble-t-il !!!) restreinte au calcul des matrices carrees symetriques uniquement. Dans le cas d'une matrice non symetrique, il conviendra de verifier le comportement.
-  - Kplus Matrice de retour pour la pseudo-getInverse de la matrice donnee en argument
+  - Kplus Matrice de retour pour la pseudo-inverse de la matrice donnee en argument
   - NS Matrice de retour pour le Null-Space de la matrice donnee en argument
   - relative Parametre booleen indiquant si la tolerance de recherche est relative ou non. Dans le cas d'une tolerance relative, la tolerance de recherche de la plus patite valeur preopres est recalculee par rapport à la plus grande valeur propre.
   - tol tolerance de recherche du Null-Space par defaut 1e-10.
@@ -2022,7 +2022,7 @@ void Matrix::computePseudoInverse(Matrix &Kplus, Matrix &NS, bool relative, doub
   nFloats = 0;
 
   // calcul des inverses des valeurs propres (si dans la tolerance)
-  for (i = 0; i < ev.getSize(); i++)
+  for (i = 0; i < ev.size(); i++)
   {
     if (ev(i) > tol)
     {
@@ -2035,7 +2035,7 @@ void Matrix::computePseudoInverse(Matrix &Kplus, Matrix &NS, bool relative, doub
     }
   }
 
-  // compute the pseudo getInverse
+  // compute the pseudo inverse
   Kplus = (V.getTranspose() * Kplus * U.getTranspose());
 
   // dimension de la matrice de Null-Space
@@ -2043,7 +2043,7 @@ void Matrix::computePseudoInverse(Matrix &Kplus, Matrix &NS, bool relative, doub
 
   // remplissage du Null-Space
   long ic = 0;
-  for (long i = 0; i < ev.getSize(); i++)
+  for (long i = 0; i < ev.size(); i++)
   {
     if (ev(i) <= tol)
     {

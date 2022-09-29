@@ -106,8 +106,8 @@ void DiscreteFunction::add(double abscissa, double ordinate)
     // ajout a la liste
     lpoints << ppoint;
 
-    if ((lpoints.getSize() > 1) && (Sort))
-        if (abscissa < lpoints(lpoints.getSize() - 2)->x)
+    if ((lpoints.size() > 1) && (Sort))
+        if (abscissa < lpoints(lpoints.size() - 2)->x)
         {
             lpoints.sort(compare);
         }
@@ -158,10 +158,10 @@ DiscreteFunction::~DiscreteFunction()
   \see getNumberOfPoints()
 */
 //-----------------------------------------------------------------------------
-long DiscreteFunction::getSize()
+long DiscreteFunction::size()
 //-----------------------------------------------------------------------------
 {
-    return lpoints.getSize();
+    return lpoints.size();
 }
 
 /*
@@ -174,7 +174,7 @@ long DiscreteFunction::getSize()
 bool DiscreteFunction::intoBoundsX(double abscissa)
 //-----------------------------------------------------------------------------
 {
-    return (abscissa >= lpoints(0)->x && abscissa <= lpoints(lpoints.getSize() - 1)->x);
+    return (abscissa >= lpoints(0)->x && abscissa <= lpoints(lpoints.size() - 1)->x);
 }
 
 /*
@@ -192,10 +192,10 @@ double DiscreteFunction::getValue(double abscissa)
     coupleReal *pt;
     coupleReal *pt0;
 
-    if (abscissa < lpoints(0)->x || abscissa > lpoints(lpoints.getSize() - 1)->x)
-        fatalError("DiscreteFunction::getValue(double abscissa)", "value %lf is out of bounds [%lf,%lf]\n", abscissa, lpoints(0)->x, lpoints(lpoints.getSize() - 1)->x);
+    if (abscissa < lpoints(0)->x || abscissa > lpoints(lpoints.size() - 1)->x)
+        fatalError("DiscreteFunction::getValue(double abscissa)", "value %lf is out of bounds [%lf,%lf]\n", abscissa, lpoints(0)->x, lpoints(lpoints.size() - 1)->x);
 
-    nb = lpoints.getSize();
+    nb = lpoints.size();
     pt0 = lpoints.first();
 
     for (i = 1; i < nb; i++)
@@ -223,13 +223,13 @@ double DiscreteFunction::getValue(double abscissa)
   Return : X coordinate of the corresponding point
 */
 //-----------------------------------------------------------------------------
-double DiscreteFunction::getInverseValue(double ordinate)
+double DiscreteFunction::inverseValue(double ordinate)
 //-----------------------------------------------------------------------------
 {
     long i, start = 0, stop = 0;
 
     if (ordinate > maxY() || ordinate < minY())
-        fatalError("DiscreteFunction::getInverseValue(double abscissa)", "value %lf is out of bounds [%lf,%lf]\n", ordinate, minY(), maxY());
+        fatalError("DiscreteFunction::inverseValue(double abscissa)", "value %lf is out of bounds [%lf,%lf]\n", ordinate, minY(), maxY());
 
     if (lpoints(0)->y == ordinate)
     {
@@ -237,7 +237,7 @@ double DiscreteFunction::getInverseValue(double ordinate)
     }
     if (lpoints(0)->y < ordinate)
     {
-        for (i = 1; i < lpoints.getSize(); i++)
+        for (i = 1; i < lpoints.size(); i++)
         {
             if (lpoints(i)->y >= ordinate)
             {
@@ -246,13 +246,13 @@ double DiscreteFunction::getInverseValue(double ordinate)
                     return lpoints(i)->x;
                 }
                 start = i - 1;
-                i = lpoints.getSize();
+                i = lpoints.size();
             }
         }
     }
     else
     {
-        for (i = 1; i < lpoints.getSize(); i++)
+        for (i = 1; i < lpoints.size(); i++)
         {
             if (lpoints(i)->y <= ordinate)
             {
@@ -261,7 +261,7 @@ double DiscreteFunction::getInverseValue(double ordinate)
                     return lpoints(i)->x;
                 }
                 start = i - 1;
-                i = lpoints.getSize();
+                i = lpoints.size();
             }
         }
     }
@@ -288,10 +288,10 @@ double DiscreteFunction::getSlope(double abscissa)
     coupleReal *pt;
     coupleReal *pt0;
 
-    if (abscissa < lpoints(0)->x || abscissa > lpoints(lpoints.getSize() - 1)->x)
-        fatalError("DiscreteFunction::getSlope(double abscissa)", "value %lf is out of bounds [%lf,%lf]\n", abscissa, lpoints(0)->x, lpoints(lpoints.getSize() - 1)->x);
+    if (abscissa < lpoints(0)->x || abscissa > lpoints(lpoints.size() - 1)->x)
+        fatalError("DiscreteFunction::getSlope(double abscissa)", "value %lf is out of bounds [%lf,%lf]\n", abscissa, lpoints(0)->x, lpoints(lpoints.size() - 1)->x);
 
-    nb = lpoints.getSize();
+    nb = lpoints.size();
     pt0 = lpoints.first();
 
     for (i = 1; i < nb; i++)
@@ -316,7 +316,7 @@ void DiscreteFunction::print()
 {
     long i;
     printf("Discrete Fonction : %s\n", name.c_str());
-    for (i = 0; i < lpoints.getSize(); i++)
+    for (i = 0; i < lpoints.size(); i++)
     {
         printf("point %ld [%f,%f]\n", i + 1, lpoints(i)->x, lpoints(i)->y);
     }
@@ -331,7 +331,7 @@ void DiscreteFunction::print()
 double DiscreteFunction::maxX()
 //-----------------------------------------------------------------------------
 {
-    return (lpoints(lpoints.getSize() - 1))->x;
+    return (lpoints(lpoints.size() - 1))->x;
 }
 
 /*
@@ -357,7 +357,7 @@ double DiscreteFunction::maxY()
 {
     double val;
     val = (lpoints(0))->y;
-    for (long i = 1; i < lpoints.getSize(); i++)
+    for (long i = 1; i < lpoints.size(); i++)
     {
         val = ((lpoints(i))->y > val ? (lpoints(i))->y : val);
     }
@@ -375,7 +375,7 @@ double DiscreteFunction::minY()
 {
     double val;
     val = (lpoints(0))->y;
-    for (long i = 1; i < lpoints.getSize(); i++)
+    for (long i = 1; i < lpoints.size(); i++)
     {
         val = ((lpoints(i))->y < val ? (lpoints(i))->y : val);
     }
@@ -417,7 +417,7 @@ void DiscreteFunction::toGnuplot(String filename)
     fprintf(pfile, "#DynELA_plot :%s\n", name.c_str());
     fprintf(pfile, "#plotted :%s\n", name.c_str());
 
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         fprintf(pfile, "%10.6E %10.6E\n", lpoints(i)->x, lpoints(i)->y);
     }
@@ -489,7 +489,7 @@ DiscreteFunction *DiscreteFunction::remapCurve(double xm, double xM, double ym, 
     Mx = maxX();
     my = minY();
     My = maxY();
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
 
     // recopie de la fonction
     remapped->name = name + "_remap";
@@ -526,7 +526,7 @@ DiscreteFunction *DiscreteFunction::derivate()
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *derive = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
 
     if (sz < 2)
         fatalError("Derivate function",
@@ -558,7 +558,7 @@ DiscreteFunction *DiscreteFunction::EulerBackwardDerivate()
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *derive = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
 
     if (sz < 2)
         fatalError("Euler Backward Derivate function",
@@ -586,7 +586,7 @@ DiscreteFunction *DiscreteFunction::EulerForwardDerivate()
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *derive = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
 
     if (sz < 2)
         fatalError("Euler Forward Derivate function",
@@ -614,7 +614,7 @@ DiscreteFunction *DiscreteFunction::CentralDifferenceDerivate()
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *derive = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
 
     if (sz < 3)
         fatalError("Central Difference Derivate function",
@@ -642,7 +642,7 @@ DiscreteFunction *DiscreteFunction::ZeroForcing1Derivate()
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *derive = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
 
     if (sz < 4)
         fatalError("Zero forcing # 1 Derivate function",
@@ -670,7 +670,7 @@ DiscreteFunction *DiscreteFunction::ZeroForcing2Derivate()
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *derive = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
 
     if (sz < 4)
         fatalError("Zero forcing # 2 Derivate function",
@@ -697,7 +697,7 @@ DiscreteFunction *DiscreteFunction::integrate()
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *integr = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
     double intg;
 
     if (sz < 2)
@@ -738,7 +738,7 @@ DiscreteFunction *DiscreteFunction::movingAverage(int before, int after)
 //-----------------------------------------------------------------------------
 {
     DiscreteFunction *average = new DiscreteFunction;
-    long sz = lpoints.getSize();
+    long sz = lpoints.size();
     double valeur;
 
     for (long i = before; i < sz - after; i++)
@@ -803,7 +803,7 @@ DiscreteFunction *DiscreteFunction::absoluteValueCurve()
 {
     DiscreteFunction *mix = new DiscreteFunction;
 
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         mix->add(lpoints(i)->x, dnlAbs(lpoints(i)->y));
     }
@@ -830,7 +830,7 @@ DiscreteFunction *DiscreteFunction::scaleCurve(double factor)
 {
     DiscreteFunction *mix = new DiscreteFunction;
 
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         mix->add(lpoints(i)->x, factor * lpoints(i)->y);
     }
@@ -857,7 +857,7 @@ DiscreteFunction *DiscreteFunction::offsetCurve(double offset)
 {
     DiscreteFunction *mix = new DiscreteFunction;
 
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         mix->add(lpoints(i)->x, offset + lpoints(i)->y);
     }
@@ -1056,12 +1056,12 @@ DiscreteFunction *DiscreteFunction::distanceCurvesX(DiscreteFunction *fonction)
     double x, y;
     double x0 = 0.0; //,y0=0.0;
 
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         x = lpoints(i)->x;
         y = lpoints(i)->y;
         dist = dnlSquare(x - fonction->lpoints(0)->x) + dnlSquare(y - fonction->lpoints(0)->y);
-        for (long ii = 1; ii < fonction->lpoints.getSize(); ii++)
+        for (long ii = 1; ii < fonction->lpoints.size(); ii++)
         {
             dist2 = dnlSquare(x - fonction->lpoints(ii)->x) + dnlSquare(y - fonction->lpoints(ii)->y);
             if (dist2 < dist)
@@ -1096,12 +1096,12 @@ DiscreteFunction *DiscreteFunction::distanceCurvesY(DiscreteFunction *fonction)
     double x, y;
     double y0 = 0.0;
 
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         x = lpoints(i)->x;
         y = lpoints(i)->y;
         dist = dnlSquare(x - fonction->lpoints(0)->x) + dnlSquare(y - fonction->lpoints(0)->y);
-        for (long ii = 1; ii < fonction->lpoints.getSize(); ii++)
+        for (long ii = 1; ii < fonction->lpoints.size(); ii++)
         {
             dist2 = dnlSquare(x - fonction->lpoints(ii)->x) + dnlSquare(y - fonction->lpoints(ii)->y);
             if (dist2 < dist)
@@ -1137,7 +1137,7 @@ DiscreteFunction *DiscreteFunction::distanceCurves(DiscreteFunction *fonction)
     double x, y;
     double x0 = 0.0, y0 = 0.0, x1, y1;
 
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         // mise à jour de l'abcisse
         if (i > 0)
@@ -1147,7 +1147,7 @@ DiscreteFunction *DiscreteFunction::distanceCurves(DiscreteFunction *fonction)
         x = lpoints(i)->x;
         y = lpoints(i)->y;
         dist = dnlSquare(x - fonction->lpoints(0)->x) + dnlSquare(y - fonction->lpoints(0)->y);
-        for (long ii = 1; ii < fonction->lpoints.getSize(); ii++)
+        for (long ii = 1; ii < fonction->lpoints.size(); ii++)
         {
             dist2 = dnlSquare(x - fonction->lpoints(ii)->x) + dnlSquare(y - fonction->lpoints(ii)->y);
             if (dist2 < dist)
@@ -1262,12 +1262,12 @@ double DiscreteFunction::getAverage()
 {
     double avrge = 0.0;
 
-    if (lpoints.getSize() == 0)
+    if (lpoints.size() == 0)
     {
         return avrge;
     }
 
-    for (long i = 1; i < lpoints.getSize(); i++)
+    for (long i = 1; i < lpoints.size(); i++)
     {
         avrge += (lpoints(i)->y + lpoints(i - 1)->y) / 2 * (lpoints(i)->x - lpoints(i - 1)->x);
     }
@@ -1316,9 +1316,9 @@ String DiscreteFunction::convertToDynELASourceFile()
 void DiscreteFunction::numpyWrite(std::string filename, bool initialize) const
 //-----------------------------------------------------------------------------
 {
-    double buffer[2 * lpoints.getSize()];
+    double buffer[2 * lpoints.size()];
     double *ptbuff = buffer;
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         *ptbuff++ = lpoints(i)->x;
         *ptbuff++ = lpoints(i)->y;
@@ -1327,7 +1327,7 @@ void DiscreteFunction::numpyWrite(std::string filename, bool initialize) const
     std::string mode = "a";
     if (initialize)
         mode = "w";
-    NumpyInterface::npySave(filename, &buffer[0], {(unsigned long)lpoints.getSize(), 2}, mode);
+    NumpyInterface::npySave(filename, &buffer[0], {(unsigned long)lpoints.size(), 2}, mode);
 }
 
 /*
@@ -1345,9 +1345,9 @@ void DiscreteFunction::numpyWrite(std::string filename, bool initialize) const
 void DiscreteFunction::numpyWriteZ(std::string filename, std::string name, bool initialize) const
 //-----------------------------------------------------------------------------
 {
-    double buffer[2 * lpoints.getSize()];
+    double buffer[2 * lpoints.size()];
     double *ptbuff = buffer;
-    for (long i = 0; i < lpoints.getSize(); i++)
+    for (long i = 0; i < lpoints.size(); i++)
     {
         *ptbuff++ = lpoints(i)->x;
         *ptbuff++ = lpoints(i)->y;
@@ -1356,7 +1356,7 @@ void DiscreteFunction::numpyWriteZ(std::string filename, std::string name, bool 
     std::string mode = "a";
     if (initialize)
         mode = "w";
-    NumpyInterface::npzSave(filename, name, &buffer[0], {(unsigned long)lpoints.getSize(), 2}, mode);
+    NumpyInterface::npzSave(filename, name, &buffer[0], {(unsigned long)lpoints.size(), 2}, mode);
 }
 
 /*

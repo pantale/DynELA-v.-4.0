@@ -191,12 +191,12 @@ void HistoryFile::add(NodeSet *nodeSet, short field)
   Field fields;
   baseName = fields.getVtklabel(field);
 
-  for (long nodeId = 0; nodeId < nodeSet->nodes.getSize(); nodeId++)
+  for (long nodeId = 0; nodeId < nodeSet->nodes.size(); nodeId++)
   {
     HistoryFileNodeItem *newItem = new HistoryFileNodeItem;
 
     // affect the name
-    if (nodeSet->nodes.getSize() > 1)
+    if (nodeSet->nodes.size() > 1)
     {
       _tmpStr.convert(nodeSet->nodes(nodeId)->number);
       _tmpStr = baseName + "_n" + _tmpStr;
@@ -236,12 +236,12 @@ void HistoryFile::add(ElementSet *elementSet, short intPt, short field)
     baseName = fields.getVtklabel(field);
   }
 
-  for (long elementId = 0; elementId < elementSet->elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elementSet->elements.size(); elementId++)
   {
     HistoryFileElementItem *newItem = new HistoryFileElementItem;
 
     // affect the name
-    if (elementSet->elements.getSize() > 1)
+    if (elementSet->elements.size() > 1)
     {
       _tmpStr.convert(elementSet->elements(elementId)->number);
       _tmpStr = baseName + "_e" + _tmpStr;
@@ -307,7 +307,7 @@ void HistoryFile::save(double currentTime)
   fprintf(_pfile, "%10.7E ", currentTime);
 
   // Writes data to file
-  for (long itemToWrite = 0; itemToWrite < _items.getSize(); itemToWrite++)
+  for (long itemToWrite = 0; itemToWrite < _items.size(); itemToWrite++)
   {
     fprintf(_pfile, "%10.7E ", _items(itemToWrite)->getValue());
   }
@@ -349,7 +349,7 @@ void HistoryFile::headerWrite()
     internalFatalError("HistoryFile::headerWrite", "File not open\n");
   fprintf(_pfile, "#%s v. %s history file\n", _name.c_str(), _version.c_str());
   fprintf(_pfile, "#plotted :");
-  for (long i = 0; i < _items.getSize(); i++)
+  for (long i = 0; i < _items.size(); i++)
   {
     fprintf(_pfile, "%s ", _items(i)->_name.chars());
   }

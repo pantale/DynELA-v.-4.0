@@ -8,9 +8,9 @@
 \chapter{DynELA Kernel library}
 
 \startcontents[chapters]
-\printmyminitoc[2]\LETTRINE{T}he \DynELA~is an Explicit FEM code written in \Cpp~using a Python's interface for creating the Finite Element Models. 
+\printmyminitoc[2]\LETTRINE{T}he \DynELA~Kernel library is the lowest library of all the \DynELA~libraries. It contains basic classes that allow the definition of the non-mathematical functions of the \DynELA. We find in this library the List class allowing to manage the objects of the \DynELA, the String classes, the basic options, the management of the log files,...
 
-\section{MacAdresses}
+\section{The MacAdresses class}
 
 %@DOC:MacAddresses::MacAddresses()
 %Warning :
@@ -28,7 +28,7 @@ Default constructor of the MacAddresses class.\\ \hspace*{10mm}$\hookrightarrow$
 \textcolor{purple}{\textbf{MacAddresses::getAddress(int n)}}\label{MacAddresses::getAddress(int n)}\index[DL]{MacAddresses!getAddress(int n)}\\
 Return the Mac Address \#n from the list.\\ \hspace*{10mm}$\hookrightarrow$ String
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of MacAddresses::getAddress]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 int&n&The index of the MacAddresses to return.
 \end{tcolorbox}
 
@@ -41,7 +41,7 @@ int&n&The index of the MacAddresses to return.
 \textcolor{purple}{\textbf{MacAddresses::getInterface(int n)}}\label{MacAddresses::getInterface(int n)}\index[DL]{MacAddresses!getInterface(int n)}\\
 Return the Internet interface \#n from the list.\\ \hspace*{10mm}$\hookrightarrow$ String
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of MacAddresses::getInterface]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 int&n&The index of the Internet interface to return.
 \end{tcolorbox}
 
@@ -56,7 +56,7 @@ Return the number of Internet interfaces of the computer.\\ \hspace*{10mm}$\hook
 
 %@END
 
-\section{Settings}
+\section{The Settings class}
 
 
 %@DOC:Settings::Settings
@@ -94,7 +94,7 @@ Destructor of the Settings class.
 \textcolor{purple}{\textbf{Settings::load(string name)}}\label{Settings::load(string name)}\index[DL]{Settings!load(string name)}\\
 Load settings from a file.\\ \hspace*{10mm}$\hookrightarrow$ bool
 
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R},title=Arguments of Settings::load]
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 string & name & Name of the file to read settings from
 \end{tcolorbox}
 
@@ -127,4 +127,613 @@ Checks if settings has been changed and needs rewrite.\\ \hspace*{10mm}$\hookrig
 
 %@END
 
+\section{The List class}
+
+The List class is a basic class in the \DynELA. It is even at the origin of all the developments made in finite element and numerical computation since 1992. Its development is at the heart of the PostCopo and F3R applications which were realized during my thesis work between 1992 and 1996. Originally, it was written in C language and was thus a dynamic list of pointers on \textbf{void$\star$} which was violently (and yes I assume this) casted, during the definition of the list, into pointers on the real elements of the list. The automatic dynamic memory allocation mechanism for the list in increments of $10$, in general, was already present in the first version of this list in C. Later, with the advent of \Cpp~, this list was switched to its current form with the template mechanism provided by the \Cpp~language.
+
+%@DOC:List::List
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::List}}\label{List::List}\index[DL]{List!List}\\
+Management of objects as List.
+
+This class is used to store all type of object and manipulate them as a list (for example: list of Nodes, Elements, Boundary conditions,...).
+This List is a dynamic one, the initialization is performed with a default stack size defined by DEFAULT\_stack\_size, as soon as there is no more space left to store a new object,
+the List size is increased with respect to the DEFAULT\_stack\_inc value.
+%@END
+
+%@DOC:List::List(long size)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::List(long size)}}\label{List::List(long size)}\index[DL]{List!List(long size)}\\
+Constructor of the List class.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & size & Initial size of the list (default value DEFAULT\_stack\_inc).
+\end{tcolorbox}
+
+This constructor allocates the default memory for an instance of the List class.
+If the size of the list is not specified, the default size is taken into account, which is defined by the value of DEFAULT\_stack\_size.
+%@END
+
+%@DOC:List::redim(long size)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::redim(long size)}}\label{List::redim(long size)}\index[DL]{List!redim(long size)}\\
+Resize the storage space of a List.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & size & New size of the list.
+\end{tcolorbox}
+
+This method is used to increase or decrease the size of a list.
+If the proposed new size is smaller than the minimum size needed to store the current elements of the list, an error is generated.\\
+This method should generally not be called by the user (unless the user has mastered the trick).
+This method is heavily used internally by the other methods of the class.
+In case the user does not master this kind of operation sufficiently, it is better to let the class manage its own memory allocations.\\
+A possible use of this method is memory pre-allocation, when the number of objects that will be stored in the list is known in advance.
+The size of the list is then adjusted to this value, which avoids dynamic size adjustment operations that take CPU time.
+Of course, dynamic allocation mechanisms exist and you can exceed this value.
+%@END
+
+%@DOC:List::close()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::close(~)}}\label{List::close()}\index[DL]{List!close(~)}\\
+This method closes the List, i.e. resize the stack size to the number of elements to save memory.
+
+This method is used to adjust the size of the list according to the number of real objects in the list.
+This method allows to recover memory space, mainly for small lists.
+%@END
+
+%@DOC:List::operator()(long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::operator(~)(long index)}}\label{List::operator()(long index)}\index[DL]{List!operator(~)(long index)}\\
+This is the accessor to the elements of the list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & index & Index of the element to get in the list.
+\end{tcolorbox}
+
+This method is used to access items on the list.
+This access is both read and write.
+This method returns element [i] of the list.
+The baseline is 0 (first element of index 0) as usual in C and C++.
+%@END
+
+%@DOC:List::initLoop()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::initLoop(~)}}\label{List::initLoop()}\index[DL]{List!initLoop(~)}\\
+Finalization of a loop on the list.
+
+This method has to be called after a loop using one of the iterator methods for the List.
+%@END
+
+%@DOC:List::next()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::next(~)}}\label{List::next()}\index[DL]{List!next(~)}\\
+Next element in the list.\\ \hspace*{10mm}$\hookrightarrow$ Next item in the list or NULL if it does not exist.
+
+This method uses an internal list lookup mechanism to return the next element in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+%@END
+
+%@DOC:List::currentUp()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::currentUp(~)}}\label{List::currentUp()}\index[DL]{List!currentUp(~)}\\
+Next element in the list.\\ \hspace*{10mm}$\hookrightarrow$ Next item in the list or NULL if it does not exist.
+
+This method uses an internal list lookup mechanism to return the element following the previous call in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+%@END
+
+%@DOC:List::currentDown()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::currentDown(~)}}\label{List::currentDown()}\index[DL]{List!currentDown(~)}\\
+Previous element in the list.\\ \hspace*{10mm}$\hookrightarrow$ Previous item in the list or NULL if it does not exist.
+
+This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+%@END
+
+%@DOC:List::first()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::first(~)}}\label{List::first()}\index[DL]{List!first(~)}\\
+First element in the list.\\ \hspace*{10mm}$\hookrightarrow$ First item in the list or NULL if it does not exist.
+
+%@END
+
+%@DOC:List::last()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::last(~)}}\label{List::last()}\index[DL]{List!last(~)}\\
+Last element in the list.\\ \hspace*{10mm}$\hookrightarrow$ Last item in the list or NULL if it does not exist.
+
+%@END
+
+%@DOC:List::previous()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::previous(~)}}\label{List::previous()}\index[DL]{List!previous(~)}\\
+Previous element in the list.\\ \hspace*{10mm}$\hookrightarrow$ Previous item in the list or NULL if it does not exist.
+
+This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+%@END
+
+%@DOC:List::current()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::current(~)}}\label{List::current()}\index[DL]{List!current(~)}\\
+Current element in the list.\\ \hspace*{10mm}$\hookrightarrow$ Current item in the list or NULL if it does not exist.
+
+This method uses an internal list lookup mechanism to return the current element in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+%@END
+
+%@DOC:List::size()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::size(~)}}\label{List::size()}\index[DL]{List!size(~)}\\
+Current size of the list.\\ \hspace*{10mm}$\hookrightarrow$ long.
+
+%@END
+
+%@DOC:List::stack()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::stack(~)}}\label{List::stack()}\index[DL]{List!stack(~)}\\
+Stack size of the list.\\ \hspace*{10mm}$\hookrightarrow$ long.
+
+%@END
+
+%@DOC:List::stackIncrement()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::stackIncrement(~)}}\label{List::stackIncrement()}\index[DL]{List!stackIncrement(~)}\\
+Stack increment size of the list.\\ \hspace*{10mm}$\hookrightarrow$ long.
+
+%@END
+
+%@DOC:List::flush()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::flush(~)}}\label{List::flush()}\index[DL]{List!flush(~)}\\
+Empties the list.
+
+This method empties the contents of the stack and returns its real size to zero and its stack size to DEFAULT\_stack\_size.
+The stack is as good as new !!! (it's a rechargeable battery !)
+%@END
+
+%@DOC:List::operator<<(Type object)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::operator<<(Type object)}}\label{List::operator<<(Type object)}\index[DL]{List!operator<<(Type object)}\\
+Add an object to the list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to add to the list.
+\end{tcolorbox}
+
+This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
+%@END
+
+%@DOC:List::insert(Type object, long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::insert(Type object, long index)}}\label{List::insert(Type object, long index)}\index[DL]{List!insert(Type object, long index)}\\
+Insert an object in the list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to insert into the list.\\
+long & index & Defines the position of the insertion in the list..
+\end{tcolorbox}
+
+This method inserts an object to the list. The object is inserted at a given index in the list, and the list size is automatically incremented if necessary.
+%@END
+
+%@DOC:List::add(Type object)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::add(Type object)}}\label{List::add(Type object)}\index[DL]{List!add(Type object)}\\
+Add an object to the list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to add to the list.
+\end{tcolorbox}
+
+This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
+%@END
+
+%@DOC:List::inverse()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::inverse(~)}}\label{List::inverse()}\index[DL]{List!inverse(~)}\\
+Reverse the order of the list.
+
+This method reverses the order of the elements in the list.
+%@END
+
+%@DOC:List::del(long start, long stop)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::del(long start, long stop)}}\label{List::del(long start, long stop)}\index[DL]{List!del(long start, long stop)}\\
+Removes a set of elements from the List.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & start & First element to suppress from the list.\\
+long & stop & Last element to suppress from the list.
+\end{tcolorbox}
+
+This method removes a set of items from the list.
+This method is used to remove an entire segment from the list, by defining the start and end indexes of the segment in the list.
+If the start and stop parameters are equal, only one element is deleted.
+%@END
+
+%@DOC:List::del(long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::del(long index)}}\label{List::del(long index)}\index[DL]{List!del(long index)}\\
+Removes an element from the List.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & index & Index of the element to suppress from the list.
+\end{tcolorbox}
+
+This method removes an items from the list.
+This method is used to remove an item from the list, by defining the index of the element in the list.
+%@END
+
+%@DOC:List::delBefore(long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::delBefore(long index)}}\label{List::delBefore(long index)}\index[DL]{List!delBefore(long index)}\\
+Removes a set of elements from the List.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & index & Index of the last element to suppress from the list.
+\end{tcolorbox}
+
+This method removes all items in the list between the beginning of the list and the value given as an argument to this method.
+This method is equivalent to del(0, index-1).
+%@END
+
+%@DOC:List::delAfter(long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::delAfter(long index)}}\label{List::delAfter(long index)}\index[DL]{List!delAfter(long index)}\\
+Removes a set of elements from the List.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & index & Index of the first element to suppress from the list.
+\end{tcolorbox}
+
+This method deletes all items in the list between the value given as an argument to this method and the end of the list.
+This method is equivalent to del(index+1, last()).
+%@END
+
+%@DOC:List::objectSize()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::objectSize(~)}}\label{List::objectSize()}\index[DL]{List!objectSize(~)}\\
+Memory size of a list.
+
+This method return the memory size a list, i.e. the memory size of the stack and of the List itself.
+%@END
+
+%@DOC:List::print(ostream output)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::print(ostream output)}}\label{List::print(ostream output)}\index[DL]{List!print(ostream output)}\\
+Prints the content of a list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+ostream & output & Output stream.
+\end{tcolorbox}
+
+%@END
+
+%@DOC:List::print(Type object)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::print(Type object)}}\label{List::print(Type object)}\index[DL]{List!print(Type object)}\\
+Search an object in the List.\\ \hspace*{10mm}$\hookrightarrow$ Type
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to search.
+\end{tcolorbox}
+
+This method performs a simple search for an item in the list and returns an Index indicating the place of the object in the list.
+If the object is not found, it returns the value -1.
+%@END
+
+%@DOC:List::contains(Type object)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::contains(Type object)}}\label{List::contains(Type object)}\index[DL]{List!contains(Type object)}\\
+Search an object in the List.\\ \hspace*{10mm}$\hookrightarrow$ bool
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to search.
+\end{tcolorbox}
+
+This method performs a simple search for an item in the list and returns a boolean according to the presence or or not of this object in the list.
+%@END
+
+%@DOC:List::sort(bool (*funct)(Type, Type) f)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{List::sort(bool ($\star$funct)(Type, Type) f)}}\label{List::sort(bool (*funct)(Type, Type) f)}\index[DL]{List!sort(bool ($\star$funct)(Type, Type) f)}\\
+Sort the list using a comparison function.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+(*funct) & f & Function defined in the objects to sort the elements.
+\end{tcolorbox}
+
+This method sorts the elements of the stack using a user-defined comparison function.
+This method is very powerful for sorting a list and very flexible in use. 
+The usage may seem complex, but it is defined in the example below.
+\begin{CppListing}
+class truc
+{
+  public:
+  double z; // a value
+};
+List <truc*> listeTrucs; // the list
+bool compare(truc* p1,truc* p2) // the comparing function
+{
+  return (p1->z < p2->z); // comparison
+}
+...
+{
+...
+listeTrucs.sort(compare); // sorts the list using the comparison function
+}
+\end{CppListing}
+%@END
+
+\section{The ListIndex class}
+
+The ListIndex class is an extension of the List class, where objects contain an internal number used to manage the objects inside the list.
+
+
+%@DOC:ListIndex::ListIndex
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::ListIndex}}\label{ListIndex::ListIndex}\index[DL]{ListIndex!ListIndex}\\
+Management of objects as ListIndex.
+
+This class is used to store all type of object and manipulate them as a listIndex (for example: listIndex of Nodes, Elements, Boundary conditions,...).
+This ListIndex is a dynamic one, the initialization is performed with a default stack size defined by DEFAULT\_stack\_size, as soon as there is no more space left to store a new object,
+the ListIndex size is increased with respect to the DEFAULT\_stack\_inc value.
+%@END
+
+%@DOC:ListIndex::insert(Type object, long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::insert(Type object, long index)}}\label{ListIndex::insert(Type object, long index)}\index[DL]{ListIndex!insert(Type object, long index)}\\
+Insert an object in the list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to insert into the list.\\
+long & index & Defines the position of the insertion in the list..
+\end{tcolorbox}
+
+This method inserts an object to the list. The object is inserted at a given index in the list, and the list size is automatically incremented if necessary.
+%@END
+
+%@DOC:ListIndex::ListIndex(long size)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::ListIndex(long size)}}\label{ListIndex::ListIndex(long size)}\index[DL]{ListIndex!ListIndex(long size)}\\
+Constructor of the ListIndex class.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & size & Initial size of the list (default value DEFAULT\_stack\_inc).
+\end{tcolorbox}
+
+This constructor allocates the default memory for an instance of the List class.
+If the size of the list is not specified, the default size is taken into account, which is defined by the value of DEFAULT\_stack\_size.
+%@END
+
+%@DOC:ListIndex::sorted()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::sorted(~)}}\label{ListIndex::sorted()}\index[DL]{ListIndex!sorted(~)}\\
+test if the list is sorted.\\ \hspace*{10mm}$\hookrightarrow$ bool
+
+A sorted list is a list where all object have an increasing internal number.
+%@END
+
+%@DOC:ListIndex::compacted()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::compacted(~)}}\label{ListIndex::compacted()}\index[DL]{ListIndex!compacted(~)}\\
+test if the list is compacted.\\ \hspace*{10mm}$\hookrightarrow$ bool
+
+A sorted list is a list where all object have a continuous increasing internal number.
+%@END
+
+%@DOC:ListIndex::flush()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::flush(~)}}\label{ListIndex::flush()}\index[DL]{ListIndex!flush(~)}\\
+Empties the list.
+
+This method empties the contents of the stack and returns its real size to zero and its stack size to DEFAULT\_stack\_size.
+The stack is as good as new !!! (it's a rechargeable battery !)
+%@END
+
+%@DOC:ListIndex::add(Type object)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::add(Type object)}}\label{ListIndex::add(Type object)}\index[DL]{ListIndex!add(Type object)}\\
+Add an object to the list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to add to the list.
+\end{tcolorbox}
+
+This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
+%@END
+
+%@DOC:ListIndex::forceSort()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::forceSort(~)}}\label{ListIndex::forceSort()}\index[DL]{ListIndex!forceSort(~)}\\
+Sort the list.
+
+%@END
+
+%@DOC:ListIndex::sort()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::sort(~)}}\label{ListIndex::sort()}\index[DL]{ListIndex!sort(~)}\\
+Sort the list.
+
+If the list is already sorted this does nothing.
+%@END
+
+%@DOC:ListIndex::sort(bool (*funct)(Type, Type) f)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::sort(bool ($\star$funct)(Type, Type) f)}}\label{ListIndex::sort(bool (*funct)(Type, Type) f)}\index[DL]{ListIndex!sort(bool ($\star$funct)(Type, Type) f)}\\
+Sort the list using a comparison function.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+(*funct) & f & Function defined in the objects to sort the elements.
+\end{tcolorbox}
+
+This method sorts the elements of the stack using a user-defined comparison function.
+This method is very powerful for sorting a list and very flexible in use. 
+The usage may seem complex, but it is defined in the example below.
+\begin{CppListing}
+class truc
+{
+  public:
+  double z; // a value
+};
+List <truc*> listeTrucs; // the list
+bool compare(truc* p1,truc* p2) // the comparing function
+{
+  return (p1->z < p2->z); // comparison
+}
+...
+{
+...
+listeTrucs.sort(compare); // sorts the list using the comparison function
+}
+\end{CppListing}
+%@END
+
+%@DOC:ListIndex::search(long (*funct)(Type, long) f, long i)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::search(long ($\star$funct)(Type, long) f, long i)}}\label{ListIndex::search(long (*funct)(Type, long) f, long i)}\index[DL]{ListIndex!search(long ($\star$funct)(Type, long) f, long i)}\\
+Sort the list using a comparison function.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+(*funct) & f & Function defined in the objects to sort the elements.\\
+long & i & Index of the object
+\end{tcolorbox}
+
+This method is used to search for an item in the list using a dichotomous algorithm. This method returns the corresponding element in the list or the NULL value if the element is not in the list.
+The usage may seem complex, but it is defined in the example below.
+\begin{CppListing}
+ class truc
+{
+  public:
+  long z; // a value
+};
+ListIndex <truc*> listeTrucs; // the list
+long compare(truc* p1, long in) // the comparing function
+{
+  return (p1->z - in); // comparison
+}
+...
+{
+...
+listeTrucs.sort(compare,10); // seeks for the value 10
+}
+\end{CppListing}
+%@END
+
+%@DOC:ListIndex::del(long start, long stop)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::del(long start, long stop)}}\label{ListIndex::del(long start, long stop)}\index[DL]{ListIndex!del(long start, long stop)}\\
+Removes a set of elements from the List.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & start & First element to suppress from the list.\\
+long & stop & Last element to suppress from the list.
+\end{tcolorbox}
+
+This method removes a set of items from the list.
+This method is used to remove an entire segment from the list, by defining the start and end indexes of the segment in the list.
+If the start and stop parameters are equal, only one element is deleted.
+%@END
+
+%@DOC:ListIndex::delBefore(long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::delBefore(long index)}}\label{ListIndex::delBefore(long index)}\index[DL]{ListIndex!delBefore(long index)}\\
+Removes a set of elements from the List.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & index & Index of the last element to suppress from the list.
+\end{tcolorbox}
+
+This method removes all items in the list between the beginning of the list and the value given as an argument to this method.
+This method is equivalent to del(0, index-1).
+%@END
 

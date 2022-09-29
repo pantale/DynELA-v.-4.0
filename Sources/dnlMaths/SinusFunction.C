@@ -44,7 +44,7 @@ double SinusFunction::getValue(double x)
 {
   double value = constant;
 
-  for (long i = 0; i < fragment.getSize(); i++)
+  for (long i = 0; i < fragment.size(); i++)
   {
     if (fragment(i).type == Sin)
       value += fragment(i).factor * sin(fragment(i).pulse * x + fragment(i).constant);
@@ -92,7 +92,7 @@ double SinusFunction::getSlope(double x)
 {
   double value = 0;
 
-  for (long i = 0; i < fragment.getSize(); i++)
+  for (long i = 0; i < fragment.size(); i++)
   {
     if (fragment(i).type == Sin)
       value += fragment(i).pulse * fragment(i).factor * cos(fragment(i).pulse * x + fragment(i).constant);
@@ -110,7 +110,7 @@ void SinusFunction::print()
   printf("Sinus Fonction : %s\nf(x) = ", name.chars());
   if (constant != 0)
     printf("%lf ", constant);
-  for (long i = 0; i < fragment.getSize(); i++)
+  for (long i = 0; i < fragment.size(); i++)
   {
     if ((fragment(i).factor >= 0) && ((i != 0) || (constant != 0)))
       printf("+ ");
@@ -191,7 +191,7 @@ double SinusFunction::getConstant()
 long SinusFunction::getNumberOfFragments()
 //-----------------------------------------------------------------------------
 {
-  return fragment.getSize();
+  return fragment.size();
 }
 
 //-----------------------------------------------------------------------------

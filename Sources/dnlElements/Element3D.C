@@ -67,7 +67,7 @@ bool Element3D::computeJacobian(bool reference)
   Node *node;
   const IntegrationPointData *integrationPointData;
 
-  for (short intPtId = 0; intPtId < integrationPoints.getSize(); intPtId++)
+  for (short intPtId = 0; intPtId < integrationPoints.size(); intPtId++)
   {
     // Get the current integration point
     setCurrentIntegrationPoint(intPtId);
@@ -77,7 +77,7 @@ bool Element3D::computeJacobian(bool reference)
     _integrationPoint->JxW = 0.0;
 
     // Computes the Jacobian
-    for (short nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+    for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
     {
       node = nodes(nodeId);
       _integrationPoint->JxW(0, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coordinates(0);
@@ -121,7 +121,7 @@ bool Element3D::computeUnderJacobian(bool reference)
   Node *node;
   const IntegrationPointData *integrationPointData;
 
-  for (short intPtId = 0; intPtId < underIntegrationPoints.getSize(); intPtId++)
+  for (short intPtId = 0; intPtId < underIntegrationPoints.size(); intPtId++)
   {
     // Get the current integration point
     setCurrentUnderIntegrationPoint(intPtId);
@@ -131,7 +131,7 @@ bool Element3D::computeUnderJacobian(bool reference)
     _underIntegrationPoint->JxW = 0.0;
 
     // Computes the Jacobian
-    for (short nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+    for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
     {
       node = nodes(nodeId);
       _underIntegrationPoint->JxW(0, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coordinates(0);
@@ -211,7 +211,7 @@ void Element3D::getV_atIntPoint(Vec3D &v, short time)
   v = 0.0;
 
   // calcul de v
-  for (short nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     field = nodes(nodeId)->getNodalField(time);
     v(0) += _integrationPoint->integrationPointData->shapeFunction(nodeId) * (field->speed(0));
@@ -261,7 +261,7 @@ void Element3D::getU_atIntPoint (Vec3D & u, short time)
   u = 0.0;
 
   // calcul de du
-  for (i = 0; i < nodes.getSize (); i++)
+  for (i = 0; i < nodes.size (); i++)
     {
       field = nodes (i)->getNodalField (time);
        u (0) += _integrationPoint->integrationPointData->shapeFunction (i) * field->displacement (0);
@@ -322,11 +322,11 @@ void Element3D::computeElasticStiffnessMatrix(bool underIntegration)
   if (underIntegration)
   {
     computeUnderJacobian();
-    numberOfIntPts = underIntegrationPoints.getSize();
+    numberOfIntPts = underIntegrationPoints.size();
   }
   else
   {
-    numberOfIntPts = integrationPoints.getSize();
+    numberOfIntPts = integrationPoints.size();
   }
 
   // parallelisation

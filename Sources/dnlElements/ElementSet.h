@@ -44,7 +44,7 @@ public:
 
   void add(Element *element);
   void add(ElementSet *elementSet);
-  long getSize();
+  long size();
   void setName(char *_name);
   Element *getElement(long item);
   long getNumber(long item);

@@ -68,12 +68,12 @@ bool Model::add(Node *newNode)
 //-----------------------------------------------------------------------------
 {
   // search if not already in the list
-  if (nodes.dichotomySearch(substractNodesNumber, newNode->number) != NULL)
+  if (nodes.search(substractNodesNumber, newNode->number) != NULL)
   {
     fatalError("Model::add", "Node %ld already exists in the node list of this model\n", newNode->number);
   }
 
-  if ((nodes.getSize() >= 1) && (newNode->number < nodes.last()->number))
+  if ((nodes.size() >= 1) && (newNode->number < nodes.last()->number))
   {
     // add the node to the grid
     nodes << newNode;
@@ -99,12 +99,12 @@ bool Model::add(Element *newElement)
 //-----------------------------------------------------------------------------
 {
   // search if not already in the list
-  if (elements.dichotomySearch(substractElementsNumber, newElement->number) != NULL)
+  if (elements.search(substractElementsNumber, newElement->number) != NULL)
   {
     fatalError("Model::add", "Element %ld already exists in the element list of this Model\n", newElement->number);
   }
 
-  if ((elements.getSize() >= 1) && (newElement->number < elements.last()->number))
+  if ((elements.size() >= 1) && (newElement->number < elements.last()->number))
   {
     // add the element to the grid
     elements << newElement;
@@ -142,7 +142,7 @@ void Model::create(Element *newElement, long *listOfNodes)
 
   for (long j = 0; j < newElement->getNumberOfNodes(); j++)
   {
-    if ((pNode = nodes.dichotomySearch(substractNodesNumber, listOfNodes[j])) != NULL)
+    if ((pNode = nodes.search(substractNodesNumber, listOfNodes[j])) != NULL)
     {
       // Add the node to the liste of nodes of the new element
       newElement->addNode(pNode);
@@ -291,14 +291,14 @@ Node *Model::getNodeByNum(long nodeNumber)
 //-----------------------------------------------------------------------------
 {
   // pehaps it's just the last one (often assumed)
-  if (nodes.getSize() > 0)
+  if (nodes.size() > 0)
   {
     if (nodes.last()->number == nodeNumber)
       return nodes.last();
   }
 
   // no so search for it
-  return nodes.dichotomySearch(substractNodesNumber, nodeNumber);
+  return nodes.search(substractNodesNumber, nodeNumber);
 }
 
 // recherche d'un element dans la structure en fonction de son numero
@@ -314,14 +314,14 @@ Element *Model::getElementByNum(long elementNumber)
 //-----------------------------------------------------------------------------
 {
   // pehaps it's just the last one (often assumed)
-  if (elements.getSize() > 0)
+  if (elements.size() > 0)
   {
     if (elements.last()->number == elementNumber)
       return elements.last();
   }
 
   // no so search for it
-  return elements.dichotomySearch(substractElementsNumber, elementNumber);
+  return elements.search(substractElementsNumber, elementNumber);
 }
 
 //-----------------------------------------------------------------------------
@@ -331,7 +331,7 @@ bool Model::checkTopology()
   // Verify coherence of the elements
   short firstElementFamily = elements(0)->getFamily();
 
-  for (long i = 1; i < elements.getSize(); i++)
+  for (long i = 1; i < elements.size(); i++)
     if (firstElementFamily != elements(i)->getFamily())
     {
       std::cout << "Passing from ";
@@ -373,7 +373,7 @@ bool Model::initSolve()
   dynelaData->logFile << "\nInitializing model : " << name << "\n";
 
   // If the list of element is void, nothing to do and return false
-  if (elements.getSize() == 0)
+  if (elements.size() == 0)
     return false;
 
   // Set the dimension of the model
@@ -388,17 +388,17 @@ bool Model::initSolve()
 
   // verification des elements par methode interne
   dynelaData->logFile << "Verification of elements ... ";
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     elements(elementId)->check();
   }
   dynelaData->logFile << "Ok\n";
 
   // Write informations in the log file
-  dynelaData->logFile << "Model contains " << elements.getSize() << " elements and " << nodes.getSize() << " nodes\n";
+  dynelaData->logFile << "Model contains " << elements.size() << " elements and " << nodes.size() << " nodes\n";
 
   // Initialize data
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     // recuperation de l'element
     Element *pel = elements(elementId);
@@ -409,12 +409,12 @@ bool Model::initSolve()
     // Initialize data for the element
     pel->initializeData();
   }
-  dynelaData->logFile << elements.getSize() << " elements have been initialized\n";
+  dynelaData->logFile << elements.size() << " elements have been initialized\n";
 
   // Saving the initial coordinates
   /*
   dynelaData->logFile << "Saving initial coordinates ... ";
-  for (int nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (int nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     nodes(nodeId)->initialCoordinates = nodes(nodeId)->coordinates;
   }
@@ -423,7 +423,7 @@ bool Model::initSolve()
 
   // application des conditions initiales
   dynelaData->logFile << "Applying initial conditions ... ";
-  for (int nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (int nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     if (nodes(nodeId)->boundary != NULL)
       nodes(nodeId)->boundary->applyInitial(nodes(nodeId), 0, 0);
@@ -435,7 +435,7 @@ bool Model::initSolve()
   /*
 
  // verification des interfaces
-  for (i = 0; i < interfaces.getSize(); i++)
+  for (i = 0; i < interfaces.size(); i++)
   {
     dynelaData->logFile << "Interface " << i << " verification ...\n";
     interfaces(i)->Init();
@@ -447,7 +447,7 @@ bool Model::initSolve()
   currentTime = solver->startTime;
 
   /*   double finalTimeOfPreviousSolver = 0.0;
-  if (solvers.getSize() > 0)
+  if (solvers.size() > 0)
   {
     // get the init time of first solver
     currentTime = solvers(0)->startTime;
@@ -464,7 +464,7 @@ bool Model::initSolve()
   solver->initialize();
 
   // Loop over all the solvers of the Model
-  /*   for (int solverId = 0; solverId < solvers.getSize(); solverId++)
+  /*   for (int solverId = 0; solverId < solvers.size(); solverId++)
   {
     // get the solver
     solver = solvers(solverId);
@@ -490,8 +490,8 @@ bool Model::initSolve()
 
   // ajout des motions Lagrangienes pour tous les noeuds non definis
   set = 0;
-  //  for (i=0; i<grids.getSize();i++)
-  for (j = 0; j < nodes.getSize(); j++)
+  //  for (i=0; i<grids.size();i++)
+  for (j = 0; j < nodes.size(); j++)
   {
     if (nodes(j)->motion == NULL)
     {
@@ -504,7 +504,7 @@ bool Model::initSolve()
   cout << set << " Lagrangian nodes created\n";
 
 
-   for (long elementId=0;elementId<elements.getSize();elementId++)
+   for (long elementId=0;elementId<elements.size();elementId++)
  {
     elements(elementId)->computeJacobian(true);
   }
@@ -551,13 +551,13 @@ void Model::computeMassMatrix(bool forceComputation)
   Element *element;
 
   // Compute size of the Mass matrix ie, the numer of dimensions times number of nodes
-  long numberOfDDL = _numberOfDimensions * nodes.getSize();
+  long numberOfDDL = _numberOfDimensions * nodes.size();
   massMatrix.redim(numberOfDDL);
 
   // Initialize the Mass matrix
   massMatrix = 0.0;
 
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     // Get the current element
     element = elements(elementId);
@@ -584,7 +584,7 @@ void Model::computeMassMatrix(bool forceComputation)
   }
 
   // Redistribution of nodal masses to nodes
-  for (long nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (long nodeId = 0; nodeId < nodes.size(); nodeId++)
     nodes(nodeId)->mass = massMatrix(nodes(nodeId)->internalNumber() * _numberOfDimensions);
 
   // Mass matrix has been computed, remember it !
@@ -599,7 +599,7 @@ double Model::getTotalMass()
   double totalMass = 0.0;
 
   // Loop over all nodes of the model and sum of nodal masses
-  for (long nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (long nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     totalMass += nodes(nodeId)->mass;
   }
@@ -616,7 +616,7 @@ double Model::getTotalKineticEnergy()
   double kineticEnergy = 0.0;
 
   // Loop over all nodes of the model and sum of kinetic energies of nodes
-  for (long nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (long nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     kineticEnergy += (nodes(nodeId)->mass * nodes(nodeId)->currentField->speed.dot()) / 2.0;
   }
@@ -650,7 +650,7 @@ double Model::computeCourantTimeStep()
   // valeur critique du timeStep step
   criticalTimeStep = characteristicLength / elongationWaveSpeed;
 
-  for (long elementId = 1; elementId < elements.getSize(); elementId++)
+  for (long elementId = 1; elementId < elements.size(); elementId++)
   {
     // longueur caracteristique de l'element
     characteristicLength = elements(elementId)->getCharacteristicLength();
@@ -817,7 +817,7 @@ void Model::computeStrains()
 void Model::computeStrains()
 //-----------------------------------------------------------------------------
 {
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     elements(elementId)->computeStrains();
   }
@@ -827,7 +827,7 @@ void Model::computeStrains()
 void Model::computePressure()
 //-----------------------------------------------------------------------------
 {
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     elements(elementId)->computePressure();
   }
@@ -838,13 +838,13 @@ void Model::computeStress(double timeStep)
 //-----------------------------------------------------------------------------
 {
   if (_stressIntegrationMethod == StressIntNR)
-    for (long elementId = 0; elementId < elements.getSize(); elementId++)
+    for (long elementId = 0; elementId < elements.size(); elementId++)
     {
       elements(elementId)->computeStress(timeStep);
     }
 
   if (_stressIntegrationMethod == StressIntDirect)
-    for (long elementId = 0; elementId < elements.getSize(); elementId++)
+    for (long elementId = 0; elementId < elements.size(); elementId++)
     {
       elements(elementId)->computeStressDirect(timeStep);
     }
@@ -854,7 +854,7 @@ void Model::computeStress(double timeStep)
 void Model::computeFinalRotation()
 //-----------------------------------------------------------------------------
 {
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     elements(elementId)->computeFinalRotation();
   }
@@ -867,7 +867,7 @@ void Model::computeInternalForces()
   Vector elementInternalForces;
   long glob;
 
-  long numberOfDDL = _numberOfDimensions * nodes.getSize();
+  long numberOfDDL = _numberOfDimensions * nodes.size();
 
 #ifdef PRINT_Execution_Solve
   cout << "Compute Internal Forces\n";
@@ -878,13 +878,13 @@ void Model::computeInternalForces()
   internalForces = 0.0;
 
   // calcul des forces internes
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     // calcul des forces internes de l'element
     elements(elementId)->computeInternalForces(elementInternalForces, solver->timeStep);
 
     // assemblage des forces internes
-    for (long nodeId = 0; nodeId < elements(elementId)->nodes.getSize(); nodeId++)
+    for (long nodeId = 0; nodeId < elements(elementId)->nodes.size(); nodeId++)
     {
       // recuperation du numero global
       glob = (elements(elementId)->nodes(nodeId)->internalNumber()) * _numberOfDimensions;
@@ -907,7 +907,7 @@ void Model::transfertQuantities()
   cout << "Quantities transfert\n";
 #endif
 
-  for (long nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (long nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     nodes(nodeId)->swapNodalFields();
   }
@@ -917,7 +917,7 @@ void Model::transfertQuantities()
 void Model::writeHistoryFiles()
 //-----------------------------------------------------------------------------
 {
-  for (short historyId = 0; historyId < historyFiles.getSize(); historyId++)
+  for (short historyId = 0; historyId < historyFiles.size(); historyId++)
   {
     historyFiles(historyId)->save(currentTime);
   }
@@ -952,7 +952,7 @@ double Model::computePowerIterationTimeStep(bool underIntegration)
   Vector powerIterationEV0;
 
   // matrices globales
-  long numberOfDDL = _numberOfDimensions * nodes.getSize();
+  long numberOfDDL = _numberOfDimensions * nodes.size();
 
   pel = elements.initLoop();
   while ((pel = elements.currentUp()) != NULL)
@@ -963,7 +963,7 @@ double Model::computePowerIterationTimeStep(bool underIntegration)
   elements.endLoop();
 
   // initialisation du vecteur si besoin
-  if ((_powerIterationFreqMax == 0) || (_powerIterationEV.getSize() != numberOfDDL))
+  if ((_powerIterationFreqMax == 0) || (_powerIterationEV.size() != numberOfDDL))
   {
     _powerIterationEV.redim(numberOfDDL);
     _powerIterationEV(0) = 1.0;
@@ -980,7 +980,7 @@ double Model::computePowerIterationTimeStep(bool underIntegration)
     {
       localValues.redim(pel->stiffnessMatrix.rows());
       localValues = 0.;
-      for (short I = 0; I < pel->nodes.getSize(); I++)
+      for (short I = 0; I < pel->nodes.size(); I++)
         localIndices[I] = pel->nodes(I)->internalNumber();
       localValues.scatterFrom(powerIterationEV0, localIndices, _numberOfDimensions);
       localValues = pel->stiffnessMatrix * localValues;
@@ -1054,7 +1054,7 @@ void Model::readData(ifstream &pfile)
   // load current time
   pfile.read((char *)&currentTime, sizeof(double));
 
-  for (i = 0; i < nodes.getSize(); i++)
+  for (i = 0; i < nodes.size(); i++)
   {
     pfile >> *(nodes(i));
   }
@@ -1062,7 +1062,7 @@ void Model::readData(ifstream &pfile)
   if (dynelaData->checkBinaryVersion(pfile, 1) != Ok)
     fatalError("nodal datas", "Read error");
 
-  for (i = 0; i < elements.getSize(); i++)
+  for (i = 0; i < elements.size(); i++)
   {
     pfile >> *(elements(i));
   }
@@ -1083,7 +1083,7 @@ void Model::writeData(ofstream &pfile)
   pfile.write((char *)&currentTime , sizeof(double));
 
   // save the nodal values
-  for (i = 0; i < nodes.getSize(); i++)
+  for (i = 0; i < nodes.size(); i++)
   {
     nodes(i)->write(pfile);
   }
@@ -1091,7 +1091,7 @@ void Model::writeData(ofstream &pfile)
   dynelaData->checkBinaryVersionWrite(pfile, 1);
 
   // save the element values
-  for (i = 0; i < elements.getSize(); i++)
+  for (i = 0; i < elements.size(); i++)
   {
     elements(i)->write(pfile);
   }
@@ -1108,7 +1108,7 @@ void Model::getGlobalBox(Vec3D &min, Vec3D &max)
   max = min = nodes(0)->coordinates;
 
   // boucle de recherche
-  for (i = 1; i < nodes.getSize(); i++)
+  for (i = 1; i < nodes.size(); i++)
   {
     coordinates = nodes(i)->coordinates;
 
@@ -1152,9 +1152,9 @@ void Model::createNode(long num, double x, double y, double z)
   // ajout des references online
   //   if (online_node_set == true)
   //     {
-  //       selection.nodesSet (selection.nodesSet.getSize () - 1)->Add (pnd);
+  //       selection.nodesSet (selection.nodesSet.size () - 1)->Add (pnd);
   //       fprintf (out_file, " of set %s",
-  // 	       selection.nodesSet (selection.nodesSet.getSize () - 1)->nom.chars ());
+  // 	       selection.nodesSet (selection.nodesSet.size () - 1)->nom.chars ());
   //     }
 
   // affichage du defilement
@@ -1171,7 +1171,7 @@ void Model::createNode(long num, double x, double y, double z)
 Node *Model::getNodeByNumber(long num)
 //-----------------------------------------------------------------------------
 {
-  for (long i = 0; i < nodes.getSize(); i++)
+  for (long i = 0; i < nodes.size(); i++)
   {
     if (nodes(i)->number == num)
       return nodes(i);
@@ -1214,7 +1214,7 @@ void Model::starterWrite(String name)
   fprintf (pfile, "------------------------------------------------\n");
   fprintf (pfile, "  NODE               NODE COORDINATES\n");
   fprintf (pfile, " NUMBER        X            Y            Z\n");
-  for (i = 0; i < nodes.getSize (); i++)
+  for (i = 0; i < nodes.size (); i++)
     {
       nodes (i)->toFile (pfile);
     }
@@ -1223,14 +1223,14 @@ void Model::starterWrite(String name)
   fprintf (pfile, "------------------------------------------------\n");
   fprintf (pfile, " ELEMENT   ELEMENT           LIST OF NODES\n");
   fprintf (pfile, " NUMBER     NAME   \n");
-  for (i = 0; i < elements.getSize (); i++)
+  for (i = 0; i < elements.size (); i++)
     {
       elements (i)->toFile (pfile);
     }
 
   fprintf (pfile, "\n                 MATERIALS DEFINITION\n");
   fprintf (pfile, "------------------------------------------------\n");
-  for (i = 0; i < materials.getSize (); i++)
+  for (i = 0; i < materials.size (); i++)
     {
       materials (i)->toFile (pfile);
     }
@@ -1242,13 +1242,13 @@ void Model::starterWrite(String name)
      "  NODE              MATERIAL SPEEDS                       GRID SPEEDS\n");
   fprintf (pfile,
      " NUMBER        X         Y         Z          X         Y         Z\n");
-  for (i = 0; i < nodes.getSize (); i++)
+  for (i = 0; i < nodes.size (); i++)
     {
       nodes (i)->toFileBound (pfile);
     }
   fprintf (pfile, "\n                 CONTACT SURFACES\n");
   fprintf (pfile, "------------------------------------------------\n");
-  for (i = 0; i < interfaces.getSize (); i++)
+  for (i = 0; i < interfaces.size (); i++)
     {
       interfaces (i)->toFile (pfile);
     }
@@ -1290,7 +1290,7 @@ void Model::createElement(Element *pel, long *nNodes)
 
   for (long j = 0; j < pel->getNumberOfNodes(); j++)
   {
-    if ((pnd = nodes.dichotomySearch(substractNodesNumber, nNodes[j])) != NULL)
+    if ((pnd = nodes.search(substractNodesNumber, nNodes[j])) != NULL)
     {
       pel->addNode(pnd);
       nNodes[j] = -1;

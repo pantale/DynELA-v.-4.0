@@ -177,7 +177,7 @@ void Drawing::initPolygons()
       if (pass == 2)
         polygons.sort(compareCentersZXY);
       Polygon *p1, *p2;
-      for (int i = 1; i < polygons.getSize(); i++)
+      for (int i = 1; i < polygons.size(); i++)
       {
         p1 = polygons(i - 1);
         p2 = polygons(i);

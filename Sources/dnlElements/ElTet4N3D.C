@@ -334,7 +334,7 @@ void ElTet4N3D::computeGlob2Loc()
     }
 
   // inversion de la matrice
-  Matrix inv = nds.getInverse ();
+  Matrix inv = nds.inverse ();
 
   for (i = 0; i < getNumberOfNodes(); i++)
     for (j = 0; j < 3; j++)

@@ -909,7 +909,7 @@ void Vector::gatherFrom(const Vector &V, long *ind0, int numberOfDimensions)
     for (long I = loop_I - 1; I >= 0; I--)
     {
       double *gl = &_data[ind[I]];
-      double *lo = &V._data[I * numberOfDimensions];
+      double *lo = &V._data[I * 2];
       *gl++ += *lo++;
       *gl += *lo;
     }
@@ -920,7 +920,7 @@ void Vector::gatherFrom(const Vector &V, long *ind0, int numberOfDimensions)
     for (long I = loop_I - 1; I >= 0; I--)
     {
       double *gl = &_data[ind[I]];
-      double *lo = &V._data[I * numberOfDimensions];
+      double *lo = &V._data[I * 3];
       *gl++ += *lo++;
       *gl++ += *lo++;
       *gl += *lo;
@@ -992,7 +992,7 @@ void Vector::scatterFrom(const Vector &V, long *ind0, int numberOfDimensions)
     for (long I = loop_I - 1; I >= 0; I--)
     {
       double *lo = &V._data[ind[I]];
-      double *gl = &_data[I * numberOfDimensions];
+      double *gl = &_data[I * 2];
       *gl++ += *lo++;
       *gl += *lo;
     }
@@ -1003,7 +1003,7 @@ void Vector::scatterFrom(const Vector &V, long *ind0, int numberOfDimensions)
     for (long I = loop_I - 1; I >= 0; I--)
     {
       double *lo = &V._data[ind[I]];
-      double *gl = &_data[I * numberOfDimensions];
+      double *gl = &_data[I * 3];
       *gl++ += *lo++;
       *gl++ += *lo++;
       *gl += *lo;
@@ -1174,12 +1174,12 @@ Vector Vector::vectorProduct(const Vector &vect) const
   if (_dataLength != 3)
   {
     fatalErrorLine("Vector::vectorProduct",
-                   "getSize of v1(%d) not allowed for this operation", _dataLength);
+                   "size of v1(%d) not allowed for this operation", _dataLength);
   }
   if (vect._dataLength != 3)
   {
     fatalErrorLine("Vector::vectorProduct",
-                   "getSize of v2(%d) not allowed for this operation", vect._dataLength);
+                   "size of v2(%d) not allowed for this operation", vect._dataLength);
   }
 #endif
 

@@ -558,12 +558,12 @@ MatrixDiag MatrixDiag::singleProduct(const MatrixDiag &mat) const
 Vector MatrixDiag::operator*(const Vector &vec) const
 //-----------------------------------------------------------------------------
 {
-  if (_cols != vec.getSize())
+  if (_cols != vec.size())
   {
     fatalError("MatrixDiag::operator *",
                "matrix and vector sizes incompatible\n"
                "You're about to multiply a [%d,%d] matrix and a [%d] vector",
-               _rows, _cols, vec.getSize());
+               _rows, _cols, vec.size());
   }
 
   Vector resu(_rows);
@@ -581,12 +581,12 @@ Vector MatrixDiag::operator*(const Vector &vec) const
 void MatrixDiag::productBy(Vector &vec) const
 //-----------------------------------------------------------------------------
 {
-  if (_cols != vec.getSize())
+  if (_cols != vec.size())
   {
     fatalError("MatrixDiag::operator *",
                "matrix and vector sizes incompatible\n"
                "You're about to multiply a [%d,%d] matrix and a [%d] vector",
-               _rows, _cols, vec.getSize());
+               _rows, _cols, vec.size());
   }
 
   double *Vec = vec._data;
@@ -599,12 +599,12 @@ void MatrixDiag::productBy(Vector &vec) const
 void MatrixDiag::divideBy(Vector &vec) const
 //-----------------------------------------------------------------------------
 {
-  if (_cols != vec.getSize())
+  if (_cols != vec.size())
   {
     fatalError("MatrixDiag::operator *",
                "matrix and vector sizes incompatible\n"
                "You're about to multiply a [%d,%d] matrix and a [%d] vector",
-               _rows, _cols, vec.getSize());
+               _rows, _cols, vec.size());
   }
 
   double *Vec = vec._data;
@@ -654,13 +654,13 @@ Vector MatrixDiag::getSolve(Vector &vec)
 {
   Vector resu(_rows);
 
-  if (_rows != vec.getSize())
+  if (_rows != vec.size())
   {
     fatalError("MatrixDiag::Solve",
                "matrix and vector sizes incompatible\n"
                "You're about to Solve a linear system with a [%d,%d]"
                " matrix and a [%d] vector",
-               _rows, _cols, vec.getSize());
+               _rows, _cols, vec.size());
   }
 
   for (long component = 0; component < _rows; component++)
@@ -678,7 +678,7 @@ void MatrixDiag::solve(Vector &vec)
 }
 
 //-----------------------------------------------------------------------------
-MatrixDiag MatrixDiag::getInverse() const
+MatrixDiag MatrixDiag::inverse() const
 //-----------------------------------------------------------------------------
 {
   MatrixDiag res(_rows, _rows);

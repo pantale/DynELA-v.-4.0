@@ -171,7 +171,8 @@ def writeTex(out, key):
 
         # Scan args
         if (dc[2] != []):
-            ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R},title=Arguments of '+before(texify(key,True),'(')+']\n'
+            ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R}]\n'
+            #ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R},title=Arguments of '+before(texify(key,True),'(')+']\n'
             for arg in dc[2]:
                 ln += arg 
                 if arg != dc[2][-1]:

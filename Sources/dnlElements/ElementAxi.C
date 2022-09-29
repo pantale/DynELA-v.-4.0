@@ -50,7 +50,7 @@ double ElementAxi::getRadiusAtIntegrationPoint()
   double currentRadius = 0.0;
 
   // Computes currentRadius
-  for (short nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     currentRadius += _integrationPoint->integrationPointData->shapeFunction(nodeId) * nodes(nodeId)->coordinates(0);
   }
@@ -66,7 +66,7 @@ double ElementAxi::getRadiusAtUnderIntegrationPoint()
   double currentRadius = 0.0;
 
   // Computes currentRadius
-  for (short nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     currentRadius += _underIntegrationPoint->integrationPointData->shapeFunction(nodeId) * nodes(nodeId)->coordinates(0);
   }
@@ -85,7 +85,7 @@ void ElementAxi::computeDeformationGradient(Tensor2 &F, short time)
   F.setToUnity();
 
   // calcul de F
-  for (short nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     field = nodes(nodeId)->getNodalField(time);
     F(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(0);
@@ -104,7 +104,7 @@ bool ElementAxi::checkLevel2()
 //-----------------------------------------------------------------------------
 {
   // check for a negative value of x coordinate
-  for (short nodeId = 0; nodeId < nodes.getSize(); nodeId++)
+  for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     if (nodes(nodeId)->coordinates(0) < 0.)
     {

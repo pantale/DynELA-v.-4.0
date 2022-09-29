@@ -288,7 +288,7 @@ void ElTri3N2D::computeGlob2Loc ()
     }
 
   // inversion de la matrice
-  Matrix inv = nds.getInverse ();
+  Matrix inv = nds.inverse ();
   // cout << inv;
 
   // init

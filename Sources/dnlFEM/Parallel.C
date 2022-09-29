@@ -91,7 +91,7 @@ void Parallel::dispatchElements(List<Element *> elements)
   int coreId = 0;
 
   // Loop over available cores
-  for (long elementId = 0; elementId < elements.getSize(); elementId++)
+  for (long elementId = 0; elementId < elements.size(); elementId++)
   {
     // Add element to chunk coreId
     _elementsChunks[coreId]->elements << elements(elementId);
@@ -107,7 +107,7 @@ void Parallel::dispatchElements(List<Element *> elements)
   // display list of elements/cores
   for (int core = 0; core < _cores; core++)
   {
-    printf("CPU core %d - %ld elements\n", core + 1, _elementsChunks[core]->elements.getSize());
-    dynelaData->logFile << "CPU core " << core + 1 << " - " << _elementsChunks[core]->elements.getSize() << " element(s)\n";
+    printf("CPU core %d - %ld elements\n", core + 1, _elementsChunks[core]->elements.size());
+    dynelaData->logFile << "CPU core " << core + 1 << " - " << _elementsChunks[core]->elements.size() << " element(s)\n";
   }
 }

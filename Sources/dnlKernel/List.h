@@ -8,14 +8,6 @@
 //@!CODEFILE = DynELA-H-file
 //@!BEGIN = PRIVATE
 
-/*
-  \file List.h
-  Declaration and definition of the Finite Elements Lists.
-
-  This file declares and defines the Finite Elements Lists, which are the core of the DynELA Finite Element code as all structures are usually embers of such lists.
-  \ingroup dnlKernel
-*/
-
 #ifndef __dnlKernel_List_h__
 #define __dnlKernel_List_h__
 
@@ -31,21 +23,12 @@ template <class Type>
 class ListIndex;
 
 /*
-  \class List
-  Management of objects as list
-
-  This class is used to store all type of object and manupulate them as a list (for example: list of Nodes, Elements, Boundary conditions,...) \n
-  This List is a dynamic one, the initialization is performed with a default stack size defined by \ref DEFAULT_stack_size, as soon as there is no more space left to store a new object,
-  the List size ins increased with respect to the \ref DEFAULT_stack_inc value.
-  \ingroup dnlKernel
-  \code
-  void test()
-  {
-  List <object*> listOfObjects;
-  object* obj1 = new object;
-  listOfObjects << object;
-  }
-  \endcode
+@LABEL:List::List
+@SHORT:Management of objects as List.
+This class is used to store all type of object and manipulate them as a list (for example: list of Nodes, Elements, Boundary conditions,...).
+This List is a dynamic one, the initialization is performed with a default stack size defined by DEFAULT\_stack\_size, as soon as there is no more space left to store a new object,
+the List size is increased with respect to the DEFAULT\_stack\_inc value.
+@END
 */
 template <class Type>
 class List
@@ -53,17 +36,17 @@ class List
     friend class ListIndex<Type>;
 
 private:
-    long sz;       // Current size of the list (number of objects refered by the List)
-    long s_size;   // Current stack size of the List (Space available for objects storage)
-    long s_inc;    // Current stack increment for the List
-    long pcurrent; // The current index of the current object in the List
-    Type *ptr;     // A pointer to the current object in the List
+    long _size;     // Current size of the list (number of objects refered by the List)
+    long _stack;    // Current stack size of the List (Space available for objects storage)
+    long _stackInc; // Current stack increment for the List
+    long _current;  // The current index of the current object in the List
+    Type *_ptr;     // A pointer to the current object in the List
 #ifdef VERIF_bounds
     bool locked = false;
 #endif
 
 public:
-    List(const long stack = DEFAULT_stack_size);
+    List(const long = DEFAULT_stack_size);
     virtual ~List();
 
     // Interface methods excluded from SWIG
@@ -74,64 +57,54 @@ public:
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
-    bool contains(const Type objet) const;
-    bool operator!=(const List<Type> &objet) const;
-    bool operator==(const List<Type> &objet) const;
-    List<Type> operator<<(const Type objet);
+    bool contains(const Type) const;
+    bool operator!=(const List<Type> &) const;
+    bool operator==(const List<Type> &) const;
+    List<Type> operator<<(const Type);
     long &stackIncrement();
-    long getIndex(const Type objet) const;
-    long getSize() const;
+    long index(const Type) const;
     long objectSize();
-    long stackSize() const;
-    Type &operator()(const long i);
+    long size() const;
+    long stack() const;
+    Type &operator()(const long);
     Type current();
     Type currentDown();
     Type currentUp();
-    Type dichotomySearch(long (*funct)(const Type objet1, const long i), const long i) const;
     Type first();
     Type initLoop();
-    void endLoop();
     Type last();
     Type next();
-    Type operator()(const long i) const;
+    Type operator()(const long) const;
     Type previous();
-    virtual void add(const Type objet);
+    Type search(long (*funct)(const Type, const long), const long) const;
+    virtual void add(const Type);
     virtual void flush();
-    virtual void insert(const Type objet, long index);
+    virtual void insert(const Type, long);
     void close();
-    void del(long index);
-    void del(long start, long stop);
-    void delAfter(long index);
-    void delBefore(long index);
-    void getInverse();
-    void print(std::ostream &os) const;
-    void redim(const long taille);
-    void sort(bool (*funct)(const Type objet1, const Type objet2));
+    void del(long, long);
+    void del(long);
+    void delAfter(long);
+    void delBefore(long);
+    void endLoop();
+    void inverse();
+    void print(std::ostream &) const;
+    void redim(const long);
+    void sort(bool (*funct)(const Type, const Type));
 };
 
 /*
-  \class ListIndex
-  Management of objects as list with indexes
-
-  This class is used to store all type of object and manupulate them as a list (for example: list of Nodes, Elements, Boundary conditions,...) \n
-  This ListIndex is a dynamic one, the initialization is performed with a default stack size defined by \ref DEFAULT_stack_size, as soon as there is no more space left to store a new object,
-  the ListIndex size ins increased with respect to the \ref DEFAULT_stack_inc value.
-  \warning In order to be managed by the ListIndex, the objects MUST have a \ref _listIndex number used to reference all objects.
-  \ingroup dnlKernel
-  \code
-  void test()
-  {
-  ListIndex <object*> listOfObjects;
-  object* obj1 = new object;
-  listOfObjects << object;
-  }
-  \endcode
+@LABEL:ListIndex::ListIndex
+@SHORT:Management of objects as ListIndex.
+This class is used to store all type of object and manipulate them as a listIndex (for example: listIndex of Nodes, Elements, Boundary conditions,...).
+This ListIndex is a dynamic one, the initialization is performed with a default stack size defined by DEFAULT\_stack\_size, as soon as there is no more space left to store a new object,
+the ListIndex size is increased with respect to the DEFAULT\_stack\_inc value.
+@END
 */
 template <class Type>
 class ListIndex : public List<Type>
 {
-    bool sorted;    // Bool flag defining that the current ListIndex is sorted (All elements are in sorted with increasing Id)
-    bool compacted; // Bool flag defining that the current ListIndex is compacted (No hole in the list of objects)
+    bool _sorted;    // Bool flag defining that the current ListIndex is _sorted (All elements are in _sorted with increasing Id)
+    bool _compacted; // Bool flag defining that the current ListIndex is _compacted (No hole in the list of objects)
 
 public:
     ListIndex(const long stack = DEFAULT_stack_size);
@@ -145,123 +118,119 @@ public:
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
-    bool isCompacted() const;
-    bool isSorted() const;
-    long IAppN(const long i) const;
-    Type AppN(const long i) const;
-    void add(const Type objet);
+    bool compacted() const;
+    bool sorted() const;
+    long IAppN(const long) const;
+    Type AppN(const long) const;
+    void add(const Type);
     void compact();
-    void del(const Type object);
-    void del(const Type start, const Type stop);
-    void del(long index);
-    void del(long start, long stop);
-    void delAfter(const Type object);
-    void delAfter(long index);
-    void delBefore(const Type object);
-    void delBefore(long index);
+    void del(const Type);
+    void del(const Type, const Type);
+    void del(long);
+    void del(long, long);
+    void delAfter(const Type);
+    void delAfter(long);
+    void delBefore(const Type);
+    void delBefore(long);
     void flush();
     void forceSort();
-    void insert(const Type objet, long index);
+    void insert(const Type, long);
     void sort();
-    void sort(bool (*funct)(const Type objet1, const Type objet2));
+    void sort(bool (*funct)(const Type, const Type));
 };
 
 /*
-  Default constructor of the List class
-
-  This constructor allocates the default memory for an instance of the List class. \n
-  If the size of the list is not specified, the default size is taken into account, which is defined by the value of \ref DEFAULT_stack_size.
-  - stack defines the initial size of the List
+@LABEL:List::List(long size)
+@SHORT:Constructor of the List class.
+@ARG:long & size & Initial size of the list (default value DEFAULT\_stack\_inc).
+This constructor allocates the default memory for an instance of the List class.
+If the size of the list is not specified, the default size is taken into account, which is defined by the value of DEFAULT\_stack\_size.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-List<Type>::List(const long stack)
+List<Type>::List(const long size)
 //-----------------------------------------------------------------------------
 {
     // Definition of the default constants
-    s_size = stack;
-    s_inc = DEFAULT_stack_inc;
-    sz = 0;
-    pcurrent = 0;
+    _stack = size;
+    _stackInc = DEFAULT_stack_inc;
+    _size = 0;
+    _current = 0;
 
     // Memory allocation for the List
-    ptr = new Type[s_size];
+    _ptr = new Type[_stack];
 
 #ifdef VERIF_alloc
-    if (ptr == NULL)
+    if (_ptr == NULL)
         fatalError("List <Type>::List",
                    "Memory allocation error\n"
                    "May be out of memory on this system\n");
 #endif
 }
 
-/*
-  Resize the storage space of a List
+//-----------------------------------------------------------------------------
+template <class Type>
+List<Type>::~List()
+//-----------------------------------------------------------------------------
+{
+}
 
-  This method is used to increase or decrease the size of a list. \n
-  If the proposed new size is smaller than the minimum size needed to store the current elements of the list, an error is generated.
-  This method should generally not be called by the user (unless the user has full mastery of the trick ;-0 ).
-  This method is heavily used internally by the other methods of the class.
-  In the case where the user does not have enough mastery for this kind of operation, it is better to let the class manage its own memory allocations. \n
-  A possible use of this method is in the pre-allocation memory, when we know in advance the number of objects that will be stored in the list.
-  The size of the list is then adjusted to this value which avoids CPU time consuming dynamic size adjustment operations.
-  Of course, dynamic allocation mechanisms exist and you can exceed this value.
-  \code
-  void test()
-  {
-  List <object*> listOfObjects;
-  listOfObjects.redim(1280); // 1280 objets to store
-  for (i=0;i<1280);i++)
-  {
-  object* obj1=new object;
-  listOfObjects << obj1; // storage without reallocation
-  }
-  object* obj2=new object;
-  listOfObjects << obj2; // and now a 1281th element
-  }
-  \endcode
-  - newSize defines the new size of the List
+/*
+@LABEL:List::redim(long size)
+@SHORT:Resize the storage space of a List.
+@ARG:long & size & New size of the list.
+This method is used to increase or decrease the size of a list.
+If the proposed new size is smaller than the minimum size needed to store the current elements of the list, an error is generated.\\
+This method should generally not be called by the user (unless the user has mastered the trick).
+This method is heavily used internally by the other methods of the class.
+In case the user does not master this kind of operation sufficiently, it is better to let the class manage its own memory allocations.\\
+A possible use of this method is memory pre-allocation, when the number of objects that will be stored in the list is known in advance.
+The size of the list is then adjusted to this value, which avoids dynamic size adjustment operations that take CPU time.
+Of course, dynamic allocation mechanisms exist and you can exceed this value.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List<Type>::redim(const long newSize)
+void List<Type>::redim(const long size)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
-    if (newSize < sz)
+    if (size < _size)
         fatalError("template <class Type> void List <Type>::redim(const long)\n",
-                   "new getSize < actual getSize means to truncate the List\n"
+                   "new size < actual size means to truncate the List\n"
                    "This is not allowed with redim method\n"
                    "Must use a 'del' method");
 #endif
 
-    // set the newSize
-    s_size = newSize;
+    // set the size
+    _stack = size;
 
     // Dynamic allocation of the storage space
-    Type *ptr2 = new Type[s_size];
+    Type *ptr = new Type[_stack];
 
 #ifdef VERIF_alloc
-    if (ptr2 == NULL)
+    if (ptr == NULL)
         fatalError("List <Type>::redim",
                    "memory allocation error\nMay be out of memory on this system\n");
 #endif
 
     // Copy the memory
-    memcpy(ptr2, ptr, sz * sizeof(Type));
+    memcpy(ptr, _ptr, _size * sizeof(Type));
 
     // Delete of the old pointer
-    delete[] ptr;
+    delete[] _ptr;
 
     // Re-affectation of the pointer
-    ptr = ptr2;
+    _ptr = ptr;
 }
 
 /*
-  This method closes the List, i.e. resize the stack size to the number of elements to save memory.
-
-  This method is used to adjust the size of the list according to the number of real objects in the list.
-  This method allows to recover memory space, mainly for small lists.
+@LABEL:List::close()
+@SHORT:This method closes the List, i.e. resize the stack size to the number of elements to save memory.
+This method is used to adjust the size of the list according to the number of real objects in the list.
+This method allows to recover memory space, mainly for small lists.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -269,18 +238,18 @@ void List<Type>::close()
 //-----------------------------------------------------------------------------
 {
     // on fait un redim a la size_ reelle de la pile
-    redim(sz);
+    redim(_size);
 }
 
 /*
-  This is the accessor to the elements of the list.
-
-  This method is used to access items on the list.
-  This access is both read and write.
-  This method returns element [i] of the list.
-  The baseline is 0 (first element of index 0) as usual in C and C++.
-  - index defines the ith element of the list.
-  Return : the ith element of the List.
+@LABEL:List::operator()(long index)
+@SHORT:This is the accessor to the elements of the list.
+@ARG:long & index & Index of the element to get in the list.
+This method is used to access items on the list.
+This access is both read and write.
+This method returns element [i] of the list.
+The baseline is 0 (first element of index 0) as usual in C and C++.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -288,27 +257,17 @@ Type &List<Type>::operator()(const long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
-    if ((index < 0) || (index >= sz))
+    if ((index < 0) || (index >= _size))
     {
         std::cerr << "Fatal Error in template <class Type> Type& List <Type>::operator ()\n";
-        std::cerr << "long " << index << " out of allowd range {0-" << sz - 1 << "}\n";
+        std::cerr << "long " << index << " out of allowd range {0-" << _size - 1 << "}\n";
         exit(-1);
     }
 #endif
 
-    return ptr[pcurrent = index];
+    return _ptr[index];
 }
 
-/*
-  This is the accessor to the elements of the list.
-
-  This method is used to access items on the list.
-  This access is read only.
-  This method returns element [i] of the list.
-  The baseline is 0 (first element of index 0) as usual in C and C++.
-  - index defines the ith element of the list.
-  Return : the ith element of the List.
-*/
 //-----------------------------------------------------------------------------
 template <class Type>
 Type List<Type>::operator()(const long index)
@@ -316,17 +275,23 @@ Type List<Type>::operator()(const long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
-    if ((index < 0) || (index >= sz))
+    if ((index < 0) || (index >= _size))
     {
         std::cerr << "Fatal Error in template <class Type> Type& List <Type>::operator ()\n";
-        std::cerr << "long " << index << " out of allowd range {0-" << sz - 1 << "}\n";
+        std::cerr << "long " << index << " out of allowd range {0-" << _size - 1 << "}\n";
         exit(-1);
     }
 #endif
 
-    return ptr[index];
+    return _ptr[index];
 }
 
+/*
+@LABEL:List::initLoop()
+@SHORT:Initialization of a loop on the list.
+This method has to be called before a loop using one of the iterator methods for the List.
+@END
+*/
 //-----------------------------------------------------------------------------
 template <class Type>
 Type List<Type>::initLoop()
@@ -342,12 +307,18 @@ Type List<Type>::initLoop()
     locked = true;
 #endif
 
-    if (sz == 0)
+    if (_size == 0)
         return NULL;
 
-    return ptr[pcurrent = 0];
+    return _ptr[_current = 0];
 }
 
+/*
+@LABEL:List::initLoop()
+@SHORT:Finalization of a loop on the list.
+This method has to be called after a loop using one of the iterator methods for the List.
+@END
+*/
 //-----------------------------------------------------------------------------
 template <class Type>
 void List<Type>::endLoop()
@@ -357,11 +328,14 @@ void List<Type>::endLoop()
     locked = false;
 #endif
 }
+
 /*
-  Next element in the list
-  This method uses an internal list lookup mechanism to return the next element in the list.
-  To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
-  Return : next item in the list or NULL if it does not exist.
+@LABEL:List::next()
+@SHORT:Next element in the list.
+@RETURN:Next item in the list or NULL if it does not exist.
+This method uses an internal list lookup mechanism to return the next element in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -377,18 +351,19 @@ Type List<Type>::next()
     }
 #endif
 
-    if (pcurrent >= sz - 1)
+    if (_current >= _size - 1)
         return NULL;
 
-    return ptr[++pcurrent];
+    return _ptr[++_current];
 }
 
 /*
-  Next element in the list
-
-  This method uses an internal list lookup mechanism to return the element following the previous call in the list.
-  To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
-  Return : next item in the list or NULL if it does not exist.
+@LABEL:List::currentUp()
+@SHORT:Next element in the list.
+@RETURN:Next item in the list or NULL if it does not exist.
+This method uses an internal list lookup mechanism to return the element following the previous call in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -404,18 +379,19 @@ Type List<Type>::currentUp()
     }
 #endif
 
-    if (pcurrent >= sz)
+    if (_current >= _size)
         return NULL;
 
-    return ptr[pcurrent++];
+    return _ptr[_current++];
 }
 
 /*
-  Previous element in the list
-
-  This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
-  To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
-  Return : previous item in the list or NULL if it does not exist.
+@LABEL:List::currentDown()
+@SHORT:Previous element in the list.
+@RETURN:Previous item in the list or NULL if it does not exist.
+This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -431,52 +407,53 @@ Type List<Type>::currentDown()
     }
 #endif
 
-    if (pcurrent < 0)
+    if (_current < 0)
         return NULL;
 
-    return ptr[pcurrent--];
+    return _ptr[_current--];
 }
 
 /*
-  The first element in the list
-
-  This method returns the first item in the list.
-  Return : first item in the list or NULL if it does not exist.
+@LABEL:List::first()
+@SHORT:First element in the list.
+@RETURN:First item in the list or NULL if it does not exist.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 Type List<Type>::first()
 //-----------------------------------------------------------------------------
 {
-    if (sz == 0)
+    if (_size == 0)
         return NULL;
 
-    return ptr[pcurrent = 0];
+    return _ptr[_current = 0];
 }
 
 /*
-  The last element in the list
-
-  This method returns the last item in the list.
-  Return : last item in the list or NULL if it does not exist.
+@LABEL:List::last()
+@SHORT:Last element in the list.
+@RETURN:Last item in the list or NULL if it does not exist.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 Type List<Type>::last()
 //-----------------------------------------------------------------------------
 {
-    if (sz == 0)
+    if (_size == 0)
         return NULL;
 
-    return ptr[pcurrent = sz - 1];
+    return _ptr[_current = _size - 1];
 }
 
 /*
-  Previous element in the list
-
-  This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
-  To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
-  Return : previous item in the list or NULL if it does not exist.
+@LABEL:List::previous()
+@SHORT:Previous element in the list.
+@RETURN:Previous item in the list or NULL if it does not exist.
+This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -492,99 +469,104 @@ Type List<Type>::previous()
     }
 #endif
 
-    if (pcurrent == 0)
+    if (_current == 0)
         return NULL;
 
-    return ptr[--pcurrent];
+    return _ptr[--_current];
 }
 
 /*
-  current element in the list
-
-  This method uses an internal list lookup mechanism to return the element preceding the current call in the list.
-  To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
-  Return : current item in the list or NULL if it does not exist.
+@LABEL:List::current()
+@SHORT:Current element in the list.
+@RETURN:Current item in the list or NULL if it does not exist.
+This method uses an internal list lookup mechanism to return the current element in the list.
+To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 Type List<Type>::current()
 //-----------------------------------------------------------------------------
 {
-    if (sz == 0)
+    if (_size == 0)
         return NULL;
 
-    return ptr[pcurrent];
+    return _ptr[_current];
 }
 
 /*
-  current size of the list
-
-  Return : the size of the List.
+@LABEL:List::size()
+@SHORT:Current size of the list.
+@RETURN:long.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long List<Type>::getSize() const
+long List<Type>::size() const
 //-----------------------------------------------------------------------------
 {
-    return sz;
+    return _size;
 }
 
 /*
-  current stack size of the list
-
-  Return : the stack size of the List.
+@LABEL:List::stack()
+@SHORT:Stack size of the list.
+@RETURN:long.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long List<Type>::stackSize() const
+long List<Type>::stack() const
 //-----------------------------------------------------------------------------
 {
-    return s_size;
+    return _stack;
 }
 
 /*
-  current stack increment of the list
-
-  Return : the stack increment of the List.
+@LABEL:List::stackIncrement()
+@SHORT:Stack increment size of the list.
+@RETURN:long.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 long &List<Type>::stackIncrement()
 //-----------------------------------------------------------------------------
 {
-    return s_inc;
+    return _stackInc;
 }
 
 /*
-  Empties the List.
-
-  This method empties the contents of the stack and returns its real size to zero and its stack size to DEFAULT_stack_size.
-  The stack is as good as new !!! (it's a rechargeable battery ;-] )
+@LABEL:List::flush()
+@SHORT:Empties the list.
+This method empties the contents of the stack and returns its real size to zero and its stack size to DEFAULT\_stack\_size.
+The stack is as good as new !!! (it's a rechargeable battery !)
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 void List<Type>::flush()
 //-----------------------------------------------------------------------------
 {
-    s_size = DEFAULT_stack_size;
-    sz = 0;
-    delete[] ptr;
-    pcurrent = 0;
-
-    ptr = new Type[s_size];
+    _stack = DEFAULT_stack_size;
+    _size = 0;
+    delete[] _ptr;
+    _current = 0;
+    _ptr = new Type[_stack];
 
 #ifdef VERIF_alloc
-    if (ptr == NULL)
+    if (_ptr == NULL)
         fatalError("template <class Type> void List <Type>::flush()",
                    "fonction flush de template <class Type> List <Type>\n");
 #endif
 }
 
 /*
-  Add an element to the List.
-
-  This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
-  - objet item to add to the end of the list.
+@LABEL:List::operator<<(Type object)
+@SHORT:Add an object to the list.
+@ARG:Type & object & Object to add to the list.
+This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -596,58 +578,41 @@ List<Type> List<Type>::operator<<(const Type object)
 }
 
 /*
-  Insert an element to the List.
-
-  This method inserts an object to the list. The object isiInserted at a given index in the list, and the list size is automatically incremented if necessary.
-  - objet item to insert in the list.
-  - index defines the index of the insersion.
+@LABEL:List::insert(Type object, long index)
+@SHORT:Insert an object in the list.
+@ARG:Type & object & Object to insert into the list.
+@ARG:long & index & Defines the position of the insertion in the list..
+This method inserts an object to the list. The object is inserted at a given index in the list, and the list size is automatically incremented if necessary.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List<Type>::insert(const Type objet, long index)
+void List<Type>::insert(const Type object, long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
-    if (index > sz)
+    if (index > _size)
         fatalError("List <Type>::insert(long index)",
-                   "index indice (%d) out of bounds (%d)\n", index, sz);
+                   "index indice (%d) out of bounds (%d)\n", index, _size);
 #endif
 
     // add the last object at the end
-    add(ptr[sz - 1]);
+    add(_ptr[_size - 1]);
 
     // move from the end to the insertion point
-    if (sz - 2 >= index)
-    {
-        memmove(ptr + index + 1, ptr + index, (sz - index - 2) * sizeof(Type));
-    }
+    if (_size - 2 >= index)
+        memmove(_ptr + index + 1, _ptr + index, (_size - index - 2) * sizeof(Type));
 
     // insert the object
-    ptr[index] = objet;
+    _ptr[index] = object;
 }
 
 /*
-  Insert an element to the List.
-
-  This method inserts an object to the list. The object isiInserted at a given index in the list, and the list size is automatically incremented if necessary.
-  - objet item to insert in the list.
-  - index defines the index of the insersion.
-*/
-//-----------------------------------------------------------------------------
-template <class Type>
-void ListIndex<Type>::insert(const Type objet, long index)
-//-----------------------------------------------------------------------------
-{
-    List<Type>::insert(objet, index);
-    sorted = false;
-    compacted = false;
-}
-
-/*
-  Add an element to the List.
-
-  This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
-  - objet item to add to the end of the list.
+@LABEL:List::add(Type object)
+@SHORT:Add an object to the list.
+@ARG:Type & object & Object to add to the list.
+This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -655,43 +620,45 @@ void List<Type>::add(const Type object)
 //-----------------------------------------------------------------------------
 {
     // Test for memory reallocation
-    if (sz >= s_size)
-    {
-        redim(s_size + s_inc);
-    }
+    if (_size >= _stack)
+        redim(_stack + _stackInc);
 
     // Store the current index
-    pcurrent = sz;
+    _current = _size;
 
     // Add the object
-    ptr[sz++] = object;
+    _ptr[_size++] = object;
 }
 
 /*
-  This method reverses the order of the elements in the list.
+@LABEL:List::inverse()
+@SHORT:Reverse the order of the list.
+This method reverses the order of the elements in the list.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List<Type>::getInverse()
+void List<Type>::inverse()
 //-----------------------------------------------------------------------------
 {
     Type v;
-    for (long i = 0; i < sz / 2; i++)
+    for (long i = 0; i < _size / 2; i++)
     {
-        v = ptr[i];
-        ptr[i] = ptr[sz - i - 1];
-        ptr[sz - i - 1] = v;
+        v = _ptr[i];
+        _ptr[i] = _ptr[_size - i - 1];
+        _ptr[_size - i - 1] = v;
     }
 }
 
 /*
-  Removes a set of elements from the List.
-
-  This method removes a set of items from the list.
-  This method is used to remove an entire segment from the list, by defining the start and end indexes of the segment in the list.
-  If the start and stop parameters are equal, only one element is deleted.
-  - start first element to suppress
-  - stop last element to suppress
+@LABEL:List::del(long start, long stop)
+@SHORT:Removes a set of elements from the List.
+@ARG:long & start & First element to suppress from the list.
+@ARG:long & stop & Last element to suppress from the list.
+This method removes a set of items from the list.
+This method is used to remove an entire segment from the list, by defining the start and end indexes of the segment in the list.
+If the start and stop parameters are equal, only one element is deleted.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -702,27 +669,26 @@ void List<Type>::del(long start, long stop)
     if (start > stop)
         fatalError("List <Type>::del(long start,long stop)",
                    "start indice %d > stop indice %d\n", start, stop);
-    if (stop >= sz)
+    if (stop >= _size)
         fatalError("List <Type>::del(long start,long stop)",
-                   "stop indice (%d) out of bounds (%d)\n", stop, sz);
+                   "stop indice (%d) out of bounds (%d)\n", stop, _size);
 #endif
 
     // recouvrement
-    if (sz - stop - 1 > 0)
-    {
-        memmove(ptr + start, ptr + (stop + 1), (sz - stop - 1) * sizeof(Type));
-    }
+    if (_size - stop - 1 > 0)
+        memmove(_ptr + start, _ptr + (stop + 1), (_size - stop - 1) * sizeof(Type));
 
     // recalcul de la size_
-    sz -= (stop - start + 1);
+    _size -= (stop - start + 1);
 }
 
 /*
-  Removes an element from the List.
-
-  This method removes an items from the list.
-  This method is used to remove an item from the list, by defining the index of the element in the list.
-  - index index of the element to suppress
+@LABEL:List::del(long index)
+@SHORT:Removes an element from the List.
+@ARG:long & index & Index of the element to suppress from the list.
+This method removes an items from the list.
+This method is used to remove an item from the list, by defining the index of the element in the list.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -733,11 +699,12 @@ void List<Type>::del(long index)
 }
 
 /*
-  Removes a set of elements from the List.
-
-  This method removes all items in the list between the beginning of the list and the value given as an argument to this method.
-  This method is equivalent to del(0, index-1).
-  - index defines the first element to keep in the List
+@LABEL:List::delBefore(long index)
+@SHORT:Removes a set of elements from the List.
+@ARG:long & index & Index of the last element to suppress from the list.
+This method removes all items in the list between the beginning of the list and the value given as an argument to this method.
+This method is equivalent to del(0, index-1).
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -745,20 +712,21 @@ void List<Type>::delBefore(long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
-    if (index - 1 >= sz)
+    if (index - 1 >= _size)
         fatalError("List <Type>::delBefore(long index)",
-                   "index indice (%d) out of bounds (%d)\n", index, sz);
+                   "index indice (%d) out of bounds (%d)\n", index, _size);
 #endif
 
     List<Type>::del(0, index - 1);
 }
 
 /*
-  Removes a set of elements from the List.
-
-  This method deletes all items in the list between the value given as an argument to this method and the end of the list.
-  This method is equivalent to del(index+1, last()).
-  - index defines the last element to keep in the List
+@LABEL:List::delAfter(long index)
+@SHORT:Removes a set of elements from the List.
+@ARG:long & index & Index of the first element to suppress from the list.
+This method deletes all items in the list between the value given as an argument to this method and the end of the list.
+This method is equivalent to del(index+1, last()).
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -766,12 +734,12 @@ void List<Type>::delAfter(long index)
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_bounds
-    if (index + 1 >= sz)
+    if (index + 1 >= _size)
         fatalError("List <Type>::delAfter(long index)",
-                   "index indice (%d) out of bounds (%d)\n", index, sz);
+                   "index indice (%d) out of bounds (%d)\n", index, _size);
 #endif
 
-    List<Type>::del(index + 1, sz - 1);
+    List<Type>::del(index + 1, _size - 1);
 }
 
 /*
@@ -787,17 +755,13 @@ bool List<Type>::operator==(const List<Type> &liste) const
 //-----------------------------------------------------------------------------
 {
     // la comparaison porte sur la size_
-    if (sz != liste.sz)
-    {
+    if (_size != liste._size)
         return (false);
-    }
 
     // et sur le contenu
-    for (long i = 0; i < sz; i++)
-        if (ptr[i] != liste.ptr[i])
-        {
+    for (long i = 0; i < _size; i++)
+        if (_ptr[i] != liste._ptr[i])
             return (false);
-        }
 
     return (true);
 }
@@ -818,122 +782,102 @@ bool List<Type>::operator!=(const List<Type> &liste) const
 }
 
 /*
-  Memory size of a list
-
-  This method return the memory size a list, i.e. the memory size of the stack and of the List itself.
-  - liste second list to compare to.
-  Return : memory size of the list in bytes
+@LABEL:List::objectSize()
+@SHORT:Memory size of a list.
+This method return the memory size a list, i.e. the memory size of the stack and of the List itself.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 long List<Type>::objectSize()
 //-----------------------------------------------------------------------------
 {
-    return (sizeof(*this) + s_size * sizeof(ptr));
+    return (sizeof(*this) + _stack * sizeof(_ptr));
 }
 
 /*
-  Prints the content of a list
-  This method displays the items in the list. It is used for debugging purposes.
-  \warning Objects managed by the list must have a method \b << for displaying their contents.
-  - outputStream \c ostream flux for display
+@LABEL:List::print(ostream output)
+@ARG:ostream & output & Output stream.
+@SHORT:Prints the content of a list.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 void List<Type>::print(std::ostream &outputStream) const
 //-----------------------------------------------------------------------------
 {
-    outputStream << "list " << sz << "/" << s_size << "={";
-    for (long i = 0; i < sz; i++)
+    outputStream << "list " << _size << "/" << _stack << "={";
+    for (long i = 0; i < _size; i++)
     {
         if (i != 0)
-        {
             std::cout << ",";
-        }
-        outputStream << *ptr[i];
+        outputStream << *_ptr[i];
     }
     outputStream << "}";
 }
 
 /*
-  Search an object in the List
-
-  This method performs a simple search for an item in the list and returns an Index indicating the place of the object in the list.
-  If the object is not found, it returns the value -1.
-  - objet object to search for in the List
-  Return : Index de l'objet dans la liste
+@LABEL:List::print(Type object)
+@ARG:Type & object & Object to search.
+@RETURN:Type
+@SHORT:Search an object in the List.
+This method performs a simple search for an item in the list and returns an Index indicating the place of the object in the list.
+If the object is not found, it returns the value -1.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long List<Type>::getIndex(const Type objet) const
+long List<Type>::index(const Type object) const
 //-----------------------------------------------------------------------------
 {
     // recherche bourrin de base
-    for (long i = 0; i < sz; i++)
-    {
-        if (ptr[i] == objet)
-        {
-            //	  pcurrent=i;
+    for (long i = 0; i < _size; i++)
+        if (_ptr[i] == object)
             return i;
-        }
-    }
 
     // bourrin pas trouve alors on retourne -1
     return -1;
 }
 
 /*
-  Search if an object is in the List
-
-  This method performs a simple search for an item in the list and returns a boolean according to the presence or or not of this object in the list.
-  - objet object to search in the list
-  Return : true if the requested object is in the list, false if not
+@LABEL:List::contains(Type object)
+@ARG:Type & object & Object to search.
+@RETURN:bool
+@SHORT:Search an object in the List.
+This method performs a simple search for an item in the list and returns a boolean according to the presence or or not of this object in the list.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool List<Type>::contains(const Type objet) const
+bool List<Type>::contains(const Type object) const
 //-----------------------------------------------------------------------------
 {
-    for (long i = 0; i < sz; i++)
-    {
-        if (ptr[i] == objet)
-        {
+    for (long i = 0; i < _size; i++)
+        if (_ptr[i] == object)
             return true;
-        }
-    }
+
+    // Not found
     return false;
 }
 
 /*
-  Default constructor of the ListIndex class
-
-  This constructor allocates the default memory for an instance of the ListIndex class. \n
-  If the size of the list is not specified, the default size is taken into account, which is defined by the value of \ref DEFAULT_stack_size.
-  - stack defines the initial size of the ListIndex
+@LABEL:ListIndex::ListIndex(long size)
+@SHORT:Constructor of the ListIndex class.
+@ARG:long & size & Initial size of the list (default value DEFAULT\_stack\_inc).
+This constructor allocates the default memory for an instance of the List class.
+If the size of the list is not specified, the default size is taken into account, which is defined by the value of DEFAULT\_stack\_size.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-ListIndex<Type>::ListIndex(const long stack) : List<Type>(stack)
+ListIndex<Type>::ListIndex(const long size) : List<Type>(size)
 //-----------------------------------------------------------------------------
 {
     // Definition of the default constants
-    sorted = true;
-    compacted = true;
+    _sorted = true;
+    _compacted = true;
 }
 
-/*
-  Default destructor of the List class
-*/
-//-----------------------------------------------------------------------------
-template <class Type>
-List<Type>::~List()
-//-----------------------------------------------------------------------------
-{
-}
-
-/*
-  Default destructor of the ListIndex class
-*/
 //-----------------------------------------------------------------------------
 template <class Type>
 ListIndex<Type>::~ListIndex()
@@ -942,64 +886,59 @@ ListIndex<Type>::~ListIndex()
 }
 
 /*
-  Search for an element in the List
-
-  This method is used to search for an item in the list using a dichotomous algorithm. This method returns the corresponding element in the list or the NULL value if the element is not in the list.
-  \code
-  class truc
-  {
-    public:
-    long z; // a value
-  };
-  ListIndex <truc*> listeTrucs; // the list
-  long compare(truc* p1, long in) // the comparing function
-  {
-    return (p1->z - in); // comparison
-  }
-  ...
-  {
-  ...
-  listeTrucs.sort(compare,10); // seeks for the value 10
-  }
-  \endcode
-  \warning This method is only valid if the list is sorted on the search parameter.
-  - funct function defining the comparison method to be used.
-  - seekForValue particulate value of the element to be searched for in the list
-  Return : the corresponding element in the list or the value NULL if the element is not in the list.
+@LABEL:ListIndex::search(long (*funct)(Type, long) f, long i)
+@SHORT:Sort the list using a comparison function.
+@ARG:(*funct) & f & Function defined in the objects to sort the elements.
+@ARG:long & i & Index of the object
+This method is used to search for an item in the list using a dichotomous algorithm. This method returns the corresponding element in the list or the NULL value if the element is not in the list.
+The usage may seem complex, but it is defined in the example below.
+\begin{CppListing}
+ class truc
+{
+  public:
+  long z; // a value
+};
+ListIndex <truc*> listeTrucs; // the list
+long compare(truc* p1, long in) // the comparing function
+{
+  return (p1->z - in); // comparison
+}
+...
+{
+...
+listeTrucs.sort(compare,10); // seeks for the value 10
+}
+\end{CppListing}
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type List<Type>::dichotomySearch(long (*funct)(const Type objet1, const long in), const long seekForValue) const
+Type List<Type>::search(long (*funct)(const Type, const long), const long index) const
 //-----------------------------------------------------------------------------
 {
     long i;
 
-    // if size_ is zeron returns NULL
-    if (this->sz == 0)
-    {
+    // if size_ is zero returns NULL
+    if (this->_size == 0)
         return NULL;
-    }
 
     // dichotomy
     long g, d, dx;
     g = 0;
-    d = this->sz - 1;
+    d = this->_size - 1;
     do
     {
         i = (g + d) / 2;
-        dx = funct(this->ptr[i], seekForValue);
+        dx = funct(this->_ptr[i], index);
         if (dx == 0)
-        {
-            return this->ptr[i];
-        }
+            return this->_ptr[i];
+
         if (dx > 0)
-        {
             d = i - 1; // the right
-        }
+
         else
-        {
             g = i + 1; // the left
-        }
+
     } while (g <= d);
 
     return NULL;
@@ -1010,61 +949,52 @@ Type List<Type>::dichotomySearch(long (*funct)(const Type objet1, const long in)
 
   This method is used to search for an item in the list. The search algorithm is based on the parameter \b _listIndex declared in the list objects.
   This method returns the corresponding element in the list or the NULL value if the element is not in the list.
-  - seekForValue particulate value of the element to be searched for in the list
+  - index particulate value of the element to be searched for in the list
   Return : the corresponding element in the list or the value NULL if the element is not in the list.
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-Type ListIndex<Type>::AppN(const long seekForValue) const
+Type ListIndex<Type>::AppN(const long index) const
 //-----------------------------------------------------------------------------
 {
     long i;
 
     // if size_ is zeron returns NULL
-    if (this->sz == 0)
-    {
+    if (this->_size == 0)
         return NULL;
-    }
 
     // si elle est triee et compactee
-    if (compacted == true)
-        if ((seekForValue >= 0) && (seekForValue < this->sz))
-        {
-            return this->ptr[seekForValue];
-        }
+    if (_compacted == true)
+        if ((index >= 0) && (index < this->_size))
+            return this->_ptr[index];
 
     // recherche selon le cas
-    if (sorted == true)
+    if (_sorted == true)
     {
         // dichotomy
         long g, d;
         g = 0;
-        d = this->sz - 1;
+        d = this->_size - 1;
         do
         {
             i = (g + d) / 2;
-            if (this->ptr[i]->_listIndex == seekForValue)
-            {
-                return this->ptr[i];
-            }
-            if (seekForValue < this->ptr[i]->_listIndex)
-            {
+            if (this->_ptr[i]->_listIndex == index)
+                return this->_ptr[i];
+
+            if (index < this->_ptr[i]->_listIndex)
                 d = i - 1; // the right
-            }
+
             else
-            {
                 g = i + 1; // the left
-            }
+
         } while (g <= d);
     }
     else
     {
         // tri bete mais terriblement efficace falsen !!
-        for (i = 0; i < this->sz; i++)
-            if (this->ptr[i]->_listIndex == seekForValue)
-            {
-                return this->ptr[i];
-            }
+        for (i = 0; i < this->_size; i++)
+            if (this->_ptr[i]->_listIndex == index)
+                return this->_ptr[i];
     }
     return NULL;
 }
@@ -1080,119 +1010,114 @@ Type ListIndex<Type>::AppN(const long seekForValue) const
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-long ListIndex<Type>::IAppN(const long seekForValue) const
+long ListIndex<Type>::IAppN(const long index) const
 //-----------------------------------------------------------------------------
 {
     long i;
 
     // if size_ is zeron returns NULL
-    if (this->sz == 0)
-    {
+    if (this->_size == 0)
         return 0;
-    }
 
     // si elle est triee et compactee
-    if (compacted == true)
-        if ((seekForValue >= 0) && (seekForValue < this->sz))
-        {
-            return (seekForValue);
-        }
+    if (_compacted == true)
+        if ((index >= 0) && (index < this->_size))
+            return (index);
 
     // recherche selon le cas
-    if (sorted == true)
+    if (_sorted == true)
     {
         // dichotomy
         long g, d;
         g = 0;
-        d = this->sz - 1;
+        d = this->_size - 1;
         do
         {
             i = (g + d) / 2;
-            if (this->ptr[i]->_listIndex == seekForValue)
-            {
+            if (this->_ptr[i]->_listIndex == index)
                 return (i);
-            }
-            if (seekForValue < this->ptr[i]->_listIndex)
-            {
+
+            if (index < this->_ptr[i]->_listIndex)
                 d = i - 1; // the right
-            }
+
             else
-            {
                 g = i + 1; // the left
-            }
+
         } while (g <= d);
     }
     else
     {
         // tri bete
-        for (i = 0; i < this->sz; i++)
-            if (this->ptr[i]->_listIndex == seekForValue)
-            {
+        for (i = 0; i < this->_size; i++)
+            if (this->_ptr[i]->_listIndex == index)
                 return (i);
-            }
     }
     return 0;
 }
 
 /*
-  Test if the list is sorted
-
-  This method tests whether the list is currently sorted.
-  Return : true if the list is sorted false if it is not.
+@LABEL:ListIndex::sorted()
+@SHORT:test if the list is sorted.
+@RETURN:bool
+A sorted list is a list where all object have an increasing internal number.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool ListIndex<Type>::isSorted() const
+bool ListIndex<Type>::sorted() const
 //-----------------------------------------------------------------------------
 {
-    return sorted;
+    return _sorted;
 }
 
 /*
-  test if the list is compacted
-
-  This method tests whether the list is currently compacted. The notion of compaction is related to the fact that the indices of the list are contiguous to each other in ascending order without any "hole".
-  Return : true if the list is compacted false otherwise
+@LABEL:ListIndex::compacted()
+@SHORT:test if the list is compacted.
+@RETURN:bool
+A sorted list is a list where all object have a continuous increasing internal number.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-bool ListIndex<Type>::isCompacted() const
+bool ListIndex<Type>::compacted() const
 //-----------------------------------------------------------------------------
 {
-    return compacted;
+    return _compacted;
 }
 
 /*
-  Empties the ListIndex.
-
-  This method empties the contents of the stack and returns its real size to zero and its stack size to DEFAULT_stack_size.
-  The stack is as good as new !!! (it's a rechargeable battery ;-] )
+@LABEL:ListIndex::flush()
+@SHORT:Empties the list.
+This method empties the contents of the stack and returns its real size to zero and its stack size to DEFAULT\_stack\_size.
+The stack is as good as new !!! (it's a rechargeable battery !)
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 void ListIndex<Type>::flush()
 //-----------------------------------------------------------------------------
 {
-    this->s_size = DEFAULT_stack_size;
-    this->sz = 0;
-    sorted = true;
-    compacted = true;
-    delete[] this->ptr;
-    this->pcurrent = 0;
+    this->_stack = DEFAULT_stack_size;
+    this->_size = 0;
+    _sorted = true;
+    _compacted = true;
+    delete[] this->_ptr;
+    this->_current = 0;
+    this->_ptr = new Type[this->_stack];
 
-    this->ptr = new Type[this->s_size];
 #ifdef VERIF_alloc
-    if (this->ptr == NULL)
+    if (this->_ptr == NULL)
         fatalError("template <class Type> void ListIndex <Type>::flush()",
                    "fonction flush de template <class Type> ListIndex <Type>\n");
 #endif
 }
 
 /*
-  Add an element to the ListIndex.
-
-  This method adds an object to the listIndex. The object is added to the end of the listIndex, and the listIndex size is automatically incremented if necessary.
-  - objet item to add to the end of the listIndex.
+@LABEL:ListIndex::add(Type object)
+@SHORT:Add an object to the list.
+@ARG:Type & object & Object to add to the list.
+This method adds an object to the list. The object is added to the end of the list, and the list size is automatically incremented if necessary.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -1200,68 +1125,84 @@ void ListIndex<Type>::add(const Type object)
 //-----------------------------------------------------------------------------
 {
     // Test for memory reallocation
-    if (this->sz >= this->s_size)
-    {
-        this->redim(this->s_size + this->s_inc);
-    }
+    if (this->_size >= this->_stack)
+        this->redim(this->_stack + this->_stackInc);
 
     // test de tri
-    if (sorted == true)
-    {
-        if (this->sz != 0)
+    if (_sorted == true)
+        if (this->_size != 0)
         {
-            if (this->ptr[this->sz - 1]->_listIndex > object->_listIndex)
+            if (this->_ptr[this->_size - 1]->_listIndex > object->_listIndex)
             {
-                sorted = false;
-                compacted = false;
+                _sorted = false;
+                _compacted = false;
             }
 
-            // test de compacted
-            if (object->_listIndex - this->ptr[this->sz - 1]->_listIndex != 1)
+            // test de _compacted
+            if (object->_listIndex - this->_ptr[this->_size - 1]->_listIndex != 1)
             {
-                compacted = false;
+                _compacted = false;
             }
         }
         else
         {
             if (object->_listIndex != 0)
             {
-                compacted = false;
+                _compacted = false;
             }
         }
-    }
+
     // Store the current index
-    this->pcurrent = this->sz;
+    this->_current = this->_size;
 
     // Add the object
-    this->ptr[this->sz++] = object;
+    this->_ptr[this->_size++] = object;
 }
 
 /*
-  Sort the list
+@LABEL:ListIndex::insert(Type object, long index)
+@SHORT:Insert an object in the list.
+@ARG:Type & object & Object to insert into the list.
+@ARG:long & index & Defines the position of the insertion in the list..
+This method inserts an object to the list. The object is inserted at a given index in the list, and the list size is automatically incremented if necessary.
+@END
+*/
+//-----------------------------------------------------------------------------
+template <class Type>
+void ListIndex<Type>::insert(const Type object, long index)
+//-----------------------------------------------------------------------------
+{
+    List<Type>::insert(object, index);
+    _sorted = false;
+    _compacted = false;
+}
 
-  This method sorts the elements of the list according to the index \b _listIndex contained in each element of the list. This method forces the stack to be sorted, even if it seems to be already sorted.
+/*
+@LABEL:ListIndex::forceSort()
+@SHORT:Sort the list.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 void ListIndex<Type>::forceSort()
 //-----------------------------------------------------------------------------
 {
-    sorted = false;
+    _sorted = false;
     sort();
 }
 
 /*
-  Sort the list
-
-  This method sorts the elements of the list according to the index \b _listIndex contained in each element of the list.
+@LABEL:ListIndex::sort()
+@SHORT:Sort the list.
+If the list is already sorted this does nothing.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
 void ListIndex<Type>::sort()
 //-----------------------------------------------------------------------------
 {
-    if (sorted == true)
+    if (_sorted == true)
     {
         return;
     }
@@ -1269,86 +1210,89 @@ void ListIndex<Type>::sort()
     Type v;
     long i, j;
     long h = 1;
-    while (h <= this->sz)
+    while (h <= this->_size)
     {
         h = 3 * h + 1;
     }
     while (h != 1)
     {
         h = (long)(h / 3);
-        for (i = h + 1; i <= this->sz; i++)
+        for (i = h + 1; i <= this->_size; i++)
         {
-            v = this->ptr[i - 1];
+            v = this->_ptr[i - 1];
             j = i;
-            while (this->ptr[j - h - 1]->_listIndex > v->_listIndex)
+            while (this->_ptr[j - h - 1]->_listIndex > v->_listIndex)
             {
-                this->ptr[j - 1] = this->ptr[j - h - 1];
+                this->_ptr[j - 1] = this->_ptr[j - h - 1];
                 j = j - h;
                 if (j <= h)
                 {
                     break;
                 }
             }
-            this->ptr[j - 1] = v;
+            this->_ptr[j - 1] = v;
         }
     }
 
     // maintenant elle est triee
-    sorted = true;
+    _sorted = true;
 }
 
 /*
-  Sorting the list from a comparison function
-  This method sorts the elements of the stack using a user-defined comparison function. This method is very powerful for sorting a list and very flexible in use. The usage may seem complex, but it is defined in the example below.
-
-  \code
-  class truc
-  {
-    public:
-    double z; // a value
-  };
-  List <truc*> listeTrucs; // the list
-  bool compare(truc* p1,truc* p2) // the comparing function
-  {
-    return (p1->z < p2->z); // comparison
-  }
-  ...
-  {
-  ...
-  listeTrucs.sort(compare); // tri selon la fonction de comparaison
-  }
-  \endcode
-  - funct function defining the comparison method to be used
+@LABEL:List::sort(bool (*funct)(Type, Type) f)
+@SHORT:Sort the list using a comparison function.
+@ARG:(*funct) & f & Function defined in the objects to sort the elements.
+This method sorts the elements of the stack using a user-defined comparison function.
+This method is very powerful for sorting a list and very flexible in use.
+The usage may seem complex, but it is defined in the example below.
+\begin{CppListing}
+class truc
+{
+  public:
+  double z; // a value
+};
+List <truc*> listeTrucs; // the list
+bool compare(truc* p1,truc* p2) // the comparing function
+{
+  return (p1->z < p2->z); // comparison
+}
+...
+{
+...
+listeTrucs.sort(compare); // sorts the list using the comparison function
+}
+\end{CppListing}
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void List<Type>::sort(bool (*funct)(const Type objet1, const Type objet2))
+void List<Type>::sort(bool (*funct)(const Type, const Type))
 //-----------------------------------------------------------------------------
 {
     Type v;
     long i, j;
     long h = 1;
-    while (h <= this->sz)
+    while (h <= this->_size)
     {
         h = 3 * h + 1;
     }
     while (h != 1)
     {
         h = (long)(h / 3);
-        for (i = h + 1; i <= this->sz; i++)
+        for (i = h + 1; i <= this->_size; i++)
         {
-            v = this->ptr[i - 1];
+            v = this->_ptr[i - 1];
             j = i;
-            while (funct(this->ptr[j - h - 1], v))
+            while (funct(this->_ptr[j - h - 1], v))
             {
-                this->ptr[j - 1] = this->ptr[j - h - 1];
+                this->_ptr[j - 1] = this->_ptr[j - h - 1];
                 j -= h;
                 if (j <= h)
                 {
                     break;
                 }
             }
-            this->ptr[j - 1] = v;
+            this->_ptr[j - 1] = v;
         }
     }
 }
@@ -1362,25 +1306,16 @@ template <class Type>
 void ListIndex<Type>::compact()
 //-----------------------------------------------------------------------------
 {
-    for (long i = 0; i < this->sz; i++)
+    for (long i = 0; i < this->_size; i++)
     {
-        this->ptr[i]->_listIndex = i;
+        this->_ptr[i]->_listIndex = i;
     }
 
     // maintenant elle est triee et compactee
-    compacted = true;
-    sorted = true;
+    _compacted = true;
+    _sorted = true;
 }
 
-/*
-  Removes a set of elements from the ListIndex.
-
-  This method removes a set of items from the list.
-  This method is used to remove an entire segment from the list, by defining the start and end indexes of the segment in the list.
-  If the start and stop parameters are equal, only one element is deleted.
-  - start first element to suppress
-  - stop last element to suppress
-*/
 //-----------------------------------------------------------------------------
 template <class Type>
 void ListIndex<Type>::del(const Type start, const Type stop)
@@ -1389,13 +1324,6 @@ void ListIndex<Type>::del(const Type start, const Type stop)
     List<Type>::del(IAppN(start->_listIndex), IAppN(stop->_listIndex));
 }
 
-/*
-  Removes an element from the List.
-
-  This method removes an items from the list.
-  This method is used to remove an item from the list, by defining the index of the element in the list.
-  - object element to suppress
-*/
 //-----------------------------------------------------------------------------
 template <class Type>
 void ListIndex<Type>::del(const Type object)
@@ -1405,13 +1333,6 @@ void ListIndex<Type>::del(const Type object)
     List<Type>::del(i, i);
 }
 
-/*
-  Removes a set of elements from the List.
-
-  This method removes all items in the list between the beginning of the list and the value given as an argument to this method.
-  This method is equivalent to del(0, index-1).
-  - object element to suppress
-*/
 //-----------------------------------------------------------------------------
 template <class Type>
 void ListIndex<Type>::delBefore(const Type object)
@@ -1420,13 +1341,6 @@ void ListIndex<Type>::delBefore(const Type object)
     List<Type>::del(0, IAppN(object->_listIndex) - 1);
 }
 
-/*
-  Removes an element from the List.
-
-  This method removes an items from the list.
-  This method is used to remove an item from the list, by defining the index of the element in the list.
-  - index index of the element to suppress
-*/
 //-----------------------------------------------------------------------------
 template <class Type>
 void ListIndex<Type>::del(long index)
@@ -1434,14 +1348,16 @@ void ListIndex<Type>::del(long index)
 {
     List<Type>::del(index);
 }
-/*
-  Removes a set of elements from the ListIndex.
 
-  This method removes a set of items from the list.
-  This method is used to remove an entire segment from the list, by defining the start and end indexes of the segment in the list.
-  If the start and stop parameters are equal, only one element is deleted.
-  - start first element to suppress
-  - stop last element to suppress
+/*
+@LABEL:ListIndex::del(long start, long stop)
+@SHORT:Removes a set of elements from the List.
+@ARG:long & start & First element to suppress from the list.
+@ARG:long & stop & Last element to suppress from the list.
+This method removes a set of items from the list.
+This method is used to remove an entire segment from the list, by defining the start and end indexes of the segment in the list.
+If the start and stop parameters are equal, only one element is deleted.
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -1452,11 +1368,12 @@ void ListIndex<Type>::del(long start, long stop)
 }
 
 /*
-  Removes a set of elements from the List.
-
-  This method removes all items in the list between the beginning of the list and the value given as an argument to this method.
-  This method is equivalent to del(0, index-1).
-  - index defines the first element to keep in the List
+@LABEL:ListIndex::delBefore(long index)
+@SHORT:Removes a set of elements from the List.
+@ARG:long & index & Index of the last element to suppress from the list.
+This method removes all items in the list between the beginning of the list and the value given as an argument to this method.
+This method is equivalent to del(0, index-1).
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -1467,11 +1384,12 @@ void ListIndex<Type>::delBefore(long index)
 }
 
 /*
-  Removes a set of elements from the List.
-
-  This method deletes all items in the list between the value given as an argument to this method and the end of the list.
-  This method is equivalent to del(index+1, last()).
-  - index defines the last element to keep in the List
+@LABEL:List::delAfter(long index)
+@SHORT:Removes a set of elements from the List.
+@ARG:long & index & Index of the first element to suppress from the list.
+This method deletes all items in the list between the value given as an argument to this method and the end of the list.
+This method is equivalent to del(index+1, last()).
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
@@ -1493,39 +1411,42 @@ template <class Type>
 void ListIndex<Type>::delAfter(const Type object)
 //-----------------------------------------------------------------------------
 {
-    List<Type>::del(IAppN(object->_listIndex) + 1, this->sz - 1);
+    List<Type>::del(IAppN(object->_listIndex) + 1, this->_size - 1);
 }
 
 /*
-  Sorting the list from a comparison function
-  This method sorts the elements of the stack using a user-defined comparison function. This method is very powerful for sorting a list and very flexible in use. The usage may seem complex, but it is defined in the example below.
-
-  \code
-  class truc
-  {
-    public:
-    double z; // a value
-  };
-  ListIndex <truc*> listeTrucs; // the list
-  bool compare(truc* p1,truc* p2) // the comparing function
-  {
-    return (p1->z < p2->z); // comparison
-  }
-  ...
-  {
-  ...
-  listeTrucs.sort(compare); // tri selon la fonction de comparaison
-  }
-  \endcode
-  - funct function defining the comparison method to be used
+@LABEL:ListIndex::sort(bool (*funct)(Type, Type) f)
+@SHORT:Sort the list using a comparison function.
+@ARG:(*funct) & f & Function defined in the objects to sort the elements.
+This method sorts the elements of the stack using a user-defined comparison function.
+This method is very powerful for sorting a list and very flexible in use.
+The usage may seem complex, but it is defined in the example below.
+\begin{CppListing}
+class truc
+{
+  public:
+  double z; // a value
+};
+List <truc*> listeTrucs; // the list
+bool compare(truc* p1,truc* p2) // the comparing function
+{
+  return (p1->z < p2->z); // comparison
+}
+...
+{
+...
+listeTrucs.sort(compare); // sorts the list using the comparison function
+}
+\end{CppListing}
+@END
 */
 //-----------------------------------------------------------------------------
 template <class Type>
-void ListIndex<Type>::sort(bool (*funct)(const Type objet1, const Type objet2))
+void ListIndex<Type>::sort(bool (*funct)(const Type, const Type))
 //-----------------------------------------------------------------------------
 {
     List<Type>::sort(*funct);
-    sorted = false;
+    _sorted = false;
 }
 
 #endif
