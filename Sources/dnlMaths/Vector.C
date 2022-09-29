@@ -86,11 +86,6 @@ Vector::Vector(int vectorLength, double firstValue, double secondValue, ...)
   va_end(arguments);
 }
 
-/*
-@LABEL:Vector::~Vector()
-@SHORT:Destructor of the Vector class.
-@END
-*/
 //-----------------------------------------------------------------------------
 Vector::~Vector()
 //-----------------------------------------------------------------------------

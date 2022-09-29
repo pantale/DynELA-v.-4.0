@@ -12,6 +12,8 @@
 
 \section{The MacAdresses class}
 
+\subsection{Constructors}
+
 %@DOC:MacAddresses::MacAddresses()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
@@ -20,6 +22,8 @@
 Default constructor of the MacAddresses class.\\ \hspace*{10mm}$\hookrightarrow$ MacAddresses
 
 %@END
+
+\subsection{Basic methods}
 
 %@DOC:MacAddresses::getAddress(int n)
 %Warning :
@@ -58,7 +62,6 @@ Return the number of Internet interfaces of the computer.\\ \hspace*{10mm}$\hook
 
 \section{The Settings class}
 
-
 %@DOC:Settings::Settings
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
@@ -69,6 +72,8 @@ Settings class.
 This class is used to store settings information for \DynELA.
 %@END
 
+\subsection{Constructors}
+
 %@DOC:Settings::Settings()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
@@ -78,14 +83,7 @@ Constructor of the Settings class.\\ \hspace*{10mm}$\hookrightarrow$ Settings
 
 %@END
 
-%@DOC:Settings::~Settings()
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Settings::$\sim$Settings(~)}}\label{Settings::~Settings()}\index[DL]{Settings!$\sim$Settings(~)}\\
-Destructor of the Settings class.
-
-%@END
+\subsection{Basic methods}
 
 %@DOC:Settings::load(string name)
 %Warning :
@@ -143,6 +141,8 @@ This List is a dynamic one, the initialization is performed with a default stack
 the List size is increased with respect to the DEFAULT\_stack\_inc value.
 %@END
 
+\subsection{Constructors}
+
 %@DOC:List::List(long size)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
@@ -157,6 +157,8 @@ long & size & Initial size of the list (default value DEFAULT\_stack\_inc).
 This constructor allocates the default memory for an instance of the List class.
 If the size of the list is not specified, the default size is taken into account, which is defined by the value of DEFAULT\_stack\_size.
 %@END
+
+\subsection{Basic methods}
 
 %@DOC:List::redim(long size)
 %Warning :
@@ -495,19 +497,19 @@ Type & object & Object to search.
 This method performs a simple search for an item in the list and returns a boolean according to the presence or or not of this object in the list.
 %@END
 
-%@DOC:List::sort(bool (*funct)(Type, Type) f)
+%@DOC:List::sort(bool (*f)(Type, Type))
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{List::sort(bool ($\star$funct)(Type, Type) f)}}\label{List::sort(bool (*funct)(Type, Type) f)}\index[DL]{List!sort(bool ($\star$funct)(Type, Type) f)}\\
+\textcolor{purple}{\textbf{List::sort(bool ($\star$f)(Type, Type))}}\label{List::sort(bool (*f)(Type, Type))}\index[DL]{List!sort(bool ($\star$f)(Type, Type))}\\
 Sort the list using a comparison function.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-(*funct) & f & Function defined in the objects to sort the elements.
+bool & (*f) & Function defined in the objects to sort the elements.
 \end{tcolorbox}
 
 This method sorts the elements of the stack using a user-defined comparison function.
-This method is very powerful for sorting a list and very flexible in use. 
+This method is very powerful for sorting a list and very flexible in use.
 The usage may seem complex, but it is defined in the example below.
 \begin{CppListing}
 class truc
@@ -532,7 +534,6 @@ listeTrucs.sort(compare); // sorts the list using the comparison function
 
 The ListIndex class is an extension of the List class, where objects contain an internal number used to manage the objects inside the list.
 
-
 %@DOC:ListIndex::ListIndex
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
@@ -545,20 +546,7 @@ This ListIndex is a dynamic one, the initialization is performed with a default 
 the ListIndex size is increased with respect to the DEFAULT\_stack\_inc value.
 %@END
 
-%@DOC:ListIndex::insert(Type object, long index)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{ListIndex::insert(Type object, long index)}}\label{ListIndex::insert(Type object, long index)}\index[DL]{ListIndex!insert(Type object, long index)}\\
-Insert an object in the list.
-
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Type & object & Object to insert into the list.\\
-long & index & Defines the position of the insertion in the list..
-\end{tcolorbox}
-
-This method inserts an object to the list. The object is inserted at a given index in the list, and the list size is automatically incremented if necessary.
-%@END
+\subsection{Constructors}
 
 %@DOC:ListIndex::ListIndex(long size)
 %Warning :
@@ -573,6 +561,23 @@ long & size & Initial size of the list (default value DEFAULT\_stack\_inc).
 
 This constructor allocates the default memory for an instance of the List class.
 If the size of the list is not specified, the default size is taken into account, which is defined by the value of DEFAULT\_stack\_size.
+%@END
+
+\subsection{Basic methods}
+
+%@DOC:ListIndex::insert(Type object, long index)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{ListIndex::insert(Type object, long index)}}\label{ListIndex::insert(Type object, long index)}\index[DL]{ListIndex!insert(Type object, long index)}\\
+Insert an object in the list.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Type & object & Object to insert into the list.\\
+long & index & Defines the position of the insertion in the list..
+\end{tcolorbox}
+
+This method inserts an object to the list. The object is inserted at a given index in the list, and the list size is automatically incremented if necessary.
 %@END
 
 %@DOC:ListIndex::sorted()
@@ -639,19 +644,19 @@ Sort the list.
 If the list is already sorted this does nothing.
 %@END
 
-%@DOC:ListIndex::sort(bool (*funct)(Type, Type) f)
+%@DOC:ListIndex::sort(bool (*f)(Type, Type))
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{ListIndex::sort(bool ($\star$funct)(Type, Type) f)}}\label{ListIndex::sort(bool (*funct)(Type, Type) f)}\index[DL]{ListIndex!sort(bool ($\star$funct)(Type, Type) f)}\\
+\textcolor{purple}{\textbf{ListIndex::sort(bool ($\star$f)(Type, Type))}}\label{ListIndex::sort(bool (*f)(Type, Type))}\index[DL]{ListIndex!sort(bool ($\star$f)(Type, Type))}\\
 Sort the list using a comparison function.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-(*funct) & f & Function defined in the objects to sort the elements.
+bool & *(f) & Function defined in the objects to sort the elements.
 \end{tcolorbox}
 
 This method sorts the elements of the stack using a user-defined comparison function.
-This method is very powerful for sorting a list and very flexible in use. 
+This method is very powerful for sorting a list and very flexible in use.
 The usage may seem complex, but it is defined in the example below.
 \begin{CppListing}
 class truc
@@ -672,15 +677,15 @@ listeTrucs.sort(compare); // sorts the list using the comparison function
 \end{CppListing}
 %@END
 
-%@DOC:ListIndex::search(long (*funct)(Type, long) f, long i)
+%@DOC:ListIndex::search(long (*f)(Type, long), long i)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{ListIndex::search(long ($\star$funct)(Type, long) f, long i)}}\label{ListIndex::search(long (*funct)(Type, long) f, long i)}\index[DL]{ListIndex!search(long ($\star$funct)(Type, long) f, long i)}\\
+\textcolor{purple}{\textbf{ListIndex::search(long ($\star$f)(Type, long), long i)}}\label{ListIndex::search(long (*f)(Type, long), long i)}\index[DL]{ListIndex!search(long ($\star$f)(Type, long), long i)}\\
 Sort the list using a comparison function.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-(*funct) & f & Function defined in the objects to sort the elements.\\
+long & (*f) & Function defined in the objects to sort the elements.\\
 long & i & Index of the object
 \end{tcolorbox}
 

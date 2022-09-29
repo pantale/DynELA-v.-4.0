@@ -80,11 +80,6 @@ Node::Node(const Node &node)
   coordinates = node.coordinates;
 }
 
-/*
-@LABEL:Node::~Node()
-@SHORT:Destructor of the Node class.
-@END
-*/
 //-----------------------------------------------------------------------------
 Node::~Node()
 //-----------------------------------------------------------------------------

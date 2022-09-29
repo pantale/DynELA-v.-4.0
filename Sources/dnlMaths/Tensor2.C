@@ -84,11 +84,6 @@ Tensor2::Tensor2(double t11, double t12, double t13, double t21, double t22, dou
   _data[8] = t33;
 }
 
-/*
-@LABEL:Tensor2::~Tensor2()
-@SHORT:Destructor of the Tensor2 class.
-@END
-*/
 //-----------------------------------------------------------------------------
 Tensor2::~Tensor2()
 //-----------------------------------------------------------------------------

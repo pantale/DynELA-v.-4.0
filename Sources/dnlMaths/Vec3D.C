@@ -46,11 +46,6 @@ Vec3D::Vec3D(const Vec3D &V)
     memcpy(_data, V._data, 3 * sizeof(double));
 }
 
-/*
-@LABEL:Vec3D::~Vec3D()
-@SHORT:Destructor of the Vec3D class.
-@END
-*/
 //-----------------------------------------------------------------------------
 Vec3D::~Vec3D()
 //-----------------------------------------------------------------------------

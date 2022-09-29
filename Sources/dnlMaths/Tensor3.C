@@ -42,11 +42,6 @@ Tensor3::Tensor3(const Tensor3 &tensor)
   memcpy(_data, tensor._data, 27 * sizeof(double));
 }
 
-/*
-@LABEL:Tensor3::~Tensor3()
-@SHORT:Destructor of the Tensor3 class.
-@END
-*/
 //-----------------------------------------------------------------------------
 Tensor3::~Tensor3()
 //-----------------------------------------------------------------------------

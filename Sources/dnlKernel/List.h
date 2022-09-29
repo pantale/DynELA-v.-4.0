@@ -42,7 +42,7 @@ private:
     long _current;  // The current index of the current object in the List
     Type *_ptr;     // A pointer to the current object in the List
 #ifdef VERIF_bounds
-    bool locked = false;
+    bool locked = false; // Verification of the bounds of the list
 #endif
 
 public:
@@ -76,7 +76,7 @@ public:
     Type next();
     Type operator()(const long) const;
     Type previous();
-    Type search(long (*funct)(const Type, const long), const long) const;
+    Type search(long (*)(const Type, const long), const long) const;
     virtual void add(const Type);
     virtual void flush();
     virtual void insert(const Type, long);
@@ -89,7 +89,7 @@ public:
     void inverse();
     void print(std::ostream &) const;
     void redim(const long);
-    void sort(bool (*funct)(const Type, const Type));
+    void sort(bool (*)(const Type, const Type));
 };
 
 /*
@@ -107,7 +107,7 @@ class ListIndex : public List<Type>
     bool _compacted; // Bool flag defining that the current ListIndex is _compacted (No hole in the list of objects)
 
 public:
-    ListIndex(const long stack = DEFAULT_stack_size);
+    ListIndex(const long = DEFAULT_stack_size);
     ~ListIndex();
 
     // Interface methods excluded from SWIG
@@ -136,7 +136,7 @@ public:
     void forceSort();
     void insert(const Type, long);
     void sort();
-    void sort(bool (*funct)(const Type, const Type));
+    void sort(bool (*)(const Type, const Type));
 };
 
 /*
@@ -886,9 +886,9 @@ ListIndex<Type>::~ListIndex()
 }
 
 /*
-@LABEL:ListIndex::search(long (*funct)(Type, long) f, long i)
+@LABEL:ListIndex::search(long (*f)(Type, long), long i)
 @SHORT:Sort the list using a comparison function.
-@ARG:(*funct) & f & Function defined in the objects to sort the elements.
+@ARG:long & (*f) & Function defined in the objects to sort the elements.
 @ARG:long & i & Index of the object
 This method is used to search for an item in the list using a dichotomous algorithm. This method returns the corresponding element in the list or the NULL value if the element is not in the list.
 The usage may seem complex, but it is defined in the example below.
@@ -1239,9 +1239,9 @@ void ListIndex<Type>::sort()
 }
 
 /*
-@LABEL:List::sort(bool (*funct)(Type, Type) f)
+@LABEL:List::sort(bool (*f)(Type, Type))
 @SHORT:Sort the list using a comparison function.
-@ARG:(*funct) & f & Function defined in the objects to sort the elements.
+@ARG:bool & (*f) & Function defined in the objects to sort the elements.
 This method sorts the elements of the stack using a user-defined comparison function.
 This method is very powerful for sorting a list and very flexible in use.
 The usage may seem complex, but it is defined in the example below.
@@ -1415,9 +1415,9 @@ void ListIndex<Type>::delAfter(const Type object)
 }
 
 /*
-@LABEL:ListIndex::sort(bool (*funct)(Type, Type) f)
+@LABEL:ListIndex::sort(bool (*f)(Type, Type))
 @SHORT:Sort the list using a comparison function.
-@ARG:(*funct) & f & Function defined in the objects to sort the elements.
+@ARG:bool & *(f) & Function defined in the objects to sort the elements.
 This method sorts the elements of the stack using a user-defined comparison function.
 This method is very powerful for sorting a list and very flexible in use.
 The usage may seem complex, but it is defined in the example below.

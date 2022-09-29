@@ -42,11 +42,6 @@ Settings::Settings() : _isChanged(false)
     }
 }
 
-/*
-@LABEL:Settings::~Settings()
-@SHORT:Destructor of the Settings class.
-@END
-*/
 //-----------------------------------------------------------------------------
 Settings::~Settings()
 //-----------------------------------------------------------------------------
