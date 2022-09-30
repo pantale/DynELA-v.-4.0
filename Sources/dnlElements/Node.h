@@ -26,8 +26,8 @@ This class is used to store information for Finite Element Nodes.
 @ARG:double&mass&Nodal mass.
 @ARG:List<Element *>&elements&List of the elements that contains a reference to the current node.
 @ARG:long&number&Identification number of the node.
-@ARG:NodalField&*currentField&Nodal field of the node.
-@ARG:NodalField&*newField&Nodal field of the node.
+@ARG:NodalField&*field0&Nodal field of the node at the begining of the increment.
+@ARG:NodalField&*field1&Nodal field of the node at the end of the increment.
 @ARG:Vec3D&coordinates&Coordinates of the corresponding node.
 @ARG:Vec3D&displacement&Displacement at the current node $\overrightarrow{d}$.
 @END
@@ -46,14 +46,14 @@ public:
   double mass;                 // Mass. This field is used to store the value of the getJ2 nodal mass.
   List<Element *> elements;    // Element list. This pointer reference the list of the elements that contains a reference to the current node (ie: the list of the elements that includes this node).
   long number;                 // Identification number. This field represents the external identification number of the current node (ie. user representation).
-  NodalField *currentField;    // Nodal field of the node, ie. nodal field at the begining of the current increment
-  NodalField *newField;        // New Nodal field of the node, ie. nodal field at the end of the current increment
+  NodalField *field0;          // Nodal field of the node, ie. nodal field at the begining of the current increment
+  NodalField *field1;          // New Nodal field of the node, ie. nodal field at the end of the current increment
   Vec3D coordinates;           // Coordinates of the corresponding node.
-  Vec3D displacement = 0.0;    // Displacement at the current node \f$ \overrightarrow{d} \f$
+  Vec3D displacement = 0;      // Displacement at the current node \f$ \overrightarrow{d} \f$
 
 public:
-  Node(long = 1, double = 0.0, double = 0.0, double = 0.0);
-  Node(const Node &);
+  Node(long = 1, double = 0, double = 0, double = 0);
+  //Node(const Node &);
   ~Node();
 
   // Interface methods excluded from SWIG
@@ -75,15 +75,15 @@ public:
  */
   bool operator!=(const Node &) const;
   bool operator==(const Node &) const;
-  double getNodalValue(short);
+  double fieldScalar(short);
   long &internalNumber();
   long objectSize();
-  NodalField *getNodalField(short);
-  SymTensor2 getNodalSymTensor(short);
-  Tensor2 getNodalTensor(short);
-  Vec3D getNodalVec3D(short);
+  NodalField *field(short);
+  SymTensor2 fieldSymTensor2(short);
+  Tensor2 fieldTensor2(short);
+  Vec3D fieldVec3D(short);
   void copyNodalFieldToNew();
-  void swapNodalFields();
+  void swapFields();
 
   /**Attach an element. This method is used to add a new reference to an element in the list of the elements connected to the current point. There is no limit in the number of elements connected to the current node, so there is no verification procedure to see if this is correct for the structure.*/
   /*
@@ -105,9 +105,9 @@ public:
   /**Node motion. This method is used to delete a new node motion control to the current node. See the class NodeMotion for more details about the definition of this motion control.*/
   //   bool deleteNodeMotion ();
 
-  /**Nodal field transfer. This method is used to transfer the newField nodal field to the currentField one. In fact, this swaps the two fields.*/
+  /**Nodal field transfer. This method is used to transfer the field1 nodal field to the field0 one. In fact, this swaps the two fields.*/
 
-  /**Get a nodal field. This method returns a pointer with a reference to one of the nodal fields depending on the given parameter time. Settings time=0 returns the currentField nodal field, time=1 returns the newField nodal field.*/
+  /**Get a nodal field. This method returns a pointer with a reference to one of the nodal fields depending on the given parameter time. Settings time=0 returns the field0 nodal field, time=1 returns the field1 nodal field.*/
 
   // fonctions entree sortie
   //   void toFile ( FILE *pfile );
@@ -139,10 +139,10 @@ inline long &Node::internalNumber()
 }
 
 //-----------------------------------------------------------------------------
-inline NodalField *Node::getNodalField(short time)
+inline NodalField *Node::field(short time)
 //-----------------------------------------------------------------------------
 {
-  return (time == 0 ? currentField : newField);
+  return (time == 0 ? field0 : field1);
 }
 
 #endif

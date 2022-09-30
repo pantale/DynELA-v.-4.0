@@ -61,7 +61,7 @@ BoundaryForce::BoundaryForce(const BoundaryForce &X)
 void BoundaryForce::applyInitial(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //node->newField->_force=_force;
+  //node->field1->_force=_force;
 }
 
 //Application d'une condition limite Imposee sur un noeud
@@ -77,7 +77,7 @@ void BoundaryForce::applyConstantOnCurrentFields(Node *node, double currentTime,
       1.2 * dynelaData->models.current()->currentTime / dynelaData->models.current()->solver->getEndTime();
   if (facteur > 1.0)
     facteur = 1.0;
-  node->newField->_force = facteur * _force; */
+  node->field1->_force = facteur * _force; */
   fatalError("BoundaryForce::applyConstantOnCurrentFields",
              "Pas encore implemente et teste");
 }

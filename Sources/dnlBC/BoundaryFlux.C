@@ -73,24 +73,24 @@ BoundaryFlux::~BoundaryFlux()
 void BoundaryFlux::applyInitial(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //  node->newField->flux = _flux;
-  //  node->currentField->flux = _flux;
+  //  node->field1->flux = _flux;
+  //  node->field0->flux = _flux;
 }
 
 //-----------------------------------------------------------------------------
 void BoundaryFlux::applyConstantOnCurrentFields(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //  node->newField->flux = _flux;
-  // node->currentField->flux = _flux;
+  //  node->field1->flux = _flux;
+  // node->field0->flux = _flux;
 }
 
 //-----------------------------------------------------------------------------
 void BoundaryFlux::applyConstantOnNewFields(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //  node->newField->flux = _flux;
-  //  node->currentField->flux = _flux;
+  //  node->field1->flux = _flux;
+  //  node->field0->flux = _flux;
 }
 
 //-----------------------------------------------------------------------------

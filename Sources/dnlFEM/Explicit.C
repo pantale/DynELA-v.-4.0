@@ -456,28 +456,28 @@ void Explicit::computePredictions()
 #endif
 
     // prediction du deplacement
-    node->newField->displacement = timeStep * (node->currentField->speed + (0.5 - _beta) * timeStep * node->currentField->acceleration);
-    // node->newField->displacement = node->currentField->displacement + node->newField->displacement;
-    /*  node->newField->displacement = node->currentField->acceleration;
-    node->newField->displacement *= timeStep * (0.5 - _beta);
-    node->newField->displacement += node->currentField->speed;
-    node->newField->displacement *= timeStep;
+    node->field1->displacement = timeStep * (node->field0->speed + (0.5 - _beta) * timeStep * node->field0->acceleration);
+    // node->field1->displacement = node->field0->displacement + node->field1->displacement;
+    /*  node->field1->displacement = node->field0->acceleration;
+    node->field1->displacement *= timeStep * (0.5 - _beta);
+    node->field1->displacement += node->field0->speed;
+    node->field1->displacement *= timeStep;
  */
 
     // prediction de la vitesse
-    node->newField->speed = node->currentField->speed + (1.0 - _gamma) * timeStep * node->currentField->acceleration;
-    /* node->newField->speed = node->currentField->acceleration;
-    node->newField->speed *= timeStep * (1.0 - _gamma);
-    node->newField->speed += node->currentField->speed; */
+    node->field1->speed = node->field0->speed + (1.0 - _gamma) * timeStep * node->field0->acceleration;
+    /* node->field1->speed = node->field0->acceleration;
+    node->field1->speed *= timeStep * (1.0 - _gamma);
+    node->field1->speed += node->field0->speed; */
 
     // prediction de l'acceleration
-    node->newField->acceleration = 0.0;
+    node->field1->acceleration = 0.0;
 
     // application des conditions aux limites imposees
     if (node->boundary != NULL)
       node->boundary->applyConstantOnNewFields(node, model->currentTime, timeStep);
 
-    //  node->newField->displacement = node->currentField->displacement + node->newField->displacement;
+    //  node->field1->displacement = node->field0->displacement + node->field1->displacement;
   }
 }
 
@@ -496,7 +496,7 @@ void Explicit::explicitSolve()
 #endif
 
   // phase de calcul du terme d'acceleration global
-  //  $GLOBAL$ nd->newField->acceleration = $M^-1$ * (Fext - internalForces)
+  //  $GLOBAL$ nd->field1->acceleration = $M^-1$ * (Fext - internalForces)
   // Vector accVector = model->massMatrix.getSolve(model->internalForces);
   model->massMatrix.solve(model->internalForces);
 
@@ -509,17 +509,17 @@ void Explicit::explicitSolve()
 
     // mise a jour des accelerations
     for (int dim = 0; dim < numberOfDimensions; dim++)
-      node->newField->acceleration(dim) = model->internalForces(nodeId * numberOfDimensions + dim);
+      node->field1->acceleration(dim) = model->internalForces(nodeId * numberOfDimensions + dim);
 
     // mise à jour de l'acceleration materielle
-    node->newField->acceleration -= _alphaM * node->currentField->acceleration;
-    node->newField->acceleration /= (1.0 - _alphaM);
+    node->field1->acceleration -= _alphaM * node->field0->acceleration;
+    node->field1->acceleration /= (1.0 - _alphaM);
 
     // mise à jour de la vitesse materielle
-    node->newField->speed += _gamma * timeStep * node->newField->acceleration;
+    node->field1->speed += _gamma * timeStep * node->field1->acceleration;
 
     // mise à jour du deplacement
-    node->newField->displacement += _beta * dnlSquare(timeStep) * node->newField->acceleration;
+    node->field1->displacement += _beta * dnlSquare(timeStep) * node->field1->acceleration;
 
     // application des conditions aux limites imposees
     if (node->boundary != NULL)
@@ -528,10 +528,10 @@ void Explicit::explicitSolve()
     // prise en compte du contact
 
     // prise en compte des conditions aux limites
-    node->displacement += node->newField->displacement;
+    node->displacement += node->field1->displacement;
 
     // mise à jour de la position des noeuds
-    node->coordinates += node->newField->displacement;
+    node->coordinates += node->field1->displacement;
   }
 }
 

@@ -26,8 +26,8 @@ BoundaryCondition&*boundary&Boundary conditions on the current node.\\
 double&mass&Nodal mass.\\
 List<Element *>&elements&List of the elements that contains a reference to the current node.\\
 long&number&Identification number of the node.\\
-NodalField&*currentField&Nodal field of the node.\\
-NodalField&*newField&Nodal field of the node.\\
+NodalField&*field0&Nodal field of the node at the begining of the increment.\\
+NodalField&*field1&Nodal field of the node at the end of the increment.\\
 Vec3D&coordinates&Coordinates of the corresponding node.\\
 Vec3D&displacement&Displacement at the current node $\overrightarrow{d}$.
 \end{tcolorbox}
@@ -51,29 +51,16 @@ double&z&Z coordinate of the node to create.
 
 %@END
 
-%@DOC:Node::Node(Node node)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Node::Node(Node node)}}\label{Node::Node(Node node)}\index[DL]{Node!Node(Node node)}\\
-Copy constructor of the Node class.\\ \hspace*{10mm}$\hookrightarrow$ Node
-
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Node&node&Node to copy.
-\end{tcolorbox}
-
-%@END
-
 \subsection{Basic methods}
 
-%@DOC:Node::swapNodalFields()
+%@DOC:Node::swapFields()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Node::swapNodalFields(~)}}\label{Node::swapNodalFields()}\index[DL]{Node!swapNodalFields(~)}\\
+\textcolor{purple}{\textbf{Node::swapFields(~)}}\label{Node::swapFields()}\index[DL]{Node!swapFields(~)}\\
 Swap the two nodalFields of the node.
 
-This method swaps the two nodalField of the element. So that the currentField becomes the newField and vice versa.
+This method swaps the two nodalField of the element. So that the field0 becomes the field1 and vice versa.
 %@END
 
 %@DOC:Node::copyNodalFieldToNew()
@@ -81,15 +68,15 @@ This method swaps the two nodalField of the element. So that the currentField be
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Node::copyNodalFieldToNew(~)}}\label{Node::copyNodalFieldToNew()}\index[DL]{Node!copyNodalFieldToNew(~)}\\
-Copy the content of the nodalField to the newField.
+Copy the content of the nodalField to the field1.
 
 %@END
 
-%@DOC:Node::getNodalValue(short field)
+%@DOC:Node::fieldScalar(short field)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Node::getNodalValue(short field)}}\label{Node::getNodalValue(short field)}\index[DL]{Node!getNodalValue(short field)}\\
+\textcolor{purple}{\textbf{Node::fieldScalar(short field)}}\label{Node::fieldScalar(short field)}\index[DL]{Node!fieldScalar(short field)}\\
 Get back a nodalField value.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
@@ -98,11 +85,11 @@ short&field&Field to extract (see NodalField for informations).
 
 %@END
 
-%@DOC:Node::getNodalVec3D(short field)
+%@DOC:Node::fieldVec3D(short field)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Node::getNodalVec3D(short field)}}\label{Node::getNodalVec3D(short field)}\index[DL]{Node!getNodalVec3D(short field)}\\
+\textcolor{purple}{\textbf{Node::fieldVec3D(short field)}}\label{Node::fieldVec3D(short field)}\index[DL]{Node!fieldVec3D(short field)}\\
 Get back a nodalField Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
@@ -112,11 +99,11 @@ short&field&Field to extract (see NodalField for informations).
 %@END
 
 
-%@DOC:Node::getNodalSymTensor(short field)
+%@DOC:Node::fieldSymTensor2(short field)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Node::getNodalSymTensor(short field)}}\label{Node::getNodalSymTensor(short field)}\index[DL]{Node!getNodalSymTensor(short field)}\\
+\textcolor{purple}{\textbf{Node::fieldSymTensor2(short field)}}\label{Node::fieldSymTensor2(short field)}\index[DL]{Node!fieldSymTensor2(short field)}\\
 Get back a nodalField SymTensor2.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
@@ -125,11 +112,11 @@ short&field&Field to extract (see NodalField for informations).
 
 %@END
 
-%@DOC:Node::getNodalTensor(short field)
+%@DOC:Node::fieldTensor2(short field)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Node::getNodalTensor(short field)}}\label{Node::getNodalTensor(short field)}\index[DL]{Node!getNodalTensor(short field)}\\
+\textcolor{purple}{\textbf{Node::fieldTensor2(short field)}}\label{Node::fieldTensor2(short field)}\index[DL]{Node!fieldTensor2(short field)}\\
 Get back a nodalField Tensor2.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]

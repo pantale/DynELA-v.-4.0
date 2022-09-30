@@ -618,7 +618,7 @@ double Model::getTotalKineticEnergy()
   // Loop over all nodes of the model and sum of kinetic energies of nodes
   for (long nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    kineticEnergy += (nodes(nodeId)->mass * nodes(nodeId)->currentField->speed.dot()) / 2.0;
+    kineticEnergy += (nodes(nodeId)->mass * nodes(nodeId)->field0->speed.dot()) / 2.0;
   }
 
   // return the value
@@ -909,7 +909,7 @@ void Model::transfertQuantities()
 
   for (long nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    nodes(nodeId)->swapNodalFields();
+    nodes(nodeId)->swapFields();
   }
 }
 

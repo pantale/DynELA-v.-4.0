@@ -1665,7 +1665,7 @@ void Element::computeMassEquation(MatrixDiag &M, Vector &F)
 
   // chargement des densites nodales predites
   // for (int nodeId = 0; nodeId < _elementData->numberOfNodes; nodeId++)
-  //   density(nodeId) = nodes(nodeId)->currentField->density;
+  //   density(nodeId) = nodes(nodeId)->field0->density;
 
   for (int intPoint = 0; intPoint < getNumberOfIntegrationPoints(); intPoint++)
   {
@@ -1874,7 +1874,7 @@ double Element::getThermalSpeed()
 
   // calcul de la densite moyenne de l'element
   double	density=0.;
-  for (long i=0;i<_elementData->numberOfNodes;i++) density+=nodes(i)->currentField->density;
+  for (long i=0;i<_elementData->numberOfNodes;i++) density+=nodes(i)->field0->density;
   density/=_elementData->numberOfNodes;
 
   // vitesse du son dans le materiau
@@ -1974,7 +1974,7 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
 
   // chargement des energies nodales
   for (i = 0; i < _elementData->numberOfNodes; i++)
-    e (i) = nodes (i)->newField->e;
+    e (i) = nodes (i)->field1->e;
   // cout << "e="<<e<<std::endl;
 
   // calcul de la conductivite thermique du materiau
@@ -2063,7 +2063,7 @@ void Element::getdTemp_atIntPoints (Vec3D & dT)
   dT = 0.;
   for (i = 0; i < getNumberOfDimensions(); i++)
     for (k = 0; k < _elementData->numberOfNodes; k++)
-      dT (i) += _integrationPoint->dShapeFunction (k, i) * nodes (k)->currentField->T;
+      dT (i) += _integrationPoint->dShapeFunction (k, i) * nodes (k)->field0->T;
 }
 
 //Recuperation de la densite sur un point d'integration
@@ -2080,7 +2080,7 @@ void Element::getFe_atIntPoint (Vec3D & force)
   force = 0.;
    for (i = 0; i < _elementData->numberOfNodes; i++)
      for (j = 0; j < getNumberOfDimensions(); j++)
-       force (j) += _integrationPoint->integrationPointData->shapeFunction (i) * nodes (i)->newField->force (j);
+       force (j) += _integrationPoint->integrationPointData->shapeFunction (i) * nodes (i)->field1->force (j);
 }
 
 //-----------------------------------------------------------------------------
@@ -2091,7 +2091,7 @@ void Element::getEnergy (double & e)
 
   e = 0.;
    for (i = 0; i < _elementData->numberOfNodes; i++)
-     e += _integrationPoint->integrationPointData->shapeFunction (i) * nodes (i)->newField->e;
+     e += _integrationPoint->integrationPointData->shapeFunction (i) * nodes (i)->field1->e;
 }
 
 //-----------------------------------------------------------------------------

@@ -46,7 +46,7 @@ HistoryFileNodeItem::~HistoryFileNodeItem()
 double HistoryFileNodeItem::getValue()
 //-----------------------------------------------------------------------------
 {
-  return _node->getNodalValue(_field);
+  return _node->fieldScalar(_field);
 }
 
 //-----------------------------------------------------------------------------

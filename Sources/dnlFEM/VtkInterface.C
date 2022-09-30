@@ -171,7 +171,7 @@ void VtkInterface::dataWrite()
         //  lookupWriten = true;
       }
       for (long j = 0; j < nbNodes; j++)
-        _stream << dynelaData->model.nodes(j)->getNodalValue(field) << "\n";
+        _stream << dynelaData->model.nodes(j)->fieldScalar(field) << "\n";
     }
 
     // Vector field
@@ -181,7 +181,7 @@ void VtkInterface::dataWrite()
       _stream << "VECTORS " << _name << " float\n";
       for (long j = 0; j < nbNodes; j++)
       {
-        Vec3D v = dynelaData->model.nodes(j)->getNodalVec3D(field);
+        Vec3D v = dynelaData->model.nodes(j)->fieldVec3D(field);
         _stream << v(0) << " " << v(1) << " " << v(2) << "\n";
       }
     }
@@ -193,7 +193,7 @@ void VtkInterface::dataWrite()
       _stream << "TENSORS " << _name << " float\n";
       for (long j = 0; j < nbNodes; j++)
       {
-        SymTensor2 t = dynelaData->model.nodes(j)->getNodalSymTensor(field);
+        SymTensor2 t = dynelaData->model.nodes(j)->fieldSymTensor2(field);
         _stream << t(0, 0) << " " << t(0, 1) << " " << t(0, 2) << " "
                 << t(1, 0) << " " << t(1, 1) << " " << t(1, 2) << " "
                 << t(2, 0) << " " << t(2, 1) << " " << t(2, 2) << "\n";

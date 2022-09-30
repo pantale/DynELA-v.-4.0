@@ -784,10 +784,10 @@ void DynELA::getNodalValuesRange(short field, double &min, double &max)
 
   Node *pnd = model.nodes.initLoop();
   double val;
-  min = max = pnd->getNodalValue(field);
+  min = max = pnd->fieldScalar(field);
   while ((pnd = model.nodes.currentUp()) != NULL)
   {
-    val = pnd->getNodalValue(field);
+    val = pnd->fieldScalar(field);
     if (val < min)
       min = val;
     if (val > max)
@@ -1331,10 +1331,10 @@ long DynELA::getFirstDataFileNumber()
 }
 
 //-----------------------------------------------------------------------------
-double DynELA::getNodalValue(long nod,String field,long component)
+double DynELA::fieldScalar(long nod,String field,long component)
 //-----------------------------------------------------------------------------
 {
-  return getNodeByNum(nod)->getNodalValue( field, component);
+  return getNodeByNum(nod)->fieldScalar( field, component);
 }
 
 //-----------------------------------------------------------------------------
@@ -1345,10 +1345,10 @@ Vec3D DynELA::getNodalVector(long nod,String field)
 }
 
 //-----------------------------------------------------------------------------
-Tensor2 DynELA::getNodalTensor(long nod,String field)
+Tensor2 DynELA::fieldTensor2(long nod,String field)
 //-----------------------------------------------------------------------------
 {
-  return getNodeByNum(nod)->getNodalTensor( field);
+  return getNodeByNum(nod)->fieldTensor2( field);
 }
 
 //-----------------------------------------------------------------------------

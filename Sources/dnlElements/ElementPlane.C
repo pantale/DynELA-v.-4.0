@@ -172,7 +172,7 @@ void ElementPlane::getV_atIntPoint(Vec3D &v, short time)
   // calcul de v courant
   for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    field = nodes(nodeId)->getNodalField(time);
+    field = nodes(nodeId)->field(time);
     v(0) += _integrationPoint->integrationPointData->shapeFunction(nodeId) * (field->speed(0));
     v(1) += _integrationPoint->integrationPointData->shapeFunction(nodeId) * (field->speed(1));
   }
@@ -323,7 +323,7 @@ void ElementPlane::getU_atIntPoint (Vec3D & u, short time)
   // calcul de du
   for (i = 0; i < nodes.size (); i++)
     {
-      field = nodes (i)->getNodalField (time);
+      field = nodes (i)->field (time);
        u (0) += _integrationPoint->integrationPointData->shapeFunction (i) * field->displacement (0);
        u (1) += _integrationPoint->integrationPointData->shapeFunction (i) * field->displacement (1);
     }

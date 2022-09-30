@@ -87,7 +87,7 @@ void ElementAxi::computeDeformationGradient(Tensor2 &F, short time)
   // calcul de F
   for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    field = nodes(nodeId)->getNodalField(time);
+    field = nodes(nodeId)->field(time);
     F(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(0);
     F(0, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->displacement(0);
     F(1, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(1);
@@ -138,7 +138,7 @@ void ElementAxi::getdV_atIntPoint(Tensor2 &dv, short time)
   // calcul de dv
   for (long nodeId = 0; nodeId < getNumberOfNodes(); nodeId++)
   {
-    field = nodes(nodeId)->getNodalField(time);
+    field = nodes(nodeId)->field(time);
     dv(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->speed(0);
     dv(0, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->speed(0);
     dv(1, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->speed(1);
@@ -169,7 +169,7 @@ void ElementAxi::getdU_atIntPoint (Tensor2 & du, short time)
   // calcul de du
   for (k = 0; k < getNumberOfNodes(); k++)
     {
-      field = nodes (k)->getNodalField (time);
+      field = nodes (k)->field (time);
       du (0, 0) += _integrationPoint->dShapeFunction (k, 0) * field->displacement (0);
       du (0, 1) += _integrationPoint->dShapeFunction (k, 1) * field->displacement (0);
       du (1, 0) += _integrationPoint->dShapeFunction (k, 0) * field->displacement (1);

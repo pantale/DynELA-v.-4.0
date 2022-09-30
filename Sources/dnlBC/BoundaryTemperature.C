@@ -73,16 +73,16 @@ BoundaryTemperature::~BoundaryTemperature()
 void BoundaryTemperature::applyInitial(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //  node->newField->_temperature=_temperature;
-  //  node->currentField->_temperature=_temperature;
+  //  node->field1->_temperature=_temperature;
+  //  node->field0->_temperature=_temperature;
 }
 
 //-----------------------------------------------------------------------------
 void BoundaryTemperature::applyConstantOnCurrentFields(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //  node->newField->_temperature=_temperature;
-  //  node->currentField->_temperature=_temperature;
+  //  node->field1->_temperature=_temperature;
+  //  node->field0->_temperature=_temperature;
 }
 
 //-----------------------------------------------------------------------------

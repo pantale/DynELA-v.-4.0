@@ -117,7 +117,7 @@ public:
   bool checkBinaryVersion (ifstream & pfile, int);
   bool initSolve ();
   double getCurrentTime();
-  double getNodalValue(long nod,String field,long component=0);
+  double fieldScalar(long nod,String field,long component=0);
   double getReadTimeData (ifstream & pfile);
   Element* getElement (long num);
   Element* getElementById (long num);
@@ -126,7 +126,7 @@ public:
   Material* getMaterial (String name);
   Node* getNode (long num);
   Node* getNodeById (long num);
-  Tensor2 getNodalTensor(long nod,String field);
+  Tensor2 fieldTensor2(long nod,String field);
   Vec3D getNodalVector(long nod,String field);
   void addInterface(Interface* pinter);
   void attachBCToNodes(BoundaryCondition* BC, NodeSet* nds);

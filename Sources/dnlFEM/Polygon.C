@@ -164,7 +164,7 @@ String Polygon::getFlatPolygonSvgCode(ColorMap &map, short field, bool stroke, d
   double val = 0;
   for (int i = 0; i < points; i++)
   {
-    val += nodes[i]->getNodalValue(field);
+    val += nodes[i]->fieldScalar(field);
   }
   val /= points;
 
@@ -300,7 +300,7 @@ void PolygonPatches::createPatch(Polygon *polygon, ColorMap &map, short field)
   for (int i = 0; i < nb; i++)
   {
     crds[i] = polygon->vertices[i];
-    valR[i] = polygon->nodes[i]->getNodalValue(field);
+    valR[i] = polygon->nodes[i]->fieldScalar(field);
     valI[i] = map.getIntColor(valR[i]);
   }
 

@@ -85,15 +85,15 @@ void BoundaryConvection::setValue(double x, double y)
 void BoundaryConvection::applyInitial(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //node->newField->force=force;
+  //node->field1->force=force;
 }
 
 //-----------------------------------------------------------------------------
 void BoundaryConvection::applyConstantOnCurrentFields(Node *node, double currentTime, double timeStep)
 //-----------------------------------------------------------------------------
 {
-  //     node->newField->hconv=_hc;
-  //    node->currentField->Tfluid=_Tf;
+  //     node->field1->hconv=_hc;
+  //    node->field0->Tfluid=_Tf;
 }
 
 //-----------------------------------------------------------------------------

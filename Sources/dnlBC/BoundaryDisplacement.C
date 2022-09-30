@@ -83,32 +83,32 @@ void BoundaryDisplacement::applyConstantOnNewFields(Node *node, double currentTi
       if (_function == NULL)
       {
         // deplacement constant
-        node->currentField->displacement(i) = _displacement(i);
-        node->newField->displacement(i) = _displacement(i);
+        node->field0->displacement(i) = _displacement(i);
+        node->field1->displacement(i) = _displacement(i);
 
         // vitesse imposee
-        node->currentField->speed(i) = _displacement(i) / timeStep;
-        node->newField->speed(i) = _displacement(i) / timeStep;
+        node->field0->speed(i) = _displacement(i) / timeStep;
+        node->field1->speed(i) = _displacement(i) / timeStep;
 
         // acceleration nulle
-        //     node->currentField->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep);
-        //    node->newField->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep);
-        node->currentField->acceleration(i) = 0.0;
-        node->newField->acceleration(i) = 0.0;
+        //     node->field0->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep);
+        //    node->field1->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep);
+        node->field0->acceleration(i) = 0.0;
+        node->field1->acceleration(i) = 0.0;
       }
       else
       {
         // deplacement constant
-        node->currentField->displacement(i) = _displacement(i) * _function->getValue(currentTime);
-        node->newField->displacement(i) = _displacement(i) * _function->getValue(currentTime + timeStep);
+        node->field0->displacement(i) = _displacement(i) * _function->getValue(currentTime);
+        node->field1->displacement(i) = _displacement(i) * _function->getValue(currentTime + timeStep);
 
         // vitesse imposee
-        node->currentField->speed(i) = _displacement(i) / timeStep * _function->getValue(currentTime);
-        node->newField->speed(i) = _displacement(i) / timeStep * _function->getValue(currentTime + timeStep);
+        node->field0->speed(i) = _displacement(i) / timeStep * _function->getValue(currentTime);
+        node->field1->speed(i) = _displacement(i) / timeStep * _function->getValue(currentTime + timeStep);
 
         // acceleration non nulle
-        node->currentField->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep) * _function->getValue(currentTime);
-        node->newField->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep) * _function->getValue(currentTime + timeStep);
+        node->field0->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep) * _function->getValue(currentTime);
+        node->field1->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep) * _function->getValue(currentTime + timeStep);
       }
     }
   }
