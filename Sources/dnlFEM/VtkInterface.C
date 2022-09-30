@@ -94,9 +94,9 @@ void VtkInterface::nodesWrite()
   _stream << "POINTS " << nbNodes << " float\n";
 
   for (long i = 0; i < nbNodes; i++)
-    _stream << dynelaData->model.nodes(i)->coordinates(0)
-            << " " << dynelaData->model.nodes(i)->coordinates(1) << " "
-            << dynelaData->model.nodes(i)->coordinates(2) << "\n";
+    _stream << dynelaData->model.nodes(i)->coords(0)
+            << " " << dynelaData->model.nodes(i)->coords(1) << " "
+            << dynelaData->model.nodes(i)->coords(2) << "\n";
 
   _stream << "\n";
 }

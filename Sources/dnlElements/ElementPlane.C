@@ -62,10 +62,10 @@ bool ElementPlane::computeJacobian(bool reference)
     for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
     {
       node = nodes(nodeId);
-      _integrationPoint->JxW(0, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coordinates(0);
-      _integrationPoint->JxW(0, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coordinates(0);
-      _integrationPoint->JxW(1, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coordinates(1);
-      _integrationPoint->JxW(1, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coordinates(1);
+      _integrationPoint->JxW(0, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coords(0);
+      _integrationPoint->JxW(0, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coords(0);
+      _integrationPoint->JxW(1, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coords(1);
+      _integrationPoint->JxW(1, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coords(1);
     }
 
     // Computes the det of J
@@ -121,10 +121,10 @@ bool ElementPlane::computeUnderJacobian(bool reference)
     for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
     {
       node = nodes(nodeId);
-      _underIntegrationPoint->JxW(0, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coordinates(0);
-      _underIntegrationPoint->JxW(0, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coordinates(0);
-      _underIntegrationPoint->JxW(1, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coordinates(1);
-      _underIntegrationPoint->JxW(1, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coordinates(1);
+      _underIntegrationPoint->JxW(0, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coords(0);
+      _underIntegrationPoint->JxW(0, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coords(0);
+      _underIntegrationPoint->JxW(1, 0) += integrationPointData->derShapeFunction(nodeId, 0) * node->coords(1);
+      _underIntegrationPoint->JxW(1, 1) += integrationPointData->derShapeFunction(nodeId, 1) * node->coords(1);
     }
 
     // Computes the det of J
@@ -324,8 +324,8 @@ void ElementPlane::getU_atIntPoint (Vec3D & u, short time)
   for (i = 0; i < nodes.size (); i++)
     {
       field = nodes (i)->field (time);
-       u (0) += _integrationPoint->integrationPointData->shapeFunction (i) * field->displacement (0);
-       u (1) += _integrationPoint->integrationPointData->shapeFunction (i) * field->displacement (1);
+       u (0) += _integrationPoint->integrationPointData->shapeFunction (i) * field->u (0);
+       u (1) += _integrationPoint->integrationPointData->shapeFunction (i) * field->u (1);
     }
 }
 */

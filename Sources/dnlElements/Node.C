@@ -47,8 +47,8 @@ Node::Node(long n, double x, double y, double z)
   // Initialization of data
   mass = 0.;
 
-  // Initialization of coordinates
-  coordinates.setValue(x, y, z);
+  // Initialization of coords
+  coords.setValue(x, y, z);
 
   // Initialization of the nodal fields
   field1 = new NodalField;
@@ -58,7 +58,6 @@ Node::Node(long n, double x, double y, double z)
   boundary = NULL;
 }
 
-
 /* //-----------------------------------------------------------------------------
 Node::Node(const Node &node)
 //-----------------------------------------------------------------------------
@@ -66,7 +65,7 @@ Node::Node(const Node &node)
   exit(-1);
   std::cout << "Copy of a Node" << std::endl;
 
-  coordinates = node.coordinates;
+  coords = node.coords;
 }
  */
 //-----------------------------------------------------------------------------
@@ -83,7 +82,7 @@ void Node::print(std::ostream &os) const
 //-----------------------------------------------------------------------------
 {
   os << "node n=" << number;
-  os << " coordinates=(" << coordinates << ")";
+  os << " coords=(" << coords << ")";
 }
 
 //-----------------------------------------------------------------------------
@@ -114,7 +113,7 @@ std::ifstream &operator>>(std::ifstream &is, Node &nd)
 void Node::write(std::ofstream &pfile) const
 //-----------------------------------------------------------------------------
 {
-  pfile << coordinates;
+  pfile << coords;
   field0->write(pfile);
 }
 
@@ -122,7 +121,7 @@ void Node::write(std::ofstream &pfile) const
 Node &Node::read(std::ifstream &pfile)
 //-----------------------------------------------------------------------------
 {
-  pfile >> coordinates;
+  pfile >> coords;
   field0->read(pfile);
 
   return *this;
@@ -145,7 +144,7 @@ bool Node::operator==(const Node &node) const
 {
   if (_listIndex != node._listIndex)
     return (false);
-  if (coordinates != node.coordinates)
+  if (coords != node.coords)
     return (false);
   return (true);
 }
@@ -159,26 +158,21 @@ bool Node::operator!=(const Node &node) const
 
 /*
 @LABEL:Node::swapFields()
-@SHORT:Swap the two nodalFields of the node.
-This method swaps the two nodalField of the element. So that the field0 becomes the field1 and vice versa.
+@SHORT:Swap the two fields of the node.
+This method swaps the two fields of the node. So that the field0 becomes the field1 and vice versa.
 @END
 */
 //-----------------------------------------------------------------------------
 void Node::swapFields()
 //-----------------------------------------------------------------------------
 {
-  // swap both NodalFields
+  // swap both fields
   NodalField *tmp = field1;
   field1 = field0;
   field0 = tmp;
 }
 
-/*
-@LABEL:Node::copyNodalFieldToNew()
-@SHORT:Copy the content of the nodalField to the field1.
-@END
-*/
-//-----------------------------------------------------------------------------
+/* //-----------------------------------------------------------------------------
 void Node::copyNodalFieldToNew()
 //-----------------------------------------------------------------------------
 {
@@ -186,23 +180,23 @@ void Node::copyNodalFieldToNew()
   // field1->densityInc = field0->densityInc;
   // field1->energy = field0->energy;
   // field1->energyInc = field0->energyInc;
-  // field1->displacement = field0->displacement;
-  field1->displacement = field0->displacement;
+  // field1->u = field0->u;
+  field1->u = field0->u;
   //  field1->flux = field0->flux;
   // field1->force = field0->force;
   field1->speed = field0->speed;
   field1->acceleration = field0->acceleration;
-}
+} */
 
 //-----------------------------------------------------------------------------
-bool compareNodesNumber(Node *node1, Node *node2)
+bool compareNN(Node *node1, Node *node2)
 //-----------------------------------------------------------------------------
 {
   return (node1->number > node2->number); // comparaison
 }
 
 //-----------------------------------------------------------------------------
-long substractNodesNumber(Node *node1, const long number)
+long substractNN(Node *node1, const long number)
 //-----------------------------------------------------------------------------
 {
   return (node1->number - number); // comparaison
@@ -318,21 +312,21 @@ double Node::fieldScalar(short field)
 //-----------------------------------------------------------------------------
 {
   // Nodal values
-  // _getFromNodal(initialTemperature, initialTemperature);
+  // _getFromNodal(T0, T0);
   _getFromNodal(mass, mass);
-  _getScalarFromNodalVec3D(nodeCoordinate, coordinates);
-  //_getScalarFromNodalVec3D(initialNodeCoordinate, initialCoordinates);
+  _getScalarFromNodalVec3D(coords, coords);
+  //_getScalarFromNodalVec3D(coords0, initialCoordinates);
   //_getScalarFromNodalVec3D(normal, normal);
-  _getScalarFromNodalVec3D(displacement, displacement);
+  _getScalarFromNodalVec3D(disp, disp);
 
   // NodalField values
   //_getFromNodal(energy, field0->energy);
-  //_getFromNodal(energyIncrement, field0->energyInc);
-  _getScalarFromNodalVec3D(displacementIncrement, field0->displacement);
+  //_getFromNodal(energyInc, field0->energyInc);
+  _getScalarFromNodalVec3D(dispInc, field0->u);
   // _getScalarFromNodalVec3D(flux, field0->flux);
   // _getScalarFromNodalVec3D(force, field0->force);
   _getScalarFromNodalVec3D(speed, field0->speed);
-  _getScalarFromNodalVec3D(speedIncrement, field0->acceleration);
+  _getScalarFromNodalVec3D(speedInc, field0->acceleration);
 
   // Integration point field
   _getFromIntegrationPoint(density, density, double);
@@ -341,7 +335,7 @@ double Node::fieldScalar(short field)
   _getFromIntegrationPoint(gamma, gamma, double);
   _getFromIntegrationPoint(gammaCumulate, gammaCumulate, double);
   _getFromIntegrationPoint(yieldStress, yieldStress, double);
-  _getFromIntegrationPoint(temperature, temperature, double);
+  _getFromIntegrationPoint(T, T, double);
   _getFromIntegrationPoint(pressure, pressure, double);
   _getFromIntegrationPoint(internalEnergy, internalEnergy, double);
   _getScalarFromIntegrationPointTensor2(Strain, Strain);
@@ -387,17 +381,17 @@ Vec3D Node::fieldVec3D(short field)
 //-----------------------------------------------------------------------------
 {
   // Nodal values
-  _getFromNodal(nodeCoordinate, coordinates);
-  //_getFromNodal(initialNodeCoordinate, initialCoordinates);
+  _getFromNodal(coords, coords);
+  //_getFromNodal(coords0, initialCoordinates);
   //_getFromNodal(normal, normal);
-  _getFromNodal(displacement, displacement);
+  _getFromNodal(disp, disp);
 
   // NodalField values
-  _getFromNodal(displacementIncrement, field0->displacement);
+  _getFromNodal(dispInc, field0->u);
   // _getFromNodal(flux, field0->flux);
   // _getFromNodal(force, field0->force);
   _getFromNodal(speed, field0->speed);
-  _getFromNodal(speedIncrement, field0->acceleration);
+  _getFromNodal(speedInc, field0->acceleration);
 
   // Integration point field
 
@@ -501,8 +495,8 @@ bool Node::deleteNodeMotion ()
 void Node::toFile (FILE * pfile)
 //-----------------------------------------------------------------------------
 {
-  fprintf (pfile, "%8ld  %8.5E  %8.5E  %8.5E \n", number, coordinates (0),
-     coordinates (1), coordinates (2));
+  fprintf (pfile, "%8ld  %8.5E  %8.5E  %8.5E \n", number, coords (0),
+     coords (1), coords (2));
 }
 
 //-----------------------------------------------------------------------------
@@ -518,7 +512,7 @@ void Node::toFileBound (FILE * pfile)
     }
 }
 
-#define _getScalarNodalFieldScalar(FIELD,VAR)  if (field==#FIELD) \
+#define _getScalarfieldscalar(FIELD,VAR)  if (field==#FIELD) \
     {\
       if (component>1) fatalError("Node::fieldScalar::get","No sense for component >1 for a scalar quantity");\
       return field0-> VAR;\
@@ -556,23 +550,23 @@ double Node::fieldScalar(String field, long component)
 //-----------------------------------------------------------------------------
 {
   // nodalfield values
-  _getScalarNodalFieldScalar(density,density);
-  _getScalarNodalFieldScalar(densityInc,densityInc);
-  _getScalarNodalFieldScalar(energy,e);
-  _getScalarNodalFieldScalar(energyInc,de);
+  _getScalarfieldscalar(density,density);
+  _getScalarfieldscalar(densityInc,densityInc);
+  _getScalarfieldscalar(energy,e);
+  _getScalarfieldscalar(energyInc,de);
   _getScalarNodalFieldVec3D(speed,speed);
   _getScalarNodalFieldVec3D(acceleration,acceleration);
   _getScalarNodalFieldVec3D(force,force);
-  _getScalarNodalFieldScalar(temperature,T);
+  _getScalarfieldscalar(T,T);
   _getScalarNodalFieldVec3D(flux,flux);
-  _getScalarNodalFieldVec3D(displacement,displacement);
-  _getScalarNodalFieldVec3D(displacement,displacement);
+  _getScalarNodalFieldVec3D(disp,disp);
+  _getScalarNodalFieldVec3D(disp,disp);
 
   // nodal values
-  getNodalVectorialValueLocal(coordinates,coordinates);
+  getNodalVectorialValueLocal(coords,coords);
   getNodalVectorialValueLocal(normal,normal);
   getNodalScalarValueLocal(mass,mass);
-  getNodalScalarValueLocal(temperatureInit,initialTemperature);
+  getNodalScalarValueLocal(temperatureInit,T0);
 
   if (field=="stress") {
     Tensor2 V,V1;
@@ -647,11 +641,11 @@ Vec3D Node::getNodalVector(String field)
   getNodalFieldVec3DLocal(acceleration,acceleration);
   getNodalFieldVec3DLocal(force,force);
   getNodalFieldVec3DLocal(flux,flux);
-  getNodalFieldVec3DLocal(displacement,displacement);
-  getNodalFieldVec3DLocal(displacement,displacement);
+  getNodalFieldVec3DLocal(disp,disp);
+  getNodalFieldVec3DLocal(disp,disp);
 
   // nodal values
-  getNodalVectorialLocal(coordinates,coordinates);
+  getNodalVectorialLocal(coords,coords);
   getNodalVectorialLocal(normal,normal);
 
   fatalError("getNodalVector","undefined field %s\n",field.chars());

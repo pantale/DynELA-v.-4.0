@@ -33,7 +33,7 @@ coupleReal::coupleReal()
 }
 
 /*
-  Constructor for the coupleReal class with initailisation of the coordinates of the point
+  Constructor for the coupleReal class with initailisation of the coords of the point
   - abscissa : X coordinate of the new point
   - ordinate : Y coordinate of the new point
 */
@@ -99,7 +99,7 @@ void DiscreteFunction::add(double abscissa, double ordinate)
     // init memoire
     coupleReal *ppoint = new coupleReal;
 
-    // affectation des coordinates
+    // affectation des coords
     ppoint->x = abscissa;
     ppoint->y = ordinate;
 
@@ -135,7 +135,7 @@ void DiscreteFunction::startPointAdd(double abscissa, double ordinate)
     // init memoire
     coupleReal *ppoint = new coupleReal;
 
-    // affectation des coordinates
+    // affectation des coords
     ppoint->x = abscissa;
     ppoint->y = ordinate;
 

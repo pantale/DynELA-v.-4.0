@@ -220,7 +220,7 @@ General properties of materials in \DynELA concerns the general constants such a
 			density & $\rho$ & $kg/m^3$ & Density\\
 			heatCapacity & $C_{p}$ & $J/^{\circ}C$ & Heat capacity\\
 			taylorQuinney& $\eta$ & & Taylor-Quinney coefficient\\
-			initialTemperature & $T_{0}$ & $^{\circ}C$ & Initial temperature
+			T0 & $T_{0}$ & $^{\circ}C$ & Initial temperature
 	\end{tcolorbox}\end{center}\caption{General properties of materials\label{tab:Programming!GeneralProperties}}
 \end{table}
 After creating an instance of the object \textsf{dnl.Material}, on can apply the prescribed values to all those parameters using the following syntax.
@@ -234,7 +234,7 @@ steel.poissonRatio = 0.3
 steel.density = 7830
 steel.heatCapacity = 46
 steel.taylorQuinney = 0.9
-steel.initialTemperature = 25
+steel.T0 = 25
 \end{PythonListing}
 
 \subsubsection{Material affectation to a set of elements}
@@ -299,7 +299,7 @@ ramp.set(dnl.RampFunction.Constant, 0, stopTime)
 \begin{PythonListing}
 # Declaration of a boundary condition for top part
 topSpeed = dnl.BoundarySpeed()
-topSpeed.setValue(displacement, 0, 0)
+topSpeed.setValue(disp, 0, 0)
 topSpeed.setFunction(ramp)
 model.attachConstantBC(topSpeed, topNS)
 \end{PythonListing}
@@ -325,28 +325,30 @@ Nodal fields are defined at nodes and cover types defined in table \ref{tab:Prog
 \begin{table}[h]
 	\begin{center}\begin{tcolorbox}[width=.85\textwidth,myTab,tabularx={l|c|c|c|c|R}]
 			\multicolumn{1}{c|}{Name} & & Type & nb & Loc & \multicolumn{1}{c}{Description} \\ \hline\hline
+			coords & $\overrightarrow{x}$ & vec3D & $3+1$ & node & \\ \hline
+			coords0 & $\overrightarrow{x}$ & vec3D & $3+1$ & node & \\ \hline
 			density & $\rho$ & scalar & $1$ & IntPt &\\ \hline
-			displacementIncrement & $\Delta\overrightarrow{u}$ & vec3D & $3+1$ & node & \\ \hline
-			displacement & $\overrightarrow{u}$ & vec3D & $3+1$ & node & \\ \hline
-			energyIncrement && scalar & $1$ & IntPt & \\ \hline
+			disp & $\overrightarrow{u}$ & vec3D & $3+1$ & node & \\ \hline
+			dispInc & $\Delta\overrightarrow{u}$ & vec3D & $3+1$ & node & \\ \hline
 			energy && scalar & $1$ & IntPt & \\ \hline
-			gammaCumulate && scalar & $1$ & IntPt & \\ \hline
+			energyInc && scalar & $1$ & IntPt & \\ \hline
 			gamma & $\Gamma$ & scalar & $1$ & IntPt & \\ \hline
+			gammaCumulate && scalar & $1$ & IntPt & \\ \hline
 			internalEnergy && scalar & $1$ & IntPt & \\ \hline
 			mass & $m$ & scalar & $1$ & node & \\ \hline
-			nodeCoordinate & $\overrightarrow{x}$ & vec3D & $3+1$ & node & \\ \hline
 			normal & $\overrightarrow{n}$ & vec3D & $3+1$ & node & \\ \hline
-			PlasticStrainInc && tensor & $9+1$ & IntPt & \\ \hline
-			plasticStrainRate && scalar & $1$ & IntPt & \\ \hline
 			plasticStrain && scalar & $1$ & IntPt & \\ \hline
 			PlasticStrain && tensor & $9+1$ & IntPt & \\ \hline
+			PlasticStrainInc && tensor & $9+1$ & IntPt & \\ \hline
+			plasticStrainRate && scalar & $1$ & IntPt & \\ \hline
 			pressure & $p$ & scalar & $1$ & IntPt & \\ \hline
-			speedIncrement & $\Delta\overrightarrow{v}$ & vec3D & $3+1$ & node & \\ \hline
 			speed & $\overrightarrow{v}$ & vec3D & & node & \\ \hline
-			StrainInc && tensor & $9+1$ & IntPt & \\ \hline
+			speedInc & $\Delta\overrightarrow{v}$ & vec3D & $3+1$ & node & \\ \hline
 			Strain && tensor & $9+1$ & IntPt & \\ \hline
+			StrainInc && tensor & $9+1$ & IntPt & \\ \hline
 			Stress & $\Sig$ & tensor & $9+1$ & IntPt & \\ \hline
-			temperature & $T$ & scalar & $1$ & IntPt & \\ \hline
+			T & $T$ & scalar & $1$ & IntPt & \\ \hline
+			T0 & $T$ & scalar & $1$ & IntPt & \\ \hline
 			vonMises & $\overline{\sigma}$ & scalar & $1$ & IntPt & \\ \hline
 			yieldStress & $\sigma^y$ & scalar & $1$ & IntPt &
 	\end{tcolorbox}\end{center}\caption{Nodal fields\label{tab:Programming!NodalFields}}
@@ -364,18 +366,19 @@ Element fields are defined at integration points and cover types defined in tabl
 	\begin{center}\begin{tcolorbox}[width=.85\textwidth,myTab,tabularx={l|c|c|c|R}]
 			\multicolumn{1}{c|}{Name} && Type & nb & \multicolumn{1}{c}{Description} \\ \hline\hline
 			density & $\rho$ & scalar & $1$ & \\ \hline
-			gammaCumulate && scalar & $1$ & \\ \hline
 			gamma & $\Gamma$ & scalar & $1$ & \\ \hline
+			gammaCumulate && scalar & $1$ & \\ \hline
 			internalEnergy && scalar & $1$ & \\ \hline
-			plasticStrainRate && scalar & $1$ & \\ \hline
 			plasticStrain && scalar & $1$ & \\ \hline
 			PlasticStrain && tensor & $9+1$ & \\ \hline
 			PlaticStrainInc && tensor & $9+1$ & \\ \hline
+			plasticStrainRate && scalar & $1$ & \\ \hline
 			pressure & $p$ & scalar & $1$ & \\ \hline
-			StrainInc && tensor & $9+1$ & \\ \hline
 			Strain && tensor & $9+1$ & \\ \hline
+			StrainInc && tensor & $9+1$ & \\ \hline
 			Stress & $\Sig$ & tensor & $9+1$ & \\ \hline
-			temperature & $T$ & scalar & $1$ & \\ \hline
+			T & $T$ & scalar & $1$ & \\ \hline
+			T0 & $T$ & scalar & $1$ & \\ \hline
 			vonMises & $\overline{\sigma}$ & scalar & $1$ & \\ \hline
 			yieldStress & $\sigma^y$ & scalar & $1$ &
 	\end{tcolorbox}\end{center}\caption{Element fields\label{tab:Programming!ElementlFields}}
@@ -415,7 +418,7 @@ hist = dnl.HistoryFile()              # Constructor of the hist object
 hist.setFileName('HistoryPlot.plot')  # Sets the filename of the history file
 hist.add(dnl.Field.timeStep)                 # First column will be timeStep value
 hist.add(histES, 0, dnl.Field.vonMises)      # Second one will be von Mises stress
-hist.add(histRad, dnl.Field.nodeCoordinateX) # Third one will be X node coordinate
+hist.add(histRad, dnl.Field.coordsX) # Third one will be X node coordinate
 hist.setSaveTime(1e-6)                       # One data every 1E-6 s
 model.add(hist)                              # Add the time history to the solver
 \end{PythonListing}
@@ -424,7 +427,7 @@ model.add(hist)                              # Add the time history to the solve
 \begin{centering}
 \begin{BashListing}
 #DynELA FEM Code v. 4.0 history file
-#plotted :timeStep vonMises nodeCoordinateX
+#plotted :timeStep vonMises coordsX
 0.0000000E+00 6.2463483E-08 0.0000000E+00 3.2000000E+00
 1.0623148E-06 6.2462797E-08 1.3439840E+03 3.5412151E+00
 2.0617159E-06 6.2462515E-08 1.3643205E+03 3.7516529E+00
@@ -613,6 +616,6 @@ On the other hand, the following methods returns some informations on the curren
 Effective creation of the SVG file is done by calling the \textsf{write} method of the \textsf{SvgInterface} class with the following syntax:\index[PL]{SvgInterface!write(string)}\index[PL]{SvgInterface!write(string, Field)}
 \begin{PythonListing}
 svg.write('mesh.svg') # Without field, this draws only the mesh
-svg.write('temp.svg', dnl.Field.temperature)
+svg.write('temp.svg', dnl.Field.T)
 \end{PythonListing}
-Here, on line number 1, '\emph{temp.svg}' is the name of the SVG file to create for exporting the mesh. On line number 2, '\emph{temp.svg}' is the name of the SVG file to create and \textsf{dnl.Field.temperature} is the name of the associated field to output (see \ref{ProgrammingLanguage:Section:Fields} for definitions).
+Here, on line number 1, '\emph{temp.svg}' is the name of the SVG file to create for exporting the mesh. On line number 2, '\emph{temp.svg}' is the name of the SVG file to create and \textsf{dnl.Field.T} is the name of the associated field to output (see \ref{ProgrammingLanguage:Section:Fields} for definitions).

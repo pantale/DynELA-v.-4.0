@@ -226,10 +226,10 @@ double ElTri3N2D::getCharacteristicLength ()
 //-----------------------------------------------------------------------------
 {
   double x31, y42, x24, y31;
-  x31 = nodes (2)->coordinates (0) - nodes (0)->coordinates (0);
-  x24 = nodes (1)->coordinates (0) - nodes (3)->coordinates (0);
-  y42 = nodes (3)->coordinates (1) - nodes (1)->coordinates (1);
-  y31 = nodes (2)->coordinates (1) - nodes (0)->coordinates (1);
+  x31 = nodes (2)->coords (0) - nodes (0)->coords (0);
+  x24 = nodes (1)->coords (0) - nodes (3)->coords (0);
+  y42 = nodes (3)->coords (1) - nodes (1)->coords (1);
+  y31 = nodes (2)->coords (1) - nodes (0)->coords (1);
 
   // modif DynELA 0.9.5
   // correction d'un bug, merci Maxima
@@ -242,11 +242,11 @@ double ElTri3N2D::getVolume ()
 {
   double l1, l2, l3, l4, l5;
 
-  l1 = nodes (0)->coordinates.distance (nodes (1)->coordinates);
-  l2 = nodes (1)->coordinates.distance (nodes (2)->coordinates);
-  l3 = nodes (2)->coordinates.distance (nodes (3)->coordinates);
-  l4 = nodes (3)->coordinates.distance (nodes (0)->coordinates);
-  l5 = nodes (0)->coordinates.distance (nodes (2)->coordinates);
+  l1 = nodes (0)->coords.distance (nodes (1)->coords);
+  l2 = nodes (1)->coords.distance (nodes (2)->coords);
+  l3 = nodes (2)->coords.distance (nodes (3)->coords);
+  l4 = nodes (3)->coords.distance (nodes (0)->coords);
+  l5 = nodes (0)->coords.distance (nodes (2)->coords);
 
   return (dnlSurfTriangle (l1, l2, l5) + dnlSurfTriangle (l3, l4, l5));
 }
@@ -282,9 +282,9 @@ void ElTri3N2D::computeGlob2Loc ()
     {
       pnd = nodes (i);
       nds (i, 0) = 1.;
-      nds (i, 1) = pnd->coordinates (0);
-      nds (i, 2) = pnd->coordinates (1);
-      nds (i, 3) = pnd->coordinates (0) * pnd->coordinates (1);
+      nds (i, 1) = pnd->coords (0);
+      nds (i, 2) = pnd->coords (1);
+      nds (i, 3) = pnd->coords (0) * pnd->coords (1);
     }
 
   // inversion de la matrice

@@ -60,7 +60,7 @@ void Polygon::add(Node *node)
     fatalError("No left space in polygon");
   }
   nodes[points] = node;
-  vertices[points] = node->coordinates;
+  vertices[points] = node->coords;
   points++;
 }
 
@@ -101,7 +101,7 @@ void Polygon::resetCoordinates()
   center = 0.0;
   for (int i = 0; i < points; i++)
   {
-    vertices[i] = nodes[i]->coordinates;
+    vertices[i] = nodes[i]->coords;
     center += vertices[i];
   }
   center /= points;

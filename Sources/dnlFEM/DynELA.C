@@ -129,7 +129,7 @@ Node *DynELA::getNodeByNum(long nodeNumber)
   }
 
   // no so search for it
-  return model.nodes.search(substractNodesNumber, nodeNumber);
+  return model.nodes.search(substractNN, nodeNumber);
 }
 
 // recherche d'un element dans la structure en fonction de son numero
@@ -179,7 +179,7 @@ bool DynELA::createNode(long nodeNumber, double xCoord, double yCoord, double zC
 
   // logFile
   char st[80];
-  sprintf(st, "%ld [%lf,%lf,%lf]", newNode->number, newNode->coordinates(0), newNode->coordinates(1), newNode->coordinates(2));
+  sprintf(st, "%ld [%lf,%lf,%lf]", newNode->number, newNode->coords(0), newNode->coords(1), newNode->coords(2));
   logFile << "Node : " << st << " added to " << name << "\n";
 
   return true;
@@ -544,10 +544,10 @@ void DynELA::translate(Vec3D translateVector, NodeSet *nodeSet)
 {
   if (nodeSet != NULL)
     for (long i = 0; i < nodeSet->size(); i++)
-      nodeSet->nodes(i)->coordinates += translateVector;
+      nodeSet->nodes(i)->coords += translateVector;
   else
     for (long i = 0; i < model.nodes.size(); i++)
-      model.nodes(i)->coordinates += translateVector;
+      model.nodes(i)->coords += translateVector;
 }
 
 //-----------------------------------------------------------------------------
@@ -556,10 +556,10 @@ void DynELA::scale(double scaleValue, NodeSet *nodeSet)
 {
   if (nodeSet != NULL)
     for (long i = 0; i < nodeSet->size(); i++)
-      nodeSet->nodes(i)->coordinates *= scaleValue;
+      nodeSet->nodes(i)->coords *= scaleValue;
   else
     for (long i = 0; i < model.nodes.size(); i++)
-      model.nodes(i)->coordinates *= scaleValue;
+      model.nodes(i)->coords *= scaleValue;
 }
 
 //-----------------------------------------------------------------------------
@@ -569,11 +569,11 @@ void DynELA::scale(Vec3D scaleVector, NodeSet *nodeSet)
   if (nodeSet != NULL)
     for (long i = 0; i < nodeSet->size(); i++)
       for (long c = 0; c < 3; c++)
-        nodeSet->nodes(i)->coordinates(c) *= scaleVector(c);
+        nodeSet->nodes(i)->coords(c) *= scaleVector(c);
   else
     for (long i = 0; i < model.nodes.size(); i++)
       for (long c = 0; c < 3; c++)
-        model.nodes(i)->coordinates(c) *= scaleVector(c);
+        model.nodes(i)->coords(c) *= scaleVector(c);
 }
 
 //-----------------------------------------------------------------------------
@@ -617,10 +617,10 @@ void DynELA::rotate(String set, double angle, NodeSet *nodeSet)
 
   if (nodeSet != NULL)
     for (long i = 0; i < nodeSet->size(); i++)
-      nodeSet->nodes(i)->coordinates = Mat * nodeSet->nodes(i)->coordinates;
+      nodeSet->nodes(i)->coords = Mat * nodeSet->nodes(i)->coords;
   else
     for (long i = 0; i < model.nodes.size(); i++)
-      model.nodes(i)->coordinates = Mat * model.nodes(i)->coordinates;
+      model.nodes(i)->coords = Mat * model.nodes(i)->coords;
 }
 
 //-----------------------------------------------------------------------------
@@ -646,10 +646,10 @@ void DynELA::rotate(Vec3D axis, double angle, NodeSet *nodeSet)
 
   if (nodeSet != NULL)
     for (long i = 0; i < nodeSet->size(); i++)
-      nodeSet->nodes(i)->coordinates = Mat * nodeSet->nodes(i)->coordinates;
+      nodeSet->nodes(i)->coords = Mat * nodeSet->nodes(i)->coords;
   else
     for (long i = 0; i < model.nodes.size(); i++)
-      model.nodes(i)->coordinates = Mat * model.nodes(i)->coordinates;
+      model.nodes(i)->coords = Mat * model.nodes(i)->coords;
 }
 
 // calcule les coordonnees mini et maxi de l'ensemble des noeuds d'une structure
@@ -663,23 +663,23 @@ void DynELA::rotate(Vec3D axis, double angle, NodeSet *nodeSet)
 void DynELA::getGlobalBox(Vec3D &minPoint, Vec3D &maxPoint)
 //-----------------------------------------------------------------------------
 {
-  Vec3D coordinates;
+  Vec3D coords;
   long i, j;
 
   // affectation par defaut au commencement
-  maxPoint = minPoint = model.nodes(0)->coordinates;
+  maxPoint = minPoint = model.nodes(0)->coords;
 
   // boucle de recherche
   for (i = 1; i < model.nodes.size(); i++)
   {
-    coordinates = model.nodes(i)->coordinates;
+    coords = model.nodes(i)->coords;
 
     for (j = 0; j < 3; j++)
     {
-      if (coordinates(j) < minPoint(j))
-        minPoint(j) = coordinates(j);
-      if (coordinates(j) > maxPoint(j))
-        maxPoint(j) = coordinates(j);
+      if (coords(j) < minPoint(j))
+        minPoint(j) = coords(j);
+      if (coords(j) > maxPoint(j))
+        maxPoint(j) = coords(j);
     }
   }
 }

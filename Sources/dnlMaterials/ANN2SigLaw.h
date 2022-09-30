@@ -29,7 +29,7 @@
   \sigma_{\varepsilon^{p}}^{y}(\stackrel{\bullet}{\overline{\varepsilon^{p}}})=1+C\ln\left(\frac{\stackrel{\bullet}{\overline{\varepsilon^{p}}}}{\stackrel{\bullet}{\overline{\varepsilon_{0}}}}\right) & \mbox{if} & \stackrel{\bullet}{\overline{\varepsilon^{p}}}\geq\stackrel{\bullet}{\overline{\varepsilon_{0}}}\\
   \sigma_{\varepsilon^{p}}^{y}(\stackrel{\bullet}{\overline{\varepsilon^{p}}})=1 & \mbox{if} & \stackrel{\bullet}{\overline{\varepsilon^{p}}}<\stackrel{\bullet}{\overline{\varepsilon_{0}}}
   \end{array}\right.\f]
-  and the dependence on temperature \f$ \sigma_{T}^{y}(T)\f$ is defined by the following:
+  and the dependence on T \f$ \sigma_{T}^{y}(T)\f$ is defined by the following:
   \f[ \left\{ \begin{array}{lll}
   \sigma_{T}^{y}(T)=1-\left(\frac{T-T_{0}}{T_{m}-T_{0}}\right)^{m} & \mbox{if} & T_{0}\leq T\leq T_{m}\\
   \sigma_{T}^{y}(T)=1 & \mbox{if} & T<T_{0}\\

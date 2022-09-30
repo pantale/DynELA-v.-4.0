@@ -52,7 +52,7 @@ double ElementAxi::getRadiusAtIntegrationPoint()
   // Computes currentRadius
   for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    currentRadius += _integrationPoint->integrationPointData->shapeFunction(nodeId) * nodes(nodeId)->coordinates(0);
+    currentRadius += _integrationPoint->integrationPointData->shapeFunction(nodeId) * nodes(nodeId)->coords(0);
   }
 
   return currentRadius;
@@ -68,7 +68,7 @@ double ElementAxi::getRadiusAtUnderIntegrationPoint()
   // Computes currentRadius
   for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    currentRadius += _underIntegrationPoint->integrationPointData->shapeFunction(nodeId) * nodes(nodeId)->coordinates(0);
+    currentRadius += _underIntegrationPoint->integrationPointData->shapeFunction(nodeId) * nodes(nodeId)->coords(0);
   }
 
   return currentRadius;
@@ -88,11 +88,11 @@ void ElementAxi::computeDeformationGradient(Tensor2 &F, short time)
   for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     field = nodes(nodeId)->field(time);
-    F(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(0);
-    F(0, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->displacement(0);
-    F(1, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(1);
-    F(1, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->displacement(1);
-    Vr += _integrationPoint->integrationPointData->shapeFunction(nodeId) * field->displacement(0);
+    F(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->u(0);
+    F(0, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->u(0);
+    F(1, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->u(1);
+    F(1, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->u(1);
+    Vr += _integrationPoint->integrationPointData->shapeFunction(nodeId) * field->u(0);
   }
 
   // calcul F terme axisymetrique
@@ -106,18 +106,18 @@ bool ElementAxi::checkLevel2()
   // check for a negative value of x coordinate
   for (short nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    if (nodes(nodeId)->coordinates(0) < 0.)
+    if (nodes(nodeId)->coords(0) < 0.)
     {
-      if (nodes(nodeId)->coordinates(0) > -1e-8)
+      if (nodes(nodeId)->coords(0) > -1e-8)
       {
         warning("Negative r value in an axisymetric element",
                 "Element %d has an r value of %10.3E\nThis has been changed to 0.00\n",
-                number, nodes(nodeId)->coordinates(0));
-        nodes(nodeId)->coordinates(0) = 0.;
+                number, nodes(nodeId)->coords(0));
+        nodes(nodeId)->coords(0) = 0.;
       }
       else
       {
-        std::cerr << "Error in element " << number << "\nr coordinate (" << nodes(nodeId)->coordinates(0) << ") of the node " << nodes(nodeId)->number << " is negative\n";
+        std::cerr << "Error in element " << number << "\nr coordinate (" << nodes(nodeId)->coords(0) << ") of the node " << nodes(nodeId)->number << " is negative\n";
         exit(-1);
       }
     }
@@ -170,11 +170,11 @@ void ElementAxi::getdU_atIntPoint (Tensor2 & du, short time)
   for (k = 0; k < getNumberOfNodes(); k++)
     {
       field = nodes (k)->field (time);
-      du (0, 0) += _integrationPoint->dShapeFunction (k, 0) * field->displacement (0);
-      du (0, 1) += _integrationPoint->dShapeFunction (k, 1) * field->displacement (0);
-      du (1, 0) += _integrationPoint->dShapeFunction (k, 0) * field->displacement (1);
-      du (1, 1) += _integrationPoint->dShapeFunction (k, 1) * field->displacement (1);
-       v += _integrationPoint->integrationPointData->shapeFunction (k) * field->displacement (0);
+      du (0, 0) += _integrationPoint->dShapeFunction (k, 0) * field->u (0);
+      du (0, 1) += _integrationPoint->dShapeFunction (k, 1) * field->u (0);
+      du (1, 0) += _integrationPoint->dShapeFunction (k, 0) * field->u (1);
+      du (1, 1) += _integrationPoint->dShapeFunction (k, 1) * field->u (1);
+       v += _integrationPoint->integrationPointData->shapeFunction (k) * field->u (0);
     }
 
   // calcul du terme axisymetrique

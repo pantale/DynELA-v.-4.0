@@ -76,7 +76,7 @@ steel.poissonRatio = poisson
 steel.density = density
 steel.heatCapacity = heatCapacity
 steel.taylorQuinney = taylorQuinney
-steel.initialTemperature = T0
+steel.T0 = T0
 
 # Finaly link the material to the structure
 model.add(steel, allES)
@@ -116,7 +116,7 @@ model.add(vonMisesHist)
 
 temperatureHist = dnl.HistoryFile('temperatureHistory')
 temperatureHist.setFileName('temperature.plot')
-temperatureHist.add(allES, 0, dnl.Field.temperature)
+temperatureHist.add(allES, 0, dnl.Field.T)
 temperatureHist.setSaveTime(stopTime/nbrePoints)
 model.add(temperatureHist)
 
@@ -160,7 +160,7 @@ svg = dnl.SvgInterface('SVG')
 #axis=dnl.Vec3D(1,1,0)
 #svg.initDrawing()
 svg.rotate(dnl.Vec3D(1,1,0),45)
-svg.write('temperaturesContour.svg', dnl.Field.temperature)
+svg.write('temperaturesContour.svg', dnl.Field.T)
 
 # Plot the results as curves
 import dnlCurves as cu

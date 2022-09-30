@@ -93,7 +93,7 @@ steel.poissonRatio = poisson
 steel.density = density
 steel.heatCapacity = heatCapacity
 steel.taylorQuinney = taylorQuinney
-steel.initialTemperature = T0
+steel.T0 = T0
 model.add(steel, allES)
 
 # Declaration of a boundary condition for bottom line
@@ -134,19 +134,19 @@ model.add(plasticStrainHist)
 
 temperatureHist = dnl.HistoryFile('temperatureHistory')
 temperatureHist.setFileName('temperature.plot')
-temperatureHist.add(histES, 0, dnl.Field.temperature)
+temperatureHist.add(histES, 0, dnl.Field.T)
 temperatureHist.setSaveTime(stopTime / nbrePoints)
 model.add(temperatureHist)
 
 radiusHist = dnl.HistoryFile('radiusHistory')
 radiusHist.setFileName('radius.plot')
-radiusHist.add(histRad, dnl.Field.nodeCoordinateX)
+radiusHist.add(histRad, dnl.Field.coordsX)
 radiusHist.setSaveTime(stopTime / nbrePoints)
 model.add(radiusHist)
 
 heightHist = dnl.HistoryFile('heightHistory')
 heightHist.setFileName('height.plot')
-heightHist.add(histHei, dnl.Field.nodeCoordinateY)
+heightHist.add(histHei, dnl.Field.coordsY)
 heightHist.setSaveTime(stopTime / nbrePoints)
 model.add(heightHist)
 
@@ -167,8 +167,8 @@ model.parallel.setCores(4)
 
 model.solve()
 
-finalRadius = model.getNodeByNum(1+nbElementsWidth).coordinates(0)
-finalHeight = model.getNodeByNum(nbNodes-nbElementsWidth).coordinates(1)
+finalRadius = model.getNodeByNum(1+nbElementsWidth).coords(0)
+finalHeight = model.getNodeByNum(nbNodes-nbElementsWidth).coords(1)
 f=open('results.txt','w')
 f.write('final radius : ' + str(finalRadius) + '\n')
 f.write('final height : ' + str(finalHeight) + '\n')
@@ -177,7 +177,7 @@ f.close()
 svg = dnl.SvgInterface('SVG')
 svg.setTitleDisplay(False)
 svg.setLegendPosition(350, 150)
-svg.write('temperatureCP.svg', dnl.Field.temperature)
+svg.write('temperatureCP.svg', dnl.Field.T)
 svg.write('vonMisesCP.svg', dnl.Field.vonMises)
 svg.write('plasticStrainCP.svg', dnl.Field.plasticStrain)
 

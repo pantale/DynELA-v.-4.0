@@ -237,7 +237,7 @@ void Vector::print(std::ostream &os) const
 {
   long i;
 
-  os << "vector n=" << _dataLength << " coordinates={";
+  os << "vector n=" << _dataLength << " coords={";
   if (_dataLength != 0)
     os << _data[0];
   for (i = 1; i < _dataLength; i++)
@@ -262,7 +262,7 @@ void Vector::printOut()
   case outVectorTypeNormal:
   {
     long i;
-    std::cout << "vector " << _dataLength << " coordinates={";
+    std::cout << "vector " << _dataLength << " coords={";
     if (_dataLength != 0)
       std::cout << _data[0];
     for (i = 1; i < _dataLength; i++)

@@ -546,7 +546,7 @@ std::ostream &operator<<(std::ostream &os, const Vec3D &vector)
 void Vec3D::print(std::ostream &os) const
 //-----------------------------------------------------------------------------
 {
-    os << "Vec3D coordinates={";
+    os << "Vec3D coords={";
     os << _data[0];
     for (int i = 1; i < 3; i++)
     {

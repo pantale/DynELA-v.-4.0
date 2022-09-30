@@ -441,7 +441,7 @@ void Explicit::computePredictions()
   Node *node;
 
 #ifdef PRINT_Execution_Solve
-  cout << "Predictions de displacement, speed et acceleration\n";
+  cout << "Predictions de disp, speed et acceleration\n";
 #endif
 
   // boucle sur les noeuds du modele
@@ -456,12 +456,12 @@ void Explicit::computePredictions()
 #endif
 
     // prediction du deplacement
-    node->field1->displacement = timeStep * (node->field0->speed + (0.5 - _beta) * timeStep * node->field0->acceleration);
-    // node->field1->displacement = node->field0->displacement + node->field1->displacement;
-    /*  node->field1->displacement = node->field0->acceleration;
-    node->field1->displacement *= timeStep * (0.5 - _beta);
-    node->field1->displacement += node->field0->speed;
-    node->field1->displacement *= timeStep;
+    node->field1->u = timeStep * (node->field0->speed + (0.5 - _beta) * timeStep * node->field0->acceleration);
+    // node->field1->u = node->field0->u + node->field1->u;
+    /*  node->field1->u = node->field0->acceleration;
+    node->field1->u *= timeStep * (0.5 - _beta);
+    node->field1->u += node->field0->speed;
+    node->field1->u *= timeStep;
  */
 
     // prediction de la vitesse
@@ -477,7 +477,7 @@ void Explicit::computePredictions()
     if (node->boundary != NULL)
       node->boundary->applyConstantOnNewFields(node, model->currentTime, timeStep);
 
-    //  node->field1->displacement = node->field0->displacement + node->field1->displacement;
+    //  node->field1->u = node->field0->u + node->field1->u;
   }
 }
 
@@ -519,7 +519,7 @@ void Explicit::explicitSolve()
     node->field1->speed += _gamma * timeStep * node->field1->acceleration;
 
     // mise à jour du deplacement
-    node->field1->displacement += _beta * dnlSquare(timeStep) * node->field1->acceleration;
+    node->field1->u += _beta * dnlSquare(timeStep) * node->field1->acceleration;
 
     // application des conditions aux limites imposees
     if (node->boundary != NULL)
@@ -528,10 +528,10 @@ void Explicit::explicitSolve()
     // prise en compte du contact
 
     // prise en compte des conditions aux limites
-    node->displacement += node->field1->displacement;
+    node->disp += node->field1->u;
 
     // mise à jour de la position des noeuds
-    node->coordinates += node->field1->displacement;
+    node->coords += node->field1->u;
   }
 }
 

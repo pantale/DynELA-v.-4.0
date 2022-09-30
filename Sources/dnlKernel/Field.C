@@ -23,35 +23,37 @@
 #define NAME_TENSOR2(NAME) NAME, NAME "XX", NAME "XY", NAME "XZ", NAME "YX", NAME "YY", NAME "YZ", NAME "ZX", NAME "ZY", NAME "ZZ"
 
 const char *const Field::vtkNames[] = {
-    NAME_VEC3D("displacement"),
-    NAME_VEC3D("displacementIncrement"),
-    NAME_VEC3D("initialNodeCoordinate"),
-    NAME_VEC3D("nodeCoordinate"),
+    NAME_VEC3D("coords"),
+    //NAME_VEC3D("coords0"),
+    NAME_VEC3D("disp"),
+    NAME_VEC3D("dispInc"),
     NAME_VEC3D("speed"),
-    NAME_VEC3D("speedIncrement"),
+    NAME_VEC3D("speedInc"),
     "density",
-    "plasticStrainRate",
-    "energy",
-    "energyIncrement",
-    "internalEnergy",
-    "plasticStrain",
+    //"energy",
+    //"energyInc",
     "gamma",
     "gammaCumulate",
-    "initialTemperature",
-    "mass",
-    "vonMises",
-    "pressure",
-    "temperature",
-    "timeStep",
-    "realTimeStep",
+    "internalEnergy",
+    "inelasticEnergy",
     "kineticEnergy",
+    "mass",
+    "plasticStrain",
+    "plasticStrainRate",
+    "pressure",
+    "realTimeStep",
+    "T",
+    //"T0",
+    "timeStep",
+    "vonMises",
     "yield",
-    NAME_TENSOR2("Strain"),
-    NAME_TENSOR2("StrainIncrement"),
+    //NAME_TENSOR2("DeviatoricStress"),
     NAME_TENSOR2("PlasticStrain"),
-    NAME_TENSOR2("PlasticStrainIncrement"),
-    NAME_TENSOR2("DeviatoricStress"),
-    NAME_TENSOR2("Stress"), "ENDFIELDS"};
+    NAME_TENSOR2("PlasticStrainInc"),
+    NAME_TENSOR2("Strain"),
+    NAME_TENSOR2("StrainInc"),
+    NAME_TENSOR2("Stress"),
+    "ENDFIELDS"};
 
 /*
   Default constructor of the Field class.
@@ -116,12 +118,12 @@ short Field::getType(short field)
   switch (field)
   {
   // Those guys are all Vec3D
-  case Field::displacement:
-  case Field::displacementIncrement:
-  case Field::initialNodeCoordinate:
-  case Field::nodeCoordinate:
+  case Field::disp:
+  case Field::dispInc:
+  //case Field::coords0:
+  case Field::coords:
   case Field::speed:
-  case Field::speedIncrement:
+  case Field::speedInc:
     return 1;
     break;
 
@@ -130,7 +132,7 @@ short Field::getType(short field)
   case Field::StrainInc:
   case Field::PlasticStrain:
   case Field::PlasticStrainInc:
-  case Field::DeviatoricStress:
+  //case Field::DeviatoricStress:
   case Field::Stress:
     return 2;
     break;

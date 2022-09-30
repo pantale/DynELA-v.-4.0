@@ -315,10 +315,10 @@ where $x_{ij}$ is the horizontal distance between points $i$ and $j$ and $y_{ij}
 double ElQua4N2D::getCharacteristicLength()
 //-----------------------------------------------------------------------------
 {
-    double x31 = nodes(2)->coordinates(0) - nodes(0)->coordinates(0);
-    double x24 = nodes(1)->coordinates(0) - nodes(3)->coordinates(0);
-    double y42 = nodes(3)->coordinates(1) - nodes(1)->coordinates(1);
-    double y31 = nodes(2)->coordinates(1) - nodes(0)->coordinates(1);
+    double x31 = nodes(2)->coords(0) - nodes(0)->coords(0);
+    double x24 = nodes(1)->coords(0) - nodes(3)->coords(0);
+    double y42 = nodes(3)->coords(1) - nodes(1)->coords(1);
+    double y31 = nodes(2)->coords(1) - nodes(0)->coords(1);
 
     return ((x31 * y42 + x24 * y31) / sqrt(2.0 * (dnlSquare(x24) + dnlSquare(y42) + dnlSquare(x31) + dnlSquare(y31))));
 }
@@ -327,5 +327,5 @@ double ElQua4N2D::getCharacteristicLength()
 double ElQua4N2D::getArea()
 //-----------------------------------------------------------------------------
 {
-    return sqrt(dnlSquare(nodes(1)->coordinates(0) * (nodes(0)->coordinates(1) - nodes(2)->coordinates(1)) + nodes(3)->coordinates(0) * (nodes(2)->coordinates(1) - nodes(0)->coordinates(1)) - (nodes(0)->coordinates(0) - nodes(2)->coordinates(0)) * (nodes(1)->coordinates(1) - nodes(3)->coordinates(1)))) / 2.0;
+    return sqrt(dnlSquare(nodes(1)->coords(0) * (nodes(0)->coords(1) - nodes(2)->coords(1)) + nodes(3)->coords(0) * (nodes(2)->coords(1) - nodes(0)->coords(1)) - (nodes(0)->coords(0) - nodes(2)->coords(0)) * (nodes(1)->coords(1) - nodes(3)->coords(1)))) / 2.0;
 }

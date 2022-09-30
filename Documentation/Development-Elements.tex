@@ -28,8 +28,8 @@ List<Element *>&elements&List of the elements that contains a reference to the c
 long&number&Identification number of the node.\\
 NodalField&*field0&Nodal field of the node at the begining of the increment.\\
 NodalField&*field1&Nodal field of the node at the end of the increment.\\
-Vec3D&coordinates&Coordinates of the corresponding node.\\
-Vec3D&displacement&Displacement at the current node $\overrightarrow{d}$.
+Vec3D&coords&Coordinates of the corresponding node.\\
+Vec3D&disp&Displacement at the current node $\overrightarrow{d}$.
 \end{tcolorbox}
 
 This class is used to store information for Finite Element Nodes.
@@ -58,18 +58,9 @@ double&z&Z coordinate of the node to create.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Node::swapFields(~)}}\label{Node::swapFields()}\index[DL]{Node!swapFields(~)}\\
-Swap the two nodalFields of the node.
+Swap the two fields of the node.
 
-This method swaps the two nodalField of the element. So that the field0 becomes the field1 and vice versa.
-%@END
-
-%@DOC:Node::copyNodalFieldToNew()
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Node::copyNodalFieldToNew(~)}}\label{Node::copyNodalFieldToNew()}\index[DL]{Node!copyNodalFieldToNew(~)}\\
-Copy the content of the nodalField to the field1.
-
+This method swaps the two fields of the node. So that the field0 becomes the field1 and vice versa.
 %@END
 
 %@DOC:Node::fieldScalar(short field)

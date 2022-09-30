@@ -95,7 +95,7 @@ void BoundarySpeed::applyConstantOnCurrentFields(Node *node, double currentTime,
     node->field0->speed = _speed;
 
     // deplacement constant
-    node->field0->displacement = node->field0->speed * timeStep;
+    node->field0->u = node->field0->speed * timeStep;
   }
   else
   {
@@ -106,7 +106,7 @@ void BoundarySpeed::applyConstantOnCurrentFields(Node *node, double currentTime,
     node->field0->speed = _function->getValue(currentTime) * _speed;
 
     // deplacement constant
-    node->field0->displacement = node->field0->speed * timeStep;
+    node->field0->u = node->field0->speed * timeStep;
   } */
   exit(0);
   for (int i = 0; i < 3; i++)
@@ -151,8 +151,8 @@ void BoundarySpeed::applyConstantOnNewFields(Node *node, double currentTime, dou
     node->field1->speed = _speed;
 
     // deplacement constant
-  //  node->field0->displacement = node->field0->speed * timeStep;
-    node->field1->displacement = node->field1->speed * timeStep;
+  //  node->field0->u = node->field0->speed * timeStep;
+    node->field1->u = node->field1->speed * timeStep;
   }
   else
   {
@@ -165,8 +165,8 @@ void BoundarySpeed::applyConstantOnNewFields(Node *node, double currentTime, dou
     node->field1->speed = _function->getValue(currentTime + timeStep) * _speed;
 
     // deplacement constant
- //   node->field0->displacement = node->field0->speed * timeStep;
-    node->field1->displacement = node->field1->speed * timeStep;
+ //   node->field0->u = node->field0->speed * timeStep;
+    node->field1->u = node->field1->speed * timeStep;
   } */
   for (short direction = 0; direction < 3; direction++)
   {
@@ -185,8 +185,8 @@ void BoundarySpeed::applyConstantOnNewFields(Node *node, double currentTime, dou
         node->field1->speed(direction) = _speed(direction);
 
         // deplacement constant
-        node->field0->displacement(direction) = node->field0->speed(direction) * timeStep;
-        node->field1->displacement(direction) = node->field1->speed(direction) * timeStep;
+        node->field0->u(direction) = node->field0->speed(direction) * timeStep;
+        node->field1->u(direction) = node->field1->speed(direction) * timeStep;
       }
       else
       {
@@ -199,8 +199,8 @@ void BoundarySpeed::applyConstantOnNewFields(Node *node, double currentTime, dou
         node->field1->speed(direction) = _function->getValue(currentTime + timeStep) * _speed(direction);
 
         // deplacement constant
-        node->field0->displacement(direction) = node->field0->speed(direction) * timeStep;
-        node->field1->displacement(direction) = node->field1->speed(direction) * timeStep;
+        node->field0->u(direction) = node->field0->speed(direction) * timeStep;
+        node->field1->u(direction) = node->field1->speed(direction) * timeStep;
       }
     }
   }

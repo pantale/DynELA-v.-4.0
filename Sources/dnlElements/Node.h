@@ -28,8 +28,8 @@ This class is used to store information for Finite Element Nodes.
 @ARG:long&number&Identification number of the node.
 @ARG:NodalField&*field0&Nodal field of the node at the begining of the increment.
 @ARG:NodalField&*field1&Nodal field of the node at the end of the increment.
-@ARG:Vec3D&coordinates&Coordinates of the corresponding node.
-@ARG:Vec3D&displacement&Displacement at the current node $\overrightarrow{d}$.
+@ARG:Vec3D&coords&Coordinates of the corresponding node.
+@ARG:Vec3D&disp&Displacement at the current node $\overrightarrow{d}$.
 @END
 */
 class Node
@@ -38,9 +38,9 @@ class Node
   long _listIndex;                // Local index used for the ListIndex management.
 
 public:
-  // double initialTemperature;     // Initial Temperature. This field is used to store the reference value of the temperature of the node at the begining of the calculus
+  // double T0;     // Initial Temperature. This field is used to store the reference value of the T of the node at the begining of the calculus
   // NodeMotion *motion;          // Node motion. This pointer reference the method used to move the point.
-  // Vec3D initialCoordinates;      // Coordinates. Initial coordinates of the corresponding point.
+  // Vec3D initialCoordinates;      // Coordinates. Initial coords of the corresponding point.
   // Vec3D normal;                // Normal vector. This vector represents the normal vector of the current point in 3D space. Such normal vector is compted from the values of the normals of the faces connected to this point.
   BoundaryCondition *boundary; // Boundary conditions. This pointer reference the list of the boundary conditions on the current node.
   double mass;                 // Mass. This field is used to store the value of the getJ2 nodal mass.
@@ -48,12 +48,12 @@ public:
   long number;                 // Identification number. This field represents the external identification number of the current node (ie. user representation).
   NodalField *field0;          // Nodal field of the node, ie. nodal field at the begining of the current increment
   NodalField *field1;          // New Nodal field of the node, ie. nodal field at the end of the current increment
-  Vec3D coordinates;           // Coordinates of the corresponding node.
-  Vec3D displacement = 0;      // Displacement at the current node \f$ \overrightarrow{d} \f$
+  Vec3D coords;                // Coordinates of the corresponding node.
+  Vec3D disp = 0;              // Displacement at the current node \f$ \overrightarrow{d} \f$
 
 public:
   Node(long = 1, double = 0, double = 0, double = 0);
-  //Node(const Node &);
+  // Node(const Node &);
   ~Node();
 
   // Interface methods excluded from SWIG
@@ -64,6 +64,8 @@ public:
   friend std::ostream &operator<<(std::ostream &, Node &);
   void print(std::ostream &) const;
   void write(std::ofstream &) const;
+  bool operator!=(const Node &) const;
+  bool operator==(const Node &) const;
 #endif
 
   // Interface methods excluded from basic SWIG support
@@ -73,8 +75,7 @@ public:
   /*   bool operator<(const Node &node) const;
   bool operator>(const Node &node) const;
  */
-  bool operator!=(const Node &) const;
-  bool operator==(const Node &) const;
+
   double fieldScalar(short);
   long &internalNumber();
   long objectSize();
@@ -82,7 +83,7 @@ public:
   SymTensor2 fieldSymTensor2(short);
   Tensor2 fieldTensor2(short);
   Vec3D fieldVec3D(short);
-  void copyNodalFieldToNew();
+  // void copyNodalFieldToNew();
   void swapFields();
 
   /**Attach an element. This method is used to add a new reference to an element in the list of the elements connected to the current point. There is no limit in the number of elements connected to the current node, so there is no verification procedure to see if this is correct for the structure.*/
@@ -115,8 +116,8 @@ public:
   //}
 };
 
-bool compareNodesNumber(Node *node1, Node *node2);
-long substractNodesNumber(Node *node1, const long number);
+bool compareNN(Node *, Node *);
+long substractNN(Node *, const long);
 
 /*
 //-----------------------------------------------------------------------------

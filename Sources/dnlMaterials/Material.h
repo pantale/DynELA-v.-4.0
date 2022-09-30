@@ -51,7 +51,7 @@ public:
   double density = 0.0;               // Material density of the material \f$\rho\f$
   double heatCapacity = 0.0;          // Specific Heat capacity of the material \f$C_{p}\f$
   double dilatation = 0.0;            // Dilatation coefficient of the material \f$\alpha\f$
-  double initialTemperature = 0.0;    // Reference temperature of the material  \f$T_{0}\f$
+  double T0 = 0.0;    // Reference T of the material  \f$T_{0}\f$
   double thermalConductivity = 0.0;   // Thermal thermalConductivity of the material \f$\lambda}\f$
   double taylorQuinney = 0.0;         // Taylor-Quinney coefficient \f$\eta\f$ defining the amount of plastic work converted into heat energy
 

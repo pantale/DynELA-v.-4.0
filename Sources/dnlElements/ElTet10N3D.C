@@ -489,12 +489,12 @@ double ElTet10N3D::getCharacteristicLength()
 //-----------------------------------------------------------------------------
 {
   double l1,l2,l3,l4,l5,l6,ll;
-  l1=nodes(0)->coordinates.distance(nodes(1)->coordinates);
-  l2=nodes(0)->coordinates.distance(nodes(2)->coordinates);
-  l3=nodes(1)->coordinates.distance(nodes(2)->coordinates);
-  l4=nodes(0)->coordinates.distance(nodes(3)->coordinates);
-  l5=nodes(1)->coordinates.distance(nodes(3)->coordinates);
-  l6=nodes(2)->coordinates.distance(nodes(3)->coordinates);
+  l1=nodes(0)->coords.distance(nodes(1)->coords);
+  l2=nodes(0)->coords.distance(nodes(2)->coords);
+  l3=nodes(1)->coords.distance(nodes(2)->coords);
+  l4=nodes(0)->coords.distance(nodes(3)->coords);
+  l5=nodes(1)->coords.distance(nodes(3)->coords);
+  l6=nodes(2)->coords.distance(nodes(3)->coords);
   ll=dnlMin(l1,l2);
   ll=dnlMin(ll,l3);
   ll=dnlMin(ll,l4);
@@ -511,11 +511,11 @@ double ElTet10N3D::getVolume()
   exit(-1);
 
   double l1,l2,l3,l4,l5;
-  l1=nodes(1)->coordinates.distance(nodes(2)->coordinates);
-  l2=nodes(2)->coordinates.distance(nodes(3)->coordinates);
-  l3=nodes(3)->coordinates.distance(nodes(4)->coordinates);
-  l4=nodes(4)->coordinates.distance(nodes(1)->coordinates);
-  l5=nodes(1)->coordinates.distance(nodes(3)->coordinates);
+  l1=nodes(1)->coords.distance(nodes(2)->coords);
+  l2=nodes(2)->coords.distance(nodes(3)->coords);
+  l3=nodes(3)->coords.distance(nodes(4)->coords);
+  l4=nodes(4)->coords.distance(nodes(1)->coords);
+  l5=nodes(1)->coords.distance(nodes(3)->coords);
   return (dnlSurfTriangle(l1,l2,l5)+dnlSurfTriangle(l3,l4,l5));
 }
 
@@ -546,9 +546,9 @@ void ElTet10N3D::computeGlob2Loc()
     {
       pnd = nodes (i);
       nds (i, 0) = 1;
-      nds (i, 1) = pnd->coordinates (0);
-      nds (i, 2) = pnd->coordinates (1);
-      nds (i, 3) = pnd->coordinates (2);
+      nds (i, 1) = pnd->coords (0);
+      nds (i, 2) = pnd->coords (1);
+      nds (i, 3) = pnd->coords (2);
     }
 
   // inversion de la matrice

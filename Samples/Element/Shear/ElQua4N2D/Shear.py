@@ -74,7 +74,7 @@ steel.poissonRatio = poisson
 steel.density = density
 steel.heatCapacity = heatCapacity
 steel.taylorQuinney = taylorQuinney
-steel.initialTemperature = T0
+steel.T0 = T0
 
 # Finaly link the material to the structure
 model.add(steel, allES)
@@ -123,7 +123,7 @@ model.add(StressHist)
 
 temperatureHist = dnl.HistoryFile('temperatureHistory')
 temperatureHist.setFileName('temperature.plot')
-temperatureHist.add(histNS, dnl.Field.temperature)
+temperatureHist.add(histNS, dnl.Field.T)
 temperatureHist.setSaveTime(stopTime/nbrePoints)
 model.add(temperatureHist)
 

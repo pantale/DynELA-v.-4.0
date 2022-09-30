@@ -613,18 +613,18 @@ void ElHex8N3D::getDerShapeFunctionAtPoint(Matrix &derShapeFunctions, const Vec3
 
 #define AERT(res, p1, p2, p3, p4)                                                                                                                          \
     {                                                                                                                                                      \
-        double x1 = nodes(p1)->coordinates(0);                                                                                                             \
-        double x2 = nodes(p2)->coordinates(0);                                                                                                             \
-        double x3 = nodes(p3)->coordinates(0);                                                                                                             \
-        double x4 = nodes(p4)->coordinates(0);                                                                                                             \
-        double y1 = nodes(p1)->coordinates(1);                                                                                                             \
-        double y2 = nodes(p2)->coordinates(1);                                                                                                             \
-        double y3 = nodes(p3)->coordinates(1);                                                                                                             \
-        double y4 = nodes(p4)->coordinates(1);                                                                                                             \
-        double z1 = nodes(p1)->coordinates(2);                                                                                                             \
-        double z2 = nodes(p2)->coordinates(2);                                                                                                             \
-        double z3 = nodes(p3)->coordinates(2);                                                                                                             \
-        double z4 = nodes(p4)->coordinates(2);                                                                                                             \
+        double x1 = nodes(p1)->coords(0);                                                                                                             \
+        double x2 = nodes(p2)->coords(0);                                                                                                             \
+        double x3 = nodes(p3)->coords(0);                                                                                                             \
+        double x4 = nodes(p4)->coords(0);                                                                                                             \
+        double y1 = nodes(p1)->coords(1);                                                                                                             \
+        double y2 = nodes(p2)->coords(1);                                                                                                             \
+        double y3 = nodes(p3)->coords(1);                                                                                                             \
+        double y4 = nodes(p4)->coords(1);                                                                                                             \
+        double z1 = nodes(p1)->coords(2);                                                                                                             \
+        double z2 = nodes(p2)->coords(2);                                                                                                             \
+        double z3 = nodes(p3)->coords(2);                                                                                                             \
+        double z4 = nodes(p4)->coords(2);                                                                                                             \
         res = sqrt(4 * (dnlSquare(x1 - x3) + dnlSquare(y1 - y3) + dnlSquare(z1 - z3)) * (dnlSquare(x2 - x4) + dnlSquare(y2 - y4) + dnlSquare(z2 - z4)) -   \
                    4 * dnlSquare(-(x2 * x3) + x1 * (x2 - x4) + x3 * x4 + y1 * y2 - y2 * y3 - y1 * y4 + y3 * y4 + z1 * z2 - z2 * z3 - z1 * z4 + z3 * z4)) / \
               4;                                                                                                                                           \
@@ -656,28 +656,28 @@ double ElHex8N3D::getVolume()
     double height;
     double volume = 0.0;
 
-    base = (((nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(2)->coordinates - nodes(0)->coordinates)).getNorm() +
-            ((nodes(3)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(2)->coordinates - nodes(0)->coordinates)).getNorm()) /
+    base = (((nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(2)->coords - nodes(0)->coords)).getNorm() +
+            ((nodes(3)->coords - nodes(0)->coords).vectorProduct(nodes(2)->coords - nodes(0)->coords)).getNorm()) /
            2.0;
-    norm = (nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(3)->coordinates - nodes(0)->coordinates);
+    norm = (nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(3)->coords - nodes(0)->coords);
     norm.normalize();
-    height = dnlAbs(norm.dot(nodes(7)->coordinates - nodes(0)->coordinates));
+    height = dnlAbs(norm.dot(nodes(7)->coords - nodes(0)->coords));
     volume += base * height / 3.0;
 
-    base = (((nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(5)->coordinates - nodes(0)->coordinates)).getNorm() +
-            ((nodes(4)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(5)->coordinates - nodes(0)->coordinates)).getNorm()) /
+    base = (((nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(5)->coords - nodes(0)->coords)).getNorm() +
+            ((nodes(4)->coords - nodes(0)->coords).vectorProduct(nodes(5)->coords - nodes(0)->coords)).getNorm()) /
            2.0;
-    norm = (nodes(1)->coordinates - nodes(0)->coordinates).vectorProduct(nodes(4)->coordinates - nodes(0)->coordinates);
+    norm = (nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(4)->coords - nodes(0)->coords);
     norm.normalize();
-    height = dnlAbs(norm.dot(nodes(7)->coordinates - nodes(0)->coordinates));
+    height = dnlAbs(norm.dot(nodes(7)->coords - nodes(0)->coords));
     volume += base * height / 3.0;
 
-    base = (((nodes(2)->coordinates - nodes(1)->coordinates).vectorProduct(nodes(6)->coordinates - nodes(1)->coordinates)).getNorm() +
-            ((nodes(5)->coordinates - nodes(1)->coordinates).vectorProduct(nodes(6)->coordinates - nodes(1)->coordinates)).getNorm()) /
+    base = (((nodes(2)->coords - nodes(1)->coords).vectorProduct(nodes(6)->coords - nodes(1)->coords)).getNorm() +
+            ((nodes(5)->coords - nodes(1)->coords).vectorProduct(nodes(6)->coords - nodes(1)->coords)).getNorm()) /
            2.0;
-    norm = (nodes(2)->coordinates - nodes(1)->coordinates).vectorProduct(nodes(5)->coordinates - nodes(1)->coordinates);
+    norm = (nodes(2)->coords - nodes(1)->coords).vectorProduct(nodes(5)->coords - nodes(1)->coords);
     norm.normalize();
-    height = dnlAbs(norm.dot(nodes(7)->coordinates - nodes(1)->coordinates));
+    height = dnlAbs(norm.dot(nodes(7)->coords - nodes(1)->coords));
     volume += base * height / 3.0;
 
     return volume;
@@ -694,11 +694,11 @@ double ElHex8N3D::getVolume ()
   exit (-1);
 
   double l1, l2, l3, l4, l5;
-  l1 = nodes (1)->coordinates.distance (nodes (2)->coordinates);
-  l2 = nodes (2)->coordinates.distance (nodes (3)->coordinates);
-  l3 = nodes (3)->coordinates.distance (nodes (4)->coordinates);
-  l4 = nodes (4)->coordinates.distance (nodes (1)->coordinates);
-  l5 = nodes (1)->coordinates.distance (nodes (3)->coordinates);
+  l1 = nodes (1)->coords.distance (nodes (2)->coords);
+  l2 = nodes (2)->coords.distance (nodes (3)->coords);
+  l3 = nodes (3)->coords.distance (nodes (4)->coords);
+  l4 = nodes (4)->coords.distance (nodes (1)->coords);
+  l5 = nodes (1)->coords.distance (nodes (3)->coords);
   return (dnlSurfTriangle (l1, l2, l5) + dnlSurfTriangle (l3, l4, l5));
 }
 

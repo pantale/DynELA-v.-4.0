@@ -185,7 +185,7 @@ void Material::print(ostream &os) const
   os << "nu=" << poissonRatio << endl;
   os << "density=" << density << endl;
   os << "heatCapacity=" << heatCapacity << endl;
-  os << "initialTemperature=" << initialTemperature << endl;
+  os << "T0=" << T0 << endl;
 
   // complement d'ecriture de la partie ecrouissage isotrope
   if (_hardening != NULL)
@@ -211,7 +211,7 @@ void Material::toFile(FILE *pfile)
   fprintf(pfile, "  %8.5E  %8.5E  %8.5E\n\n", youngModulus, poissonRatio, density);
   fprintf(pfile, "    INITIAL       HEAT      DILATATION     THERMAL\n");
   fprintf(pfile, "  TEMPERATURE   CAPACITY       COEFF     CONDUCTIVITY\n");
-  fprintf(pfile, "  %8.5E  %8.5E  %8.5E  %8.5E\n\n", initialTemperature, heatCapacity, dilatation, thermalConductivity);
+  fprintf(pfile, "  %8.5E  %8.5E  %8.5E  %8.5E\n\n", T0, heatCapacity, dilatation, thermalConductivity);
 
   // complement d'ecriture de la partie ecrouissage isotrope
   if (_hardening != NULL)

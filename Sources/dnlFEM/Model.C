@@ -68,7 +68,7 @@ bool Model::add(Node *newNode)
 //-----------------------------------------------------------------------------
 {
   // search if not already in the list
-  if (nodes.search(substractNodesNumber, newNode->number) != NULL)
+  if (nodes.search(substractNN, newNode->number) != NULL)
   {
     fatalError("Model::add", "Node %ld already exists in the node list of this model\n", newNode->number);
   }
@@ -79,7 +79,7 @@ bool Model::add(Node *newNode)
     nodes << newNode;
 
     // qsort of the list if not sorted
-    nodes.sort(compareNodesNumber);
+    nodes.sort(compareNN);
   }
   else
   {
@@ -142,7 +142,7 @@ void Model::create(Element *newElement, long *listOfNodes)
 
   for (long j = 0; j < newElement->getNumberOfNodes(); j++)
   {
-    if ((pNode = nodes.search(substractNodesNumber, listOfNodes[j])) != NULL)
+    if ((pNode = nodes.search(substractNN, listOfNodes[j])) != NULL)
     {
       // Add the node to the liste of nodes of the new element
       newElement->addNode(pNode);
@@ -298,7 +298,7 @@ Node *Model::getNodeByNum(long nodeNumber)
   }
 
   // no so search for it
-  return nodes.search(substractNodesNumber, nodeNumber);
+  return nodes.search(substractNN, nodeNumber);
 }
 
 // recherche d'un element dans la structure en fonction de son numero
@@ -411,12 +411,12 @@ bool Model::initSolve()
   }
   dynelaData->logFile << elements.size() << " elements have been initialized\n";
 
-  // Saving the initial coordinates
+  // Saving the initial coords
   /*
-  dynelaData->logFile << "Saving initial coordinates ... ";
+  dynelaData->logFile << "Saving initial coords ... ";
   for (int nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
-    nodes(nodeId)->initialCoordinates = nodes(nodeId)->coordinates;
+    nodes(nodeId)->initialCoordinates = nodes(nodeId)->coords;
   }
   dynelaData->logFile << "ok\n";
  */
@@ -1102,22 +1102,22 @@ void Model::writeData(ofstream &pfile)
 void Model::getGlobalBox(Vec3D &min, Vec3D &max)
 //-----------------------------------------------------------------------------
 {
-  Vec3D coordinates;
+  Vec3D coords;
   long i, j;
   // affectation par defaut au commencement
-  max = min = nodes(0)->coordinates;
+  max = min = nodes(0)->coords;
 
   // boucle de recherche
   for (i = 1; i < nodes.size(); i++)
   {
-    coordinates = nodes(i)->coordinates;
+    coords = nodes(i)->coords;
 
     for (j = 0; j < 3; j++)
     {
-      if (coordinates(j) < min(j))
-        min(j) = coordinates(j);
-      if (coordinates(j) > max(j))
-        max(j) = coordinates(j);
+      if (coords(j) < min(j))
+        min(j) = coords(j);
+      if (coords(j) > max(j))
+        max(j) = coords(j);
     }
   }
 }
@@ -1143,9 +1143,9 @@ void Model::createNode(long num, double x, double y, double z)
   }
 
   // chargement des coordonnees
-  pnd->coordinates(0) = x;
-  pnd->coordinates(1) = y;
-  pnd->coordinates(2) = z;
+  pnd->coords(0) = x;
+  pnd->coords(1) = y;
+  pnd->coords(2) = z;
 
   //  fprintf (out_file, "node %ld %f,%f,%f", num, x, y, z);
 
@@ -1290,7 +1290,7 @@ void Model::createElement(Element *pel, long *nNodes)
 
   for (long j = 0; j < pel->getNumberOfNodes(); j++)
   {
-    if ((pnd = nodes.search(substractNodesNumber, nNodes[j])) != NULL)
+    if ((pnd = nodes.search(substractNN, nNodes[j])) != NULL)
     {
       pel->addNode(pnd);
       nNodes[j] = -1;

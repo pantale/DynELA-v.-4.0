@@ -68,21 +68,21 @@ class IntegrationPoint : public IntegrationPointBase
 {
 
 public:
-  double yieldStress = 0.0;       // parametre d'ecrouissage
-  double plasticStrain = 0.0;     // parametre d'ecrouissage
-  double plasticStrainRate = 0.0; // parametre d'ecrouissage
-  double pressure = 0.0;          // partie spherique du tenseur des contraintes
-  double gamma = 0.0;             // state variable for VUMAT gamma
-  double gammaCumulate = 0.0;     // state variable for VUMAT gamma
-  double temperature = 0.0;       // state variable for VUMAT temperature
-  double internalEnergy = 0.0;    //
-  double inelasticEnergy = 0.0;   //
-  double density;                 //
-  SymTensor2 Strain;              // tenseur des deformations
-  SymTensor2 StrainInc;           // increment du tenseur des deformations
-  SymTensor2 PlasticStrain;       // tenseur des deformations plastiques
-  SymTensor2 PlasticStrainInc;    // increment du tenseur des deformations plastiques
-  SymTensor2 Stress;              // tenseur des contraintes
+  double yieldStress = 0;       // parametre d'ecrouissage
+  double plasticStrain = 0;     // parametre d'ecrouissage
+  double plasticStrainRate = 0; // parametre d'ecrouissage
+  double pressure = 0;          // partie spherique du tenseur des contraintes
+  double gamma = 0;             // state variable for VUMAT gamma
+  double gammaCumulate = 0;     // state variable for VUMAT gamma
+  double T = 0;                 // state variable for VUMAT T
+  double internalEnergy = 0;    //
+  double inelasticEnergy = 0;   //
+  double density;               //
+  SymTensor2 Strain;            // tenseur des deformations
+  SymTensor2 StrainInc;         // increment du tenseur des deformations
+  SymTensor2 PlasticStrain;     // tenseur des deformations plastiques
+  SymTensor2 PlasticStrainInc;  // increment du tenseur des deformations plastiques
+  SymTensor2 Stress;            // tenseur des contraintes
 
 public:
   IntegrationPoint(int dimension, int numberOfNodes);

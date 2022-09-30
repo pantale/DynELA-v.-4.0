@@ -63,10 +63,10 @@ void Element2D::computeDeformationGradient(Tensor2 &F, short time)
   for (nodeId = 0; nodeId < nodes.size(); nodeId++)
   {
     field = nodes(nodeId)->field(time);
-    F(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(0);
-    F(0, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->displacement(0);
-    F(1, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->displacement(1);
-    F(1, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->displacement(1);
+    F(0, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->u(0);
+    F(0, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->u(0);
+    F(1, 0) += _integrationPoint->dShapeFunction(nodeId, 0) * field->u(1);
+    F(1, 1) += _integrationPoint->dShapeFunction(nodeId, 1) * field->u(1);
   }
 }
 
@@ -115,10 +115,10 @@ void Element2D::getdU_atIntPoint (Tensor2 & du, short time)
   for (k = 0; k < getNumberOfNodes(); k++)
     {
       field = nodes (k)->field (time);
-      du (0, 0) += _integrationPoint->dShapeFunction (k, 0) * field->displacement (0);
-      du (0, 1) += _integrationPoint->dShapeFunction (k, 1) * field->displacement (0);
-      du (1, 0) += _integrationPoint->dShapeFunction (k, 0) * field->displacement (1);
-      du (1, 1) += _integrationPoint->dShapeFunction (k, 1) * field->displacement (1);
+      du (0, 0) += _integrationPoint->dShapeFunction (k, 0) * field->u (0);
+      du (0, 1) += _integrationPoint->dShapeFunction (k, 1) * field->u (0);
+      du (1, 0) += _integrationPoint->dShapeFunction (k, 0) * field->u (1);
+      du (1, 1) += _integrationPoint->dShapeFunction (k, 1) * field->u (1);
     }
 }
 */

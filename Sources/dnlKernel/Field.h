@@ -45,35 +45,36 @@ public:
 public:
   enum FieldLabel
   {
-    FIELD_VEC3D(displacement),          // Displacement of a node
-    FIELD_VEC3D(displacementIncrement), // Increment of the displacement
-    FIELD_VEC3D(initialNodeCoordinate), // Initial coordinates of a node
-    FIELD_VEC3D(nodeCoordinate),        // Coordinates of a node
-    FIELD_VEC3D(speed),                 // Speed of a node
-    FIELD_VEC3D(speedIncrement),        // Increment of the speed of a node
-    density,                            // Material density
-    plasticStrainRate,                  // Equivalent plastic strain rate
-    energy,                             // Total energy
-    energyIncrement,                    // Increment of the total energy
-    internalEnergy,                     // Internal energy
-    plasticStrain,                      // Equivalent plastic strain
-    gamma,                              // Gamma radial return value
-    gammaCumulate,                      // Cumulative value of gamma values
-    initialTemperature,                 // Initial temperature
-    mass,                               // Nodal Mass
-    vonMises,                           // von Mises equivalent stress
-    pressure,                           // Pressure
-    temperature,                        // Temperature
-    timeStep,                           // TimeStep
-    realTimeStep,                       // Real timeStep taking into account the reducing due to saves
-    kineticEnergy,                      // Kinetic energy of the current model
-    yieldStress,                        // Maximum yield Stress of the point
-    FIELD_TENSOR2(Strain),              // Strain tensor
-    FIELD_TENSOR2(StrainInc),           // Increment of the Strain tensor
-    FIELD_TENSOR2(PlasticStrain),       // Plastic Strain tensor
-    FIELD_TENSOR2(PlasticStrainInc),    // Increment of the Plastic Strain tensor
-    FIELD_TENSOR2(DeviatoricStress),    // Deviatoric part of the stress tensor \f$ s=\sigma-\frac{1}{3}tr[\sigma].I \f$
-    FIELD_TENSOR2(Stress),              // Stress tensor
+    FIELD_VEC3D(coords),             // -> NODE : Coordinates of a node
+    //FIELD_VEC3D(coords0),            // Initial coords of a node
+    FIELD_VEC3D(disp),               // -> NODE : Displacement of a node
+    FIELD_VEC3D(dispInc),            // -> NodalField : Increment of the disp
+    FIELD_VEC3D(speed),              // -> NodalField : Speed of a node
+    FIELD_VEC3D(speedInc),           // -> NodalField : Increment of the speed of a node
+    density,                         // ->INT PT : Material density
+    //energy,                          // Total energy
+    //energyInc,                       // Increment of the total energy
+    gamma,                           // ->INT PT : Gamma radial return value
+    gammaCumulate,                   // ->INT PT : Cumulative value of gamma values
+    internalEnergy,                  // ->INT PT : Internal energy
+    inelasticEnergy,                 // ->INT PT : Inelastic energy
+    kineticEnergy,                   // -> GLOBAL : Kinetic energy of the current model
+    mass,                            // -> NODE : Nodal Mass
+    plasticStrain,                   // ->INT PT : Equivalent plastic strain
+    plasticStrainRate,               // ->INT PT : Equivalent plastic strain rate
+    pressure,                        // ->INT PT : Pressure
+    realTimeStep,                    // -> GLOBAL : Real timeStep taking into account the reducing due to saves
+    T,                               // ->INT PT : Temperature
+    //T0,                              // Initial Temperature
+    timeStep,                        // -> GLOBAL : TimeStep
+    vonMises,                        // von Mises equivalent stress
+    yieldStress,                     // ->INT PT : Maximum yield Stress of the point
+    //FIELD_TENSOR2(DeviatoricStress), // Deviatoric part of the stress tensor \f$ s=\sigma-\frac{1}{3}tr[\sigma].I \f$
+    FIELD_TENSOR2(PlasticStrain),    // ->INT PT : Plastic Strain tensor
+    FIELD_TENSOR2(PlasticStrainInc), // ->INT PT : Increment of the Plastic Strain tensor
+    FIELD_TENSOR2(Strain),           // ->INT PT : Strain tensor
+    FIELD_TENSOR2(StrainInc),        // ->INT PT : Increment of the Strain tensor
+    FIELD_TENSOR2(Stress),           // ->INT PT : Stress tensor
     ENDFIELDS
   };
 
@@ -95,40 +96,40 @@ public:
 };
 
 // Specific documentation zone of the file for Doxygen
-/* \var Field::displacement
+/* \var Field::disp
      Displacement of a node
-    \var Field::displacementX
+    \var Field::dispX
      Displacement of a node along the X direction
-    \var Field::displacementY
+    \var Field::dispY
      Displacement of a node along the Y direction
-    \var Field::displacementZ
+    \var Field::dispZ
      Displacement of a node along the Z direction
 
-    \var Field::displacementIncrement
-     Increment of the displacement
-    \var Field::displacementIncrementX
-     Increment of the displacement along the X direction
-    \var Field::displacementIncrementY
-     Increment of the displacement along the Y direction
-    \var Field::displacementIncrementZ
-     Increment of the displacement along the Z direction
+    \var Field::dispInc
+     Increment of the disp
+    \var Field::dispIncX
+     Increment of the disp along the X direction
+    \var Field::dispIncY
+     Increment of the disp along the Y direction
+    \var Field::dispIncZ
+     Increment of the disp along the Z direction
 
-    \var Field::initialNodeCoordinate
+    \var Field::coords0
      Initial coordinate of a node - NO SENSE !
-    \var Field::initialNodeCoordinateX
+    \var Field::coords0X
      Initial coordinate X of a node
-    \var Field::initialNodeCoordinateY
+    \var Field::coords0Y
      Initial coordinate Y of a node
-    \var Field::initialNodeCoordinateZ
+    \var Field::coords0Z
      Initial coordinate Z of a node
 
-    \var Field::nodeCoordinate
+    \var Field::coords
      Coordinate of a node - NO SENSE !
-    \var Field::nodeCoordinateX
+    \var Field::coordsX
      Coordinate X of a node
-    \var Field::nodeCoordinateY
+    \var Field::coordsY
      Coordinate Y of a node
-    \var Field::nodeCoordinateZ
+    \var Field::coordsZ
      Coordinate Z of a node
 
     \var Field::speed
@@ -140,13 +141,13 @@ public:
     \var Field::speedZ
      Speed of a node along the Z direction
 
-    \var Field::speedIncrement
+    \var Field::speedInc
      Increment of the speed of a node
-    \var Field::speedIncrementX
+    \var Field::speedIncX
      Increment of the speed of a node along the X direction
-    \var Field::speedIncrementY
+    \var Field::speedIncY
      Increment of the speed of a node along the Y direction
-    \var Field::speedIncrementZ
+    \var Field::speedIncZ
      Increment of the speed of a node along the Z direction
 
     \var Field::Strain

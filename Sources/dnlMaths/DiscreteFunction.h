@@ -132,8 +132,8 @@ public:
 };
 
 /*
-  Auto sort x coordinates (default value is \b true)
-  - setSorted Boolean defining if coordinates are sorted
+  Auto sort x coords (default value is \b true)
+  - setSorted Boolean defining if coords are sorted
 */
 //-----------------------------------------------------------------------------
 inline void DiscreteFunction::autoSort(bool setSorted)

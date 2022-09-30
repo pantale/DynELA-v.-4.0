@@ -20,7 +20,7 @@
   v_{2}\\
   v_{3}
   \end{array}\right] \f]
-  This type of data structure is usefull for storing three-dimensional coordinates (for example nodal coordinates, vectors forces,...).
+  This type of data structure is usefull for storing three-dimensional coords (for example nodal coords, vectors forces,...).
 
   \ingroup dnlMaths
 */

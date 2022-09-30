@@ -24,7 +24,7 @@ class BoundaryDisplacement : public Boundary
 {
 
 private:
-  Vec3D _displacement;
+  Vec3D _disp;
 
 public:
   // constructeurs

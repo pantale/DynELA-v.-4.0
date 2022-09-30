@@ -157,7 +157,7 @@ double JohnsonCookLaw::getYieldStress(double _epsp, double _depsp, double _T, do
   else
     viscPart = 1.0;
 
-  // Dependence to the temperature if T0 < _T < Tm
+  // Dependence to the T if T0 < _T < Tm
   tempPart = 1.0;
   if (_T > T0)
     if (_T < Tm)
@@ -185,7 +185,7 @@ double JohnsonCookLaw::VUMATgetYieldStress(double plasticStrain, double plasticS
   else
     viscPart = 1.0;
 
-  // Dependence to the temperature if T0 < temp < Tm
+  // Dependence to the T if T0 < temp < Tm
   tempPart = 1.0;
   if (temp > T0)
     if (temp < Tm)
@@ -212,7 +212,7 @@ double JohnsonCookLaw::VUMATyieldHardEpsp(double plasticStrain, double plasticSt
   if (plasticStrainRate > depsp0)
     hardPart = hardPart * (1.0 + C * log(plasticStrainRate / depsp0));
 
-  // Dependence to the temperature if T0 < temp < Tm
+  // Dependence to the T if T0 < temp < Tm
   tempPart = 1.0;
   if (temp > T0)
     if (temp < Tm)
@@ -239,7 +239,7 @@ double JohnsonCookLaw::VUMATyieldHardDepsp(double plasticStrain, double plasticS
   if (plasticStrainRate > depsp0)
     hardPart = (A + B * pow(plasticStrain, n)) * C / plasticStrainRate;
 
-  // Dependence to the temperature if T0 < temp < Tm
+  // Dependence to the T if T0 < temp < Tm
   tempPart = 1.0;
   if (temp > T0)
     if (temp < Tm)
@@ -268,7 +268,7 @@ double JohnsonCookLaw::VUMATyieldHardTemp(double plasticStrain, double plasticSt
   else
     viscPart = 1.0;
 
-  // Dependence to the temperature if T0 < temp < Tm
+  // Dependence to the T if T0 < temp < Tm
   tempPart = 0.0;
   if ((temp > T0) and (temp < Tm))
     tempPart = -m * (pow(((temp - T0) / (Tm - T0)), (m))) / (temp - T0);
@@ -309,7 +309,7 @@ double JohnsonCookLaw::getDerivateYieldStress(double _epsp, double _depsp, doubl
   if (_depsp > depsp0)
     viscPart0 = 1.0 + C * log(_depsp / depsp0);
 
-  // Dependence to the temperature if T0 < _T < Tm
+  // Dependence to the T if T0 < _T < Tm
   double tempPart0 = 1.0;
   if (_T > T0)
     if (_T < Tm)

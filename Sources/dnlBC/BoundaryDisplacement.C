@@ -40,7 +40,7 @@ BoundaryDisplacement::BoundaryDisplacement(char *newName) : Boundary(newName)
 BoundaryDisplacement::BoundaryDisplacement(const Vec3D &newDisplacement)
 //-----------------------------------------------------------------------------
 {
-  _displacement = newDisplacement;
+  _disp = newDisplacement;
 }
 
 //constructeur par recopie de la classe BoundaryDisplacement
@@ -76,39 +76,39 @@ void BoundaryDisplacement::applyConstantOnNewFields(Node *node, double currentTi
   for (int i = 0; i < 3; i++)
   {
     // si on a une composante de vitesse imposee
-    if (_displacement(i) != 0.)
+    if (_disp(i) != 0.)
     {
 
       // si c'est constant
       if (_function == NULL)
       {
         // deplacement constant
-        node->field0->displacement(i) = _displacement(i);
-        node->field1->displacement(i) = _displacement(i);
+        node->field0->u(i) = _disp(i);
+        node->field1->u(i) = _disp(i);
 
         // vitesse imposee
-        node->field0->speed(i) = _displacement(i) / timeStep;
-        node->field1->speed(i) = _displacement(i) / timeStep;
+        node->field0->speed(i) = _disp(i) / timeStep;
+        node->field1->speed(i) = _disp(i) / timeStep;
 
         // acceleration nulle
-        //     node->field0->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep);
-        //    node->field1->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep);
+        //     node->field0->acceleration(i) = 2.0 * _disp(i) / dnlSquare(timeStep);
+        //    node->field1->acceleration(i) = 2.0 * _disp(i) / dnlSquare(timeStep);
         node->field0->acceleration(i) = 0.0;
         node->field1->acceleration(i) = 0.0;
       }
       else
       {
         // deplacement constant
-        node->field0->displacement(i) = _displacement(i) * _function->getValue(currentTime);
-        node->field1->displacement(i) = _displacement(i) * _function->getValue(currentTime + timeStep);
+        node->field0->u(i) = _disp(i) * _function->getValue(currentTime);
+        node->field1->u(i) = _disp(i) * _function->getValue(currentTime + timeStep);
 
         // vitesse imposee
-        node->field0->speed(i) = _displacement(i) / timeStep * _function->getValue(currentTime);
-        node->field1->speed(i) = _displacement(i) / timeStep * _function->getValue(currentTime + timeStep);
+        node->field0->speed(i) = _disp(i) / timeStep * _function->getValue(currentTime);
+        node->field1->speed(i) = _disp(i) / timeStep * _function->getValue(currentTime + timeStep);
 
         // acceleration non nulle
-        node->field0->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep) * _function->getValue(currentTime);
-        node->field1->acceleration(i) = 2.0 * _displacement(i) / dnlSquare(timeStep) * _function->getValue(currentTime + timeStep);
+        node->field0->acceleration(i) = 2.0 * _disp(i) / dnlSquare(timeStep) * _function->getValue(currentTime);
+        node->field1->acceleration(i) = 2.0 * _disp(i) / dnlSquare(timeStep) * _function->getValue(currentTime + timeStep);
       }
     }
   }
@@ -131,21 +131,21 @@ BoundaryDisplacement::~BoundaryDisplacement()
 Vec3D BoundaryDisplacement::getValue()
 //-----------------------------------------------------------------------------
 {
-  return _displacement;
+  return _disp;
 }
 
 //-----------------------------------------------------------------------------
 void BoundaryDisplacement::setValue(const Vec3D &newDisplacement)
 //-----------------------------------------------------------------------------
 {
-  _displacement = newDisplacement;
+  _disp = newDisplacement;
 }
 
 //-----------------------------------------------------------------------------
 void BoundaryDisplacement::setValue(double dispX, double dispY, double dispZ)
 //-----------------------------------------------------------------------------
 {
-  _displacement(0) = dispX;
-  _displacement(1) = dispY;
-  _displacement(2) = dispZ;
+  _disp(0) = dispX;
+  _disp(1) = dispY;
+  _disp(2) = dispZ;
 }

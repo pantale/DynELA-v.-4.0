@@ -36,21 +36,21 @@ Drawing::~Drawing()
 void Drawing::computeBoundBox()
 //-----------------------------------------------------------------------------
 {
-  Vec3D coordinates = polygons.first()->vertices[0];
-  bottomLeft = topRight = coordinates;
+  Vec3D coords = polygons.first()->vertices[0];
+  bottomLeft = topRight = coords;
 
   Polygon *polygon = polygons.initLoop();
   while ((polygon = polygons.currentUp()) != NULL)
   {
     for (int i = 0; i < polygon->points; i++)
     {
-      coordinates = polygon->vertices[i];
+      coords = polygon->vertices[i];
       for (int j = 0; j < 3; j++)
       {
-        if (coordinates(j) < bottomLeft(j))
-          bottomLeft(j) = coordinates(j);
-        if (coordinates(j) > topRight(j))
-          topRight(j) = coordinates(j);
+        if (coords(j) < bottomLeft(j))
+          bottomLeft(j) = coords(j);
+        if (coords(j) > topRight(j))
+          topRight(j) = coords(j);
       }
     }
   }
