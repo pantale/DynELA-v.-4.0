@@ -122,7 +122,7 @@ public:
   void resize(const long);
   void scatterFrom(const Vector &, long *, int);
   void setOutType(char);
-  void setToValue(double);
+  void setValue(double);
   void swap(Vector &);
 };
 

@@ -288,13 +288,13 @@ void Vector::printOut()
 }
 
 /*
-@LABEL:Vector::setToValue(double val)
+@LABEL:Vector::setValue(double val)
 @SHORT:This method affect a value to a vector.
 @ARG:double&val&Scalar value to use for the  operation.
 @END
 */
 //-----------------------------------------------------------------------------
-void Vector::setToValue(double val)
+void Vector::setValue(double val)
 //-----------------------------------------------------------------------------
 {
   for (long index = 0; index < _dataLength; index++)
@@ -311,13 +311,13 @@ void Vector::setToValue(double val)
 Vector &Vector::operator=(double val)
 //-----------------------------------------------------------------------------
 {
-  setToValue(val);
+  setValue(val);
   return *this;
 }
 
 // Fill a vector with a table of values
 /*
-  This method is a surdefinition of the equality operator used to setToValue a vector with a table of values.
+  This method is a surdefinition of the equality operator used to setValue a vector with a table of values.
 
   Exemple :
   \code
@@ -818,7 +818,7 @@ double Vector::minVal()
 }
 
 /*
-@LABEL:Vector::maxmaxAbsoluteValueValue()
+@LABEL:Vector::maxAbs()
 @SHORT:Maximum absolute value in a Vector.
 @RETURN:double
 This method returns the maximum absolute value in a Vector.

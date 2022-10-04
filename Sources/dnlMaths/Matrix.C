@@ -47,7 +47,7 @@ Matrix::Matrix(const long rows, const long cols, const double value)
   allocate(rows, cols);
 
   // remplissage initial
-  setToValue(value);
+  setValue(value);
 }
 
 // constructeur par recopie d'une matrice
@@ -205,11 +205,11 @@ void Matrix::print(std::ostream &os) const
   Exemple :
   \code
   Matrix t1;
-  t1=setToValue(1.); // affecte 1 à toutes les composantes de la matrice
+  t1=setValue(1.); // affecte 1 à toutes les composantes de la matrice
   \endcode
 */
 //-----------------------------------------------------------------------------
-void Matrix::setToValue(double val)
+void Matrix::setValue(double val)
 //-----------------------------------------------------------------------------
 {
   long i;
@@ -329,7 +329,7 @@ double Matrix::minAbs() const
 Matrix &Matrix::operator=(const double &val)
 //-----------------------------------------------------------------------------
 {
-  setToValue(val);
+  setValue(val);
   return *this;
 }
 

@@ -127,7 +127,7 @@ public:
   void redim(const long, const long);
   void scatterFrom(const Matrix &, long *, int);
   void setToUnity();
-  void setToValue(double);
+  void setValue(double);
   void solve(Vector &);
   void squareDivideBy(const MatrixDiag &);
   void squareMultiplyBy(const MatrixDiag &);

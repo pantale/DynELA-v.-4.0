@@ -28,7 +28,7 @@ Tensor4::Tensor4()
 //-----------------------------------------------------------------------------
 {
   // initialisation
-  setToValue(0);
+  setValue(0);
 }
 
 // Destructor
@@ -103,7 +103,7 @@ This method is a surdefinition of the = operator for the fourth order tensor cla
 Tensor4 &Tensor4::operator=(const double &val)
 //-----------------------------------------------------------------------------
 {
-  setToValue(val);
+  setValue(val);
   return *this;
 }
 

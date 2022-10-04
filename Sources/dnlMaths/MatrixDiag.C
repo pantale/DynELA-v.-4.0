@@ -41,7 +41,7 @@ MatrixDiag::MatrixDiag(const long numberOfTerms, double value)
   allocate(numberOfTerms);
 
   // initialisation
-  setToValue(value);
+  setValue(value);
 }
 
 // constructeur par recopie d'une matrice
@@ -224,11 +224,11 @@ void MatrixDiag::print(std::ostream &os) const
   Exemple :
   \code
   MatrixDiag t1;
-  t1=setToValue(1.); // affecte 1àtoutes les composantes de la matrice
+  t1=setValue(1.); // affecte 1àtoutes les composantes de la matrice
   \endcode
 */
 //-----------------------------------------------------------------------------
-void MatrixDiag::setToValue(double val)
+void MatrixDiag::setValue(double val)
 //-----------------------------------------------------------------------------
 {
   long i;
@@ -270,7 +270,7 @@ void MatrixDiag::setToUnity()
 MatrixDiag &MatrixDiag::operator=(const double &val)
 //-----------------------------------------------------------------------------
 {
-  setToValue(val);
+  setValue(val);
   return *this;
 }
 

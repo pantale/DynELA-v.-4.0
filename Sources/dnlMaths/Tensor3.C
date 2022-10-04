@@ -26,7 +26,7 @@ Tensor3::Tensor3()
 //-----------------------------------------------------------------------------
 {
   // initialisation
-  setToValue(0);
+  setValue(0);
 }
 
 // Copy constructor
@@ -90,7 +90,7 @@ where $\T$ is a third order tensor defined by the object itself.
 void Tensor3::setToUnity()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0);
+  setValue(0);
   _data[dnlTensor3Ind(0, 1, 2, 3)] = 1;
   _data[dnlTensor3Ind(1, 2, 0, 3)] = 1;
   _data[dnlTensor3Ind(2, 0, 1, 3)] = 1;
@@ -111,7 +111,7 @@ This method is a surdefinition of the = operator for the third order tensor clas
 Tensor3 &Tensor3::operator=(const double &val)
 //-----------------------------------------------------------------------------
 {
-  setToValue(val);
+  setValue(val);
   return *this;
 }
 

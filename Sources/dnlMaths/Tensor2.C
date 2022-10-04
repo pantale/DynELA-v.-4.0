@@ -36,7 +36,7 @@ This is the default constructor of the Tensor2 class, where all components are i
 Tensor2::Tensor2()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0);
+  setValue(0);
 }
 
 // Copy constructor
@@ -175,7 +175,7 @@ where $\T$ is a second order tensor defined by the object itself.
 void Tensor2::setToZero()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0);
+  setValue(0);
 }
 
 /*
@@ -198,7 +198,7 @@ where $\T$ is a second order tensor defined by the object itself and $v$ is the 
 Tensor2 &Tensor2::operator=(const double &val)
 //-----------------------------------------------------------------------------
 {
-  setToValue(val);
+  setValue(val);
   return *this;
 }
 

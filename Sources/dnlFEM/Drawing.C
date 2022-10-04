@@ -181,7 +181,7 @@ void Drawing::initPolygons()
       {
         p1 = polygons(i - 1);
         p2 = polygons(i);
-        if (((p1->center - p2->center).getSquareNorm() < 1e-2) && (p1->points == p2->points))
+        if (((p1->center - p2->center).squareNorm() < 1e-2) && (p1->points == p2->points))
         {
           int tot = 0;
           for (int j = 0; j < p1->points; j++)

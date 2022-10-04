@@ -14,7 +14,6 @@
 #include <string>
 #include <string.h>
 #include <dnlKernel.h>
-//#include <Macros.h>
 
 class Tensor2;
 class SymTensor2;
@@ -22,8 +21,9 @@ class SymTensor2;
 /*
 @LABEL:Vec3D::Vec3D
 @SHORT:Vec3D class.
-This class is used to store information for Coordinate Vectors.
-This file is the declaration file for the 3D vector class. A 3D vector class is a vector with the following form:
+This class is used to store information for coordinate vectors.
+This file is the declaration file for the 3D vector class.
+A 3D vector class is a vector with the following form:
 \begin{equation*}
 \overrightarrow{x}=\left[\begin{array}{c}
   x_{1}\\
@@ -31,6 +31,7 @@ This file is the declaration file for the 3D vector class. A 3D vector class is 
   x_{3}
   \end{array}\right]
 \end{equation*}
+where $x_{i}$ are the components of the vector $\overrightarrow{x}$.
 @END
 */
 class Vec3D
@@ -74,20 +75,20 @@ public:
   bool operator!=(const Vec3D &) const;
   bool operator==(const Vec3D &) const;
   double distance(const Vec3D &) const;
-  double dot(const Vec3D &) const;
-  double norm();
-  double getSquareNorm();
   double dot();
+  double dot(const Vec3D &) const;
   double maxAbs();
   double maxVal();
   double minAbs();
   double minVal();
+  double norm();
   double operator()(int) const;
   double squareDistance(const Vec3D &) const;
+  double squareNorm();
   int size() const;
   SymTensor2 dyadic() const;
-  Tensor2 ewProduct(const Tensor2 &) const;
   Tensor2 dyadic(const Vec3D &) const;
+  Tensor2 ewProduct(const Tensor2 &) const;
   Vec3D ewProduct(const Vec3D &) const;
   Vec3D getNormalized();
   Vec3D operator-() const;
@@ -102,12 +103,13 @@ public:
   void numpyWrite(std::string, bool = false) const;
   void numpyWriteZ(std::string, std::string, bool = false) const;
   void setNegativeValuesToZero();
-  void setValue(double = 0.0);
+  void setValue(double = 0);
   void setValue(double, double, double);
 };
 
 //------inline functions-------------------------------------------------------
 
+//  tests if the index is ok
 //-----------------------------------------------------------------------------
 inline bool Vec3D::indexOK(int i) const
 //-----------------------------------------------------------------------------
@@ -124,10 +126,6 @@ inline bool Vec3D::indexOK(int i) const
 }
 
 // Access to the values _data[i] of a 3D vector
-/*
-  - i indice inside of the vector
-  Return : Value of the 3D vector _data[i]
-*/
 //-----------------------------------------------------------------------------
 inline double &Vec3D::operator()(int i)
 //-----------------------------------------------------------------------------
@@ -139,10 +137,6 @@ inline double &Vec3D::operator()(int i)
 }
 
 // Access to the values _data[i] of 3D vector (Read only method)
-/*
-  - i indice inside of the vector
-  Return : Value of the 3D vector _data[i]
-*/
 //-----------------------------------------------------------------------------
 inline double Vec3D::operator()(int i) const
 //-----------------------------------------------------------------------------
@@ -154,16 +148,6 @@ inline double Vec3D::operator()(int i) const
 }
 
 // Fill a 3D vector with a scalar value
-/*
-  This method affect a value to a 3D vector class.
-
-  Example :
-  \code
-  Vec3D v1;
-  v1 = setValue(1.0); // All components of the vector are set to 1.0
-  \endcode
-  - val double value to give to all components of the 3D vector.
-*/
 //-----------------------------------------------------------------------------
 inline void Vec3D::setValue(double val)
 //-----------------------------------------------------------------------------
@@ -171,33 +155,33 @@ inline void Vec3D::setValue(double val)
   _data[0] = _data[1] = _data[2] = val;
 }
 
-// Fill a 3D vector with a scalar value
 /*
-  This method affect a value to a 3D vector class.
-
-  Example :
-  \code
-  Vec3D v1;
-  v1 = setValue(1.0,2.0,3.0); // Components of the vector are set to 1.0; 2.0, 3.0
-  \endcode
-  \xVal double value to give to x components of the 3D vector.
-  \yVal double value to give to y components of the 3D vector.
-  \zVal double value to give to z components of the 3D vector.
+@LABEL:Vec3D::setValue(double x, double y, double z)
+@SHORT:Fill a vector with a scalar value.
+@RETURN:Vec3D : The new Vec3D object created by the constructor.
+@ARG:double & x & Component $x_{1}$ of the vector to create.
+@ARG:double & y & Component $x_{2}$ of the vector to create.
+@ARG:double & z & Component $x_{3}$ of the vector to create.
+Fill a vector with a scalar value for the $3$ components of the vector.
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1} = x\\
+  x_{2} = y\\
+  x_{3} = z
+  \end{array}\right]
+\end{equation*}
+@END
 */
 //-----------------------------------------------------------------------------
-inline void Vec3D::setValue(double xVal, double yVal, double zVal)
+inline void Vec3D::setValue(double x, double y, double z)
 //-----------------------------------------------------------------------------
 {
-  _data[0] = xVal;
-  _data[1] = yVal;
-  _data[2] = zVal;
+  _data[0] = x;
+  _data[1] = y;
+  _data[2] = z;
 }
 
 // Size of the 3D vector
-/*
-  This method returns the size of the 3D vector (of course here it's always 3).
-  Return : Size of the 3D vector
-*/
 //-----------------------------------------------------------------------------
 inline int Vec3D::size() const
 //-----------------------------------------------------------------------------
@@ -206,16 +190,6 @@ inline int Vec3D::size() const
 }
 
 // Copy the content of a 3D vector into a new one
-/*
-  This method is the so called = operator between two 3D vectors.
-
-  Example :
-  \code
-  Vec3D v1, v2;
-  v1 = v2; // copy of 3D vector
-  \endcode
-  - vec Second 3D vector to use for the operation
-*/
 //-----------------------------------------------------------------------------
 inline Vec3D &Vec3D::operator=(const Vec3D &vec)
 //-----------------------------------------------------------------------------
@@ -224,16 +198,21 @@ inline Vec3D &Vec3D::operator=(const Vec3D &vec)
   return *this;
 }
 
-// Fill a 3D vector with a scalar value
 /*
-  This method is a surdefinition of the = operator for the 3D vector class.
-
-  Example :
-  \code
-  Vec3D v1;
-  v1 = 1.0; // All components of the vector are set to 1.0
-  \endcode
-  - val double value to give to all components of the 3D vector
+@LABEL:Vec3D::operator=(double v)
+@SHORT:Fill a vector with a scalar value.
+@RETURN:Vec3D
+@ARG:double & v & Value to use for the operation.
+This method is a surdefinition of the = operator for the vector class.
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+v \\
+v \\
+v
+\end{array}\right]
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $v$ is the scalar value defined by parameter v.
+@END
 */
 //-----------------------------------------------------------------------------
 inline Vec3D &Vec3D::operator=(double val)
@@ -247,16 +226,6 @@ inline Vec3D &Vec3D::operator=(double val)
 }
 
 // Fill a 3D vector with a table of values
-/*
-  This method is a surdefinition of the equality operator used to setValue a vector with a table of values.
-
-  Exemple :
-  \code
-  Vec3D v1;
-  double v2[3];
-  v1 = v2; // copy the values to the vector
-  \endcode
-*/
 //-----------------------------------------------------------------------------
 inline Vec3D &Vec3D::operator=(const double *vals)
 //-----------------------------------------------------------------------------
@@ -265,18 +234,18 @@ inline Vec3D &Vec3D::operator=(const double *vals)
   return *this;
 }
 
-// Addition of 2 vectors
 /*
-  This method defines the addition of 2 vectors.
-  The result of this operation is also a vector defined by:
-  \f[ \overrightarrow{_data} = \overrightarrow{a} + \overrightarrow{b} \f]
-
-  Example :
-  \code
-  Vec3D t1, t2, t3;
-  t3 = t1 + t2; // sum of the vectors
-  \endcode
-  - vect Second vector to use for the operation
+@LABEL:Vec3D::operator+(Vec3D y)
+@SHORT:Addition of 2 vectors.
+@ARG:Vec3D & y & Vector to add to the current one.
+@RETURN:Vec3D : Result of the addition operation.
+This method defines the addition of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{z} = \overrightarrow{x} + \overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the vector value defined by parameter y.
+@END
 */
 //-----------------------------------------------------------------------------
 inline Vec3D Vec3D::operator+(const Vec3D &vect) const
@@ -285,18 +254,18 @@ inline Vec3D Vec3D::operator+(const Vec3D &vect) const
   return Vec3D(_data[0] + vect._data[0], _data[1] + vect._data[1], _data[2] + vect._data[2]);
 }
 
-// Difference of 2 vectors
 /*
-  This method defines the difference of 2 vectors.
-  The result of this operation is also a vector defined by:
-  \f[ \overrightarrow{_data} = \overrightarrow{a} - \overrightarrow{b} \f]
-
-  Example :
-  \code
-  Vec3D t1, t2, t3;
-  t3 = t1 - t2; // difference of the vectors
-  \endcode
-  - vect Second vector to use for the operation
+@LABEL:Vec3D::operator-(Vec3D y)
+@SHORT:Difference of 2 vectors.
+@ARG:Vec3D & y & Vector to add to the current one.
+@RETURN:Vec3D : Result of the difference operation.
+This method defines the difference of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{z} = \overrightarrow{x} - \overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the vector value defined by parameter y.
+@END
 */
 //-----------------------------------------------------------------------------
 inline Vec3D Vec3D::operator-(const Vec3D &vect) const
@@ -305,17 +274,17 @@ inline Vec3D Vec3D::operator-(const Vec3D &vect) const
   return Vec3D(_data[0] - vect._data[0], _data[1] - vect._data[1], _data[2] - vect._data[2]);
 }
 
-// Opposite value of a vector
 /*
-  This method defines the opposite of a vector.
-  The result of this operation is also a vector defined by:
-  \f[ \overrightarrow{_data} = - \overrightarrow{a} \f]
-
-  Example :
-  \code
-  Vec3D t1, t2;
-  t2 = - t1; // opposite of the vector t1
-  \endcode
+@LABEL:Vec3D::operator-(Vec3D x)
+@SHORT:Opposite of a vector.
+@RETURN:Vec3D : Result of the opposite operation.
+This method defines the opposite of a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = -\overrightarrow{x}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 inline Vec3D Vec3D::operator-() const
@@ -324,16 +293,18 @@ inline Vec3D Vec3D::operator-() const
   return Vec3D(-_data[0], -_data[1], -_data[2]);
 }
 
-// Addition of 2 3D vectors
 /*
-  This method defines the addition of 2 3D vectors.
-
-  Example :
-  \code
-  Vec3D t1,t2;
-  t2 += t1; // sum of two 3D vectors
-  \endcode
-  - vect Second vector to add
+@LABEL:Vec3D::operator+=(Vec3D y)
+@SHORT:Addition of 2 vectors.
+@ARG:Vec3D & y & Vector to add to the current one.
+@RETURN:Vec3D : Result of the addition operation.
+This method defines the addition of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{x} += \overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the vector value defined by parameter y.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Vec3D::operator+=(const Vec3D &vect)
@@ -344,16 +315,18 @@ inline void Vec3D::operator+=(const Vec3D &vect)
   _data[2] += vect._data[2];
 }
 
-// Difference of 2 3D vectors
 /*
-  This method defines the difference of 2 3D vectors.
-
-  Example :
-  \code
-  Vec3D t1,t2;
-  t2 -= t1; // sum of two 3D vectors
-  \endcode
-  - vect Second vector to add
+@LABEL:Vec3D::operator-=(Vec3D y)
+@SHORT:Difference of 2 vectors.
+@ARG:Vec3D & y & Vector to add to the current one.
+@RETURN:Vec3D : Result of the difference operation.
+This method defines the difference of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{x} -= \overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the vector value defined by parameter y.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Vec3D::operator-=(const Vec3D &vect)
@@ -364,17 +337,18 @@ inline void Vec3D::operator-=(const Vec3D &vect)
   _data[2] -= vect._data[2];
 }
 
-// Multiplication of a 3D vector by a scalar value
 /*
-  This method defines the multiplication of a 3D vector by a scalar value
-
-  Example :
-  \code
-  Vec3D t1;
-  double l;
-  t1 *= l; // multiplication by a scalar
-  \endcode
-  - lambda Scalar value to use for the multiplication
+@LABEL:Vec3D::operator*=(double l)
+@SHORT:Multiplication of a vector by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Vec3D : Result of the multiplication operation.
+This method defines the multiplication of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{x} *= \lambda
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\lambda$ is the vector value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Vec3D::operator*=(const double lambda)
@@ -385,17 +359,18 @@ inline void Vec3D::operator*=(const double lambda)
   _data[2] *= lambda;
 }
 
-// Division of a 3D vector by a scalar value
 /*
-  This method defines the division of a 3D vector by a scalar value
-
-  Example :
-  \code
-  Tensor2 t1;
-  double l;
-  t1 /= l; // division by a scalar
-  \endcode
-  - lambda Scalar value to use for the division
+@LABEL:Vec3D::operator/=(double l)
+@SHORT:Division of a vector by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Vec3D : Result of the division operation.
+This method defines the division of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{x} /= \lambda
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\lambda$ is the vector value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Vec3D::operator/=(const double lambda)
@@ -410,11 +385,16 @@ inline void Vec3D::operator/=(const double lambda)
   _data[2] /= lambda;
 }
 
-// Returns the J2 norm of a 3D vector
 /*
-  This method returns J2 norm of a 3D vector defined by:
-  \f[ \left\Vert \overrightarrow{_data} \right\Vert  = \sqrt {v_{1}^2 + v_{2}^2 + v_{3}^2} \f]
-  Return : J2 norm of a 3D vector
+@LABEL:Vec3D::J2()
+@SHORT:J2 norm of a vector.
+@RETURN:double : The J2 of the vector.
+This method returns the J2 norm $s$ of a vector $\overrightarrow{x}$ defined by:
+\begin{equation*}
+s = \left\Vert \overrightarrow{x} \right\Vert  = \sqrt {x_{1}^2 + x_{2}^2 + x_{3}^2}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 inline double Vec3D::norm()
@@ -423,8 +403,19 @@ inline double Vec3D::norm()
   return sqrt(dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]));
 }
 
+/*
+@LABEL:Vec3D::squareNorm()
+@SHORT:Square norm of a vector.
+@RETURN:double : The square of the vector.
+This method returns the square norm $s$ of a vector $\overrightarrow{x}$ defined by:
+\begin{equation*}
+s = \left\Vert \overrightarrow{x} \right\Vert^2  = {x_{1}^2 + x_{2}^2 + x_{3}^2}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
-inline double Vec3D::getSquareNorm()
+inline double Vec3D::squareNorm()
 //-----------------------------------------------------------------------------
 {
   return dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]);
@@ -433,17 +424,19 @@ inline double Vec3D::getSquareNorm()
 /*
 @LABEL:Vec3D::dot()
 @SHORT:Returns the dot product of a Vec3D by itself.
+@RETURN:double : The dot product.
 This method returns dot product of a Vec3D by itself defined by:
 \begin{equation*}
-\left\Vert \overrightarrow{_data} \right\Vert  = v_{1}^2 + v_{2}^2 + v_{3}^2
+\left\Vert \overrightarrow{x} \right\Vert^2  = x_{1}^2 + x_{2}^2 + x_{3}^2
 \end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself.
 @END
 */
 //-----------------------------------------------------------------------------
 inline double Vec3D::dot()
 //-----------------------------------------------------------------------------
 {
-  return (dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]));
+  return dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]);
 }
 
 /*
@@ -466,7 +459,7 @@ inline void Vec3D::normalize()
 }
 
 /*
-@LABEL:Vec3D::normalize()
+@LABEL:Vec3D::getNormalized()
 @SHORT:Get the normalized Vec3D.
 This method returns a colinear Vec3D with a norm equal to $1$.
 @END
@@ -482,29 +475,27 @@ inline Vec3D Vec3D::getNormalized()
 }
 
 // Sets all negative components to zero
-/*
-  This method sets all negative components of a vector equal zero
-*/
 //-----------------------------------------------------------------------------
 inline void Vec3D::setNegativeValuesToZero()
 //-----------------------------------------------------------------------------
 {
-  if (_data[0] < 0.)
-    _data[0] = 0.;
-  if (_data[1] < 0.)
-    _data[1] = 0.;
-  if (_data[2] < 0.)
-    _data[2] = 0.;
+  if (_data[0] < 0)
+    _data[0] = 0;
+  if (_data[1] < 0)
+    _data[1] = 0;
+  if (_data[2] < 0)
+    _data[2] = 0;
 }
 
 /*
 @LABEL:Vec3D::distance(Vec3D y)
 @SHORT:Distance between two points.
+@RETURN:double : The distance.
 This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
-d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert 
+d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is the second vector of the operation.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -515,21 +506,14 @@ inline double Vec3D::distance(const Vec3D &vect) const
   return x.norm();
 }
 
-// Square value of the distance between two points
-/*
-  This method computes the distance between two points using an Euclidian norm and returns the square value of this distance.
-  - vect Second vector to use
-  \f[ d = {\left\Vert \overrightarrow{v2} - \overrightarrow{v1} \right\Vert}^2 \f]
-  Return : Square value of the distance between two points
-*/
 /*
 @LABEL:Vec3D::squareDistance(Vec3D y)
 @SHORT:Square of distance between two points.
 This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
-d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2 
+d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is the second vector of the operation.
 @END
 */
 //-----------------------------------------------------------------------------

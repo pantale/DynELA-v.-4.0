@@ -88,7 +88,7 @@ public:
   void redim(const long newSize);
   void scatterFrom(const MatrixDiag &, long *, int);
   void setToUnity();
-  void setToValue(double);
+  void setValue(double);
   void solve(Vector &);
 };
 

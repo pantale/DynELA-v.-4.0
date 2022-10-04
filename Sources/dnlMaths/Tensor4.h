@@ -62,7 +62,7 @@ public:
   bool operator==(const Tensor4 &) const;
   inline bool indexOK(short, short, short, short) const;
   inline double operator()(short, short, short, short) const;
-  inline void setToValue(const double);
+  inline void setValue(const double);
   Tensor2 operator*(const Tensor2 &t) const;
   Tensor3 operator*(const Vec3D &vec) const;
   Tensor4 operator-(const Tensor4 &) const;
@@ -121,7 +121,7 @@ inline double Tensor4::operator()(short i, short j, short k, short l) const
 
 //  Fill a fourth order tensor with a scalar value
 //-----------------------------------------------------------------------------
-inline void Tensor4::setToValue(const double val)
+inline void Tensor4::setValue(const double val)
 //-----------------------------------------------------------------------------
 {
   for (short i = 0; i < 81; i++)

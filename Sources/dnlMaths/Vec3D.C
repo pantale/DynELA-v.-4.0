@@ -15,30 +15,31 @@
 #include <SymTensor2.h>
 
 /*
-@LABEL:Vec3D::Vec3D(double x1, double x2, double x3)
+@LABEL:Vec3D::Vec3D()
+@SHORT:Default constructor of the Vec3D class with initialization.
+@RETURN:Vec3D
+By default this constructor initializes all components of the vector to zero.
+@END
+*/
+/*
+@LABEL:Vec3D::Vec3D(double x, double y, double z)
 @SHORT:Constructor of the Vec3D class with initialization.
 @RETURN:Vec3D
-@ARG:double&x1&first component of the Vec3D to create.
-@ARG:double&x2&second component of the Vec3D to create.
-@ARG:double&x3&third component of the Vec3D to create.
+@ARG:double & x & first component of the Vec3D to create.
+@ARG:double & y & second component of the Vec3D to create.
+@ARG:double & z & third component of the Vec3D to create.
 @END
 */
 //-----------------------------------------------------------------------------
-Vec3D::Vec3D(double x1, double x2, double x3)
+Vec3D::Vec3D(double x, double y, double z)
 //-----------------------------------------------------------------------------
 {
-    _data[0] = x1;
-    _data[1] = x2;
-    _data[2] = x3;
+    _data[0] = x;
+    _data[1] = y;
+    _data[2] = z;
 }
 
-/*
-@LABEL:Vec3D::Vec3D(Vec3D y)
-@SHORT:Copy constructor of the Vec3D class.
-@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to copy
-@RETURN:Vec3D
-@END
-*/
+// Copy constructor
 //-----------------------------------------------------------------------------
 Vec3D::Vec3D(const Vec3D &V)
 //-----------------------------------------------------------------------------
@@ -53,15 +54,16 @@ Vec3D::~Vec3D()
 }
 
 /*
-@LABEL:Vec3D::operator*(double val, Vec3D V)
+@LABEL:Vec3D::operator*(double val, Vec3D x)
 @SHORT:Multiplication of a vector by a scalar value.
-@ARG:double&val&Scalar value to use for the multiplication operation.
-@ARG:Vec3D&V&Vec3D to use for the multiplication operation.
+@ARG:double & val & Scalar value to use for the multiplication operation.
+@ARG:Vec3D & x & Vec3D to use for the multiplication operation.
 This method defines the multiplication of a vector by a scalar value.
 The result of this operation is also a vector defined by:
 \begin{equation*}
 \overrightarrow{y} = \lambda \overrightarrow{x}
 \end{equation*}
+where the $\overrightarrow{x}$ is the object itself and $\lambda$ is scalar value defined by parameter val.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -121,12 +123,6 @@ Vec3D Vec3D::operator/(const double val) const
 }
 
 // Test the equality of two vectors
-/*
-  This method tests the equality of two vectors.
-  It returns \ref true if all components of the two vectors are equals, \ref false on other case.
-  Return : \ref true or \ref false depending on the result of the test.
-  - vect Second vector to use for the operation
-*/
 //-----------------------------------------------------------------------------
 bool Vec3D::operator==(const Vec3D &vect) const
 //-----------------------------------------------------------------------------
@@ -142,12 +138,6 @@ bool Vec3D::operator==(const Vec3D &vect) const
 }
 
 // Test the inequality of two vectors
-/*
-  This method tests the inequality of two vectors.
-  It returns \ref true if all components of the two vectors are differents, \ref false on other case.
-  Return : \ref true or \ref false depending on the result of the test.
-  - vect Second vector to use for the operation
-*/
 //-----------------------------------------------------------------------------
 bool Vec3D::operator!=(const Vec3D &vect) const
 //-----------------------------------------------------------------------------
@@ -210,7 +200,7 @@ double Vec3D::minVal()
 }
 
 /*
-@LABEL:Vec3D::maxmaxAbsoluteValueValue()
+@LABEL:Vec3D::maxAbs()
 @SHORT:Maximum absolute value in a Vec3D.
 @RETURN:double
 This method returns the maximum absolute value in a Vec3D.
@@ -264,12 +254,6 @@ double Vec3D::minAbs()
 }
 
 // Test if a given point is inside a given box defined by two opposite points
-/*
-  This method returns true or false depending if the point is or not inside the bounding box.
-  - vect_m first vector to use for the operation
-  - vect_M second vector to use for the operation
-  Return : true or false depending on the result of the test.
-*/
 //-----------------------------------------------------------------------------
 bool Vec3D::isInsideBox(const Vec3D &vect_m, const Vec3D &vect_M) const
 //-----------------------------------------------------------------------------
@@ -287,7 +271,7 @@ bool Vec3D::isInsideBox(const Vec3D &vect_m, const Vec3D &vect_M) const
 @LABEL:Vec3D::dot(Vec3D y)
 @SHORT:Dot product of two Vec3D.
 @RETURN:double
-@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the dot product operation.
+@ARG:Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the dot product operation.
 This method returns the dot product of two Vec3D defined by the following equation:
 \begin{equation*}
 m = \overrightarrow{x}\cdot\overrightarrow{y},
@@ -306,7 +290,7 @@ double Vec3D::dot(const Vec3D &V) const
 @LABEL:Vec3D::vectorProduct(Vec3D y)
 @SHORT:Vector product of two Vec3D.
 @RETURN:Vec3D
-@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the vector product operation.
+@ARG:Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the vector product operation.
 This method returns the vector product of two Vec3D defined by the following equation:
 \begin{equation*}
 \overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
@@ -327,12 +311,12 @@ Vec3D Vec3D::vectorProduct(const Vec3D &V) const
 @LABEL:Vec3D::ewProduct(Vec3D y)
 @SHORT:Element-wise product of two Vec3D.
 @RETURN:Vec3D
-@ARG:Vec3D&y&Vec3D $\overrightarrow{y}$ to use for the element-wise product operation.
+@ARG:Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the element-wise product operation.
 This method returns the vector product of two Vec3D defined by the following equation:
 \begin{equation*}
 w_i = x_i y_i,
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is given by the parameter y.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -343,15 +327,15 @@ Vec3D Vec3D::ewProduct(const Vec3D &V) const
 }
 
 /*
-@LABEL:Vec3D::ewProduct(Tensor2 T)
+@LABEL:Vec3D::ewProduct(Tensor2 B)
 @SHORT:Element-wise product of two Vec3D.
 @RETURN:Tensor2
-@ARG:Tensor2&y&Tensor2 $\overrightarrow{y}$ to use for the element-wise product operation.
+@ARG:Tensor2 & B & Tensor2 $\B$ to use for the element-wise product operation.
 This method returns the vector product of a Vec3D and a Tensor2 defined by the following equation:
 \begin{equation*}
 A_{ij} = x_i T_{ij},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\B$ is given by the parameter B.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -432,18 +416,6 @@ SymTensor2 Vec3D::dyadic() const
 }
 
 // Writes a vector in a binary flux for storage
-/*
-  This method is used to store the components of a vector in a binary file.
-
-  Example :
-  \code
-  ofstream pfile("file");
-  Vec3D t;
-  t.write(pfile);
-  t.close();
-  \endcode
-  - ofs Output file stream to use for writting operation
-*/
 //-----------------------------------------------------------------------------
 void Vec3D::write(std::ofstream &ofs) const
 //-----------------------------------------------------------------------------
@@ -452,17 +424,6 @@ void Vec3D::write(std::ofstream &ofs) const
 }
 
 // Reads a vector from a binary flux for storage
-/*
-  This method is used to read the components of a vector in a binary file.
-
-  Example :
-  \code
-  ifstream pfile("file");
-  Vec3D t;
-  t.read(pfile);
-  \endcode
-  - ifs Input file stream to use for reading operation
-*/
 //-----------------------------------------------------------------------------
 Vec3D &Vec3D::read(std::ifstream &ifs)
 //-----------------------------------------------------------------------------
@@ -471,18 +432,7 @@ Vec3D &Vec3D::read(std::ifstream &ifs)
     return *this;
 }
 
-/*
-  This method is used to store the components of a vector in a binary file.
-
-  Example :
-  \code
-  ofstream pfile("file");
-  Vec3D t;
-  pfile << t;
-  \endcode
-  - os Output file stream to use for writting operation
-  - vect Second second order tensor to use for the operation
-*/
+//  Writes a vector to a binary flux for storage
 //-----------------------------------------------------------------------------
 std::ofstream &operator<<(std::ofstream &os, const Vec3D &vect)
 //-----------------------------------------------------------------------------
@@ -492,18 +442,6 @@ std::ofstream &operator<<(std::ofstream &os, const Vec3D &vect)
 }
 
 // Reads a vector from a binary flux for storage
-/*
-  This method is used to read the components of a vector in a binary file.
-
-  Example :
-  \code
-  ifstream pfile("file");
-  Vec3D t;
-  pfile >> t;
-  \endcode
-  - os Input file stream to use for reading operation
-  - vect Second vector to use for the operation
-*/
 //-----------------------------------------------------------------------------
 std::ifstream &operator>>(std::ifstream &is, Vec3D &vect)
 //-----------------------------------------------------------------------------
@@ -513,16 +451,6 @@ std::ifstream &operator>>(std::ifstream &is, Vec3D &vect)
 }
 
 // Display the content of a Vec3D
-/*
-  This method is a surdefintion of the << operator
-
-  Example
-  \code
-  Vec3D t;
-  cout << t << endl;
-  \endcode
-  - os Output flux
-*/
 //-----------------------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const Vec3D &vector)
 //-----------------------------------------------------------------------------
@@ -532,16 +460,6 @@ std::ostream &operator<<(std::ostream &os, const Vec3D &vector)
 }
 
 // Display the content of a Vec3D
-/*
-  This method is a surdefintion of the << operator
-
-  Example
-  \code
-  Vec3D t;
-  t.print(os);
-  \endcode
-  - os Output flux
-*/
 //-----------------------------------------------------------------------------
 void Vec3D::print(std::ostream &os) const
 //-----------------------------------------------------------------------------
@@ -556,15 +474,6 @@ void Vec3D::print(std::ostream &os) const
 }
 
 // Saves the content of a Vec3D into a NumPy file
-/*
-  This method saves the content of a vec3D object into a NumPy file defined by its filename. If the flag initialize is true, the current file will be concatenated.
-
-  Example
-  \code
-  Vec3D t;
-  t.numpyWrite("numpy.npy", true);
-  \endcode
-*/
 //-----------------------------------------------------------------------------
 void Vec3D::numpyWrite(std::string filename, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -576,15 +485,6 @@ void Vec3D::numpyWrite(std::string filename, bool initialize) const
 }
 
 // Saves the content of a Vec3D into a NumPyZ file
-/*
-  This method saves the content of a vec3D object into a NumPyZ file defined by its filename. If the flag initialize is true, the current file will be concatenated.
-
-  Example
-  \code
-  Vec3D t;
-  t.numpyWriteZ("numpy.npz", true);
-  \endcode
-*/
 //-----------------------------------------------------------------------------
 void Vec3D::numpyWriteZ(std::string filename, std::string name, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -596,15 +496,6 @@ void Vec3D::numpyWriteZ(std::string filename, std::string name, bool initialize)
 }
 
 // Read the content of a Vec3D from a NumPy file
-/*
-  This method reads the content of a vec3D object from a NumPy file defined by its filename.
-
-  Example
-  \code
-  Vec3D t;
-  t.numpyRead("numpy.npy");
-  \endcode
-*/
 //-----------------------------------------------------------------------------
 void Vec3D::numpyRead(std::string filename)
 //-----------------------------------------------------------------------------
@@ -618,15 +509,6 @@ void Vec3D::numpyRead(std::string filename)
 }
 
 // Read the content of a Vec3D from a NumPyZ file
-/*
-  This method reads the content of a vec3D object from a NumPyZ file defined by its filename.
-
-  Example
-  \code
-  Vec3D t;
-  t.numpyReadZ("numpy.npz");
-  \endcode
-*/
 //-----------------------------------------------------------------------------
 void Vec3D::numpyReadZ(std::string filename, std::string name)
 //-----------------------------------------------------------------------------

@@ -65,7 +65,7 @@ public:
     bool operator!=(const Tensor3 &tens) const;
     bool operator==(const Tensor3 &tens) const;
     inline double operator()(short i, short j, short k) const;
-    inline void setToValue(double val);
+    inline void setValue(double val);
     Tensor3 operator-(const Tensor3 &tens) const;
     Tensor3 operator*(const double &lambda) const;
     Tensor3 operator/(const double &tens) const;
@@ -124,7 +124,7 @@ inline double Tensor3::operator()(short i, short j, short k) const
 
  // Fill a third order tensor with a scalar value
 //-----------------------------------------------------------------------------
-inline void Tensor3::setToValue(double val)
+inline void Tensor3::setValue(double val)
 //-----------------------------------------------------------------------------
 {
     for (short i = 0; i < 27; i++)

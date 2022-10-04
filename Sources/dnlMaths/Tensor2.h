@@ -139,7 +139,7 @@ public:
   void polarCuppenLnU(SymTensor2 &, Tensor2 &) const;
   void polarLapackLnU(SymTensor2 &, Tensor2 &) const;
   void setToUnity();
-  void setToValue(const double);
+  void setValue(const double);
   void setToZero();
 };
 
@@ -186,7 +186,7 @@ inline double Tensor2::operator()(short i, short j) const
 
 //  Fill a second order tensor with a scalar value
 //-----------------------------------------------------------------------------
-inline void Tensor2::setToValue(const double val)
+inline void Tensor2::setValue(const double val)
 //-----------------------------------------------------------------------------
 {
   _data[0] = val;

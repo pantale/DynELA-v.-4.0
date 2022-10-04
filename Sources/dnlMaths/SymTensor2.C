@@ -36,7 +36,7 @@ This is the default constructor of the SymTensor2 class, where all components ar
 SymTensor2::SymTensor2()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0);
+  setValue(0);
 }
 
 // Copy constructor
@@ -166,7 +166,7 @@ where $\T$ is a symmetric second order tensor defined by the object itself.
 void SymTensor2::setToZero()
 //-----------------------------------------------------------------------------
 {
-  setToValue(0);
+  setValue(0);
 }
 
 /*
@@ -189,7 +189,7 @@ where $\T$ is a symmetric second order tensor defined by the object itself and $
 SymTensor2 &SymTensor2::operator=(const double &val)
 //-----------------------------------------------------------------------------
 {
-  setToValue(val);
+  setValue(val);
   return *this;
 }
 
