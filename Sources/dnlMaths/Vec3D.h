@@ -75,13 +75,13 @@ public:
   bool operator==(const Vec3D &) const;
   double distance(const Vec3D &) const;
   double dot(const Vec3D &) const;
-  double getNorm();
+  double norm();
   double getSquareNorm();
   double dot();
-  double maxAbsoluteValue();
-  double maxValue();
-  double minAbsoluteValue();
-  double minValue();
+  double maxAbs();
+  double maxVal();
+  double minAbs();
+  double minVal();
   double operator()(int) const;
   double squareDistance(const Vec3D &) const;
   int size() const;
@@ -410,14 +410,14 @@ inline void Vec3D::operator/=(const double lambda)
   _data[2] /= lambda;
 }
 
-// Returns the getJ2 norm of a 3D vector
+// Returns the J2 norm of a 3D vector
 /*
-  This method returns getJ2 norm of a 3D vector defined by:
+  This method returns J2 norm of a 3D vector defined by:
   \f[ \left\Vert \overrightarrow{_data} \right\Vert  = \sqrt {v_{1}^2 + v_{2}^2 + v_{3}^2} \f]
-  Return : getJ2 norm of a 3D vector
+  Return : J2 norm of a 3D vector
 */
 //-----------------------------------------------------------------------------
-inline double Vec3D::getNorm()
+inline double Vec3D::norm()
 //-----------------------------------------------------------------------------
 {
   return sqrt(dnlSquare(_data[0]) + dnlSquare(_data[1]) + dnlSquare(_data[2]));
@@ -457,12 +457,12 @@ inline void Vec3D::normalize()
 //-----------------------------------------------------------------------------
 {
   // calcul de la norme
-  double norm = getNorm();
+  double _norm = norm();
 
   // recalcul des composantes
-  _data[0] /= norm;
-  _data[1] /= norm;
-  _data[2] /= norm;
+  _data[0] /= _norm;
+  _data[1] /= _norm;
+  _data[2] /= _norm;
 }
 
 /*
@@ -476,9 +476,9 @@ inline Vec3D Vec3D::getNormalized()
 //-----------------------------------------------------------------------------
 {
   // calcul de la norme
-  double norm = getNorm();
+  double _norm = norm();
 
-  return Vec3D(_data[0] / norm, _data[1] / norm, _data[2] / norm);
+  return Vec3D(_data[0] / _norm, _data[1] / _norm, _data[2] / _norm);
 }
 
 // Sets all negative components to zero
@@ -500,7 +500,7 @@ inline void Vec3D::setNegativeValuesToZero()
 /*
 @LABEL:Vec3D::distance(Vec3D y)
 @SHORT:Distance between two points.
-This method computes the distance between two points using an Euclidian getNorm.
+This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert 
 \end{equation*}
@@ -512,12 +512,12 @@ inline double Vec3D::distance(const Vec3D &vect) const
 //-----------------------------------------------------------------------------
 {
   Vec3D x = vect - *this;
-  return x.getNorm();
+  return x.norm();
 }
 
 // Square value of the distance between two points
 /*
-  This method computes the distance between two points using an Euclidian getNorm and returns the square value of this distance.
+  This method computes the distance between two points using an Euclidian norm and returns the square value of this distance.
   - vect Second vector to use
   \f[ d = {\left\Vert \overrightarrow{v2} - \overrightarrow{v1} \right\Vert}^2 \f]
   Return : Square value of the distance between two points
@@ -525,7 +525,7 @@ inline double Vec3D::distance(const Vec3D &vect) const
 /*
 @LABEL:Vec3D::squareDistance(Vec3D y)
 @SHORT:Square of distance between two points.
-This method computes the square of the distance between two points using an Euclidian getNorm.
+This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2 
 \end{equation*}

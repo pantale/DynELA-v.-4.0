@@ -340,7 +340,7 @@ void ElTet4N3D::computeGlob2Loc()
     for (j = 0; j < 3; j++)
       cords(i,j) = getLocalNodeCoords(i)(j);
 
-  _globalToLocal = (inv * cords).getTranspose();
+  _globalToLocal = (inv * cords).transpose();
 }
 
 //-----------------------------------------------------------------------------

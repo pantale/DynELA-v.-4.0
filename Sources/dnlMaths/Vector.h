@@ -86,12 +86,12 @@ public:
   bool operator==(const Vector &) const;
   double distance(const Vector &) const;
   double dot(const Vector &) const;
-  double getNorm();
+  double norm();
   double dot();
-  double maxAbsoluteValue();
-  double maxValue();
-  double minAbsoluteValue();
-  double minValue();
+  double maxAbs();
+  double maxVal();
+  double minAbs();
+  double minVal();
   double getMean() const;
   double getSum() const;
   double operator()(long) const;

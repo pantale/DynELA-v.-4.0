@@ -252,7 +252,7 @@ void Matrix::setToUnity()
   This method returns the maximum component of a matrix
 */
 //-----------------------------------------------------------------------------
-double Matrix::maxValue() const
+double Matrix::maxVal() const
 //-----------------------------------------------------------------------------
 {
   double max = _data[0];
@@ -269,7 +269,7 @@ double Matrix::maxValue() const
   This method returns the minimum component of a matrix
 */
 //-----------------------------------------------------------------------------
-double Matrix::minValue() const
+double Matrix::minVal() const
 //-----------------------------------------------------------------------------
 {
   double min = _data[0];
@@ -286,7 +286,7 @@ double Matrix::minValue() const
   This method returns the maximum absolute component of a matrix
 */
 //-----------------------------------------------------------------------------
-double Matrix::maxAbsoluteValue() const
+double Matrix::maxAbs() const
 //-----------------------------------------------------------------------------
 {
   double max = dnlAbs(_data[0]);
@@ -303,7 +303,7 @@ double Matrix::maxAbsoluteValue() const
   This method returns the minimum absolute component of a matrix
 */
 //-----------------------------------------------------------------------------
-double Matrix::minAbsoluteValue() const
+double Matrix::minAbs() const
 //-----------------------------------------------------------------------------
 {
   double min = dnlAbs(_data[0]);
@@ -649,16 +649,16 @@ Matrix operator*(const double &lambda, const Matrix &mat)
 Matrix Matrix::operator*(const Matrix &mat) const
 //-----------------------------------------------------------------------------
 {
-  return singleProduct(mat);
+  return dot(mat);
 }
 
 //-----------------------------------------------------------------------------
-Matrix Matrix::singleProduct() const
+Matrix Matrix::dot() const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
   if (_rows != _cols)
-    fatalError(" Matrix::singleProduct()",
+    fatalError(" Matrix::dot()",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -671,7 +671,7 @@ Matrix Matrix::singleProduct() const
 }
 
 //-----------------------------------------------------------------------------
-Matrix Matrix::singleProductTxN() const
+Matrix Matrix::dotTxN() const
 //-----------------------------------------------------------------------------
 {
   Matrix resu(_cols, _cols);
@@ -682,7 +682,7 @@ Matrix Matrix::singleProductTxN() const
 }
 
 //-----------------------------------------------------------------------------
-Matrix Matrix::singleProductNxT() const
+Matrix Matrix::dotNxT() const
 //-----------------------------------------------------------------------------
 {
   Matrix resu(_rows, _rows);
@@ -693,7 +693,7 @@ Matrix Matrix::singleProductNxT() const
 }
 
 //-----------------------------------------------------------------------------
-Matrix Matrix::singleProduct(const Matrix mat) const
+Matrix Matrix::dot(const Matrix mat) const
 //-----------------------------------------------------------------------------
 {
   Matrix resu(_rows, mat._cols);
@@ -720,12 +720,12 @@ Matrix Matrix::singleProduct(const Matrix mat) const
   \code
   Tensor2 tensor1,tensor2;
   double s;
-  s = tensor1.doubleProduct(tensor2); // double contracted product
+  s = tensor1.doubleDot(tensor2); // double contracted product
   \endcode
   - tensor2 Second second order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
-double Matrix::doubleProduct() const
+double Matrix::doubleDot() const
 //-----------------------------------------------------------------------------
 {
   double sum = 0.0;
@@ -744,12 +744,12 @@ double Matrix::doubleProduct() const
   \code
   Tensor2 tensor1,tensor;
   double s;
-  s = tensor1.doubleProduct(tensor); // double contracted product
+  s = tensor1.doubleDot(tensor); // double contracted product
   \endcode
   - tensor Second second order tensor to use for the operation
 */
 //-----------------------------------------------------------------------------
-double Matrix::doubleProduct(const Matrix mat) const
+double Matrix::doubleDot(const Matrix mat) const
 //-----------------------------------------------------------------------------
 {
   double sum = 0.0;
@@ -958,14 +958,14 @@ void Matrix::productBy(Vector &resu) const
   Return : valeur de la trace de la matrice
 */
 //-----------------------------------------------------------------------------
-double Matrix::getTrace() const
+double Matrix::trace() const
 //-----------------------------------------------------------------------------
 {
   long i;
 
 #ifdef VERIF_maths
   if (_rows != _cols)
-    fatalError("Matrix::getTrace()",
+    fatalError("Matrix::trace()",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -1006,7 +1006,7 @@ double Matrix::getAverageTrace() const
   Return : transposee de la matrice
 */
 //-----------------------------------------------------------------------------
-Matrix Matrix::getTranspose() const
+Matrix Matrix::transpose() const
 //-----------------------------------------------------------------------------
 {
   Matrix resu(_cols, _rows);
@@ -1042,7 +1042,7 @@ Vector Matrix::rowSum() const
   Return : vecteur contenant les sommes sur les rows
 */
 //-----------------------------------------------------------------------------
-Vector Matrix::columnSum() const
+Vector Matrix::colSum() const
 //-----------------------------------------------------------------------------
 {
   Vector resu(_cols);
@@ -1061,12 +1061,12 @@ Vector Matrix::columnSum() const
   Return : partie symetrique de la matrice
 */
 //-----------------------------------------------------------------------------
-Matrix Matrix::getSymetricPart() const
+Matrix Matrix::symmetric() const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
   if (_rows != _cols)
-    fatalError("Matrix::getSymetricPart()",
+    fatalError("Matrix::symmetric()",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -1087,12 +1087,12 @@ Matrix Matrix::getSymetricPart() const
   Return : partie anti-symetrique de la matrice
 */
 //-----------------------------------------------------------------------------
-Matrix Matrix::getSkewSymetricPart() const
+Matrix Matrix::skewSymmetric() const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
   if (_rows != _cols)
-    fatalError("Matrix::getSkewSymetricPart()",
+    fatalError("Matrix::skewSymmetric()",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -1113,7 +1113,7 @@ Matrix Matrix::getSkewSymetricPart() const
   Return : vecteur contenant la ligne \c row de la matrice
 */
 //-----------------------------------------------------------------------------
-Vector Matrix::getRow(long row) const
+Vector Matrix::row(long row) const
 //-----------------------------------------------------------------------------
 {
   indexOK(row, 0);
@@ -1133,7 +1133,7 @@ Vector Matrix::getRow(long row) const
   Return : vecteur contenant la colonne \c col de la matrice
 */
 //-----------------------------------------------------------------------------
-Vector Matrix::getColumn(long col) const
+Vector Matrix::col(long col) const
 //-----------------------------------------------------------------------------
 {
   indexOK(0, col);
@@ -1278,7 +1278,7 @@ double Matrix::getDeterminant2x2() const
 {
 #ifdef VERIF_maths
   if ((_rows != 2) || (_cols != 2))
-    fatalError("Matrix::getDeterminant",
+    fatalError("Matrix::det",
                "Your matrix is not a 2x2 square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -1291,7 +1291,7 @@ double Matrix::getDeterminant3x3() const
 {
 #ifdef VERIF_maths
   if ((_rows != 3) || (_cols != 3))
-    fatalError("Matrix::getDeterminant",
+    fatalError("Matrix::det",
                "Your matrix is not a 3x3 square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -1307,17 +1307,17 @@ double Matrix::getDeterminant3x3() const
 /*
   Cette methode calcule le determinant d'une matrice carree en utilisant la routine DGETRF de la librairie Lapack. Cette routine calcule la decomposition LU d'une matrice generale A de taille M-x-N en utilisant des pivots partiels avec echange de ligne. La factorisation a la forme  A = P * L * U avec P matrice de permutations, L la partie triangulaire inferieure avec elements unitaires sur la diagonale et U la partie triangulaire superieure. On a alors
   \f[
-  getDeterminant A = tr [U]
+  det A = tr [U]
   \f]
   Return : valeur du determinant
 */
 //-----------------------------------------------------------------------------
-double Matrix::getDeterminant() const
+double Matrix::det() const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
   if (_rows != _cols)
-    fatalError("Matrix::getDeterminant",
+    fatalError("Matrix::det",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -1339,13 +1339,13 @@ double Matrix::getDeterminant() const
   {
     if (info < 0)
     {
-      internalFatalErrorLine("Matrix::getDeterminant",
+      internalFatalErrorLine("Matrix::det",
                              "parameter %d of function dgetrf_ has illegal value",
                              -info);
     }
     if (info > 0)
     {
-      fatalError("Matrix::getDeterminant",
+      fatalError("Matrix::det",
                  "pivot (%d) is exactly zero\n"
                  "The factorization has been completed, but this factor is exactly singular, and division by zero will occur if it is used to solve a system of equations",
                  info);
@@ -1367,11 +1367,11 @@ double Matrix::getDeterminant() const
 }
 
 //-----------------------------------------------------------------------------
-Matrix Matrix::getCofactor() const
+Matrix Matrix::cofactors() const
 //-----------------------------------------------------------------------------
 {
   Matrix result = inverse();
-  return (result.getTranspose() * getDeterminant());
+  return (result.transpose() * det());
 }
 
 //-----------------------------------------------------------------------------
@@ -1380,11 +1380,11 @@ void Matrix::computeInverse2x2(double det, Matrix &inverse) const
 {
 #ifdef VERIF_maths
   if ((_rows != 2) || (_cols != 2))
-    fatalError("Matrix::getDeterminant",
+    fatalError("Matrix::det",
                "Your matrix is not a 2x2 square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
   if ((inverse._rows != 2) || (inverse._cols != 2))
-    fatalError("Matrix::getDeterminant",
+    fatalError("Matrix::det",
                "The inverse matrix is not a 2x2 square matrix, it's a [%d,%d] matrix",
                inverse._rows, inverse._cols);
 #endif
@@ -1401,11 +1401,11 @@ void Matrix::computeInverse3x3(double det, Matrix &inverse) const
 {
 #ifdef VERIF_maths
   if ((_rows != 3) || (_cols != 3))
-    fatalError("Matrix::getDeterminant",
+    fatalError("Matrix::det",
                "Your matrix is not a 3x3 square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
   if ((inverse._rows != 3) || (inverse._cols != 3))
-    fatalError("Matrix::getDeterminant",
+    fatalError("Matrix::det",
                "The inverse matrix is not a 3x3 square matrix, it's a [%d,%d] matrix",
                inverse._rows, inverse._cols);
 
@@ -1979,7 +1979,7 @@ Matrix Matrix::getPseudoInverse(bool relative, double tol)
   }
 
   // compute the pseudo inverse
-  result = (V.getTranspose() * result * U.getTranspose());
+  result = (V.transpose() * result * U.transpose());
 
   // retour
   return result;
@@ -2036,7 +2036,7 @@ void Matrix::computePseudoInverse(Matrix &Kplus, Matrix &NS, bool relative, doub
   }
 
   // compute the pseudo inverse
-  Kplus = (V.getTranspose() * Kplus * U.getTranspose());
+  Kplus = (V.transpose() * Kplus * U.transpose());
 
   // dimension de la matrice de Null-Space
   NS.redim(_rows, nFloats);

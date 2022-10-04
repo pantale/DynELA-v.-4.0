@@ -647,7 +647,7 @@ Vector operator*(const double lambda, const Vector &vect)
 }
 
 /*
-@LABEL:Vector::getNorm()
+@LABEL:Vector::norm()
 @SHORT:Returns the norm of a vector.
 This method returns norm of a vector defined by:
 \begin{equation*}
@@ -656,15 +656,15 @@ This method returns norm of a vector defined by:
 @END
 */
 //-----------------------------------------------------------------------------
-double Vector::getNorm()
+double Vector::norm()
 //-----------------------------------------------------------------------------
 {
   long i;
-  double getNorm = 0.;
+  double norm = 0.;
 
   for (i = 0; i < _dataLength; i++)
-    getNorm += dnlSquare(_data[i]);
-  return sqrt(getNorm);
+    norm += dnlSquare(_data[i]);
+  return sqrt(norm);
 }
 
 /*
@@ -681,11 +681,11 @@ double Vector::dot()
 //-----------------------------------------------------------------------------
 {
   long i;
-  double getNorm = 0.;
+  double norm = 0.;
 
   for (i = 0; i < _dataLength; i++)
-    getNorm += dnlSquare(_data[i]);
-  return getNorm;
+    norm += dnlSquare(_data[i]);
+  return norm;
 }
 
 /*
@@ -748,11 +748,11 @@ void Vector::normalize()
 //-----------------------------------------------------------------------------
 {
   // calcul de la norme
-  double norm = getNorm();
+  double _norm = norm();
 
   // recalcul des composantes
   for (long i = 0; i < _dataLength; i++)
-    _data[i] /= norm;
+    _data[i] /= _norm;
 }
 
 /*
@@ -766,26 +766,26 @@ Vector Vector::getNormalized()
 //-----------------------------------------------------------------------------
 {
   // calcul de la norme
-  double norm = getNorm();
+  double _norm = norm();
 
   Vector vect(*this);
 
   // recalcul des composantes
   for (long i = 0; i < _dataLength; i++)
-    vect._data[i] /= norm;
+    vect._data[i] /= _norm;
 
   return vect;
 }
 
 /*
-@LABEL:Vector::maxValue()
+@LABEL:Vector::maxVal()
 @SHORT:Maximum value in a Vector.
 @RETURN:double
 This method returns the maximum value in a Vector.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vector::maxValue()
+double Vector::maxVal()
 //-----------------------------------------------------------------------------
 {
   double val = _data[0];
@@ -798,14 +798,14 @@ double Vector::maxValue()
 }
 
 /*
-@LABEL:Vector::minValue()
+@LABEL:Vector::minVal()
 @SHORT:Minumum value in a Vector.
 @RETURN:double
 This method returns the minimum value in a Vector.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vector::minValue()
+double Vector::minVal()
 //-----------------------------------------------------------------------------
 {
   double val = _data[0];
@@ -825,7 +825,7 @@ This method returns the maximum absolute value in a Vector.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vector::maxAbsoluteValue()
+double Vector::maxAbs()
 //-----------------------------------------------------------------------------
 {
   double val = dnlAbs(_data[0]);
@@ -838,14 +838,14 @@ double Vector::maxAbsoluteValue()
 }
 
 /*
-@LABEL:Vector::minAbsoluteValue()
+@LABEL:Vector::minAbs()
 @SHORT:Minumum absolute value in a Vector.
 @RETURN:double
 This method returns the minimum absolute value in a Vector.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vector::minAbsoluteValue()
+double Vector::minAbs()
 //-----------------------------------------------------------------------------
 {
   double val = dnlAbs(_data[0]);
@@ -1065,7 +1065,7 @@ bool Vector::operator!=(const Vector &vec) const
 /*
 @LABEL:Vector::distance(Vector y)
 @SHORT:Distance between two points.
-This method computes the distance between two points using an Euclidian getNorm.
+This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
 \end{equation*}
@@ -1086,13 +1086,13 @@ double Vector::distance(const Vector &vect) const
 #endif
 
   Vector x = vect - *this;
-  return x.getNorm();
+  return x.norm();
 }
 
 /*
 @LABEL:Vector::squareDistance(Vector y)
 @SHORT:Square of distance between two points.
-This method computes the square of the distance between two points using an Euclidian getNorm.
+This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
 \end{equation*}

@@ -140,17 +140,17 @@ void ANN2SigLaw::setParameters(char *filename)
   printf("%s\n", filename);
 
   tmp.numpyReadZ(filename, "w1");
-  w1 = tmp.getTranspose();
+  w1 = tmp.transpose();
   tmp.numpyReadZ(filename, "w2");
-  w2 = tmp.getTranspose();
+  w2 = tmp.transpose();
   tmp.numpyReadZ(filename, "w3");
-  w3 = tmp.getTranspose();
+  w3 = tmp.transpose();
   tmp.numpyReadZ(filename, "b1");
-  b1 = tmp.getColumn(0);
+  b1 = tmp.col(0);
   tmp.numpyReadZ(filename, "b2");
-  b2 = tmp.getColumn(0);
+  b2 = tmp.col(0);
   tmp.numpyReadZ(filename, "b3");
-  b3 = tmp.getColumn(0);
+  b3 = tmp.col(0);
   logBase.numpyReadZ(filename, "logBase");
   minEntries.numpyReadZ(filename, "minEntries");
   maxEntries.numpyReadZ(filename, "maxEntries");
@@ -227,13 +227,13 @@ double ANN2SigLaw::getDerivateYieldStress(double _epsp, double _depsp, double _T
 
   double y = (w3 * ((zc.ewAddReal(1)).ewInverse()))(0) + b3(0);
 
-  Vector zd = zc.ewAddReal(1).ewSquare().ewInverse().ewProduct(zc).ewProduct(w3.getRow(0));
+  Vector zd = zc.ewAddReal(1).ewSquare().ewInverse().ewProduct(zc).ewProduct(w3.row(0));
 
   Vector ze = zb.ewSquare().ewInverse().ewProduct(za);
 
-  Vector zf = (w2.getTranspose() * zd).ewProduct(ze);
+  Vector zf = (w2.transpose() * zd).ewProduct(ze);
 
-  Vector yd = w1.getTranspose() * zf;
+  Vector yd = w1.transpose() * zf;
 
   double Yield = rangeEntries(3) * y + minEntries(3);
   double dyieldDeqps1 = rangeEntries(3) / rangeEntries(0) * yd(0);

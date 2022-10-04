@@ -30,8 +30,6 @@ This file is the declaration file for the 3D vector class. A 3D vector class is 
 \end{equation*}
 %@END
 
-\subsection{Constructors}
-
 %@DOC:Vec3D::Vec3D(double x1, double x2, double x3)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
@@ -117,21 +115,21 @@ The result of this operation is also a vector defined by:
 \end{equation*}
 %@END
 
-%@DOC:Vec3D::maxValue()
+%@DOC:Vec3D::maxVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vec3D::maxValue(~)}}\label{Vec3D::maxValue()}\index[DL]{Vec3D!maxValue(~)}\\
+\textcolor{purple}{\textbf{Vec3D::maxVal(~)}}\label{Vec3D::maxVal()}\index[DL]{Vec3D!maxVal(~)}\\
 Maximum value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 This method returns the maximum value in a Vec3D.
 %@END
 
-%@DOC:Vec3D::minValue()
+%@DOC:Vec3D::minVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vec3D::minValue(~)}}\label{Vec3D::minValue()}\index[DL]{Vec3D!minValue(~)}\\
+\textcolor{purple}{\textbf{Vec3D::minVal(~)}}\label{Vec3D::minVal()}\index[DL]{Vec3D!minVal(~)}\\
 Minumum value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 This method returns the minimum value in a Vec3D.
@@ -147,11 +145,11 @@ Maximum absolute value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
 This method returns the maximum absolute value in a Vec3D.
 %@END
 
-%@DOC:Vec3D::minAbsoluteValue()
+%@DOC:Vec3D::minAbs()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vec3D::minAbsoluteValue(~)}}\label{Vec3D::minAbsoluteValue()}\index[DL]{Vec3D!minAbsoluteValue(~)}\\
+\textcolor{purple}{\textbf{Vec3D::minAbs(~)}}\label{Vec3D::minAbs()}\index[DL]{Vec3D!minAbs(~)}\\
 Minumum absolute value in a Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 This method returns the minimum absolute value in a Vec3D.
@@ -291,7 +289,7 @@ This method returns a colinear Vec3D with a norm equal to $1$.
 \textcolor{purple}{\textbf{Vec3D::distance(Vec3D y)}}\label{Vec3D::distance(Vec3D y)}\index[DL]{Vec3D!distance(Vec3D y)}\\
 Distance between two points.
 
-This method computes the distance between two points using an Euclidian getNorm.
+This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert 
 \end{equation*}
@@ -305,7 +303,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vec3D::squareDistance(Vec3D y)}}\label{Vec3D::squareDistance(Vec3D y)}\index[DL]{Vec3D!squareDistance(Vec3D y)}\\
 Square of distance between two points.
 
-This method computes the square of the distance between two points using an Euclidian getNorm.
+This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2 
 \end{equation*}
@@ -321,17 +319,19 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Tensor2::Tensor2}}\label{Tensor2::Tensor2}\index[DL]{Tensor2!Tensor2}\\
 Second order tensor class.
 
-The Tensor2 library is used to store second order tensors defined in the \DynELA. A second order tensor is a like a matrix with the following form:
+The Tensor2 library is used to store second order tensors defined in the \DynELA.
+The Tensor2 class is used to store and manage data relative to a second order tensor which can be seen as a $3\times3$ matrix with the following form:
 \begin{equation*}
-T=\left[\begin{array}{ccc}
+\T=\left[\begin{array}{ccc}
   T_{11} & T_{12} & T_{13}\\
   T_{21} & T_{22} & T_{23}\\
   T_{31} & T_{32} & T_{33}
   \end{array}\right]
 \end{equation*}
-Concerning the internal storage of data, the Tensor2 data is stored in a vector of 9 components named \_data using the following storage scheme:
+where $T_{ij}$ are the components of the second order tensor $\T$.
+Concerning the internal storage of data, the Tensor2 data is stored in a vector of $9$ components named \textsf{\_data} using the following storage scheme:
 \begin{equation*}
-T=\left[\begin{array}{ccc}
+\T=\left[\begin{array}{ccc}
     T_{0} & T_{1} & T_{2}\\
     T_{3} & T_{4} & T_{5}\\
     T_{6} & T_{7} & T_{8}
@@ -339,57 +339,51 @@ T=\left[\begin{array}{ccc}
 \end{equation*}
 %@END
 
-\subsection{Constructors}
+
 %@DOC:Tensor2::Tensor2()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor2::Tensor2(~)}}\label{Tensor2::Tensor2()}\index[DL]{Tensor2!Tensor2(~)}\\
-Default constructor of the Tensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+Default constructor of the Tensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The new Tensor2 object created by the constructor.
 
-All components are initialized to zero by default.
+This is the default constructor of the Tensor2 class, where all components are initialized to zero by default.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
-0&0&0\\
-0&0&0\\
-0&0&0
+0 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0
 \end{array}\right]
 \end{equation*}
 %@END
 
-%@DOC:Tensor2::Tensor2(double,...)
+%@DOC:Tensor2::Tensor2(double t11, double t12, ...)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::Tensor2(double,...)}}\label{Tensor2::Tensor2(double,...)}\index[DL]{Tensor2!Tensor2(double,...)}\\
-Constructor of the Tensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::Tensor2(double t11, double t12, ...)}}\label{Tensor2::Tensor2(double t11, double t12, ...)}\index[DL]{Tensor2!Tensor2(double t11, double t12, ...)}\\
+Constructor of the Tensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The new Tensor2 object created by the constructor.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-double&t1&Component $t_{11}$ of the tensor.\\
-double&t2&Component $t_{12}$ of the tensor.\\
-double&t3&Component $t_{13}$ of the tensor.\\
-double&t4&Component $t_{21}$ of the tensor.\\
-double&t5&Component $t_{22}$ of the tensor.\\
-double&t6&Component $t_{23}$ of the tensor.\\
-double&t7&Component $t_{31}$ of the tensor.\\
-double&t8&Component $t_{32}$ of the tensor.\\
-double&t9&Component $t_{33}$ of the tensor.
+double & t11 & Component $T_{11}$ of the second order tensor.\\
+double & t12 & Component $T_{12}$ of the second order tensor.\\
+double & t13 & Component $T_{13}$ of the second order tensor.\\
+double & t21 & Component $T_{21}$ of the second order tensor.\\
+double & t22 & Component $T_{22}$ of the second order tensor.\\
+double & t23 & Component $T_{23}$ of the second order tensor.\\
+double & t31 & Component $T_{31}$ of the second order tensor.\\
+double & t32 & Component $T_{32}$ of the second order tensor.\\
+double & t33 & Component $T_{33}$ of the second order tensor.
 \end{tcolorbox}
 
-Constructor of a second order tensor with explicit initialization of the 9 components of the tensor.
-%@END
-
-%@DOC:Tensor2::Tensor2(Tensor2 T)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::Tensor2(Tensor2 T)}}\label{Tensor2::Tensor2(Tensor2 T)}\index[DL]{Tensor2!Tensor2(Tensor2 T)}\\
-Copy constructor of the Tensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
-
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-SymTensor2&T&Tensor to copy.
-\end{tcolorbox}
-
+Constructor of a second order tensor with explicit initialization of the $9$ components of the tensor.
+\begin{equation*}
+\T=\left[\begin{array}{ccc}
+  T_{11} & T_{12} & T_{13}\\
+  T_{21} & T_{22} & T_{23}\\
+  T_{31} & T_{32} & T_{33}
+  \end{array}\right]
+\end{equation*}
 %@END
 
 %@DOC:Tensor2::operator=(SymTensor2 T)
@@ -397,12 +391,13 @@ SymTensor2&T&Tensor to copy.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor2::operator=(SymTensor2 T)}}\label{Tensor2::operator=(SymTensor2 T)}\index[DL]{Tensor2!operator=(SymTensor2 T)}\\
-Copy a SymTensor2 into a Tensor2.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+Copy the content of a SymTensor2 into a Tensor2.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-SymTensor2&T&Symmetric tensor 2 to copy.
+SymTensor2 & T & Symmetric second order tensor to copy.
 \end{tcolorbox}
 
+The result of this operation is a second order tensor as a copy of a symmetric second order tensor where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
 \subsection{Basic operations}
@@ -412,17 +407,19 @@ SymTensor2&T&Symmetric tensor 2 to copy.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor2::setToZero(~)}}\label{Tensor2::setToZero()}\index[DL]{Tensor2!setToZero(~)}\\
-Sets all components of the tensor to zero.
+Zero second order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument.}
 
+This method transforms the current second order tensor to a zero tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
-0&0&0\\
-0&0&0\\
-0&0&0
+0 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0
 \end{array}\right]
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::setToUnity()
@@ -430,7 +427,7 @@ Sets all components of the tensor to zero.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor2::setToUnity(~)}}\label{Tensor2::setToUnity()}\index[DL]{Tensor2!setToUnity(~)}\\
-Unity tensor.
+Unity second order tensor.
 
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
 
@@ -442,45 +439,235 @@ This method transforms the current tensor to a unity tensor.
 0&0&1
 \end{array}\right]
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getTranspose()
+%@DOC:Tensor2::transpose()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getTranspose(~)}}\label{Tensor2::getTranspose()}\index[DL]{Tensor2!getTranspose(~)}\\
-Transpose of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::transpose(~)}}\label{Tensor2::transpose()}\index[DL]{Tensor2!transpose(~)}\\
+Transpose of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The transpose of the second order tensor.
 
-This method defines the transpose of a second second order tensor.
+This method defines the transpose of a second order tensor.
 The result of this operation is a second order tensor defined by the following equation:
 \begin{equation*}
-\A=\B^T =\left[\begin{array}{ccc}
-  B_{11} & B_{21} & B_{31}\\
-  B_{12} & B_{22} & B_{32}\\
-  B_{13} & B_{23} & B_{33}
+\B=\A^T =\left[\begin{array}{ccc}
+  A_{11} & A_{21} & A_{31}\\
+  A_{12} & A_{22} & A_{32}\\
+  A_{13} & A_{23} & A_{33}
   \end{array}\right]
 \end{equation*}
+where $\A$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::operator=(double val)
+%@DOC:Tensor2::operator=(double v)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::operator=(double val)}}\label{Tensor2::operator=(double val)}\index[DL]{Tensor2!operator=(double val)}\\
+\textcolor{purple}{\textbf{Tensor2::operator=(double v)}}\label{Tensor2::operator=(double v)}\index[DL]{Tensor2!operator=(double v)}\\
 Fill a second order tensor with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-double&val&Value to use for the operation.
+double & v & Value to use for the operation.
 \end{tcolorbox}
 
 This method is a surdefinition of the = operator for the second order tensor class.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
-m&m&m\\
-m&m&m\\
-m&m&m
+v & v & v\\
+v & v & v\\
+v & v & v
 \end{array}\right]
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself and $v$ is the scalar value defined by parameter v.
+%@END
+
+%@DOC:Tensor2::operator+(Tensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator+(Tensor2 B)}}\label{Tensor2::operator+(Tensor2 B)}\index[DL]{Tensor2!operator+(Tensor2 B)}\\
+Addition of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor2 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 second order tensors.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\T = \A + \B
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor2::operator-(Tensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator-(Tensor2 B)}}\label{Tensor2::operator-(Tensor2 B)}\index[DL]{Tensor2!operator-(Tensor2 B)}\\
+Subtraction of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor2 & B & Second order tensor to subtract to the current one.
+\end{tcolorbox}
+
+This method defines the subtraction of 2 second order tensors.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\T = \A - \B
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor2::operator-()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator-(~)}}\label{Tensor2::operator-()}\index[DL]{Tensor2!operator-(~)}\\
+Opposite of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The opposite second order tensor.
+
+This method defines the opposite of a second order tensor.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\T = - \A
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself.
+%@END
+
+%@DOC:Tensor2::operator*(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator$\star$(double l)}}\label{Tensor2::operator*(double l)}\index[DL]{Tensor2!operator$\star$(double l)}\\
+Multiplication of a second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a second order tensor by a scalar value.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor2::operator/(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator/(double l)}}\label{Tensor2::operator/(double l)}\index[DL]{Tensor2!operator/(double l)}\\
+Division of a second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a second order tensor by a scalar value.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\T = \frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:operator*(double l, Tensor2 A)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{operator$\star$(double l, Tensor2 A)}}\label{operator*(double l, Tensor2 A)}\\
+Multiplication of a second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.\\
+Tensor2 & A & Second order tensor to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a second order tensor by a scalar value.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a second order tensor and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor2::operator+=(Tensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator+=(Tensor2 B)}}\label{Tensor2::operator+=(Tensor2 B)}\index[DL]{Tensor2!operator+=(Tensor2 B)}\\
+Addition of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor2 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 second order tensors.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor2::operator-=(Tensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator-=(Tensor2 B)}}\label{Tensor2::operator-=(Tensor2 B)}\index[DL]{Tensor2!operator-=(Tensor2 B)}\\
+Difference of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor2 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 second order tensors.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor2::operator*=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator$\star$=(double l)}}\label{Tensor2::operator*=(double l)}\index[DL]{Tensor2!operator$\star$=(double l)}\\
+Multiplication of a second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a second order tensor by a scalar value.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\lambda \A
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor2::operator/=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::operator/=(double l)}}\label{Tensor2::operator/=(double l)}\index[DL]{Tensor2!operator/=(double l)}\\
+Division of a second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a second order tensor by a scalar value.
+The result of this operation is also a second order tensor defined by:
+\begin{equation*}
+\frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
 %@END
 
 %@DOC:Tensor2::rowSum()
@@ -488,142 +675,200 @@ m&m&m
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor2::rowSum(~)}}\label{Tensor2::rowSum()}\index[DL]{Tensor2!rowSum(~)}\\
-Sum of the rows of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+Sum of the rows of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The sums of the rows of the second order tensor.
 
-This method returns a vector by computing the sum of the components on all rows of a second second order tensor.
-The result of this operation is a vector defined by:
+This method returns a vector by computing the sum of the components on all rows of a second order tensor.
+The result of this operation is a vector $\overrightarrow{v}$ defined by:
 \begin{equation*}
 v_{i}=\sum_{j=1}^{3} T_{ji}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::columnSum()
+%@DOC:Tensor2::colSum()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::columnSum(~)}}\label{Tensor2::columnSum()}\index[DL]{Tensor2!columnSum(~)}\\
-Sum of the columns of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+\textcolor{purple}{\textbf{Tensor2::colSum(~)}}\label{Tensor2::colSum()}\index[DL]{Tensor2!colSum(~)}\\
+Sum of the columns of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The sums of the columns of the second order tensor.
 
-This method returns a vector by computing the sum of the components on all columns of a second second order tensor.
-The result of this operation is a vector defined by:
+This method returns a vector by computing the sum of the components on all columns of a second order tensor.
+The result of this operation is a vector $\overrightarrow{v}$ defined by:
 \begin{equation*}
 v_{i}=\sum_{j=1}^{3}T_{ij}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getRow(short row)
+%@DOC:Tensor2::row(short r)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getRow(short row)}}\label{Tensor2::getRow(short row)}\index[DL]{Tensor2!getRow(short row)}\\
-Extraction of a row from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+\textcolor{purple}{\textbf{Tensor2::row(short r)}}\label{Tensor2::row(short r)}\index[DL]{Tensor2!row(short r)}\\
+Extraction of a row from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The extracted row.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-short&row&Row to extract
+short & r & Row to extract
 \end{tcolorbox}
 
-This method returns a vector as part of a second second order tensor.
-The result of this operation with the argument j is a vector defined by:
+This method returns a vector as part of a second order tensor.
+The result of this operation with the argument r is a vector defined by:
 \begin{equation*}
-v_{i} = T_{ij}
+v_{i} = T_{ri}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getColumn(short col)
+%@DOC:Tensor2::col(short c)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getColumn(short col)}}\label{Tensor2::getColumn(short col)}\index[DL]{Tensor2!getColumn(short col)}\\
-Extraction of a column from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+\textcolor{purple}{\textbf{Tensor2::col(short c)}}\label{Tensor2::col(short c)}\index[DL]{Tensor2!col(short c)}\\
+Extraction of a column from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The extracted col.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-short&col&Column to extract
+short & c & Column to extract
 \end{tcolorbox}
 
-This method returns a vector as part of a second second order tensor.
-The result of this operation with the argument j is a vector defined by:
+This method returns a vector as part of a second order tensor.
+The result of this operation with the argument c is a vector defined by:
 \begin{equation*}
-v_{i} = T_{ji}
+v_{i} = T_{ic}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::minValue()
+%@DOC:Tensor2::minVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::minValue(~)}}\label{Tensor2::minValue()}\index[DL]{Tensor2!minValue(~)}\\
-Minimum component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::minVal(~)}}\label{Tensor2::minVal()}\index[DL]{Tensor2!minVal(~)}\\
+Minimum component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the second order tensor.
 
-This method returns the minimum component in a second second order tensor.
+This method returns the minimum component in a second order tensor.
 %@END
 
-%@DOC:Tensor2::minAbsoluteValue()
+%@DOC:Tensor2::minAbs()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::minAbsoluteValue(~)}}\label{Tensor2::minAbsoluteValue()}\index[DL]{Tensor2!minAbsoluteValue(~)}\\
-Minimum absolute component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::minAbs(~)}}\label{Tensor2::minAbs()}\index[DL]{Tensor2!minAbs(~)}\\
+Minimum absolute component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the second order tensor.
 
-This method returns the minimum absolute component in a second second order tensor.
+This method returns the minimum absolute component in a second order tensor.
 %@END
 
-%@DOC:Tensor2::maxValue()
+%@DOC:Tensor2::maxVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::maxValue(~)}}\label{Tensor2::maxValue()}\index[DL]{Tensor2!maxValue(~)}\\
-Maximum component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::maxVal(~)}}\label{Tensor2::maxVal()}\index[DL]{Tensor2!maxVal(~)}\\
+Maximum component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the second order tensor.
 
-This method returns the maximum component in a second second order tensor.
+This method returns the maximum component in a second order tensor.
 %@END
 
-%@DOC:Tensor2::maxAbsoluteValue()
+%@DOC:Tensor2::maxAbs()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::maxAbsoluteValue(~)}}\label{Tensor2::maxAbsoluteValue()}\index[DL]{Tensor2!maxAbsoluteValue(~)}\\
-Maximum absolute component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::maxAbs(~)}}\label{Tensor2::maxAbs()}\index[DL]{Tensor2!maxAbs(~)}\\
+Maximum absolute component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the second order tensor.
 
-This method returns the maximum absolute component in a second second order tensor.
+This method returns the maximum absolute component in a second order tensor.
 %@END
 
-%@DOC:Tensor2::getTrace()
+%@DOC:Tensor2::trace()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getTrace(~)}}\label{Tensor2::getTrace()}\index[DL]{Tensor2!getTrace(~)}\\
-Returns the trace of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::trace(~)}}\label{Tensor2::trace()}\index[DL]{Tensor2!trace(~)}\\
+Returns the trace of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The trace of the second order tensor.
 
-  This method returns the trace of a second order tensor, i.e. the sum of all the terms of the diagonal:
+This method returns the trace of a second order tensor, i.e. the sum $s$ of all the terms of the diagonal:
 \begin{equation*}
-v = tr[\T] = T_{11}+T_{22}+T_{33}
+s = \tr[\T] = T_{11}+T_{22}+T_{33}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getThirdTrace()
+%@DOC:Tensor2::thirdTrace()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getThirdTrace(~)}}\label{Tensor2::getThirdTrace()}\index[DL]{Tensor2!getThirdTrace(~)}\\
-Returns the average value of the trace of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::thirdTrace(~)}}\label{Tensor2::thirdTrace()}\index[DL]{Tensor2!thirdTrace(~)}\\
+Returns the average value of the trace of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The third of the trace of the second order tensor.
 
-This method returns average value of the trace of a second order tensor, i.e. the sum of all the terms of the diagonal divided by 3:
+This method returns average value of the trace of a second order tensor, i.e. the sum $s$ of all the terms of the diagonal divided by 3:
 \begin{equation*}
-v = \frac{1}{3} tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
+s = \frac{1}{3} \tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
+%@END
+
+%@DOC:Tensor2::minor()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::minor(~)}}\label{Tensor2::minor()}\index[DL]{Tensor2!minor(~)}\\
+Minor of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The minor of the second order tensor.
+
+This method returns the minor of a second order tensor.
+\begin{equation*}
+T^{minor} = \left[\begin{array}{ccc}
+T_{22}T_{33}-T_{32}T_{23} & T_{33}T_{21}-T_{23}T_{31} & T_{21}T_{32}-T_{31}T_{22}\\
+T_{12}T_{33}-T_{13}T_{32} & T_{33}T_{11}-T_{13}T_{31} & T_{11}T_{32}-T_{31}T_{12}\\
+T_{12}T_{23}-T_{22}T_{13} & T_{23}T_{11}-T_{13}T_{21} & T_{11}T_{22}-T_{21}T_{12}
+\end{array}
+\right]
+\end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
+%@END
+
+%@DOC:Tensor2::cofactors()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::cofactors(~)}}\label{Tensor2::cofactors()}\index[DL]{Tensor2!cofactors(~)}\\
+Cofactors of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The cofactor of the second order tensor.
+
+This method returns the cofactor of a second order tensor.
+\begin{equation*}
+T^{cof} = \left[\begin{array}{ccc}
+T_{22}T_{33}-T_{32}T_{23} & T_{23}T_{31}-T_{33}T_{21} & T_{21}T_{32}-T_{31}T_{22}\\
+T_{13}T_{32}-T_{12}T_{33} & T_{33}T_{11}-T_{13}T_{31} & T_{31}T_{12}-T_{11}T_{32}\\
+T_{12}T_{23}-T_{22}T_{13} & T_{13}T_{21}-T_{23}T_{11} & T_{11}T_{22}-T_{21}T_{12}
+\end{array}
+\right]
+\end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
+%@END
+
+%@DOC:Tensor2::solve(Vec3D x)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor2::solve(Vec3D x)}}\label{Tensor2::solve(Vec3D x)}\index[DL]{Tensor2!solve(Vec3D x)}\\
+Solves a small linear system A.x = b.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The solution of the linear system.
+
+This method returns the solution of a small linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
 %@END
 
 \subsection{Specific operations}
 
-%@DOC:Tensor2::singleProduct(Tensor2 T)
+%@DOC:Tensor2::dot(Tensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::singleProduct(Tensor2 T)}}\label{Tensor2::singleProduct(Tensor2 T)}\index[DL]{Tensor2!singleProduct(Tensor2 T)}\\
-Contracted product of two second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::dot(Tensor2 B)}}\label{Tensor2::dot(Tensor2 B)}\index[DL]{Tensor2!dot(Tensor2 B)}\\
+Single contracted product of two second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Tensor2&T&Second Tensor for the multiplication operation.
+Tensor2 & B & Second tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a single contracted product of two second order tensors.
@@ -631,63 +876,63 @@ The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \B
 \end{equation*}
-where $\A$ and $\B$ are two second order tensors.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor defined by parameter B.
 %@END
 
-%@DOC:Tensor2::singleProduct()
+%@DOC:Tensor2::dot()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::singleProduct(~)}}\label{Tensor2::singleProduct()}\index[DL]{Tensor2!singleProduct(~)}\\
-Contracted product of a second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::dot(~)}}\label{Tensor2::dot()}\index[DL]{Tensor2!dot(~)}\\
+Single contracted product of a second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
 
-This method defines a single contracted product of of a second order tensor by itself.
+This method defines a single contracted product of a second order tensor by itself.
 The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \A
 \end{equation*}
-where $\A$ is a two second order tensor.
+where $\A$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::singleProductTxN()
+%@DOC:Tensor2::dotTxN()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::singleProductTxN(~)}}\label{Tensor2::singleProductTxN()}\index[DL]{Tensor2!singleProductTxN(~)}\\
-Contracted product of a second order tensor by its transpose.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+\textcolor{purple}{\textbf{Tensor2::dotTxN(~)}}\label{Tensor2::dotTxN()}\index[DL]{Tensor2!dotTxN(~)}\\
+Single contracted product of a second order tensor by its transpose.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
 
-This method defines a single contracted product of two second order tensors.
+This method defines a single contracted product of a second order tensor by its transpose.
 The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A^T\cdot \A
 \end{equation*}
-where $\A$ is a second order tensor. Result is a symmetric second order tensor.
+where $\A$ is a second order tensor defined by the object itself. Result is a symmetric second order tensor.
 %@END
 
-%@DOC:Tensor2::singleProductNxT()
+%@DOC:Tensor2::dotNxT()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::singleProductNxT(~)}}\label{Tensor2::singleProductNxT()}\index[DL]{Tensor2!singleProductNxT(~)}\\
-Contracted product of a second order tensor by its transpose.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+\textcolor{purple}{\textbf{Tensor2::dotNxT(~)}}\label{Tensor2::dotNxT()}\index[DL]{Tensor2!dotNxT(~)}\\
+Single contracted product of a second order tensor by its transpose.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
 
-This method defines a single contracted product of two second order tensors.
+This method defines a single contracted product of a second order tensor by its transpose.
 The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \A^T
 \end{equation*}
-where $\A$ is a second order tensor. Result is a symmetric second order tensor.
+where $\A$ is a second order tensor defined by the object itself. Result is a symmetric second order tensor.
 %@END
 
-%@DOC:Tensor2::operator*(Tensor2 T)
+%@DOC:Tensor2::operator*(Tensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::operator$\star$(Tensor2 T)}}\label{Tensor2::operator*(Tensor2 T)}\index[DL]{Tensor2!operator$\star$(Tensor2 T)}\\
-Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::operator$\star$(Tensor2 B)}}\label{Tensor2::operator*(Tensor2 B)}\index[DL]{Tensor2!operator$\star$(Tensor2 B)}\\
+Single contracted product of two second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Tensor2&T&Second Tensor for the multiplication operation.
+Tensor2 & B & Second tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a single contracted product of two second order tensors.
@@ -695,60 +940,60 @@ The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \B
 \end{equation*}
-where $\A$ and $\B$ are two second order tensors.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor defined by parameter B.
 %@END
 
-%@DOC:Tensor2::operator*(SymTensor2 T)
+%@DOC:Tensor2::operator*(SymTensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::operator$\star$(SymTensor2 T)}}\label{Tensor2::operator*(SymTensor2 T)}\index[DL]{Tensor2!operator$\star$(SymTensor2 T)}\\
-Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::operator$\star$(SymTensor2 B)}}\label{Tensor2::operator*(SymTensor2 B)}\index[DL]{Tensor2!operator$\star$(SymTensor2 B)}\\
+Single contracted product of a second order tensor and a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Tensor2&T&Second Tensor for the multiplication operation.
+Tensor2 & B & Second tensor for the multiplication operation.
 \end{tcolorbox}
 
-This method defines a single contracted product of two second order tensors.
+This method defines a single contracted product of a second order tensor and a symmetric second order tensor.
 The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \B
 \end{equation*}
-where $\A$ is a second order tensor and $\B$ is a symmetric second order tensor.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is a symmetric second order tensor defined by parameter B.
 %@END
 
-%@DOC:Tensor2::doubleProduct(Tensor2 T)
+%@DOC:Tensor2::doubleDot(Tensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::doubleProduct(Tensor2 T)}}\label{Tensor2::doubleProduct(Tensor2 T)}\index[DL]{Tensor2!doubleProduct(Tensor2 T)}\\
-Double contracted product of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::doubleDot(Tensor2 B)}}\label{Tensor2::doubleDot(Tensor2 B)}\index[DL]{Tensor2!doubleDot(Tensor2 B)}\\
+Double contracted product of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ double : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Tensor2&T&Second Tensor for the multiplication operation.
+Tensor2 & B & Second tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a double contracted product of two second order tensors.
-The result of this operation is a scalar defined by:
+The result of this operation is a scalar $s$ defined by:
 \begin{equation*}
 s = \A : \B = \sum_{i=1}^{3} \sum_{j=1}^{3} A_{ij}\times B_{ij}
 \end{equation*}
-where $\A$ and $\B$ are two second order tensors.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is a second order tensor defined by parameter B.
 %@END
 
-%@DOC:Tensor2::doubleProduct()
+%@DOC:Tensor2::doubleDot()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::doubleProduct(~)}}\label{Tensor2::doubleProduct()}\index[DL]{Tensor2!doubleProduct(~)}\\
-Double contracted product of a second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::doubleDot(~)}}\label{Tensor2::doubleDot()}\index[DL]{Tensor2!doubleDot(~)}\\
+Double contracted product of a second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ double : Result of the multiplication operation.
 
 This method defines a double contracted product of a second order tensor by itself.
-The result of this operation is a scalar defined by:
+The result of this operation is a scalar $s$ defined by:
 \begin{equation*}
 s = \A : \A = \sum_{i=1}^{3} \sum_{j=1}^{3} A_{ij}\times A_{ij}
 \end{equation*}
-where $\A$ is a second order tensor.
+where $\A$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::operator*(Vec3D V)
@@ -756,10 +1001,10 @@ where $\A$ is a second order tensor.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor2::operator$\star$(Vec3D V)}}\label{Tensor2::operator*(Vec3D V)}\index[DL]{Tensor2!operator$\star$(Vec3D V)}\\
-Multiplication of a second order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+Multiplication of a second order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Vec3D&V&Vec3D to use for the multiplication operation.
+Vec3D & V & Vec3D to use for the multiplication operation.
 \end{tcolorbox}
 
 This method defines the product of a second order tensor by a vector.
@@ -767,33 +1012,33 @@ The result of this operation is also a vector defined by:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
 \end{equation*}
-where $\A$ is a second order tensor and $\overrightarrow{x}$ and $\overrightarrow{y}$ are two Vec3D.
+where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a Vec3D defined by parameter V.
 %@END
 
-%@DOC:Tensor2::getDeviator()
+%@DOC:Tensor2::deviator()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getDeviator(~)}}\label{Tensor2::getDeviator()}\index[DL]{Tensor2!getDeviator(~)}\\
-Deviatoric part of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::deviator(~)}}\label{Tensor2::deviator()}\index[DL]{Tensor2!deviator(~)}\\
+Deviatoric part of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The deviatoric part of the second order tensor.
 
-This method defines the deviatoric part of a second second order tensor.
+This method defines the deviatoric part of a second order tensor.
 The result of this operation is a second order tensor defined by the following equation:
 \begin{equation*}
-\Sig^d=\Sig-\frac{1}{3}\tr[\Sig].\Id
+\A^d=\A-\frac{1}{3}\tr[\A].\Id
 \end{equation*}
-where $\Sig^d$ is the deviatoric part of the tensor, $\Sig$ is the tensor and $\Id$ is the unit tensor.
+where $\A$ is a second order tensor defined by the object itself and $\Id$ is the unit tensor.
 %@END
 
-%@DOC:Tensor2::getSymetricPart()
+%@DOC:Tensor2::symmetric()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getSymetricPart(~)}}\label{Tensor2::getSymetricPart()}\index[DL]{Tensor2!getSymetricPart(~)}\\
-Symmetric part of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::symmetric(~)}}\label{Tensor2::symmetric()}\index[DL]{Tensor2!symmetric(~)}\\
+Symmetric part of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Symmetric part of the second order tensor.
 
-This method returns the symmetric part of a second second order tensor.
-The result of this operation is a second second order tensor defined by:
+This method returns the symmetric part of a second order tensor.
+The result of this operation is a second order tensor defined by:
 \begin{equation*}
 \B = \left[\begin{array}{ccc}
  A_{11} & \frac{A_{12} + A_{21}}{2} & \frac{A_{13} + A_{31}}{2}\\
@@ -801,17 +1046,18 @@ The result of this operation is a second second order tensor defined by:
  \frac{A_{13} + A_{31}}{2} & \frac {A_{23} + A_{32}}{2} & A_{33}\end{array}
 \right]
 \end{equation*}
+where $\A$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getSkewSymetricPart()
+%@DOC:Tensor2::skewSymmetric()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getSkewSymetricPart(~)}}\label{Tensor2::getSkewSymetricPart()}\index[DL]{Tensor2!getSkewSymetricPart(~)}\\
-Skew-symmetric part of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{Tensor2::skewSymmetric(~)}}\label{Tensor2::skewSymmetric()}\index[DL]{Tensor2!skewSymmetric(~)}\\
+Skew-symmetric part of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Symmetric part of the second order tensor.
 
-This method returns the skew-symmetric part of a second second order tensor.
-The result of this operation is a second second order tensor defined by:
+This method returns the skew-symmetric part of a second order tensor.
+The result of this operation is a second order tensor defined by:
 \begin{equation*}
 \B = \left[\begin{array}{ccc}
  A_{11} & \frac{A_{12} - A_{21}}{2} & \frac{A_{13} - A_{31}}{2}\\
@@ -819,20 +1065,22 @@ The result of this operation is a second second order tensor defined by:
  -\frac{A_{13} - A_{31}}{2} & -\frac {A_{23} - A_{32}}{2} & A_{33}\end{array}
 \right]
 \end{equation*}
+where $\A$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getDeterminant()
+%@DOC:Tensor2::det()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getDeterminant(~)}}\label{Tensor2::getDeterminant()}\index[DL]{Tensor2!getDeterminant(~)}\\
-Determinant of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::det(~)}}\label{Tensor2::det()}\index[DL]{Tensor2!det(~)}\\
+Determinant of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The determinant.
 
 This method returns the determinant of a second second order tensor.
 The result of this operation is a scalar value defined by:
 \begin{equation*}
 D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::inverse()
@@ -840,9 +1088,9 @@ D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} 
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor2::inverse(~)}}\label{Tensor2::inverse()}\index[DL]{Tensor2!inverse(~)}\\
-Inverse of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+Inverse of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : The inverse of the second order tensor.
 
-This method returns the inverse of a second second order tensor.
+This method returns the inverse of a second order tensor.
 The result of this operation is a second order tensor defined by:
 \begin{equation*}
 D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
@@ -855,31 +1103,34 @@ T^{-1} = \frac {1}{D} \left[\begin{array}{ccc}
   \end{array}
   \right]
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getNorm()
+%@DOC:Tensor2::norm()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getNorm(~)}}\label{Tensor2::getNorm()}\index[DL]{Tensor2!getNorm(~)}\\
-Norm of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::norm(~)}}\label{Tensor2::norm()}\index[DL]{Tensor2!norm(~)}\\
+Norm of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The norm of the second order tensor.
 
-This method returns the norm of a second order tensor defined by:\begin{equation*}
-\left\Vert s \right\Vert  = \sqrt {s_{ij}:s_{ij}}
+This method returns the norm $s$ of a second order tensor $\T$ defined by:\begin{equation*}
+s = \left\Vert \T \right\Vert  = \sqrt {T_{ij}:T_{ij}}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
-%@DOC:Tensor2::getJ2()
+%@DOC:Tensor2::J2()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor2::getJ2(~)}}\label{Tensor2::getJ2()}\index[DL]{Tensor2!getJ2(~)}\\
-J2 norm of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{Tensor2::J2(~)}}\label{Tensor2::J2()}\index[DL]{Tensor2!J2(~)}\\
+J2 norm of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The J2 of the second order tensor.
 
-This method returns the J2 norm of a second order tensor defined by:
+This method returns the J2 norm $s$ of a second order tensor $\T$ defined by:
 \begin{equation*}
-\sqrt {\frac{3}{2}} \left\Vert s \right\Vert  = \sqrt {\frac{3}{2} s_{ij}:s_{ij}}
+s = \sqrt {\frac{3}{2}} \left\Vert \T \right\Vert  = \sqrt {\frac{3}{2} T_{ij}:T_{ij}}
 \end{equation*}
+where $\T$ is a second order tensor defined by the object itself.
 %@END
 
 \subsection{Advanced operations}
@@ -900,6 +1151,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::polarQLLnU(SymTensor2 U, Tensor2 R)
@@ -921,6 +1173,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::polarCuppen(SymTensor2 U, Tensor2 R)
@@ -939,6 +1192,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)
@@ -960,6 +1214,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::polarJacobi(SymTensor2 U, Tensor2 R)
@@ -978,6 +1233,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)
@@ -999,6 +1255,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::polarLapack(SymTensor2 U, Tensor2 R)
@@ -1017,6 +1274,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 %@END
 
@@ -1039,6 +1297,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 %@END
 
@@ -1058,6 +1317,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:Tensor2::polarLnU(SymTensor2 U, Tensor2 R)
@@ -1079,6 +1339,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 \begin{tcolorbox}[width=0.95\textwidth,myTab,tabularx={l||C|C|C},title=Performance of the polar algorithms]%,boxrule=0.5pt]
@@ -1100,17 +1361,19 @@ polarCuppen & $234$ & $243$ & $3.5527\times10^{-15}$
 \textcolor{purple}{\textbf{SymTensor2::SymTensor2}}\label{SymTensor2::SymTensor2}\index[DL]{SymTensor2!SymTensor2}\\
 Second order tensor class.
 
-The SymTensor2 library is used to store symmetric second order tensors defined in the \DynELA. A symmetric second order tensor is a like a matrix with the following form:
+The SymTensor2 library is used to store symmetric second order tensors defined in the \DynELA.
+The SymTensor2 class is used to store and manage data relative to a symmetric second order tensor which can be seen as a $3\times3$ matrix with the following form:
 \begin{equation*}
-T=\left[\begin{array}{ccc}
+\T=\left[\begin{array}{ccc}
   T_{11} & T_{12} & T_{13}\\
   T_{12} & T_{22} & T_{23}\\
   T_{13} & T_{23} & T_{33}
   \end{array}\right]
 \end{equation*}
-Concerning the internal storage of data, the SymTensor2 data is stored in a vector \_data of 6 components using the following storage scheme:
+where $T_{ij}$ are the components of the symmetric second order tensor $\T$.
+Concerning the internal storage of data, the SymTensor2 data is stored in vector of $6$ components named \textsf{\_data} using the following storage scheme:
 \begin{equation*}
-T=\left[\begin{array}{ccc}
+\T=\left[\begin{array}{ccc}
     T_{0} & T_{1} & T_{2}\\
     T_{1} & T_{3} & T_{4}\\
     T_{2} & T_{4} & T_{5}
@@ -1118,55 +1381,49 @@ T=\left[\begin{array}{ccc}
 \end{equation*}
 %@END
 
-\subsection{Constructors}
+
 
 %@DOC:SymTensor2::SymTensor2()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{SymTensor2::SymTensor2(~)}}\label{SymTensor2::SymTensor2()}\index[DL]{SymTensor2!SymTensor2(~)}\\
-Default constructor of the SymTensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+Default constructor of the SymTensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : The new SymTensor2 object created by the constructor.
 
-All components are initialized to zero by default.
+This is the default constructor of the SymTensor2 class, where all components are initialized to zero by default.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
-0&0&0\\
-0&0&0\\
-0&0&0
+0 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0
 \end{array}\right]
 \end{equation*}
 %@END
 
-%@DOC:SymTensor2::SymTensor2(double,...)
+%@DOC:SymTensor2::SymTensor2(double t11, double t12, ...)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::SymTensor2(double,...)}}\label{SymTensor2::SymTensor2(double,...)}\index[DL]{SymTensor2!SymTensor2(double,...)}\\
-Constructor of the SymTensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+\textcolor{purple}{\textbf{SymTensor2::SymTensor2(double t11, double t12, ...)}}\label{SymTensor2::SymTensor2(double t11, double t12, ...)}\index[DL]{SymTensor2!SymTensor2(double t11, double t12, ...)}\\
+Constructor of the SymTensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : The new SymTensor2 object created by the constructor.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-double&t1&Component $t_{11}$ of the tensor.\\
-double&t2&Component $t_{12}$ of the tensor.\\
-double&t3&Component $t_{13}$ of the tensor.\\
-double&t4&Component $t_{22}$ of the tensor.\\
-double&t5&Component $t_{23}$ of the tensor.\\
-double&t6&Component $t_{33}$ of the tensor.
+double & t11 & Component $T_{11}$ of the symmetric second order tensor.\\
+double & t12 & Component $T_{12}$ of the symmetric second order tensor.\\
+double & t13 & Component $T_{13}$ of the symmetric second order tensor.\\
+double & t22 & Component $T_{22}$ of the symmetric second order tensor.\\
+double & t23 & Component $T_{23}$ of the symmetric second order tensor.\\
+double & t33 & Component $T_{33}$ of the symmetric second order tensor.
 \end{tcolorbox}
 
-Constructor of a second order symmetric tensor with explicit initialization of the 6 components of the tensor.
-%@END
-
-%@DOC:SymTensor2::SymTensor2(SymTensor2 T)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::SymTensor2(SymTensor2 T)}}\label{SymTensor2::SymTensor2(SymTensor2 T)}\index[DL]{SymTensor2!SymTensor2(SymTensor2 T)}\\
-Copy constructor of the SymTensor2 class.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
-
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-SymTensor2&T&Tensor to copy.
-\end{tcolorbox}
-
+Constructor of a second order symmetric tensor with explicit initialization of the $6$ components of the tensor.
+\begin{equation*}
+\T=\left[\begin{array}{ccc}
+  T_{11} & T_{12} & T_{13}\\
+  T_{12} & T_{22} & T_{23}\\
+  T_{13} & T_{23} & T_{33}
+  \end{array}\right]
+\end{equation*}
 %@END
 
 \subsection{Basic operations}
@@ -1176,17 +1433,19 @@ SymTensor2&T&Tensor to copy.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{SymTensor2::setToZero(~)}}\label{SymTensor2::setToZero()}\index[DL]{SymTensor2!setToZero(~)}\\
-Sets all components of the tensor to zero.
+Zero symmetric second order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument.}
 
+This method transforms the current symmetric second order tensor to a zero tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
-0&0&0\\
-0&0&0\\
-0&0&0
+0 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0
 \end{array}\right]
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::setToUnity()
@@ -1194,11 +1453,11 @@ Sets all components of the tensor to zero.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{SymTensor2::setToUnity(~)}}\label{SymTensor2::setToUnity()}\index[DL]{SymTensor2!setToUnity(~)}\\
-Unity tensor.
+Unity symmetric second order tensor.
 
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
 
-This method transforms the current tensor to a unity tensor.
+This method transforms the current symmetric second order tensor to a unity tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
 1&0&0\\
@@ -1206,27 +1465,216 @@ This method transforms the current tensor to a unity tensor.
 0&0&1
 \end{array}\right]
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::operator=(double val)
+%@DOC:SymTensor2::operator=(double v)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::operator=(double val)}}\label{SymTensor2::operator=(double val)}\index[DL]{SymTensor2!operator=(double val)}\\
-Fill a second order tensor with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+\textcolor{purple}{\textbf{SymTensor2::operator=(double v)}}\label{SymTensor2::operator=(double v)}\index[DL]{SymTensor2!operator=(double v)}\\
+Fill a symmetric second order tensor with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-double&val&Value to use for the operation.
+double & v & Value to use for the operation.
 \end{tcolorbox}
 
 This method is a surdefinition of the = operator for the symmetric second order tensor class.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
-m&m&m\\
-m&m&m\\
-m&m&m
+v & v & v\\
+v & v & v\\
+v & v & v
 \end{array}\right]
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself and $v$ is the scalar value defined by parameter v.
+%@END
+
+%@DOC:SymTensor2::operator+=(SymTensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator+=(SymTensor2 B)}}\label{SymTensor2::operator+=(SymTensor2 B)}\index[DL]{SymTensor2!operator+=(SymTensor2 B)}\\
+Addition of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+SymTensor2 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 second order tensors.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+%@END
+
+%@DOC:SymTensor2::operator-=(SymTensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator-=(SymTensor2 B)}}\label{SymTensor2::operator-=(SymTensor2 B)}\index[DL]{SymTensor2!operator-=(SymTensor2 B)}\\
+Difference of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+SymTensor2 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 second order tensors.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+%@END
+
+%@DOC:SymTensor2::operator*=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator$\star$=(double l)}}\label{SymTensor2::operator*=(double l)}\index[DL]{SymTensor2!operator$\star$=(double l)}\\
+Multiplication of a symmetric second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a symmetric second order tensor by a scalar value.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\lambda \A
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:SymTensor2::operator/=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator/=(double l)}}\label{SymTensor2::operator/=(double l)}\index[DL]{SymTensor2!operator/=(double l)}\\
+Division of a symmetric second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a symmetric second order tensor by a scalar value.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:SymTensor2::operator+(SymTensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator+(SymTensor2 B)}}\label{SymTensor2::operator+(SymTensor2 B)}\index[DL]{SymTensor2!operator+(SymTensor2 B)}\\
+Addition of 2 symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+SymTensor2 & B & Symmetric second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 symmetric second order tensors.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\T = \A + \B
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is the symmetric second order tensor value defined by parameter B.
+%@END
+
+%@DOC:SymTensor2::operator-(SymTensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator-(SymTensor2 B)}}\label{SymTensor2::operator-(SymTensor2 B)}\index[DL]{SymTensor2!operator-(SymTensor2 B)}\\
+Subtraction of 2 symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+SymTensor2 & B & Symmetric second order tensor to subtract to the current one.
+\end{tcolorbox}
+
+This method defines the subtraction of 2 symmetric second order tensors.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\T = \A - \B
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is the symmetric second order tensor value defined by parameter B.
+%@END
+
+%@DOC:SymTensor2::operator-()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator-(~)}}\label{SymTensor2::operator-()}\index[DL]{SymTensor2!operator-(~)}\\
+Opposite of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : The opposite symmetric second order tensor.
+
+This method defines the opposite of a symmetric second order tensor.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\T = - \A
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself.
+%@END
+
+%@DOC:SymTensor2::operator*(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator$\star$(double l)}}\label{SymTensor2::operator*(double l)}\index[DL]{SymTensor2!operator$\star$(double l)}\\
+Multiplication of a symmetric second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a symmetric second order tensor by a scalar value.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:SymTensor2::operator/(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::operator/(double l)}}\label{SymTensor2::operator/(double l)}\index[DL]{SymTensor2!operator/(double l)}\\
+Division of a symmetric second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a symmetric second order tensor by a scalar value.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\T = \frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:operator*(double l, SymTensor2 A)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{operator$\star$(double l, SymTensor2 A)}}\label{operator*(double l, SymTensor2 A)}\\
+Multiplication of a symmetric second order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.\\
+SymTensor2 & A & Symmetric second order tensor to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a symmetric second order tensor by a scalar value.
+The result of this operation is also a symmetric second order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a symmetric second order tensor and $\lambda$ is the scalar value defined by parameter l.
 %@END
 
 %@DOC:SymTensor2::rowSum()
@@ -1234,241 +1682,247 @@ m&m&m
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{SymTensor2::rowSum(~)}}\label{SymTensor2::rowSum()}\index[DL]{SymTensor2!rowSum(~)}\\
-Sum of the rows of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+Sum of the rows of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The sums of the rows of the symmetric second order tensor.
 
-This method returns a vector by computing the sum of the components on all rows of a second second order tensor.
-The result of this operation is a vector defined by:
+This method returns a vector by computing the sum of the components on all rows of a symmetric second order tensor.
+The result of this operation is a vector $\overrightarrow{v}$ defined by:
 \begin{equation*}
 v_{i}=\sum_{j=1}^{3} T_{ji}
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::columnSum()
+%@DOC:SymTensor2::colSum()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::columnSum(~)}}\label{SymTensor2::columnSum()}\index[DL]{SymTensor2!columnSum(~)}\\
-Sum of the columns of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+\textcolor{purple}{\textbf{SymTensor2::colSum(~)}}\label{SymTensor2::colSum()}\index[DL]{SymTensor2!colSum(~)}\\
+Sum of the columns of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The sums of the columns of the symmetric second order tensor.
 
-This method returns a vector by computing the sum of the components on all columns of a second second order tensor.
-The result of this operation is a vector defined by:
+This method returns a vector by computing the sum of the components on all columns of a symmetric second order tensor.
+The result of this operation is a vector $\overrightarrow{v}$ defined by:
 \begin{equation*}
 v_{i}=\sum_{j=1}^{3}T_{ij}
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::getRow(short row)
+%@DOC:SymTensor2::row(short r)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getRow(short row)}}\label{SymTensor2::getRow(short row)}\index[DL]{SymTensor2!getRow(short row)}\\
-Extraction of a row from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+\textcolor{purple}{\textbf{SymTensor2::row(short r)}}\label{SymTensor2::row(short r)}\index[DL]{SymTensor2!row(short r)}\\
+Extraction of a row from a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The extracted row.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-short&row&Row to extract
+short & r & Row to extract
 \end{tcolorbox}
 
-This method returns a vector as part of a second second order tensor.
-The result of this operation with the argument j is a vector defined by:
+This method returns a vector as part of a symmetric second order tensor.
+The result of this operation with the argument r is a vector defined by:
 \begin{equation*}
-v_{i} = T_{ij}
+v_{i} = T_{ri}
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::getColumn(short col)
+%@DOC:SymTensor2::col(short c)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getColumn(short col)}}\label{SymTensor2::getColumn(short col)}\index[DL]{SymTensor2!getColumn(short col)}\\
-Extraction of a column from a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+\textcolor{purple}{\textbf{SymTensor2::col(short c)}}\label{SymTensor2::col(short c)}\index[DL]{SymTensor2!col(short c)}\\
+Extraction of a column from a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The extracted col.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-short&col&Column to extract
+short & c & Column to extract
 \end{tcolorbox}
 
-This method returns a vector as part of a second second order tensor.
-The result of this operation with the argument j is a vector defined by:
+This method returns a vector as part of a symmetric second order tensor.
+The result of this operation with the argument c is a vector defined by:
 \begin{equation*}
-v_{i} = T_{ji}
+v_{i} = T_{ic}
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::minValue()
+%@DOC:SymTensor2::minVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::minValue(~)}}\label{SymTensor2::minValue()}\index[DL]{SymTensor2!minValue(~)}\\
-Minimum component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::minVal(~)}}\label{SymTensor2::minVal()}\index[DL]{SymTensor2!minVal(~)}\\
+Minimum component in a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the symmetric second order tensor.
 
-This method returns the minimum component in a second second order tensor.
+This method returns the minimum component in a symmetric second order tensor.
 %@END
 
-%@DOC:SymTensor2::minAbsoluteValue()
+%@DOC:SymTensor2::minAbs()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::minAbsoluteValue(~)}}\label{SymTensor2::minAbsoluteValue()}\index[DL]{SymTensor2!minAbsoluteValue(~)}\\
-Minimum absolute component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::minAbs(~)}}\label{SymTensor2::minAbs()}\index[DL]{SymTensor2!minAbs(~)}\\
+Minimum absolute component in a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the symmetric second order tensor.
 
-This method returns the minimum absolute component in a second second order tensor.
+This method returns the minimum absolute component in a symmetric second order tensor.
 %@END
 
-%@DOC:SymTensor2::maxValue()
+%@DOC:SymTensor2::maxVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::maxValue(~)}}\label{SymTensor2::maxValue()}\index[DL]{SymTensor2!maxValue(~)}\\
-Maximum component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::maxVal(~)}}\label{SymTensor2::maxVal()}\index[DL]{SymTensor2!maxVal(~)}\\
+Maximum component in a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the symmetric second order tensor.
 
-This method returns the maximum component in a second second order tensor.
+This method returns the maximum component in a symmetric second order tensor.
 %@END
 
-%@DOC:SymTensor2::maxAbsoluteValue()
+%@DOC:SymTensor2::maxAbs()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::maxAbsoluteValue(~)}}\label{SymTensor2::maxAbsoluteValue()}\index[DL]{SymTensor2!maxAbsoluteValue(~)}\\
-Maximum absolute component in a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::maxAbs(~)}}\label{SymTensor2::maxAbs()}\index[DL]{SymTensor2!maxAbs(~)}\\
+Maximum absolute component in a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the symmetric second order tensor.
 
-This method returns the maximum absolute component in a second second order tensor.
+This method returns the maximum absolute component in a symmetric second order tensor.
 %@END
 
-%@DOC:SymTensor2::getTrace()
+%@DOC:SymTensor2::trace()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getTrace(~)}}\label{SymTensor2::getTrace()}\index[DL]{SymTensor2!getTrace(~)}\\
-Returns the trace of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::trace(~)}}\label{SymTensor2::trace()}\index[DL]{SymTensor2!trace(~)}\\
+Returns the trace of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The trace of the second order tensor.
 
-  This method returns the trace of a symmetric second order tensor, i.e. the sum of all the terms of the diagonal:
+This method returns the trace of a symmetric second order tensor, i.e. the sum $s$ of all the terms of the diagonal:
 \begin{equation*}
-v = tr[\T] = T_{11}+T_{22}+T_{33}
+s = \tr[\T] = T_{11}+T_{22}+T_{33}
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::getThirdTrace()
+%@DOC:SymTensor2::thirdTrace()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getThirdTrace(~)}}\label{SymTensor2::getThirdTrace()}\index[DL]{SymTensor2!getThirdTrace(~)}\\
-Returns the average value of the trace of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::thirdTrace(~)}}\label{SymTensor2::thirdTrace()}\index[DL]{SymTensor2!thirdTrace(~)}\\
+Returns the average value of the trace of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The third of the trace of the second order tensor.
 
-This method returns average value of the trace of a symmetric second order tensor, i.e. the sum of all the terms of the diagonal divided by 3:
+This method returns average value of the trace of a symmetric second order tensor, i.e. the sum $s$ of all the terms of the diagonal divided by 3:
 \begin{equation*}
-v = \frac{1}{3} tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
+s = \frac{1}{3} \tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
 \subsection{Specific operations}
 
-%@DOC:SymTensor2::singleProduct(SymTensor2 T)
+%@DOC:SymTensor2::dot(SymTensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::singleProduct(SymTensor2 T)}}\label{SymTensor2::singleProduct(SymTensor2 T)}\index[DL]{SymTensor2!singleProduct(SymTensor2 T)}\\
-Contracted product of two symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{SymTensor2::dot(SymTensor2 B)}}\label{SymTensor2::dot(SymTensor2 B)}\index[DL]{SymTensor2!dot(SymTensor2 B)}\\
+Single contracted product of two symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-SymTensor2&T&Second Tensor for the multiplication operation.
+SymTensor2 & B & Second tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a single contracted product of two symmetric second order tensors.
-The result of this operation is also a second order tensor defined by:
+The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
-\T=A \cdot \B=\left[\begin{array}{ccc}
-A_{11} B_{11} + A_{12} B_{12} + A_{13} B_{13} & A_{11} B_{12} + A_{12} B_{22} + A_{13} B_{23} & A_{11} B_{13} + A_{12} B_{23} + A_{13} B_{33} \\
-A_{12} B_{11} + A_{22} B_{12} + A_{23} B_{13} & A_{12} B_{12} + A_{22} B_{22} + A_{23} B_{23} & A_{12} B_{13} + A_{22} B_{23} + A_{23} B_{33} \\
-A_{13} B_{11} + A_{23} B_{12} + A_{33} B_{13} & A_{13} B_{12} + A_{23} B_{22} + A_{33} B_{23} & A_{13} B_{13} + A_{23} B_{23} + A_{33} B_{33}
-\end{array}\right]
+\T = \A \cdot \B
 \end{equation*}
-where $\A$ and $\B$ are two symmetric second order tensors, the result is a non symmetric second order tensor.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is the symmetric second order tensor defined by parameter B.
 %@END
 
-%@DOC:SymTensor2::singleProduct()
+%@DOC:SymTensor2::dot()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::singleProduct(~)}}\label{SymTensor2::singleProduct()}\index[DL]{SymTensor2!singleProduct(~)}\\
-Contracted product of a symmetric second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+\textcolor{purple}{\textbf{SymTensor2::dot(~)}}\label{SymTensor2::dot()}\index[DL]{SymTensor2!dot(~)}\\
+Single contracted product of a symmetric second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
 
-This method defines a single contracted product of of a symmetric second order tensor by itself.
+This method defines a single contracted product of a symmetric second order tensor by itself.
 The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \A
 \end{equation*}
-where $\A$ is a two symmetric second order tensor.
+where $\A$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::operator*(SymTensor2 T)
+%@DOC:SymTensor2::operator*(SymTensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::operator$\star$(SymTensor2 T)}}\label{SymTensor2::operator*(SymTensor2 T)}\index[DL]{SymTensor2!operator$\star$(SymTensor2 T)}\\
-Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{SymTensor2::operator$\star$(SymTensor2 B)}}\label{SymTensor2::operator*(SymTensor2 B)}\index[DL]{SymTensor2!operator$\star$(SymTensor2 B)}\\
+Single contracted product of two symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of this operation is a non symmetric second order tensor.}
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Tensor2&T&Second Tensor for the multiplication operation.
+SymTensor2 & B & Symmetric second tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a single contracted product of two symmetric second order tensors.
-The result of this operation is also a second order tensor defined by:
+The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \B
 \end{equation*}
-where $\A$ and $\B$ are two symmetric second order tensors.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is the symmetric second order tensor defined by parameter B.
 %@END
 
-%@DOC:SymTensor2::operator*(Tensor2 T)
+%@DOC:SymTensor2::operator*(Tensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::operator$\star$(Tensor2 T)}}\label{SymTensor2::operator*(Tensor2 T)}\index[DL]{SymTensor2!operator$\star$(Tensor2 T)}\\
-Multiplication of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{SymTensor2::operator$\star$(Tensor2 B)}}\label{SymTensor2::operator*(Tensor2 B)}\index[DL]{SymTensor2!operator$\star$(Tensor2 B)}\\
+Single contracted product of two symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of this operation is a non symmetric second order tensor.}
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Tensor2&T&Second Tensor for the multiplication operation.
+Tensor2 & B & Symmetric second tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a single contracted product of two symmetric second order tensors.
-The result of this operation is also a second order tensor defined by:
+The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
 \T = \A \cdot \B
 \end{equation*}
-where $\B$ is a second order tensor and $\A$ is a symmetric second order tensor.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is the symmetric second order tensor defined by parameter B.
 %@END
 
-%@DOC:SymTensor2::doubleProduct(SymTensor2 T)
+%@DOC:SymTensor2::doubleDot(SymTensor2 B)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::doubleProduct(SymTensor2 T)}}\label{SymTensor2::doubleProduct(SymTensor2 T)}\index[DL]{SymTensor2!doubleProduct(SymTensor2 T)}\\
-Double contracted product of 2 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::doubleDot(SymTensor2 B)}}\label{SymTensor2::doubleDot(SymTensor2 B)}\index[DL]{SymTensor2!doubleDot(SymTensor2 B)}\\
+Double contracted product of 2 symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ double : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-SymTensor2&T&Second Tensor for the multiplication operation.
+SymTensor2 & B & Second tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a double contracted product of two symmetric second order tensors.
-The result of this operation is a scalar defined by:
+The result of this operation is a scalar $s$ defined by:
 \begin{equation*}
 s = \A : \B = \sum_{i=1}^{3} \sum_{j=1}^{3} A_{ij}\times B_{ij}
 \end{equation*}
-where $\A$ and $\B$ are two symmetric second order tensors.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\B$ is a symmetric second order tensor defined by parameter B.
 %@END
 
-%@DOC:SymTensor2::doubleProduct()
+%@DOC:SymTensor2::doubleDot()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::doubleProduct(~)}}\label{SymTensor2::doubleProduct()}\index[DL]{SymTensor2!doubleProduct(~)}\\
-Double contracted product of a second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::doubleDot(~)}}\label{SymTensor2::doubleDot()}\index[DL]{SymTensor2!doubleDot(~)}\\
+Double contracted product of a symmetric second order tensor by itself.\\ \hspace*{10mm}$\hookrightarrow$ double : Result of the multiplication operation.
 
-This method defines a double contracted product of a second order tensor by itself.
-The result of this operation is a scalar defined by:
+This method defines a double contracted product of a symmetric second order tensor by itself.
+The result of this operation is a scalar $s$ defined by:
 \begin{equation*}
 s = \A : \A = \sum_{i=1}^{3} \sum_{j=1}^{3} A_{ij}\times A_{ij}
 \end{equation*}
-where $\A$ is a second order tensor.
+where $\A$ is a symmetric second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::operator*(Vec3D V)
@@ -1476,10 +1930,10 @@ where $\A$ is a second order tensor.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{SymTensor2::operator$\star$(Vec3D V)}}\label{SymTensor2::operator*(Vec3D V)}\index[DL]{SymTensor2!operator$\star$(Vec3D V)}\\
-Multiplication of a symmetric second order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+Multiplication of a symmetric second order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Vec3D&V&Vec3D to use for the multiplication operation.
+Vec3D & V & Vec3D to use for the multiplication operation.
 \end{tcolorbox}
 
 This method defines the product of a symmetric second order tensor by a vector.
@@ -1487,36 +1941,37 @@ The result of this operation is also a vector defined by:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
 \end{equation*}
-where $\A$ is a symmetric second order tensor and $\overrightarrow{x}$ and $\overrightarrow{y}$ are two Vec3D.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\overrightarrow{x}$ is a Vec3D defined by parameter V.
 %@END
 
-%@DOC:SymTensor2::getDeviator()
+%@DOC:SymTensor2::deviator()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getDeviator(~)}}\label{SymTensor2::getDeviator()}\index[DL]{SymTensor2!getDeviator(~)}\\
-Deviatoric part of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+\textcolor{purple}{\textbf{SymTensor2::deviator(~)}}\label{SymTensor2::deviator()}\index[DL]{SymTensor2!deviator(~)}\\
+Deviatoric part of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : The deviatoric part of the symmetric second order tensor.
 
-This method defines the deviatoric part of a second second order tensor.
-The result of this operation is a second order tensor defined by the following equation:
+This method defines the deviatoric part of a symmetric second order tensor.
+The result of this operation is a symmetric second order tensor defined by the following equation:
 \begin{equation*}
-\Sig^d=\Sig-\frac{1}{3}\tr[\Sig].\Id
+\A^d=\A-\frac{1}{3}\tr[\A].\Id
 \end{equation*}
-where $\Sig^d$ is the deviatoric part of the tensor, $\Sig$ is the tensor and $\Id$ is the unit tensor.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\Id$ is the unit tensor.
 %@END
 
-%@DOC:SymTensor2::getDeterminant()
+%@DOC:SymTensor2::det()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getDeterminant(~)}}\label{SymTensor2::getDeterminant()}\index[DL]{SymTensor2!getDeterminant(~)}\\
-Determinant of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::det(~)}}\label{SymTensor2::det()}\index[DL]{SymTensor2!det(~)}\\
+Determinant of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The determinant.
 
 This method returns the determinant of a symmetric second second order tensor.
 The result of this operation is a scalar value defined by:
 \begin{equation*}
-D = T_{11} T_{22} T_{33} + 2 T_{12} T_{23} T_{13} - T_{22} T_{13}^2 - T_{11} T_{23}^2 - T_{33} T_{12}^2
+D = T_{11} T_{22} T_{33} + 2 T_{12} T_{23} T_{13} - T_{13} T_{22} T_{13} - T_{11} T_{23} T_{23} - T_{12} T_{12} T_{33}
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::inverse()
@@ -1524,10 +1979,10 @@ D = T_{11} T_{22} T_{33} + 2 T_{12} T_{23} T_{13} - T_{22} T_{13}^2 - T_{11} T_{
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{SymTensor2::inverse(~)}}\label{SymTensor2::inverse()}\index[DL]{SymTensor2!inverse(~)}\\
-Inverse of a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+Inverse of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : The inverse of the symmetric second order tensor.
 
-This method returns the inverse of a second second order tensor.
-The result of this operation is a second order tensor defined by:
+This method returns the inverse of a symmetric second order tensor.
+The result of this operation is a symmetric second order tensor defined by:
 \begin{equation*}
 D = T_{11} T_{22} T_{33} + 2 T_{12} T_{23} T_{13} - T_{22} T_{13}^2 - T_{11} T_{23}^2 - T_{33} T_{12}^2
 \end{equation*}
@@ -1539,26 +1994,27 @@ T^{-1} = \frac {1}{D} \left[\begin{array}{ccc}
   \end{array}
   \right]
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::getNorm()
+%@DOC:SymTensor2::norm()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getNorm(~)}}\label{SymTensor2::getNorm()}\index[DL]{SymTensor2!getNorm(~)}\\
-Norm of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::norm(~)}}\label{SymTensor2::norm()}\index[DL]{SymTensor2!norm(~)}\\
+Norm of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : The norm of the second order tensor.
 
-This method returns the norm of a symmetric second order tensor defined by:
-\begin{equation*}
-\left\Vert s \right\Vert  = \sqrt {s_{ij}:s_{ij}}
+This method returns the norm $s$ of a symmetric second order tensor $\T$ defined by:\begin{equation*}
+s = \left\Vert \T \right\Vert  = \sqrt {T_{ij}:T_{ij}}
 \end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
 %@END
 
-%@DOC:SymTensor2::getJ2()
+%@DOC:SymTensor2::J2()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getJ2(~)}}\label{SymTensor2::getJ2()}\index[DL]{SymTensor2!getJ2(~)}\\
+\textcolor{purple}{\textbf{SymTensor2::J2(~)}}\label{SymTensor2::J2()}\index[DL]{SymTensor2!J2(~)}\\
 J2 norm of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 This method returns the J2 norm of a symmetric second order tensor defined by:
@@ -1567,58 +2023,111 @@ This method returns the J2 norm of a symmetric second order tensor defined by:
 \end{equation*}
 %@END
 
-%@DOC:SymTensor2::getMisesEquivalent()
+%@DOC:SymTensor2::vonMises()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::getMisesEquivalent(~)}}\label{SymTensor2::getMisesEquivalent()}\index[DL]{SymTensor2!getMisesEquivalent(~)}\\
-Returns the von Mises stress of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double
+\textcolor{purple}{\textbf{SymTensor2::vonMises(~)}}\label{SymTensor2::vonMises()}\index[DL]{SymTensor2!vonMises(~)}\\
+Returns the von Mises stress of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ double : the von Mises equivalent stress.
 
 This method returns the von Mises stress of a symmetric second order tensor defined by:
 \begin{equation*}
 \overline{\sigma} = \frac {1}{\sqrt{2}}\sqrt{(s_{11}-s_{22})^2+(s_{22}-s_{33})^2+(s_{33}-s_{11})^2+6(s_{12}^2+s_{23}^2+s_{31}^2)}
 \end{equation*}
+where $\Sig$ is a symmetric second order tensor defined by the object itself.
+%@END
+
+%@DOC:SymTensor2::minor()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::minor(~)}}\label{SymTensor2::minor()}\index[DL]{SymTensor2!minor(~)}\\
+Minor of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : The minor of the symmetric second order tensor.
+
+This method returns the minor of a symmetric second order tensor.
+\begin{equation*}
+T^{minor} = \left[\begin{array}{ccc}
+T_{22}T_{33}-T_{23}T_{23} & T_{33}T_{12}-T_{23}T_{13} & T_{12}T_{23}-T_{13}T_{22}\\
+T_{12}T_{33}-T_{13}T_{23} & T_{33}T_{11}-T_{13}T_{13} & T_{11}T_{23}-T_{13}T_{12}\\
+T_{12}T_{23}-T_{22}T_{13} & T_{23}T_{11}-T_{13}T_{12} & T_{11}T_{22}-T_{12}T_{12}
+\end{array}
+\right]
+\end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
+%@END
+
+%@DOC:SymTensor2::cofactors()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::cofactors(~)}}\label{SymTensor2::cofactors()}\index[DL]{SymTensor2!cofactors(~)}\\
+Cofactors of a symmetric second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : The cofactor of the symmetric second order tensor.
+
+This method returns the cofactor of a symmetric second order tensor.
+\begin{equation*}
+T^{cof} = \left[\begin{array}{ccc}
+T_{22}T_{33}-T_{23}T_{23} & T_{23}T_{13}-T_{33}T_{12} & T_{12}T_{23}-T_{13}T_{22}\\
+T_{13}T_{23}-T_{12}T_{33} & T_{33}T_{11}-T_{13}T_{13} & T_{13}T_{12}-T_{11}T_{23}\\
+T_{12}T_{23}-T_{22}T_{13} & T_{13}T_{12}-T_{23}T_{11} & T_{11}T_{22}-T_{12}T_{12}
+\end{array}
+\right]
+\end{equation*}
+where $\T$ is a symmetric second order tensor defined by the object itself.
+%@END
+
+%@DOC:SymTensor2::solve(Vec3D x)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{SymTensor2::solve(Vec3D x)}}\label{SymTensor2::solve(Vec3D x)}\index[DL]{SymTensor2!solve(Vec3D x)}\\
+Solves a small linear system A.x = b.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : The solution of the linear system.
+
+This method returns the solution of a small linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a symmetric second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
 %@END
 
 \subsection{Advanced operations}
 
-%@DOC:SymTensor2::productByRxRT(Tensor2 R)
+%@DOC:SymTensor2::dotRxRT(Tensor2 R)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::productByRxRT(Tensor2 R)}}\label{SymTensor2::productByRxRT(Tensor2 R)}\index[DL]{SymTensor2!productByRxRT(Tensor2 R)}\\
-Special combination for a multiplication of 3 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{SymTensor2::dotRxRT(Tensor2 R)}}\label{SymTensor2::dotRxRT(Tensor2 R)}\index[DL]{SymTensor2!dotRxRT(Tensor2 R)}\\
+Special combination for a multiplication of 3 symmetric second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Tensor2&R&Second Tensor for the multiplication operation.
+Tensor2 & R & Symmetric second Tensor for the multiplication operation.
 \end{tcolorbox}
 
 This method defines the product of a symmetric tensor by two rotations defined by the following equation:
 \begin{equation*}
 \R = \Q \cdot \A \cdot \Q^T =\left[\begin{array}{ccc}
-R_0&R_1&R_2\\
-&R_3&R_4\\
-&&R_5
+R_0 & R_1 & R_2\\
+& R_3 & R_4\\
+sym &  & R_5
 \end{array}\right]
 \end{equation*}
 with:
 \begin{align*}
-R_0&=A_0 Q_0^2 + 2 (A_1 Q_1 + A_2 Q_2)Q_0 + A_3 Q_1^2 + 2 A_4 Q_1 Q_2 + A_5 Q_2^2\\
-R_1&=(A_0 Q_3 + A_1 Q_4 + A_2 Q_5)Q_0 + (A_1 Q_3 + A_3 Q_4 + A_4 Q_5)Q_1 + (A_2 Q_3 + A_4 Q_4 + A_5 Q_5)Q_2\\
-R_2&= (A_0 Q_6 + A_1 Q_7 + A_2 Q_8)Q_0 + (A_1 Q_6 + A_3 Q_7 + A_4 Q_8)Q_1 + (A_2 Q_6 + A_4 Q_7 + A_5 Q_8)Q_2\\
-R_3&=A_0 Q_3^2 + 2 (A_1 Q_4 + A_2 Q_5)Q_3+ A_3 Q_4^2 + 2 A_4 Q_4 Q_5 + A_5 Q_5^2\\
-R_4&= (A_0 Q_6 + A_1 Q_7 + A_2 Q_8)Q_3 + (A_1 Q_6 + A_3 Q_7 + A_4 Q_8)Q_4 + (A_2 Q_6 + A_4 Q_7 + A_5 Q_8)Q_5\\
-R_5&=A_0 Q_6^2 + 2 (A_1 Q_7 + A_2 Q_8)Q_6+ A_3 Q_7^2 + 2 A_4 Q_7 Q_8 + A_5 Q_8^2
+R_0 & = A_0 Q_0^2 + 2 (A_1 Q_1 + A_2 Q_2)Q_0 + A_3 Q_1^2 + 2 A_4 Q_1 Q_2 + A_5 Q_2^2\\
+R_1 & = (A_0 Q_3 + A_1 Q_4 + A_2 Q_5)Q_0 + (A_1 Q_3 + A_3 Q_4 + A_4 Q_5)Q_1 + (A_2 Q_3 + A_4 Q_4 + A_5 Q_5)Q_2\\
+R_2 & = (A_0 Q_6 + A_1 Q_7 + A_2 Q_8)Q_0 + (A_1 Q_6 + A_3 Q_7 + A_4 Q_8)Q_1 + (A_2 Q_6 + A_4 Q_7 + A_5 Q_8)Q_2\\
+R_3 & = A_0 Q_3^2 + 2 (A_1 Q_4 + A_2 Q_5)Q_3+ A_3 Q_4^2 + 2 A_4 Q_4 Q_5 + A_5 Q_5^2\\
+R_4 & = (A_0 Q_6 + A_1 Q_7 + A_2 Q_8)Q_3 + (A_1 Q_6 + A_3 Q_7 + A_4 Q_8)Q_4 + (A_2 Q_6 + A_4 Q_7 + A_5 Q_8)Q_5\\
+R_5 & = A_0 Q_6^2 + 2 (A_1 Q_7 + A_2 Q_8)Q_6+ A_3 Q_7^2 + 2 A_4 Q_7 Q_8 + A_5 Q_8^2
 \end{align*}
-where $\A$ is a symmetric second order tensor and $\Q$ an orthogonal tensor.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\Q$ an orthogonal tensor.
 %@END
 
-%@DOC:SymTensor2::productByRTxR(Tensor2 R)
+%@DOC:SymTensor2::dotRTxR(Tensor2 R)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{SymTensor2::productByRTxR(Tensor2 R)}}\label{SymTensor2::productByRTxR(Tensor2 R)}\index[DL]{SymTensor2!productByRTxR(Tensor2 R)}\\
-Special combination for a multiplication of 3 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2
+\textcolor{purple}{\textbf{SymTensor2::dotRTxR(Tensor2 R)}}\label{SymTensor2::dotRTxR(Tensor2 R)}\index[DL]{SymTensor2!dotRTxR(Tensor2 R)}\\
+Special combination for a multiplication of 3 second order tensors.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2 : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Tensor2&R&Second Tensor for the multiplication operation.
@@ -1627,9 +2136,9 @@ Tensor2&R&Second Tensor for the multiplication operation.
 This method defines the product of a symmetric tensor by two rotations defined by the following equation:
 \begin{equation*}
 \R = \Q^T \cdot \A \cdot \Q =\left[\begin{array}{ccc}
-R_0&R_1&R_2\\
-&R_3&R_4\\
-&&R_5
+R_0 & R_1 & R_2\\
+& R_3 & R_4\\
+sym &  & R_5
 \end{array}\right]
 \end{equation*}
 with:
@@ -1641,7 +2150,7 @@ R_3 &= A_0 Q_1^2 + 2 (A_1 Q_4 + A_2 Q_7)Q_1 + A_3 Q_4^2 + 2 A_4 Q_4 Q_7 + A_5 Q_
 R_4 &= A_1 Q_2 Q_4 + A_2 Q_2 Q_7 + (A_0 Q_2 + A_1 Q_5 + A_2 Q_8)Q_1 + A_3 Q_4 Q_5 + A_4 Q_5 Q_7 + A_4 Q_4 Q_8 + A_5 Q_7 Q_8\\
 R_5 &= A_0 Q_2^2 + 2 (A_1 Q_5 + A_2 Q_8) Q_2 + A_3 Q_5^2 + 2 A_4 Q_5 Q_8 + A_5 Q_8^2
 \end{align*}
-where $\A$ is a symmetric second order tensor and $\Q$ an orthogonal tensor.
+where $\A$ is a symmetric second order tensor defined by the object itself and $\Q$ an orthogonal tensor.
 %@END
 
 %@DOC:SymTensor2::polarQL(SymTensor2 U, Tensor2 R)
@@ -1660,6 +2169,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::polarQLLnU(SymTensor2 U, Tensor2 R)
@@ -1681,6 +2191,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::polarCuppen(SymTensor2 U, Tensor2 R)
@@ -1699,6 +2210,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)
@@ -1720,6 +2232,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::polarJacobi(SymTensor2 U, Tensor2 R)
@@ -1738,6 +2251,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)
@@ -1759,6 +2273,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::polarLapack(SymTensor2 U, Tensor2 R)
@@ -1777,6 +2292,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 %@END
 
@@ -1799,6 +2315,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 %@END
 
@@ -1818,6 +2335,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 %@DOC:SymTensor2::polarLnU(SymTensor2 U, Tensor2 R)
@@ -1839,6 +2357,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \begin{equation*}
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
+where $\F$ is a second order tensor defined by the object itself.
 %@END
 
 \begin{tcolorbox}[width=0.95\textwidth,myTab,tabularx={l||C|C|C},title=Performance of the polar algorithms for symmetric tensors]%,boxrule=0.5pt]
@@ -1853,63 +2372,520 @@ polarCuppen & $206$ & $233$& $3.5527\times10^{-15}$
 
 \section{The Tensor3 class}
 
+%@DOC:Tensor3::Tensor3
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::Tensor3}}\label{Tensor3::Tensor3}\index[DL]{Tensor3!Tensor3}\\
+Third order tensor class.
+
 The Tensor3 library is used to store third order tensors defined in the \DynELA.
+The Tensor3 class is used to store and manage data relative to a third order tensor which can be seen as a $3\times3\times3$ matrix hard to represent on a plane,
+where $T_{ijk}$ are the components of the third order tensor $\T$.
+Concerning the internal storage of data, the Tensor3 data is stored in a vector of $27$ components named \textsf{\_data}.
+%@END
+
+
 
 %@DOC:Tensor3::Tensor3()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor3::Tensor3(~)}}\label{Tensor3::Tensor3()}\index[DL]{Tensor3!Tensor3(~)}\\
-This method is the default constructor of a third order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3
+Default constructor of the Tensor3 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : The new Tensor3 object created by the constructor.
 
-All components are initialized to zero by default.
+This is the default constructor of the Tensor3 class, where all components are initialized to zero by default.
 %@END
 
-%@DOC:Tensor3::Tensor3(Tensor3)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Tensor3::Tensor3(Tensor3)}}\label{Tensor3::Tensor3(Tensor3)}\index[DL]{Tensor3!Tensor3(Tensor3)}\\
-Copy constructor of the Tensor3 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3
-
-%@END
+\subsection{Basic operations}
 
 %@DOC:Tensor3::setToUnity()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor3::setToUnity(~)}}\label{Tensor3::setToUnity()}\index[DL]{Tensor3!setToUnity(~)}\\
-Returns an identity third order tensor.
+Unity third order tensor.
 
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
 
 This method transforms the current tensor to a unity tensor.
+\begin{equation*}
+\T=\left[\begin{array}{ccc}
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{array}\right]
+\end{equation*}
+where $\T$ is a third order tensor defined by the object itself.
+%@END
+
+%@DOC:Tensor3::operator+=(Tensor3 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator+=(Tensor3 B)}}\label{Tensor3::operator+=(Tensor3 B)}\index[DL]{Tensor3!operator+=(Tensor3 B)}\\
+Addition of 2 third order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor3 & B & Third order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 third order tensors.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\B$ is the third order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor3::operator-=(Tensor3 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator-=(Tensor3 B)}}\label{Tensor3::operator-=(Tensor3 B)}\index[DL]{Tensor3!operator-=(Tensor3 B)}\\
+Difference of 2 third order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor3 & B & Third order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 third order tensors.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\B$ is the third order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor3::operator*=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator$\star$=(double l)}}\label{Tensor3::operator*=(double l)}\index[DL]{Tensor3!operator$\star$=(double l)}\\
+Multiplication of a third order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a third order tensor by a scalar value.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\lambda \A
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor3::operator/=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator/=(double l)}}\label{Tensor3::operator/=(double l)}\index[DL]{Tensor3!operator/=(double l)}\\
+Division of a third order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a third order tensor by a scalar value.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor3::operator=(double v)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator=(double v)}}\label{Tensor3::operator=(double v)}\index[DL]{Tensor3!operator=(double v)}\\
+Fill a third order tensor with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & v & Value to use for the operation.
+\end{tcolorbox}
+
+This method is a surdefinition of the = operator for the third order tensor class.
+%@END
+
+%@DOC:Tensor3::operator+(Tensor3 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator+(Tensor3 B)}}\label{Tensor3::operator+(Tensor3 B)}\index[DL]{Tensor3!operator+(Tensor3 B)}\\
+Addition of 2 third order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor3 & B & Third order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 third order tensors.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\T = \A + \B
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\B$ is the third order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor3::operator-(Tensor3 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator-(Tensor3 B)}}\label{Tensor3::operator-(Tensor3 B)}\index[DL]{Tensor3!operator-(Tensor3 B)}\\
+Subtraction of 2 third order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor3 & B & Third order tensor to subtract to the current one.
+\end{tcolorbox}
+
+This method defines the subtraction of 2 third order tensors.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\T = \A - \B
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\B$ is the third order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor3::operator*(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator$\star$(double l)}}\label{Tensor3::operator*(double l)}\index[DL]{Tensor3!operator$\star$(double l)}\\
+Multiplication of a third order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a third order tensor by a scalar value.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor3::operator/(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator/(double l)}}\label{Tensor3::operator/(double l)}\index[DL]{Tensor3!operator/(double l)}\\
+Division of a third order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a third order tensor by a scalar value.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\T = \frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:operator*(double l, Tensor3 A)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{operator$\star$(double l, Tensor3 A)}}\label{operator*(double l, Tensor3 A)}\\
+Multiplication of a third order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor3 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.\\
+Tensor3 & A & Third order tensor to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a third order tensor by a scalar value.
+The result of this operation is also a third order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a third order tensor and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor3::operator*(Vec3D V)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor3::operator$\star$(Vec3D V)}}\label{Tensor3::operator*(Vec3D V)}\index[DL]{Tensor3!operator$\star$(Vec3D V)}\\
+Multiplication of a third order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vec3D & V & Vec3D to use for the multiplication operation.
+\end{tcolorbox}
+
+This method defines the product of a third order tensor by a vector.
+The result of this operation is a second order tensor defined by:
+\begin{equation*}
+\B = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a third order tensor defined by the object itself and $\overrightarrow{x}$ is a Vec3D defined by parameter V.
 %@END
 
 \section{The Tensor4 class}
 
+%@DOC:Tensor4::Tensor4
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::Tensor4}}\label{Tensor4::Tensor4}\index[DL]{Tensor4!Tensor4}\\
+Second order tensor class.
+
 The Tensor4 library is used to store fourth order tensors defined in the \DynELA.
+The Tensor4 class is used to store and manage data relative to a fourth order tensor which can be seen as a $3\times3\times3\times3$ matrix where $T_{ijkl}$ are the components of the fourth order tensor $\T$.
+Concerning the internal storage of data, the Tensor4 data is stored in a vector of $81$ components named \textsf{\_data} using the following storage scheme:
+%@END
+
+
 
 %@DOC:Tensor4::Tensor4()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor4::Tensor4(~)}}\label{Tensor4::Tensor4()}\index[DL]{Tensor4!Tensor4(~)}\\
-Default constructor of the TenTensor4sor2 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4
+Default constructor of the Tensor4 class.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : The new Tensor4 object created by the constructor.
 
-All components are initialized to zero by default.
+This is the default constructor of the Tensor4 class, where all components are initialized to zero by default.
 %@END
+
+\subsection{Basic operations}
 
 %@DOC:Tensor4::setToUnity()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Tensor4::setToUnity(~)}}\label{Tensor4::setToUnity()}\index[DL]{Tensor4!setToUnity(~)}\\
-Unity tensor.
+Unity fourth order tensor.
 
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
 
-This method transforms the current tensor to a unity tensor.
+This method transforms the current tensor to a fourth order unity tensor.
+%@END
+
+%@DOC:Tensor4::operator=(double v)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator=(double v)}}\label{Tensor4::operator=(double v)}\index[DL]{Tensor4!operator=(double v)}\\
+Fill a fourth order tensor with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & v & Value to use for the operation.
+\end{tcolorbox}
+
+This method is a surdefinition of the = operator for the fourth order tensor class.
+%@END
+
+%@DOC:Tensor4::operator+(Tensor4 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator+(Tensor4 B)}}\label{Tensor4::operator+(Tensor4 B)}\index[DL]{Tensor4!operator+(Tensor4 B)}\\
+Addition of 2 fourth order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor4 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 fourth order tensors.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\T = \A + \B
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\B$ is the fourth order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor4::operator-(Tensor4 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator-(Tensor4 B)}}\label{Tensor4::operator-(Tensor4 B)}\index[DL]{Tensor4!operator-(Tensor4 B)}\\
+Subtraction of 2 fourth order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor4 & B & Second order tensor to subtract to the current one.
+\end{tcolorbox}
+
+This method defines the subtraction of 2 fourth order tensors.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\T = \A - \B
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\B$ is the fourth order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor4::operator*(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator$\star$(double l)}}\label{Tensor4::operator*(double l)}\index[DL]{Tensor4!operator$\star$(double l)}\\
+Multiplication of a fourth order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a fourth order tensor by a scalar value.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor4::operator/(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator/(double l)}}\label{Tensor4::operator/(double l)}\index[DL]{Tensor4!operator/(double l)}\\
+Division of a fourth order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a fourth order tensor by a scalar value.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\T = \frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:operator*(double l, Tensor4 A)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{operator$\star$(double l, Tensor4 A)}}\label{operator*(double l, Tensor4 A)}\\
+Multiplication of a fourth order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.\\
+Tensor4 & A & Second order tensor to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a fourth order tensor by a scalar value.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a fourth order tensor and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor4::operator*(Vec3D V)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator$\star$(Vec3D V)}}\label{Tensor4::operator*(Vec3D V)}\index[DL]{Tensor4!operator$\star$(Vec3D V)}\\
+Multiplication of a fourth order tensor by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vec3D & V & Vec3D to use for the multiplication operation.
+\end{tcolorbox}
+
+This method defines the product of a fourth order tensor by a vector.
+The result of this operation is a third order tensor defined by:
+\begin{equation*}
+B = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\overrightarrow{x}$ is a Vec3D defined by parameter V.
+%@END
+
+%@DOC:Tensor4::operator*(Tensor2 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator$\star$(Tensor2 B)}}\label{Tensor4::operator*(Tensor2 B)}\index[DL]{Tensor4!operator$\star$(Tensor2 B)}\\
+Multiplication of a fourth order tensor by a second order tensor.\\ \hspace*{10mm}$\hookrightarrow$ Tensor2 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor2 & B & Tensor2 to use for the multiplication operation.
+\end{tcolorbox}
+
+This method defines the product of a fourth order tensor by a second order tensor.
+The result of this operation is a second order tensor defined by:
+\begin{equation*}
+\C = \A \cdot \B
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\B$ is a Vesecond order tensor defined by parameter B.
+%@END
+
+%@DOC:Tensor4::operator+=(Tensor4 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator+=(Tensor4 B)}}\label{Tensor4::operator+=(Tensor4 B)}\index[DL]{Tensor4!operator+=(Tensor4 B)}\\
+Addition of 2 fourth order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor4 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 fourth order tensors.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\B$ is the fourth order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor4::operator-=(Tensor4 B)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator-=(Tensor4 B)}}\label{Tensor4::operator-=(Tensor4 B)}\index[DL]{Tensor4!operator-=(Tensor4 B)}\\
+Difference of 2 fourth order tensors.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Tensor4 & B & Second order tensor to add to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 fourth order tensors.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\B$ is the fourth order tensor value defined by parameter B.
+%@END
+
+%@DOC:Tensor4::operator*=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator$\star$=(double l)}}\label{Tensor4::operator*=(double l)}\index[DL]{Tensor4!operator$\star$=(double l)}\\
+Multiplication of a fourth order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a fourth order tensor by a scalar value.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\lambda \A
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Tensor4::operator/=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Tensor4::operator/=(double l)}}\label{Tensor4::operator/=(double l)}\index[DL]{Tensor4!operator/=(double l)}\\
+Division of a fourth order tensor by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Tensor4 : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a fourth order tensor by a scalar value.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
 %@END
 
 \section{The Vector class}
@@ -1933,7 +2909,7 @@ This file is the declaration file for the Vector class. A Vector class is a vect
 \end{equation*}
 %@END
 
-\subsection{Constructors}
+
 
 %@DOC:Vector::size()
 %Warning :
@@ -2074,11 +3050,11 @@ double&val&Scalar value to use for the  operation.
 
 %@END
 
-%@DOC:Vector::getNorm()
+%@DOC:Vector::norm()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::getNorm(~)}}\label{Vector::getNorm()}\index[DL]{Vector!getNorm(~)}\\
+\textcolor{purple}{\textbf{Vector::norm(~)}}\label{Vector::norm()}\index[DL]{Vector!norm(~)}\\
 Returns the norm of a vector.
 
 This method returns norm of a vector defined by:
@@ -2142,21 +3118,21 @@ Get the normalized Vector.
 This method returns a colinear vector with a norm equal to $1$.
 %@END
 
-%@DOC:Vector::maxValue()
+%@DOC:Vector::maxVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::maxValue(~)}}\label{Vector::maxValue()}\index[DL]{Vector!maxValue(~)}\\
+\textcolor{purple}{\textbf{Vector::maxVal(~)}}\label{Vector::maxVal()}\index[DL]{Vector!maxVal(~)}\\
 Maximum value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 This method returns the maximum value in a Vector.
 %@END
 
-%@DOC:Vector::minValue()
+%@DOC:Vector::minVal()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::minValue(~)}}\label{Vector::minValue()}\index[DL]{Vector!minValue(~)}\\
+\textcolor{purple}{\textbf{Vector::minVal(~)}}\label{Vector::minVal()}\index[DL]{Vector!minVal(~)}\\
 Minumum value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 This method returns the minimum value in a Vector.
@@ -2172,11 +3148,11 @@ Maximum absolute value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
 This method returns the maximum absolute value in a Vector.
 %@END
 
-%@DOC:Vector::minAbsoluteValue()
+%@DOC:Vector::minAbs()
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::minAbsoluteValue(~)}}\label{Vector::minAbsoluteValue()}\index[DL]{Vector!minAbsoluteValue(~)}\\
+\textcolor{purple}{\textbf{Vector::minAbs(~)}}\label{Vector::minAbs()}\index[DL]{Vector!minAbs(~)}\\
 Minumum absolute value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
 
 This method returns the minimum absolute value in a Vector.
@@ -2189,7 +3165,7 @@ This method returns the minimum absolute value in a Vector.
 \textcolor{purple}{\textbf{Vector::distance(Vector y)}}\label{Vector::distance(Vector y)}\index[DL]{Vector!distance(Vector y)}\\
 Distance between two points.
 
-This method computes the distance between two points using an Euclidian getNorm.
+This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
 \end{equation*}
@@ -2203,7 +3179,7 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Vector::squareDistance(Vector y)}}\label{Vector::squareDistance(Vector y)}\index[DL]{Vector!squareDistance(Vector y)}\\
 Square of distance between two points.
 
-This method computes the square of the distance between two points using an Euclidian getNorm.
+This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
 \end{equation*}
@@ -2325,5 +3301,4 @@ y_i = x_i + m,
 \end{equation*}
 where the $\overrightarrow{x}$ is the object itself.
 %@END
-
 

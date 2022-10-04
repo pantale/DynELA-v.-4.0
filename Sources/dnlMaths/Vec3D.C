@@ -156,14 +156,14 @@ bool Vec3D::operator!=(const Vec3D &vect) const
 }
 
 /*
-@LABEL:Vec3D::maxValue()
+@LABEL:Vec3D::maxVal()
 @SHORT:Maximum value in a Vec3D.
 @RETURN:double
 This method returns the maximum value in a Vec3D.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vec3D::maxValue()
+double Vec3D::maxVal()
 //-----------------------------------------------------------------------------
 {
     if (_data[0] >= _data[1])
@@ -183,14 +183,14 @@ double Vec3D::maxValue()
 }
 
 /*
-@LABEL:Vec3D::minValue()
+@LABEL:Vec3D::minVal()
 @SHORT:Minumum value in a Vec3D.
 @RETURN:double
 This method returns the minimum value in a Vec3D.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vec3D::minValue()
+double Vec3D::minVal()
 //-----------------------------------------------------------------------------
 {
     if (_data[0] <= _data[1])
@@ -217,7 +217,7 @@ This method returns the maximum absolute value in a Vec3D.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vec3D::maxAbsoluteValue()
+double Vec3D::maxAbs()
 //-----------------------------------------------------------------------------
 {
     if (dnlAbs(_data[0]) >= dnlAbs(_data[1]))
@@ -237,14 +237,14 @@ double Vec3D::maxAbsoluteValue()
 }
 
 /*
-@LABEL:Vec3D::minAbsoluteValue()
+@LABEL:Vec3D::minAbs()
 @SHORT:Minumum absolute value in a Vec3D.
 @RETURN:double
 This method returns the minimum absolute value in a Vec3D.
 @END
 */
 //-----------------------------------------------------------------------------
-double Vec3D::minAbsoluteValue()
+double Vec3D::minAbs()
 //-----------------------------------------------------------------------------
 {
     if (dnlAbs(_data[0]) <= dnlAbs(_data[1]))

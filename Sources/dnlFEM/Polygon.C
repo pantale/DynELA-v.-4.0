@@ -433,10 +433,10 @@ void PolygonPatches::createSubPatch2(int points, Vec3D *coords, double *valuesR,
         break;
       case 4:
 #define DLL(a, b, c, d)               \
-  (crds[b] - crds[a]).getNorm() +     \
-      (crds[c] - crds[b]).getNorm() + \
-      (crds[d] - crds[c]).getNorm() + \
-      (crds[a] - crds[d]).getNorm();
+  (crds[b] - crds[a]).norm() +     \
+      (crds[c] - crds[b]).norm() + \
+      (crds[d] - crds[c]).norm() + \
+      (crds[a] - crds[d]).norm();
 
         dd1 = DLL(0, 1, 2, 3);
         dd2 = DLL(0, 1, 3, 2);
@@ -648,10 +648,10 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
             }
             if ((sm == 10) && (pr == 24))
             {
-              dd = (coords[lp[0]] - coords[lp[4]]).getNorm();
+              dd = (coords[lp[0]] - coords[lp[4]]).norm();
               for (i = 1; i < 5; i++)
               {
-                dd += (coords[lp[i]] - coords[lp[i - 1]]).getNorm();
+                dd += (coords[lp[i]] - coords[lp[i - 1]]).norm();
               }
               if (dd < ddmin)
               {
@@ -686,10 +686,10 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
               }
               if ((sm == 15) && (pr == 120))
               {
-                dd = (coords[lp[0]] - coords[lp[5]]).getNorm();
+                dd = (coords[lp[0]] - coords[lp[5]]).norm();
                 for (i = 1; i < 6; i++)
                 {
-                  dd += (coords[lp[i]] - coords[lp[i - 1]]).getNorm();
+                  dd += (coords[lp[i]] - coords[lp[i - 1]]).norm();
                 }
                 if (dd < ddmin)
                 {
@@ -725,10 +725,10 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
                 }
                 if ((sm == 21) && (pr == 720))
                 {
-                  dd = (coords[lp[0]] - coords[lp[6]]).getNorm();
+                  dd = (coords[lp[0]] - coords[lp[6]]).norm();
                   for (i = 1; i < 7; i++)
                   {
-                    dd += (coords[lp[i]] - coords[lp[i - 1]]).getNorm();
+                    dd += (coords[lp[i]] - coords[lp[i - 1]]).norm();
                   }
                   if (dd < ddmin)
                   {
@@ -765,10 +765,10 @@ void PolygonPatches::reorderPoints(Vec3D *coords, int cur)
                   }
                   if ((sm == 28) && (pr == 5040))
                   {
-                    dd = (coords[lp[0]] - coords[lp[7]]).getNorm();
+                    dd = (coords[lp[0]] - coords[lp[7]]).norm();
                     for (i = 1; i < 8; i++)
                     {
-                      dd += (coords[lp[i]] - coords[lp[i - 1]]).getNorm();
+                      dd += (coords[lp[i]] - coords[lp[i - 1]]).norm();
                     }
                     if (dd < ddmin)
                     {

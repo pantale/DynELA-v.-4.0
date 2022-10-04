@@ -13,7 +13,6 @@
 
 \section{Nodes}
 
-\subsection{Constructors}
 %@DOC:Node::Node
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
@@ -22,17 +21,17 @@
 Finite Element Node class.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-BoundaryCondition&*boundary&Boundary conditions on the current node.\\
-double&mass&Nodal mass.\\
-List<Element *>&elements&List of the elements that contains a reference to the current node.\\
-long&number&Identification number of the node.\\
-NodalField&*field0&Nodal field of the node at the begining of the increment.\\
-NodalField&*field1&Nodal field of the node at the end of the increment.\\
-Vec3D&coords&Coordinates of the corresponding node.\\
-Vec3D&disp&Displacement at the current node $\overrightarrow{d}$.
+long & number & Identification number of the node.\\
+Vec3D & coords & Coordinates of the corresponding node.\\
+Vec3D & disp & Displacement at the current node $\overrightarrow{d}$.\\
+double & mass & Nodal mass.\\
+List<Element *> & elements & List of the elements that contains a reference to the current node.\\
+NodalField* & field0 & Nodal field of the node at the begining of the increment.\\
+NodalField* & field1 & Nodal field of the node at the end of the increment.\\
+BoundaryCondition* & boundary & Boundary conditions on the current node.
 \end{tcolorbox}
 
-This class is used to store information for Finite Element Nodes.
+This class is used to store information for DynELA Nodes.
 %@END
 
 %@DOC:Node::Node(long n, double x, double y, double z)
@@ -116,9 +115,54 @@ short&field&Field to extract (see NodalField for informations).
 
 %@END
 
-\section{Planar elements}
+\section{Elements}
 
-\subsection{ElQua4N2D element}
+%@DOC:Element::Element
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Element::Element}}\label{Element::Element}\index[DL]{Element!Element}\\
+Finite Element Element class.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & number & Integration points of the element.\\
+ListIndex<Node*> & nodes & Nodes of the element.\\
+List<IntegrationPoint*> & integrationPoints & Integration points of the element.\\
+List<UnderIntegrationPoint*> & underIntegrationPoints & Under-integration points of the element.\\
+Material & material & Material associated to the element.\\
+Matrix & stiffnessMatrix & Stiffness matrix of the element.
+\end{tcolorbox}
+
+This class is used to store information for DynELA Elements.
+The type of element can be one of the following:
+\begin{itemize}
+\item ElQua4N2D
+\item ElTri3N2D
+\item ElQua4NAx
+\item ElHex8N3D
+\item ElTet4N3D
+\item ElTet10N3D
+\end{itemize}
+%@END
+
+%@DOC:Element::Element(long n, double x, double y, double z)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Element::Element(long n, double x, double y, double z)}}\label{Element::Element(long n, double x, double y, double z)}\index[DL]{Element!Element(long n, double x, double y, double z)}\\
+Constructor of the Element class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Element
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & n & Element number to create.
+\end{tcolorbox}
+
+%@END
+
+\section{Elements library}
+
+\subsection{Planar elements}
+
+\subsubsection{ElQua4N2D element}
 
 %@DOC:ElQua4N2D::getCharacteristicLength()
 %Warning :
@@ -135,11 +179,11 @@ L=\frac{x_{31} y_{42}+x_{24} y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}}
 where $x_{ij}$ is the horizontal distance between points $i$ and $j$ and $y_{ij}$ is the vertical distance between points $i$ and $j$.
 %@END
 
-\subsection{ElTri3N2D element}
+\subsubsection{ElTri3N2D element}
 
-\section{Axi-symmetric elements}
+\subsection{Axi-symmetric elements}
 
-\subsection{ElQua4NAx element}
+\subsubsection{ElQua4NAx element}
 
 %@DOC:ElQua4NAx::getCharacteristicLength()
 %Warning :
@@ -156,10 +200,10 @@ L=\frac{x_{31} y_{42}+x_{24} y_{31}}{\sqrt{x_{24}^2+y_{42}^2+x_{31}^2+y_{31}^2}}
 where $x_{ij}$ is the horizontal distance between points $i$ and $j$ and $y_{ij}$ is the vertical distance between points $i$ and $j$.
 %@END
 
-\section{Three-dimensional elements}
+\subsection{Three-dimensional elements}
 
-\subsection{ElHex8N3D element}
+\subsubsection{ElHex8N3D element}
 
-\subsection{ElTet4N3D element}
+\subsubsection{ElTet4N3D element}
 
-\subsection{ElTet10N3D element}
+\subsubsection{ElTet10N3D element}

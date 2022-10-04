@@ -72,7 +72,7 @@ MatrixDiag::~MatrixDiag()
   This method returns the maximum _data of a MatrixDiag
 */
 //-----------------------------------------------------------------------------
-double MatrixDiag::maxValue()
+double MatrixDiag::maxVal()
 //-----------------------------------------------------------------------------
 {
   double val = _data[0];
@@ -89,7 +89,7 @@ double MatrixDiag::maxValue()
   This method returns the minimum _data of a MatrixDiag
 */
 //-----------------------------------------------------------------------------
-double MatrixDiag::minValue()
+double MatrixDiag::minVal()
 //-----------------------------------------------------------------------------
 {
   double val = _data[0];
@@ -106,7 +106,7 @@ double MatrixDiag::minValue()
   This method returns the absolute maximum _data of a MatrixDiag
 */
 //-----------------------------------------------------------------------------
-double MatrixDiag::maxAbsoluteValue()
+double MatrixDiag::maxAbs()
 //-----------------------------------------------------------------------------
 {
   double val = dnlAbs(_data[0]);
@@ -123,7 +123,7 @@ double MatrixDiag::maxAbsoluteValue()
   This method returns the absolute minimum _data of a MatrixDiag
 */
 //-----------------------------------------------------------------------------
-double MatrixDiag::minAbsoluteValue()
+double MatrixDiag::minAbs()
 //-----------------------------------------------------------------------------
 {
   double val = dnlAbs(_data[0]);
@@ -518,11 +518,11 @@ MatrixDiag operator*(const double &lambda, const MatrixDiag &mat)
 MatrixDiag MatrixDiag::operator*(const MatrixDiag &mat) const
 //-----------------------------------------------------------------------------
 {
-  return singleProduct(mat);
+  return dot(mat);
 }
 
 //-----------------------------------------------------------------------------
-MatrixDiag MatrixDiag::singleProduct(const MatrixDiag &mat) const
+MatrixDiag MatrixDiag::dot(const MatrixDiag &mat) const
 //-----------------------------------------------------------------------------
 {
   if (_cols != mat._rows)
@@ -619,7 +619,7 @@ void MatrixDiag::divideBy(Vector &vec) const
   Return : valeur de la trace de la matrice
 */
 //-----------------------------------------------------------------------------
-double MatrixDiag::getTrace()
+double MatrixDiag::trace()
 //-----------------------------------------------------------------------------
 {
   double trace = 0.;
@@ -634,7 +634,7 @@ double MatrixDiag::getTrace()
   Return : transposee de la matrice
 */
 //-----------------------------------------------------------------------------
-MatrixDiag MatrixDiag::getTranspose()
+MatrixDiag MatrixDiag::transpose()
 //-----------------------------------------------------------------------------
 {
   return *this;

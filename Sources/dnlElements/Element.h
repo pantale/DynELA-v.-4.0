@@ -17,13 +17,27 @@
 class Node;
 class Model;
 
-//-----------------------------------------------------------------------------
-// Class : Element
-//
-// Used to manage Elements in DynELA
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:Element::Element
+@SHORT:Finite Element Element class.
+This class is used to store information for DynELA Elements.
+@ARG:long & number & Integration points of the element.
+@ARG:ListIndex<Node*> & nodes & Nodes of the element.
+@ARG:List<IntegrationPoint*> & integrationPoints & Integration points of the element.
+@ARG:List<UnderIntegrationPoint*> & underIntegrationPoints & Under-integration points of the element.
+@ARG:Material & material & Material associated to the element.
+@ARG:Matrix & stiffnessMatrix & Stiffness matrix of the element.
+The type of element can be one of the following:
+\begin{itemize}
+\item ElQua4N2D
+\item ElTri3N2D
+\item ElQua4NAx
+\item ElHex8N3D
+\item ElTet4N3D
+\item ElTet10N3D
+\end{itemize}
+@END
+*/
 class Element
 {
     friend class Node;
@@ -34,15 +48,15 @@ class Element
 protected:
     Matrix _globalToLocal;
     const ElementData *_elementData;
-    IntegrationPoint *_integrationPoint;
-    UnderIntegrationPoint *_underIntegrationPoint;
+    IntegrationPoint *_integrationPoint = NULL;
+    UnderIntegrationPoint *_underIntegrationPoint = NULL;
 
 public:
     List<IntegrationPoint *> integrationPoints;
     List<UnderIntegrationPoint *> underIntegrationPoints;
     ListIndex<Node *> nodes;
     long number;
-    Material *material;
+    Material *material = NULL;
     Matrix stiffnessMatrix;
 
     enum // Enum defining the list of element names
@@ -190,8 +204,8 @@ public:
     //virtual //void getIntgtoNodes (Vector & N, const Vec3D & point) const = 0;*/
 };
 
-bool compareElementsNumber(Element *element1, Element *element2);
-long substractElementsNumber(Element *element1, const long number);
+bool compareElementsNumber(Element *, Element *);
+long substractElementsNumber(Element *, const long);
 
 //-----------------------------------------------------------------------------
 inline short Element::getNumberOfNodes() const

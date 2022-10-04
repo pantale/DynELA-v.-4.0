@@ -211,7 +211,7 @@ long substractNN(Node *node1, const long number)
 
 #define _getScalarFromNodalVec3D(FIELD, VAR) \
   if (field == Field::FIELD)                 \
-    return VAR.getNorm();                    \
+    return VAR.norm();                    \
   if (field == Field::FIELD##X)              \
     return VAR(0);                           \
   if (field == Field::FIELD##Y)              \
@@ -221,7 +221,7 @@ long substractNN(Node *node1, const long number)
 
 #define _getScalarFromNodalTensor2(FIELD, VAR) \
   if (field == Field::FIELD)                   \
-    return VAR.getNorm();                      \
+    return VAR.norm();                      \
   if (field == Field::FIELD##XX)               \
     return VAR(0, 0);                          \
   if (field == Field::FIELD##XY)               \
@@ -279,7 +279,7 @@ long substractNN(Node *node1, const long number)
     }                                                                                                                        \
     tensor = tensor / elements.size();                                                                                       \
     if (field == Field::FIELD)                                                                                               \
-      return tensor.getNorm();                                                                                               \
+      return tensor.norm();                                                                                               \
     if (field == Field::FIELD##XX)                                                                                           \
       return tensor(0, 0);                                                                                                   \
     if (field == Field::FIELD##XY)                                                                                           \
@@ -357,7 +357,7 @@ double Node::fieldScalar(short field)
       long loc = pel->nodes.IAppN(_listIndex);
       for (pt = 0; pt < pel->getNumberOfIntegrationPoints(); pt++)
       {
-        value += pel->_elementData->nodes[loc].integrationPointsToNode(pt) * pel->integrationPoints(pt)->Stress.getMisesEquivalent();
+        value += pel->_elementData->nodes[loc].integrationPointsToNode(pt) * pel->integrationPoints(pt)->Stress.vonMises();
         // tensor += pel->_elementData->nodes[loc].integrationPointsToNode(pt) * pel->integrationPoints(pt)->Stress;
       }
     }
@@ -520,7 +520,7 @@ void Node::toFileBound (FILE * pfile)
 #define _getScalarNodalFieldVec3D(FIELD,VAR)  if (field==#FIELD) \
     {\
       if (component==0)\
-      return field0-> VAR.getNorm();\
+      return field0-> VAR.norm();\
       if (component>3) fatalError("Node::fieldScalar::get","No sense for component >3 for a vectorProduct quantity");\
       return field0-> VAR(component-1);\
     }
@@ -540,7 +540,7 @@ void Node::toFileBound (FILE * pfile)
 #define getNodalVectorialValueLocal(FIELD,VAR)  if (field==#FIELD) \
     {\
       if (component==0)\
-      return  VAR.getNorm();\
+      return  VAR.norm();\
       if (component>3) fatalError("Node::fieldScalar::get","No sense for component >3 for a vectorProduct quantity");\
       return  VAR(component-1);\
     }
@@ -578,7 +578,7 @@ double Node::fieldScalar(String field, long component)
     }
     V1=V1/elements.size();
     if (component==0)
-      return V1.getMisesEquivalent();
+      return V1.vonMises();
     else
       return V1(((component - (component % 10))/10)-1,(component % 10)-1);
   }
@@ -593,7 +593,7 @@ double Node::fieldScalar(String field, long component)
     }
     V1=V1/elements.size();
     if (component==0)
-      return V1.getJ2();
+      return V1.J2();
     else
       return V1(((component - (component % 10))/10)-1,(component % 10)-1);
   }
@@ -608,7 +608,7 @@ double Node::fieldScalar(String field, long component)
     }
     V1=V1/elements.size();
     if (component==0)
-      return V1.getJ2();
+      return V1.J2();
     else
       return V1(((component - (component % 10))/10)-1,(component % 10)-1);
   }
@@ -623,7 +623,7 @@ double Node::fieldScalar(String field, long component)
     }
     V1=V1/elements.size();
     if (component==0)
-      return V1.getJ2();
+      return V1.J2();
     else
       return V1(((component - (component % 10))/10)-1,(component % 10)-1);
   }

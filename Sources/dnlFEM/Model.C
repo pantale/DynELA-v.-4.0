@@ -989,7 +989,7 @@ double Model::computePowerIterationTimeStep(bool underIntegration)
     elements.endLoop();
 
     massMatrix.divideBy(_powerIterationEV);
-    fmax = _powerIterationEV.maxAbsoluteValue();
+    fmax = _powerIterationEV.maxAbs();
     _powerIterationEV /= fmax;
     convergence = dnlAbs(fmax - _powerIterationFreqMax) / fmax;
 

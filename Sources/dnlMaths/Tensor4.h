@@ -14,19 +14,19 @@
 #include <string>
 #include <string.h>
 #include <dnlKernel.h>
-//#include <Macros.h>
 
 class Vec3D;
 class Tensor2;
 class Tensor3;
 
-//-----------------------------------------------------------------------------
-// Class : Tensor4
-//
-// Used to manage Tensor4
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:Tensor4::Tensor4
+@SHORT:Second order tensor class.
+The Tensor4 library is used to store fourth order tensors defined in the \DynELA.
+The Tensor4 class is used to store and manage data relative to a fourth order tensor which can be seen as a $3\times3\times3\times3$ matrix where $T_{ijkl}$ are the components of the fourth order tensor $\T$.
+Concerning the internal storage of data, the Tensor4 data is stored in a vector of $81$ components named \textsf{\_data} using the following storage scheme:
+@END
+*/
 class Tensor4
 {
   double _data[81]; // Data storage for 81 double
@@ -78,9 +78,7 @@ public:
 
 //------inline functions-------------------------------------------------------
 
-/*
-  tests if the couple of indexes is ok
-*/
+//  tests if the indexes are ok
 //-----------------------------------------------------------------------------
 inline bool Tensor4::indexOK(short i, short j, short k, short l) const
 //-----------------------------------------------------------------------------
@@ -96,11 +94,8 @@ inline bool Tensor4::indexOK(short i, short j, short k, short l) const
   return (false);
 }
 
-/*
-  Access to the values T[i,j,k,l] of a fourth order tensor
 
-  Return : Value of the fourth order tensor T[i,j,k,l]
-*/
+//  Access to the values T[i,j,k,l] of a fourth order tensor
 //-----------------------------------------------------------------------------
 inline double &Tensor4::operator()(short i, short j, short k, short l)
 //-----------------------------------------------------------------------------
@@ -111,11 +106,8 @@ inline double &Tensor4::operator()(short i, short j, short k, short l)
   return _data[dnlTensor4Ind(i, j, k, l, 3)];
 }
 
-/*
-  Access to the values T[i,j,k,l] of a fourth order tensor
 
-  Return : Value of the fourth order tensor T[i,j,k,l]
-*/
+//  Access to the values T[i,j,k,l] of a fourth order tensor
 //-----------------------------------------------------------------------------
 inline double Tensor4::operator()(short i, short j, short k, short l) const
 //-----------------------------------------------------------------------------
@@ -126,16 +118,8 @@ inline double Tensor4::operator()(short i, short j, short k, short l) const
   return _data[dnlTensor4Ind(i, j, k, l, 3)];
 }
 
-/*
-  Fill a fourth order tensor with a scalar value
 
-  This method is a surdefinition of the = operator for the fourth order tensor class.
-  \code
-  Tensor4 t1;
-  t1 = setToValue(1.0); // All components of the tensor are set to 1.0
-  \endcode
-  - val double value to give to all components of the fourth order tensor
-*/
+//  Fill a fourth order tensor with a scalar value
 //-----------------------------------------------------------------------------
 inline void Tensor4::setToValue(const double val)
 //-----------------------------------------------------------------------------
@@ -145,14 +129,17 @@ inline void Tensor4::setToValue(const double val)
 }
 
 /*
-  Addition of 2 fourth order tensors
-
-  This method defines the addition of 2 fourth order tensors.
-  \code
-  Tensor4 t1,t2;
-  t2 += t1; // sum of two fourth order tensors
-  \endcode
-  - tensor fourth order tensor to add
+@LABEL:Tensor4::operator+=(Tensor4 B)
+@SHORT:Addition of 2 fourth order tensors.
+@ARG:Tensor4 & B & Second order tensor to add to the current one.
+@RETURN:Tensor4 : Result of the addition operation.
+This method defines the addition of 2 fourth order tensors.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\B$ is the fourth order tensor value defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator+=(const Tensor4 &tens)
@@ -164,14 +151,17 @@ inline void Tensor4::operator+=(const Tensor4 &tens)
 }
 
 /*
-  Difference of 2 fourth order tensors
-
-  This method defines the difference of 2 fourth order tensors.
-  \code
-  Tensor4 t1,t2;
-  t2 -= t1; // difference of two fourth order tensors
-  \endcode
-  - tensor fourth order tensor to substract
+@LABEL:Tensor4::operator-=(Tensor4 B)
+@SHORT:Difference of 2 fourth order tensors.
+@ARG:Tensor4 & B & Second order tensor to add to the current one.
+@RETURN:Tensor4 : Result of the difference operation.
+This method defines the difference of 2 fourth order tensors.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\B$ is the fourth order tensor value defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator-=(const Tensor4 &tens)
@@ -183,15 +173,17 @@ inline void Tensor4::operator-=(const Tensor4 &tens)
 }
 
 /*
-  Multiplication of a fourth order tensor by a scalar value
-
-  This method defines the multiplication of a fourth order tensor by a scalar value
-  \code
-  Tensor4 t1;
-  double l;
-  t1 *= l; // multiplication by a scalar
-  \endcode
-  - val Scalar value to use for the multiplication
+@LABEL:Tensor4::operator*=(double l)
+@SHORT:Multiplication of a fourth order tensor by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Tensor4 : Result of the multiplication operation.
+This method defines the multiplication of a fourth order tensor by a scalar value.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\lambda \A
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator*=(const double val)
@@ -202,15 +194,17 @@ inline void Tensor4::operator*=(const double val)
 }
 
 /*
-  Division of a fourth order tensor by a scalar value
-
-  This method defines the division of a fourth order tensor by a scalar value
-  \code
-  Tensor4 t1;
-  double l;
-  t1 /= l; // division by a scalar
-  \endcode
-  - val Scalar value to use for the division
+@LABEL:Tensor4::operator/=(double l)
+@SHORT:Division of a fourth order tensor by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Tensor4 : Result of the division operation.
+This method defines the division of a fourth order tensor by a scalar value.
+The result of this operation is also a fourth order tensor defined by:
+\begin{equation*}
+\frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a fourth order tensor defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 inline void Tensor4::operator/=(const double val)

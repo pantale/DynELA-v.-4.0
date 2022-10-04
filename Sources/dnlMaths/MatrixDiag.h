@@ -67,15 +67,15 @@ public:
 #endif
 
   bool indexOK(long) const;
-  double getTrace();
-  double maxAbsoluteValue();
-  double maxValue();
-  double minAbsoluteValue();
-  double minValue();
+  double trace();
+  double maxAbs();
+  double maxVal();
+  double minAbs();
+  double minVal();
   long Memory() const;
   MatrixDiag inverse() const;
-  MatrixDiag getTranspose();
-  MatrixDiag singleProduct(const MatrixDiag &) const;
+  MatrixDiag transpose();
+  MatrixDiag dot(const MatrixDiag &) const;
   Vector getSolve(Vector &);
   Vector operator*(const Vector &) const;
   void divideBy(Vector &) const;

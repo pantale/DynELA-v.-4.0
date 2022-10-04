@@ -8,34 +8,30 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*
-  \file Element.C
-  Definition file for the Element class
-
-  This file is the definition file for the Element class.
-
-  \ingroup dnlElements
-*/
-
 #include <Element.h>
 #include <Node.h>
 #include <Field.h>
 
+/*
+@LABEL:Element::Element(long n, double x, double y, double z)
+@SHORT:Constructor of the Element class with initialization.
+@RETURN:Element
+@ARG:long & n & Element number to create.
+@END
+*/
 //-----------------------------------------------------------------------------
-Element::Element(long elementNumber)
+Element::Element(long n)
 //-----------------------------------------------------------------------------
 {
   // affectation du numero d'element
-  //_listIndex = elementNumber;
-  number = elementNumber;
+  //_listIndex = n;
+  number = n;
 
   // affectation par defaut NULL sur les materiaux
-  material = NULL;
+  // material = NULL;
 
   // affectation par defaut NULL sur les ref
-  _integrationPoint = NULL;
+  //_integrationPoint = NULL;
 
   // affectation par defaut NULL sur les ref
   // underIntegrationPoint = NULL;
@@ -449,16 +445,16 @@ void Element::computeStress(double timeStep)
 
     // Get back the Stress
     StressOld = _integrationPoint->Stress;
-    DeviatoricStress = StressOld.getDeviator();
+    DeviatoricStress = StressOld.deviator();
 
     // computation of Snorm0
-    Snorm0 = DeviatoricStress.getNorm();
+    Snorm0 = DeviatoricStress.norm();
 
     // Trial Deviatoric stress
-    DeviatoricStress += TwoG * _integrationPoint->StrainInc.getDeviator();
+    DeviatoricStress += TwoG * _integrationPoint->StrainInc.deviator();
 
     // Computation of Snorm
-    Snorm = DeviatoricStress.getNorm();
+    Snorm = DeviatoricStress.norm();
 
     // Computation of Strial
     Strial = dnlSqrt32 * Snorm;
@@ -609,14 +605,14 @@ void Element::computeStress(double timeStep)
     _integrationPoint->Stress = DeviatoricStress + _integrationPoint->pressure * Unity;
 
     // Compute the new specific internal energy
-    stressPower = 0.5 * _integrationPoint->StrainInc.doubleProduct(StressOld + _integrationPoint->Stress);
+    stressPower = 0.5 * _integrationPoint->StrainInc.doubleDot(StressOld + _integrationPoint->Stress);
     _integrationPoint->internalEnergy += stressPower / material->density;
 
     // Get back the gamma value
     if (gamma != 0.0)
     {
       // Compute the plastic Work increment
-      plWorkInc = 0.5 * gamma * (DeviatoricStress.getNorm() + Snorm0);
+      plWorkInc = 0.5 * gamma * (DeviatoricStress.norm() + Snorm0);
 
       // New dissipated inelastic specific energy
       _integrationPoint->inelasticEnergy += plWorkInc / material->density;
@@ -661,16 +657,16 @@ void Element::computeStressDirect(double timeStep)
 
     // Get back the Stress
     StressOld = _integrationPoint->Stress;
-    DeviatoricStress = StressOld.getDeviator();
+    DeviatoricStress = StressOld.deviator();
 
     // computation of Snorm0
-    Snorm0 = DeviatoricStress.getNorm();
+    Snorm0 = DeviatoricStress.norm();
 
     // Trial Deviatoric stress
-    DeviatoricStress += TwoG * _integrationPoint->StrainInc.getDeviator();
+    DeviatoricStress += TwoG * _integrationPoint->StrainInc.deviator();
 
     // Computation of Snorm
-    Snorm = DeviatoricStress.getNorm();
+    Snorm = DeviatoricStress.norm();
 
     // Computation of Strial
     Strial = dnlSqrt32 * Snorm;
@@ -837,14 +833,14 @@ void Element::computeStressDirect(double timeStep)
     _integrationPoint->Stress = DeviatoricStress + _integrationPoint->pressure * Unity;
 
     // Compute the new specific internal energy
-    stressPower = 0.5 * _integrationPoint->StrainInc.doubleProduct(StressOld + _integrationPoint->Stress);
+    stressPower = 0.5 * _integrationPoint->StrainInc.doubleDot(StressOld + _integrationPoint->Stress);
     _integrationPoint->internalEnergy += stressPower / material->density;
 
     // Get back the gamma value
     if (gamma != 0.0)
     {
       // Compute the plastic Work increment
-      plWorkInc = 0.5 * gamma * (DeviatoricStress.getNorm() + Snorm0);
+      plWorkInc = 0.5 * gamma * (DeviatoricStress.norm() + Snorm0);
 
       // New dissipated inelastic specific energy
       _integrationPoint->inelasticEnergy += plWorkInc / material->density;
@@ -889,16 +885,16 @@ void Element::computeStressDirect(double timeStep)
 
     // Get back the Stress
     StressOld = _integrationPoint->Stress;
-    DeviatoricStress = StressOld.getDeviator();
+    DeviatoricStress = StressOld.deviator();
 
     // computation of Snorm0
-    Snorm0 = DeviatoricStress.getNorm();
+    Snorm0 = DeviatoricStress.norm();
 
     // Trial Deviatoric stress
-    DeviatoricStress += TwoG * _integrationPoint->StrainInc.getDeviator();
+    DeviatoricStress += TwoG * _integrationPoint->StrainInc.deviator();
 
     // Computation of Snorm
-    Snorm = DeviatoricStress.getNorm();
+    Snorm = DeviatoricStress.norm();
 
     // Computation of Strial
     Strial = dnlSqrt32 * Snorm;
@@ -1065,14 +1061,14 @@ void Element::computeStressDirect(double timeStep)
     _integrationPoint->Stress = DeviatoricStress + _integrationPoint->pressure * Unity;
 
     // Compute the new specific internal energy
-    stressPower = 0.5 * _integrationPoint->StrainInc.doubleProduct(StressOld + _integrationPoint->Stress);
+    stressPower = 0.5 * _integrationPoint->StrainInc.doubleDot(StressOld + _integrationPoint->Stress);
     _integrationPoint->internalEnergy += stressPower / material->density;
 
     // Get back the gamma value
     if (gamma != 0.0)
     {
       // Compute the plastic Work increment
-      plWorkInc = 0.5 * gamma * (DeviatoricStress.getNorm() + Snorm0);
+      plWorkInc = 0.5 * gamma * (DeviatoricStress.norm() + Snorm0);
 
       // New dissipated inelastic specific energy
       _integrationPoint->inelasticEnergy += plWorkInc / material->density;
@@ -1135,14 +1131,14 @@ void Element::computePressure()
 
   for (intPointId = 0; intPointId < getNumberOfIntegrationPoints(); intPointId++)
   {
-    pressureIncrement += getIntegrationPoint(intPointId)->StrainInc.getTrace();
+    pressureIncrement += getIntegrationPoint(intPointId)->StrainInc.trace();
   }
 
   pressureIncrement /= getNumberOfIntegrationPoints();
 
   for (intPointId = 0; intPointId < getNumberOfIntegrationPoints(); intPointId++)
   {
-    getIntegrationPoint(intPointId)->pressure = getIntegrationPoint(intPointId)->Stress.getThirdTrace() + K * pressureIncrement;
+    getIntegrationPoint(intPointId)->pressure = getIntegrationPoint(intPointId)->Stress.thirdTrace() + K * pressureIncrement;
   }
 }
 
@@ -1158,9 +1154,9 @@ void Element::computeFinalRotation()
     setCurrentIntegrationPoint(intPointId);
 
     // Apply the Final Rotation for Objectivity of the Constitutive Law
-    _integrationPoint->Stress = _integrationPoint->Stress.productByRxRT(_integrationPoint->R);
-    _integrationPoint->Strain = _integrationPoint->Strain.productByRxRT(_integrationPoint->R);
-    _integrationPoint->PlasticStrain = _integrationPoint->PlasticStrain.productByRxRT(_integrationPoint->R);
+    _integrationPoint->Stress = _integrationPoint->Stress.dotRxRT(_integrationPoint->R);
+    _integrationPoint->Strain = _integrationPoint->Strain.dotRxRT(_integrationPoint->R);
+    _integrationPoint->PlasticStrain = _integrationPoint->PlasticStrain.dotRxRT(_integrationPoint->R);
   }
 }
 
@@ -1174,7 +1170,7 @@ void Element::computeFinalRotation()
   if ((Field::FIELD <= field) && (field <= Field::FIELD##ZZ)) \
   {                                                           \
     if (field == Field::FIELD)                                \
-      return getIntegrationPoint(intPoint)->FIELD.getNorm();  \
+      return getIntegrationPoint(intPoint)->FIELD.norm();  \
     if (field == Field::FIELD##XX)                            \
       return getIntegrationPoint(intPoint)->FIELD(0, 0);      \
     if (field == Field::FIELD##XY)                            \
@@ -1216,7 +1212,7 @@ double Element::getIntPointValueExtract(short field, short intPoint)
 
   if (field == Field::vonMises)
   {
-    return getIntegrationPoint(intPoint)->Stress.getMisesEquivalent();
+    return getIntegrationPoint(intPoint)->Stress.vonMises();
   }
 
   Field fakeField;
@@ -1350,7 +1346,7 @@ void Element::computeStrainsOld(double timeStep)
     _integrationPoint->Strain += _integrationPoint->StrainInc;
 
     // calcul de epsilon Equivalent total
-    //      _integrationPoint->EpsEqv = _integrationPoint->Strain.getJ2 ();
+    //      _integrationPoint->EpsEqv = _integrationPoint->Strain.J2 ();
   }
 }
 
@@ -1366,9 +1362,9 @@ void Element::computeConstitutiveEquation()
     // recuperation du point d'integration
     setCurrentIntegrationPoint(intPointId);
 
-    //DELETE Snorm0   _integrationPoint->Snorm0 = DeviatoricStress.getNorm();
+    //DELETE Snorm0   _integrationPoint->Snorm0 = DeviatoricStress.norm();
 
-    //DELETE DeviatoricStress += TwoG * _integrationPoint->StrainInc.getDeviator();
+    //DELETE DeviatoricStress += TwoG * _integrationPoint->StrainInc.deviator();
   }
 }
 
@@ -1385,7 +1381,7 @@ void Element::computeStateEquationOld()
     // recuperation du point d'integration
     setCurrentIntegrationPoint(intPointId);
 
-    meanPressureIncrement += _integrationPoint->StrainInc.getTrace();
+    meanPressureIncrement += _integrationPoint->StrainInc.trace();
   }
 
   meanPressureIncrement /= getNumberOfIntegrationPoints();
@@ -1451,17 +1447,17 @@ void Element::computeStressOld(double timeStep)
     //_integrationPoint->Strain += _integrationPoint->StrainInc;
 
     // Compute the increment of meanPressureIncrease
-    //meanPressureIncrease += _integrationPoint->StrainInc.getTrace();
+    //meanPressureIncrease += _integrationPoint->StrainInc.trace();
 
     // computation of Snorm0
-    // Snorm0 = DeviatoricStress.getNorm();
+    // Snorm0 = DeviatoricStress.norm();
     // _integrationPoint->Snorm0 = Snorm0;
 
     // Trial Deviatoric stress
-    //  DeviatoricStress += TwoG * _integrationPoint->StrainInc.getDeviator();
+    //  DeviatoricStress += TwoG * _integrationPoint->StrainInc.deviator();
 
     // Computation of Snorm
-    Snorm = DeviatoricStress.getNorm();
+    Snorm = DeviatoricStress.norm();
 
     // Computation of Strial
     Strial = dnlSqrt32 * Snorm;
@@ -1606,15 +1602,15 @@ void Element::computeStressOld(double timeStep)
     //_integrationPoint->pressure += K * meanPressureIncrease;
 
     // Apply the Final Rotation for Objectivity of the Constitutive Law
-    DeviatoricStress = DeviatoricStress.productByRxRT(_integrationPoint->R);
-    _integrationPoint->Strain = _integrationPoint->Strain.productByRxRT(_integrationPoint->R);
-    _integrationPoint->PlasticStrain = _integrationPoint->PlasticStrain.productByRxRT(_integrationPoint->R);
+    DeviatoricStress = DeviatoricStress.dotRxRT(_integrationPoint->R);
+    _integrationPoint->Strain = _integrationPoint->Strain.dotRxRT(_integrationPoint->R);
+    _integrationPoint->PlasticStrain = _integrationPoint->PlasticStrain.dotRxRT(_integrationPoint->R);
 
     // Compute the final stress of the element
     _integrationPoint->Stress = DeviatoricStress + _integrationPoint->pressure * Unity;
 
     // Compute the new specific internal energy
-    stressPower = 0.5 * _integrationPoint->StrainInc.doubleProduct(StressOld + _integrationPoint->Stress);
+    stressPower = 0.5 * _integrationPoint->StrainInc.doubleDot(StressOld + _integrationPoint->Stress);
     _integrationPoint->internalEnergy += stressPower / material->density;
 
     // Get back the gamma value
@@ -1622,7 +1618,7 @@ void Element::computeStressOld(double timeStep)
     if (gamma != 0.0)
     {
       // Compute the plastic Work increment
-      //DELETE Snorm0    plWorkInc = 0.5 * gamma * (DeviatoricStress.getNorm() + _integrationPoint->Snorm0);
+      //DELETE Snorm0    plWorkInc = 0.5 * gamma * (DeviatoricStress.norm() + _integrationPoint->Snorm0);
 
       // New dissipated inelastic specific energy
       _integrationPoint->inelasticEnergy += plWorkInc / material->density;
@@ -1693,7 +1689,7 @@ void Element::computeMassEquation(MatrixDiag &M, Vector &F)
     {
       for (int I = 0; I < _elementData->numberOfNodes; I++)
       {
-        F(nodeId) -= _elementData->integrationPoint[intPoint].shapeFunction(nodeId) * _elementData->integrationPoint[intPoint].shapeFunction(I) * dv.getTrace() * density(I) * WxdJ;
+        F(nodeId) -= _elementData->integrationPoint[intPoint].shapeFunction(nodeId) * _elementData->integrationPoint[intPoint].shapeFunction(I) * dv.trace() * density(I) * WxdJ;
       }
     }
   }
@@ -2004,12 +2000,12 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
       // calcul du gradient de vitesses au point
       // getdV(dv);
 //    getdV_atIntPoint(dv,1);
-//    dv.getSymetricPart(dvs);
+//    dv.symmetric(dvs);
       // cout << "dv="<<dv<<std::endl;
       // cout << "dvs="<<dvs<<std::endl;
 
       // calcul de SigklVkl
-      SigklVkl = Stress.doubleProduct (integrationPoints (pt)->PlasticStrainInc);
+      SigklVkl = Stress.doubleDot (integrationPoints (pt)->PlasticStrainInc);
 
       // calcul du terme d'integration numerique
       WxdJ = _integrationPoint->integrationPointData->weight * _integrationPoint->detJ;
@@ -2045,7 +2041,7 @@ void Element::computeEnergyEquation (MatrixDiag & M, Vector & F)
     }
 
   // lumping de la matrice de masse
-//   alpha=mass/M.getTrace();
+//   alpha=mass/M.trace();
 //   for (i=0;i<_elementData->numberOfNodes;i++) M(i)*=alpha;
 }
 

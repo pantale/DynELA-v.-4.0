@@ -656,24 +656,24 @@ double ElHex8N3D::getVolume()
     double height;
     double volume = 0.0;
 
-    base = (((nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(2)->coords - nodes(0)->coords)).getNorm() +
-            ((nodes(3)->coords - nodes(0)->coords).vectorProduct(nodes(2)->coords - nodes(0)->coords)).getNorm()) /
+    base = (((nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(2)->coords - nodes(0)->coords)).norm() +
+            ((nodes(3)->coords - nodes(0)->coords).vectorProduct(nodes(2)->coords - nodes(0)->coords)).norm()) /
            2.0;
     norm = (nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(3)->coords - nodes(0)->coords);
     norm.normalize();
     height = dnlAbs(norm.dot(nodes(7)->coords - nodes(0)->coords));
     volume += base * height / 3.0;
 
-    base = (((nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(5)->coords - nodes(0)->coords)).getNorm() +
-            ((nodes(4)->coords - nodes(0)->coords).vectorProduct(nodes(5)->coords - nodes(0)->coords)).getNorm()) /
+    base = (((nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(5)->coords - nodes(0)->coords)).norm() +
+            ((nodes(4)->coords - nodes(0)->coords).vectorProduct(nodes(5)->coords - nodes(0)->coords)).norm()) /
            2.0;
     norm = (nodes(1)->coords - nodes(0)->coords).vectorProduct(nodes(4)->coords - nodes(0)->coords);
     norm.normalize();
     height = dnlAbs(norm.dot(nodes(7)->coords - nodes(0)->coords));
     volume += base * height / 3.0;
 
-    base = (((nodes(2)->coords - nodes(1)->coords).vectorProduct(nodes(6)->coords - nodes(1)->coords)).getNorm() +
-            ((nodes(5)->coords - nodes(1)->coords).vectorProduct(nodes(6)->coords - nodes(1)->coords)).getNorm()) /
+    base = (((nodes(2)->coords - nodes(1)->coords).vectorProduct(nodes(6)->coords - nodes(1)->coords)).norm() +
+            ((nodes(5)->coords - nodes(1)->coords).vectorProduct(nodes(6)->coords - nodes(1)->coords)).norm()) /
            2.0;
     norm = (nodes(2)->coords - nodes(1)->coords).vectorProduct(nodes(5)->coords - nodes(1)->coords);
     norm.normalize();

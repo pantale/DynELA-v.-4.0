@@ -21,15 +21,15 @@ class Element;
 /*
 @LABEL:Node::Node
 @SHORT:Finite Element Node class.
-This class is used to store information for Finite Element Nodes.
-@ARG:BoundaryCondition&*boundary&Boundary conditions on the current node.
-@ARG:double&mass&Nodal mass.
-@ARG:List<Element *>&elements&List of the elements that contains a reference to the current node.
-@ARG:long&number&Identification number of the node.
-@ARG:NodalField&*field0&Nodal field of the node at the begining of the increment.
-@ARG:NodalField&*field1&Nodal field of the node at the end of the increment.
-@ARG:Vec3D&coords&Coordinates of the corresponding node.
-@ARG:Vec3D&disp&Displacement at the current node $\overrightarrow{d}$.
+This class is used to store information for DynELA Nodes.
+@ARG:long & number & Identification number of the node.
+@ARG:Vec3D & coords & Coordinates of the corresponding node.
+@ARG:Vec3D & disp & Displacement at the current node $\overrightarrow{d}$.
+@ARG:double & mass & Nodal mass.
+@ARG:List<Element *> & elements & List of the elements that contains a reference to the current node.
+@ARG:NodalField* & field0 & Nodal field of the node at the begining of the increment.
+@ARG:NodalField* & field1 & Nodal field of the node at the end of the increment.
+@ARG:BoundaryCondition* & boundary & Boundary conditions on the current node.
 @END
 */
 class Node
@@ -43,7 +43,7 @@ public:
   // Vec3D initialCoordinates;      // Coordinates. Initial coords of the corresponding point.
   // Vec3D normal;                // Normal vector. This vector represents the normal vector of the current point in 3D space. Such normal vector is compted from the values of the normals of the faces connected to this point.
   BoundaryCondition *boundary; // Boundary conditions. This pointer reference the list of the boundary conditions on the current node.
-  double mass;                 // Mass. This field is used to store the value of the getJ2 nodal mass.
+  double mass;                 // Mass. This field is used to store the value of the J2 nodal mass.
   List<Element *> elements;    // Element list. This pointer reference the list of the elements that contains a reference to the current node (ie: the list of the elements that includes this node).
   long number;                 // Identification number. This field represents the external identification number of the current node (ie. user representation).
   NodalField *field0;          // Nodal field of the node, ie. nodal field at the begining of the current increment
