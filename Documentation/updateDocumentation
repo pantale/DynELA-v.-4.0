@@ -9,8 +9,8 @@ Created on Mon Sep 19 09:41:29 2022
 from pathlib import Path
 import fnmatch
 
-def formDoc(label, brief, ret, arg, warn, doc):
-    return label, [brief, ret, arg, warn, doc]
+def formDoc(label, brief, ret, arg, warn, smod, doc):
+    return label, [brief, ret, arg, warn, smod, doc]
 
 def findFiles(path, pattern):
     lst = []
@@ -65,6 +65,7 @@ def returnDoc(data):
     desc = ''
     ret = ''
     warn = ''
+    smod = False
     go = False
     for line in data:
         if (go):
@@ -81,6 +82,9 @@ def returnDoc(data):
             if '@WARNING' in line:
                 warn = after(line,'@WARNING:')
                 ok = True    
+            if '@SMOD' in line:
+                smod = True
+                ok = True     
             if (ok == False):
                 if not '@END' in line:
                     doc.append(line)
@@ -89,7 +93,7 @@ def returnDoc(data):
             go = True
         if '@END' in line:
             go = False
-            k, l = formDoc(label, desc, ret, arg, warn, doc)
+            k, l = formDoc(label, desc, ret, arg, warn, smod, doc)
             Docs[k] = l
             doc = []
             label = ''
@@ -97,6 +101,7 @@ def returnDoc(data):
             desc = ''
             ret = ''
             warn = ''
+            smod = False
     return Docs
 
 def getTexKeys(targetFile):
@@ -167,6 +172,11 @@ def writeTex(out, key):
         # Writes the Warning
         if dc[3]!='' :
             out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :} '+dc[3]+'}')
+            out.append('')
+
+        # Writes the self modification
+        if dc[4]==True:
+            out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :}} After the call to this method, the object is modified.')
             out.append('')
 
         # Scan args

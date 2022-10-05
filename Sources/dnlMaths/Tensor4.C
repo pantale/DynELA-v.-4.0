@@ -73,7 +73,7 @@ void Tensor4::print(std::ostream &os) const
 /*
 @LABEL:Tensor4::setToUnity()
 @SHORT:Unity fourth order tensor.
-@WARNING:This method modifies its own argument
+@SMOD
 This method transforms the current tensor to a fourth order unity tensor.
 @END
 */

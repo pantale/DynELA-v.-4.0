@@ -129,7 +129,7 @@ void Tensor2::print(std::ostream &outputStream) const
 /*
 @LABEL:Tensor2::setToUnity()
 @SHORT:Unity second order tensor.
-@WARNING:This method modifies its own argument
+@SMOD
 This method transforms the current tensor to a unity tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
@@ -159,7 +159,7 @@ void Tensor2::setToUnity()
 /*
 @LABEL:Tensor2::setToZero()
 @SHORT:Zero second order tensor.
-@WARNING:This method modifies its own argument.
+@SMOD
 This method transforms the current second order tensor to a zero tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}

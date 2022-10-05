@@ -74,7 +74,7 @@ void Tensor3::print(std::ostream &os) const
 /*
 @LABEL:Tensor3::setToUnity()
 @SHORT:Unity third order tensor.
-@WARNING:This method modifies its own argument
+@SMOD
 This method transforms the current tensor to a unity tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}

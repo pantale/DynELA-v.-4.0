@@ -123,7 +123,7 @@ void SymTensor2::print(std::ostream &outputStream) const
 /*
 @LABEL:SymTensor2::setToUnity()
 @SHORT:Unity symmetric second order tensor.
-@WARNING:This method modifies its own argument
+@SMOD
 This method transforms the current symmetric second order tensor to a unity tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
@@ -150,7 +150,7 @@ void SymTensor2::setToUnity()
 /*
 @LABEL:SymTensor2::setToZero()
 @SHORT:Zero symmetric second order tensor.
-@WARNING:This method modifies its own argument.
+@SMOD
 This method transforms the current symmetric second order tensor to a zero tensor.
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
