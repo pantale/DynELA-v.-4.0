@@ -100,10 +100,10 @@ void LogFile::headerWrite()
   // write the header of the file
   // _stream << "DynELA v. " << VERSION << "." << RELEASE << "." << UNDER_RELEASE << "-" << ALPHA_VERSION << std::endl;
   _stream << os.getDate() << std::endl;
-  _stream << "Job created by user " << os.getEnvironmentValue("LOGNAME") << std::endl;
+  _stream << "Job created by user " << os.env("LOGNAME") << std::endl;
   //_stream << "Job executed on a " << os.getCurrHosttype() << " system\n";
-  _stream << "Name of the host " << os.getHostname() << std::endl;
-  _stream << "Host ID " << os.getHostId() << std::endl;
+  _stream << "Name of the host " << os.hostname() << std::endl;
+  _stream << "Host ID " << os.hostID() << std::endl;
   _stream << std::endl
           << std::endl;
 

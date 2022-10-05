@@ -32,7 +32,7 @@ Settings::Settings() : _isChanged(false)
 {
     // Get the path value
     System sys = System();
-    String path = sys.getEnvironmentValue("DYNELA_BIN");
+    String path = sys.env("DYNELA_BIN");
 
     // Loads the settings from configuration file
     if (path != "")

@@ -13,13 +13,12 @@
 
 #include <String.h>
 
-//-----------------------------------------------------------------------------
-// Class : System
-//
-// Used to manage System
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:System::System
+@SHORT:System class.
+This class is used to store system information for \DynELA.
+@END
+*/
 class System
 {
 
@@ -35,20 +34,20 @@ public:
 #if !defined(SWIG) || defined(CSWIG)
 #endif
 
-  bool existEnvironmentValue(const String &envname);
-  int execute(const String &cmd);
-  long getHostId();
-  String getDate(bool full = true);
-  String getEnvironmentValue(const String &envname);
-  String getExecutionPath();
-  String getHostname();
-  String getLogin();
-  String getPathName();
-  String getUnixTime();
+  bool existEnv(const String &);
+  int execute(const String &);
+  long hostID();
+  String env(const String &);
+  String execPath();
+  String getDate(bool = true);
+  String pathname();
+  String getTime();
+  String hostname();
+  String login();
 };
 
-bool argumentsLineParse(char *rr, int argc, char **argv);
-char *argumentsLineGet(char *rr, int argc, char **argv);
-long argumentsLinePosition(char *rr, int argc, char **argv);
+bool argumentsLineParse(char *, int, char **);
+char *argumentsLineGet(char *, int, char **);
+long argumentsLinePosition(char *, int, char **);
 
 #endif

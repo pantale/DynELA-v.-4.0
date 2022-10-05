@@ -353,7 +353,7 @@ void SvgInterface::dataInfoWrite()
   pos(1) += yInc;
   textWrite(pos, system.getDate(), 20);
   pos(1) += yInc;
-  textWrite(pos, "host : " + system.getHostname(), 20);
+  textWrite(pos, "host : " + system.hostname(), 20);
   pos(1) += yInc + 8;
   textVal.convert(dynelaData->model.currentTime, "%10.3E");
   textWrite(pos, "time : " + textVal, 20);

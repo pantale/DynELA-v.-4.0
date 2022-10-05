@@ -8,14 +8,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-/*
-  \file System.C
-  System working environment
-
-  This class contains a set of methods dedicated to the System working environment.
-  \ingroup dnlKernel
-*/
-
 #include <System.h>
 #include <Errors.h>
 #include <Exception.h>
@@ -26,16 +18,16 @@
 #include <libgen.h>
 
 /*
-  Execution of a system command
-
-  This method executes an external command. Launching a new process through the \b system() command.
-  The new program is a new process totally independent from the current application.
-  The only link is that the calling program waits for the end of the execution of the new process to continue the operations (except if we use the magic parameter & in the command line...).
-   Do you know System?). As this command is simple, the working environment for the execution of the new process is /bin/sh. An error message is generated if a problem is encountered during execution.
-  For more complex situations, it will be necessary to use the "classic" fork() and exec() program launch methods. But this inevitably leads to threads problems and that's another story actually ;-0
-
-  - commandToExecute string of type \b String defining the system command to run
-  Return : value indicating whether the command execution ran smoothly. A value of 0 is returned if everything works well, another value is returned if a problem was encountered during execution.
+@LABEL:System::execute(String s)
+@SHORT:Execution of a system command
+@ARG:String & s & System command to launch.
+@RETURN:int : Status of the system command. A value of 0 is returned if everything works well, another value is returned if a problem was encountered during execution.
+This method executes an external command. Launching a new process through the system() command.
+The new program is a new process totally independent from the current application.
+The only link is that the calling program waits for the end of the execution of the new process to continue the operations (except if we use the magic parameter \& in the command line...).
+Do you know System?). As this command is simple, the working environment for the execution of the new process is /bin/sh. An error message is generated if a problem is encountered during execution.
+For more complex situations, it will be necessary to use the "classic" fork() and exec() program launch methods. But this inevitably leads to threads problems and that's another story actually ;-0
+@END
 */
 //-----------------------------------------------------------------------------
 int System::execute(const String &commandToExecute)
@@ -58,14 +50,15 @@ int System::execute(const String &commandToExecute)
 }
 
 /*
-  retrieve the value associated with an environment variable
-
-  This method retrieves the value associated with a System environment variable. If this variable is not defined, this method returns the following string "cannot get environment value". The returned value is of type String.
-  - envname environment variable name
-  Return : value associated with the environment variable in the form of String
+@LABEL:System::env(String s)
+@SHORT:Retrieve the value associated with an environment variable
+@ARG:String & s & Environment variable.
+@RETURN:String : Value associated with the environment variable in the form of String
+This method retrieves the value associated with a System environment variable. If this variable is not defined, this method returns the following string "cannot get environment value". The returned value is of type String.
+@END
 */
 //-----------------------------------------------------------------------------
-String System::getEnvironmentValue(const String &envname)
+String System::env(const String &envname)
 //-----------------------------------------------------------------------------
 {
   String s;
@@ -87,14 +80,15 @@ String System::getEnvironmentValue(const String &envname)
 }
 
 /*
-  tests for the presence of a defined environment variable
-
-  This method tests the definition of an environment variable. It returns a boolean value that indicates the state of definition of this environment variable.
-  - envname name of the environment variable
-  Return :  \c true if the environment variable is set on the system, \c false if not.
+@LABEL:System::existEnv(String s)
+@SHORT:Tests for the presence of a defined environment variable
+@ARG:String & s & Environment variable.
+@RETURN:bool : true if the environment variable is set on the system, false if not.
+This method tests the definition of an environment variable. It returns a boolean value that indicates the state of definition of this environment variable.
+@END
 */
 //-----------------------------------------------------------------------------
-bool System::existEnvironmentValue(const String &envname)
+bool System::existEnv(const String &envname)
 //-----------------------------------------------------------------------------
 {
   char *c = std::getenv(envname.chars());
@@ -108,13 +102,14 @@ bool System::existEnvironmentValue(const String &envname)
 }
 
 /*
-  returns the user's login
-
-  This method returns the login of the system user in the form of a string.
-  Return : the user's login or "unknown user" if this information cannot be given.
+@LABEL:System::login()
+@SHORT:Returns the user's login.
+@RETURN:String : The user's login or "unknown user" if this information cannot be given.
+This method returns the login of the system user in the form of a string.
+@END
 */
 //-----------------------------------------------------------------------------
-String System::getLogin()
+String System::login()
 //-----------------------------------------------------------------------------
 {
   struct passwd *pwd;
@@ -133,13 +128,14 @@ String System::getLogin()
 }
 
 /*
-  returns the machine name
-
-  This method returns the name of the machine on which the application is running.
-  Return : machine name or "unknown host" if this information cannot be given.
+@LABEL:System::hostname()
+@SHORT:Returns the machine name
+@RETURN:String : Machine name or "unknown host" if this information cannot be given.
+This method returns the name of the machine on which the application is running.
+@END
 */
 //-----------------------------------------------------------------------------
-String System::getHostname()
+String System::hostname()
 //-----------------------------------------------------------------------------
 {
   String s;
@@ -161,11 +157,13 @@ String System::getHostname()
 }
 
 /*
-  returns the current date and time
-
-  This method returns the current date and time at the system level.
+@LABEL:System::getDate(bool b)
+@ARGS:bool & b & Nature of the result returned
+@SHORT:Returns the current date and time
+@RETURN:String : Current date and time or "unknown date" if this information cannot be given.
+This method returns the current date and time at the system level.
   - full this boolean value defines the nature of the result returned. If the value is true then the format is the full format of the form (Fri Jan 25 15:08:24 2002) if the value is false then the format returned is the short format of the form (Jan 25, 2002). The default value if nothing is accurate is true.
-  Return : current date and time or "unknown date" if this information cannot be given.
+@END
 */
 //-----------------------------------------------------------------------------
 String System::getDate(bool full)
@@ -204,13 +202,14 @@ String System::getDate(bool full)
 }
 
 /*
-  returns the current time
-
-  This method returns the current time to the system level.
-  Return : value of the current time as a String (format: 14:23:26)
+@LABEL:System::getTime()
+@SHORT:Returns the current time
+@RETURN:String : Vlue of the current time as a String (format: 14:23:26)
+This method returns the current time to the system level.
+@END
 */
 //-----------------------------------------------------------------------------
-String System::getUnixTime()
+String System::getTime()
 //-----------------------------------------------------------------------------
 {
   String s = getDate(true);
@@ -222,22 +221,22 @@ String System::getUnixTime()
   return (s);
 }
 
-//
 /*
-  returns the name of the current directory
-
-  This method returns the name of the current directory from which the execution was started.
-  Return : current directory or "unknown pathname" if this information cannot be given.
+@LABEL:System::pathname()
+@SHORT:Returns the name of the current directory
+@RETURN:String : Current directory or "unknown pathname" if this information cannot be given.
+This method returns the name of the current directory from which the execution was started.
+@END
 */
 //-----------------------------------------------------------------------------
-String System::getPathName()
+String System::pathname()
 //-----------------------------------------------------------------------------
 {
   char pathname[2500];
   if (getcwd(pathname, 2500) == NULL)
   {
-    fatalError("System::getPathName()",
-               "getPathName()\nsomething went wrong when calling the system function getcwd\n");
+    fatalError("System::pathname()",
+               "pathname()\nsomething went wrong when calling the system function getcwd\n");
   }
 
   String s;
@@ -253,8 +252,15 @@ String System::getPathName()
   return (s);
 }
 
+/*
+@LABEL:System::execPath()
+@SHORT:Returns the execution path of the current application path
+@RETURN:String : Current path or "unknown pathname" if this information cannot be given.
+This method returns the name of the current application path from which the execution was started.
+@END
+*/
 //-----------------------------------------------------------------------------
-String System::getExecutionPath()
+String System::execPath()
 //-----------------------------------------------------------------------------
 {
   int bufsize = 1024;
@@ -269,13 +275,14 @@ String System::getExecutionPath()
 }
 
 /*
-  sends the host back from the machine
-
-  This method returns the host of the machine on which the program is executed. The host is an integer value usually given in hexadecimal form 0xFFFFFFFFFFFFFF on 32 bits. This number is unique per machine.
-  Return : hostId of the machine.
+@LABEL:System::hostID()
+@SHORT:Returns the host back from the machine
+@RETURN:String : hostId of the machine.
+This method returns the host of the machine on which the program is executed. The host is an integer value usually given in hexadecimal form 0xFFFFFFFFFFFFFF on 32 bits. This number is unique per machine.
+@END
 */
 //-----------------------------------------------------------------------------
-long System::getHostId()
+long System::hostID()
 //-----------------------------------------------------------------------------
 {
   return gethostid();

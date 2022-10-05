@@ -125,6 +125,139 @@ Checks if settings has been changed and needs rewrite.\\ \hspace*{10mm}$\hookrig
 
 %@END
 
+\section{The System class}
+
+%@DOC:System::System
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::System}}\label{System::System}\index[DL]{System!System}\\
+System class.
+
+This class is used to store system information for \DynELA.
+%@END
+
+%@DOC:System::execute(String s)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::execute(String s)}}\label{System::execute(String s)}\index[DL]{System!execute(String s)}\\
+Execution of a system command\\ \hspace*{10mm}$\hookrightarrow$ int : Status of the system command. A value of 0 is returned if everything works well, another value is returned if a problem was encountered during execution.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+String & s & System command to launch.
+\end{tcolorbox}
+
+This method executes an external command. Launching a new process through the system() command.
+The new program is a new process totally independent from the current application.
+The only link is that the calling program waits for the end of the execution of the new process to continue the operations (except if we use the magic parameter \& in the command line...).
+Do you know System?). As this command is simple, the working environment for the execution of the new process is /bin/sh. An error message is generated if a problem is encountered during execution.
+For more complex situations, it will be necessary to use the "classic" fork() and exec() program launch methods. But this inevitably leads to threads problems and that's another story actually ;-0
+%@END
+
+%@DOC:System::env(String s)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::env(String s)}}\label{System::env(String s)}\index[DL]{System!env(String s)}\\
+Retrieve the value associated with an environment variable\\ \hspace*{10mm}$\hookrightarrow$ String : Value associated with the environment variable in the form of String
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+String & s & Environment variable.
+\end{tcolorbox}
+
+This method retrieves the value associated with a System environment variable. If this variable is not defined, this method returns the following string "cannot get environment value". The returned value is of type String.
+%@END
+
+%@DOC:System::existEnv(String s)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::existEnv(String s)}}\label{System::existEnv(String s)}\index[DL]{System!existEnv(String s)}\\
+Tests for the presence of a defined environment variable\\ \hspace*{10mm}$\hookrightarrow$ bool : true if the environment variable is set on the system, false if not.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+String & s & Environment variable.
+\end{tcolorbox}
+
+This method tests the definition of an environment variable. It returns a boolean value that indicates the state of definition of this environment variable.
+%@END
+
+%@DOC:System::login()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::login(~)}}\label{System::login()}\index[DL]{System!login(~)}\\
+Returns the user's login.\\ \hspace*{10mm}$\hookrightarrow$ String : The user's login or "unknown user" if this information cannot be given.
+
+This method returns the login of the system user in the form of a string.
+%@END
+
+%@DOC:System::hostname()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::hostname(~)}}\label{System::hostname()}\index[DL]{System!hostname(~)}\\
+Returns the machine name\\ \hspace*{10mm}$\hookrightarrow$ String : Machine name or "unknown host" if this information cannot be given.
+
+This method returns the name of the machine on which the application is running.
+%@END
+
+%@DOC:System::getDate(bool b)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::getDate(bool b)}}\label{System::getDate(bool b)}\index[DL]{System!getDate(bool b)}\\
+Returns the current date and time\\ \hspace*{10mm}$\hookrightarrow$ String : Current date and time or "unknown date" if this information cannot be given.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+
+\end{tcolorbox}
+
+This method returns the current date and time at the system level.
+  - full this boolean value defines the nature of the result returned. If the value is true then the format is the full format of the form (Fri Jan 25 15:08:24 2002) if the value is false then the format returned is the short format of the form (Jan 25, 2002). The default value if nothing is accurate is true.
+%@END
+
+%@DOC:System::getTime()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::getTime(~)}}\label{System::getTime()}\index[DL]{System!getTime(~)}\\
+Returns the current time\\ \hspace*{10mm}$\hookrightarrow$ String : Vlue of the current time as a String (format: 14:23:26)
+
+This method returns the current time to the system level.
+%@END
+
+%@DOC:System::pathname()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::pathname(~)}}\label{System::pathname()}\index[DL]{System!pathname(~)}\\
+Returns the name of the current directory\\ \hspace*{10mm}$\hookrightarrow$ String : Current directory or "unknown pathname" if this information cannot be given.
+
+This method returns the name of the current directory from which the execution was started.
+%@END
+
+%@DOC:System::execPath()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::execPath(~)}}\label{System::execPath()}\index[DL]{System!execPath(~)}\\
+Returns the execution path of the current application path\\ \hspace*{10mm}$\hookrightarrow$ String : Current path or "unknown pathname" if this information cannot be given.
+
+This method returns the name of the current application path from which the execution was started.
+%@END
+
+%@DOC:System::hostID()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{System::hostID(~)}}\label{System::hostID()}\index[DL]{System!hostID(~)}\\
+Returns the host back from the machine\\ \hspace*{10mm}$\hookrightarrow$ String : hostId of the machine.
+
+This method returns the host of the machine on which the program is executed. The host is an integer value usually given in hexadecimal form 0xFFFFFFFFFFFFFF on 32 bits. This number is unique per machine.
+%@END
+
 \section{The List class}
 
 The List class is a basic class in the \DynELA. It is even at the origin of all the developments made in finite element and numerical computation since 1992. Its development is at the heart of the PostCopo and F3R applications which were realized during my thesis work between 1992 and 1996. Originally, it was written in C language and was thus a dynamic list of pointers on \textbf{void$\star$} which was violently (and yes I assume this) casted, during the definition of the list, into pointers on the real elements of the list. The automatic dynamic memory allocation mechanism for the list in increments of $10$, in general, was already present in the first version of this list in C. Later, with the advent of \Cpp~, this list was switched to its current form with the template mechanism provided by the \Cpp~language.
