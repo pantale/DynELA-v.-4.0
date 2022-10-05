@@ -350,7 +350,7 @@ where $\overrightarrow{x}$ is a vector defined by the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vec3D::dot(Vec3D y)}}\label{Vec3D::dot(Vec3D y)}\index[DL]{Vec3D!dot(Vec3D y)}\\
-Dot product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double
+Dot product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ double : The dot product.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the dot product operation.
@@ -360,7 +360,7 @@ This method returns the dot product of two Vec3D defined by the following equati
 \begin{equation*}
 m = \overrightarrow{x}\cdot\overrightarrow{y},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is given by the parameter y.
 %@END
 
 %@DOC:Vec3D::dyadic()
@@ -420,7 +420,7 @@ This method returns a colinear Vec3D with a norm equal to $1$.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vec3D::vectorProduct(Vec3D y)}}\label{Vec3D::vectorProduct(Vec3D y)}\index[DL]{Vec3D!vectorProduct(Vec3D y)}\\
-Vector product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D
+Vector product of two Vec3D.\\ \hspace*{10mm}$\hookrightarrow$ Vec3D : Result of the operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the vector product operation.
@@ -430,7 +430,7 @@ This method returns the vector product of two Vec3D defined by the following equ
 \begin{equation*}
 \overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is given by the parameter y.
 %@END
 
 %@DOC:Vec3D::J2()
@@ -480,7 +480,7 @@ where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is 
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vec3D::squareDistance(Vec3D y)}}\label{Vec3D::squareDistance(Vec3D y)}\index[DL]{Vec3D!squareDistance(Vec3D y)}\\
-Square of distance between two points.
+Square of distance between two points.\\ \hspace*{10mm}$\hookrightarrow$ double : The distance.
 
 This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
@@ -623,7 +623,7 @@ The result of this operation is a second order tensor as a copy of a symmetric s
 \textcolor{purple}{\textbf{Tensor2::setToZero(~)}}\label{Tensor2::setToZero()}\index[DL]{Tensor2!setToZero(~)}\\
 Zero second order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument.}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
 
 This method transforms the current second order tensor to a zero tensor.
 \begin{equation*}
@@ -643,7 +643,7 @@ where $\T$ is a second order tensor defined by the object itself.
 \textcolor{purple}{\textbf{Tensor2::setToUnity(~)}}\label{Tensor2::setToUnity()}\index[DL]{Tensor2!setToUnity(~)}\\
 Unity second order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
 
 This method transforms the current tensor to a unity tensor.
 \begin{equation*}
@@ -1647,7 +1647,7 @@ Constructor of a second order symmetric tensor with explicit initialization of t
 \textcolor{purple}{\textbf{SymTensor2::setToZero(~)}}\label{SymTensor2::setToZero()}\index[DL]{SymTensor2!setToZero(~)}\\
 Zero symmetric second order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument.}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
 
 This method transforms the current symmetric second order tensor to a zero tensor.
 \begin{equation*}
@@ -1667,7 +1667,7 @@ where $\T$ is a symmetric second order tensor defined by the object itself.
 \textcolor{purple}{\textbf{SymTensor2::setToUnity(~)}}\label{SymTensor2::setToUnity()}\index[DL]{SymTensor2!setToUnity(~)}\\
 Unity symmetric second order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
 
 This method transforms the current symmetric second order tensor to a unity tensor.
 \begin{equation*}
@@ -2618,7 +2618,7 @@ This is the default constructor of the Tensor3 class, where all components are i
 \textcolor{purple}{\textbf{Tensor3::setToUnity(~)}}\label{Tensor3::setToUnity()}\index[DL]{Tensor3!setToUnity(~)}\\
 Unity third order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
 
 This method transforms the current tensor to a unity tensor.
 \begin{equation*}
@@ -2871,7 +2871,7 @@ This is the default constructor of the Tensor4 class, where all components are i
 \textcolor{purple}{\textbf{Tensor4::setToUnity(~)}}\label{Tensor4::setToUnity()}\index[DL]{Tensor4!setToUnity(~)}\\
 Unity fourth order tensor.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method modifies its own argument}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
 
 This method transforms the current tensor to a fourth order unity tensor.
 %@END
@@ -3121,44 +3121,28 @@ This file is the declaration file for the Vector class. A Vector class is a vect
 \end{equation*}
 %@END
 
-
-
-%@DOC:Vector::size()
+%@DOC:Vector::Vector(long l, double m)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::size(~)}}\label{Vector::size()}\index[DL]{Vector!size(~)}\\
-Returns the length of the vector.\\ \hspace*{10mm}$\hookrightarrow$ long
-
-This method returns the length of the vector, \ie the number of components of the vector.
-%@END
-
-%@DOC:Vector::Vector(long l, double x)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::Vector(long l, double x)}}\label{Vector::Vector(long l, double x)}\index[DL]{Vector!Vector(long l, double x)}\\
-Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+\textcolor{purple}{\textbf{Vector::Vector(long l, double m)}}\label{Vector::Vector(long l, double m)}\index[DL]{Vector!Vector(long l, double m)}\\
+Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector : The initialized vector.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-long&l&Length of the vector to create.\\
-double&x&Value to give to each element of the new vector.
+long & l & Length of the vector to create.\\
+double & m & Value to give to each element of the new vector.
 \end{tcolorbox}
 
-This method creates a new vector of length $l$ where all values are initialized to $x$.
-%@END
-
-%@DOC:Vector::Vector(Vector y)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::Vector(Vector y)}}\label{Vector::Vector(Vector y)}\index[DL]{Vector!Vector(Vector y)}\\
-Copy constructor of the Vec3D class.\\ \hspace*{10mm}$\hookrightarrow$ Vector
-
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Vector&y&Vector $\overrightarrow{y}$ to copy
-\end{tcolorbox}
-
+This method creates a new vector of length $l$ where all values are initialized to the scalar value $m$.
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}=m\\
+  x_{2}=m\\
+  \vdots\\
+  x_{n}=m
+  \end{array}\right]
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself and $m$ is scalar value defined by parameter m.
 %@END
 
 %@DOC:Vector::Vector(int l, double x1, double x2, ...)
@@ -3166,17 +3150,28 @@ Vector&y&Vector $\overrightarrow{y}$ to copy
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::Vector(int l, double x1, double x2, ...)}}\label{Vector::Vector(int l, double x1, double x2, ...)}\index[DL]{Vector!Vector(int l, double x1, double x2, ...)}\\
-Constructor of the Vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+Constructor of the vector class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ Vector : The initialized vector.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-int&l&Number of components.\\
-double&x1&first component of the Vector to create.\\
-double&x2&second component of the Vector to create.
+int & l & Number of components.\\
+double & x1 & first component of the vector to create.\\
+double & x2 & second component of the vector to create.\\
+double & ... & $x^{th}$ component of the vector to create.
 \end{tcolorbox}
 
 %@END
 
 \subsection{Basic operations}
+
+%@DOC:Vector::size()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::size(~)}}\label{Vector::size()}\index[DL]{Vector!size(~)}\\
+Returns the length of the vector.\\ \hspace*{10mm}$\hookrightarrow$ long : Length of the vector.
+
+This method returns the length of the vector, \ie the number of components of the vector.
+%@END
 
 %@DOC:Vector::swap(Vector y)
 %Warning :
@@ -3186,10 +3181,11 @@ double&x2&second component of the Vector to create.
 Swap the content of two vectors.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Vector&y&Second vector for the swap operation.
+Vector & y & Second vector for the swap operation.
 \end{tcolorbox}
 
-This method swaps the storage of two vectors. The two vectors must have the exact same size.
+This method swaps the storage of two vectors.
+The two vectors must have the exact same size.
 %@END
 
 %@DOC:Vector::redim(long s)
@@ -3202,10 +3198,11 @@ Change the allocation size of a vector.
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method cleans the content of the vector.}
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-long&s&New allocation size of the vector after the operation.
+long & s & New allocation size of the vector after the operation.
 \end{tcolorbox}
 
 This method changes the size of a vector.
+If the new size is the same as the actual size, this method does nothing.
 %@END
 
 %@DOC:Vector::resize(long s)
@@ -3216,7 +3213,7 @@ This method changes the size of a vector.
 Change the size of a vector.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-long&s&New size of the vector after the operation.
+long & s & New size of the vector after the operation.
 \end{tcolorbox}
 
 This method is used to specify a new vector dimension of the one given during initialization by the constructor.
@@ -3236,30 +3233,27 @@ The selection of the display format is made using the method setOutType().
 The output type is defined by the variables listed in OutVector.
 %@END
 
-%@DOC:Vector::setValue(double val)
+%@DOC:Vector::operator=(double v)
 %Warning :
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::setValue(double val)}}\label{Vector::setValue(double val)}\index[DL]{Vector!setValue(double val)}\\
-This method affect a value to a vector.
+\textcolor{purple}{\textbf{Vector::operator=(double v)}}\label{Vector::operator=(double v)}\index[DL]{Vector!operator=(double v)}\\
+Fill a vector with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ Vector
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-double&val&Scalar value to use for the  operation.
+double & v & Value to use for the operation.
 \end{tcolorbox}
 
-%@END
-
-%@DOC:Vector::operator=(double val)
-%Warning :
-%This area is an automatic documentation generated from the DynELA source code.
-%Do not change anything in this latex file between this position and the @END keyword.
-\textcolor{purple}{\textbf{Vector::operator=(double val)}}\label{Vector::operator=(double val)}\index[DL]{Vector!operator=(double val)}\\
-This method affect a value to a vector.
-
-\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-double&val&Scalar value to use for the  operation.
-\end{tcolorbox}
-
+This method is a surdefinition of the = operator for the vector class.
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}=v\\
+  x_{2}=v\\
+  \vdots\\
+  x_{n}=v
+  \end{array}\right]
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $v$ is the scalar value defined by parameter v.
 %@END
 
 %@DOC:Vector::norm()
@@ -3267,12 +3261,13 @@ double&val&Scalar value to use for the  operation.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::norm(~)}}\label{Vector::norm()}\index[DL]{Vector!norm(~)}\\
-Returns the norm of a vector.
+Returns the norm of a vector.\\ \hspace*{10mm}$\hookrightarrow$ double : The norm of the vector.
 
-This method returns norm of a vector defined by:
+This method returns the norm $s$ of a vector $\overrightarrow{x}$ defined by:
 \begin{equation*}
-\left\Vert \overrightarrow{v} \right\Vert = \sqrt {v_{1}^2 + v_{2}^2 + ... + v_{n}^2}
+s = \left\Vert \overrightarrow{x} \right\Vert = \sqrt {x_{1}^2 + x_{2}^2 + ... + x_{n}^2}
 \end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself.
 %@END
 
 %@DOC:Vector::dot()
@@ -3280,12 +3275,13 @@ This method returns norm of a vector defined by:
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::dot(~)}}\label{Vector::dot()}\index[DL]{Vector!dot(~)}\\
-Returns the dot product of a vector by itself.
+Returns the dot product of a vector by itself.\\ \hspace*{10mm}$\hookrightarrow$ double : The dot product of the vector by itsefl.
 
 This method returns dot product of a vector by itself defined by:
 \begin{equation*}
- \left\Vert \overrightarrow{v} \right\Vert  = v_{1}^2 + v_{2}^2 + ... + v_{n}^2
+ \left\Vert \overrightarrow{x} \right\Vert  = x_{1}^2 + x_{2}^2 + ... + x_{n}^2
 \end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself.
 %@END
 
 %@DOC:Vector::dyadic()
@@ -3293,13 +3289,14 @@ This method returns dot product of a vector by itself defined by:
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::dyadic(~)}}\label{Vector::dyadic()}\index[DL]{Vector!dyadic(~)}\\
-Dyadic product of a Vector by itsefl.\\ \hspace*{10mm}$\hookrightarrow$ Matrix
+Dyadic product of a vector by itsefl.\\ \hspace*{10mm}$\hookrightarrow$ Matrix : The matrix result of the dyadic product.
 
-This method returns the dyadic product of two Vector defined by the following equation:
+This method returns the dyadic product of two vectors defined by the following equation:
 \begin{equation*}
 \M = \overrightarrow{x}\otimes\overrightarrow{x},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself. The result of this operation is a symmetric second order tensor.
+where the $\overrightarrow{x}$ is the object itself.
+The result of this operation is a symmetric matrix.
 %@END
 
 %@DOC:Vector::dyadic(Vector y)
@@ -3325,9 +3322,15 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::normalize(~)}}\label{Vector::normalize()}\index[DL]{Vector!normalize(~)}\\
-Get the normalized Vector.
+Normalize the Vector.
 
-This method returns a colinear vector with a norm equal to $1$.
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
+
+This method modifies the given vector and makes its norm equal to $1$.
+\begin{equation*}
+\overrightarrow{x} = \frac{\overrightarrow{x}}{\sqrt {x_{1}^2 + x_{2}^2 + ... + x_{n}^2}}
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
 %@END
 
 %@DOC:Vector::maxVal()
@@ -3335,9 +3338,9 @@ This method returns a colinear vector with a norm equal to $1$.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::maxVal(~)}}\label{Vector::maxVal()}\index[DL]{Vector!maxVal(~)}\\
-Maximum value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+Maximum value in a vector.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the vector.
 
-This method returns the maximum value in a Vector.
+This method returns the maximum value in a vector.
 %@END
 
 %@DOC:Vector::minVal()
@@ -3345,9 +3348,9 @@ This method returns the maximum value in a Vector.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::minVal(~)}}\label{Vector::minVal()}\index[DL]{Vector!minVal(~)}\\
-Minumum value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+Minumum value in a vector.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the vector.
 
-This method returns the minimum value in a Vector.
+This method returns the minimum value in a vector.
 %@END
 
 %@DOC:Vector::maxAbs()
@@ -3355,9 +3358,9 @@ This method returns the minimum value in a Vector.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::maxAbs(~)}}\label{Vector::maxAbs()}\index[DL]{Vector!maxAbs(~)}\\
-Maximum absolute value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+Maximum absolute value in a vector.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the vector.
 
-This method returns the maximum absolute value in a Vector.
+This method returns the maximum absolute value in a vector.
 %@END
 
 %@DOC:Vector::minAbs()
@@ -3365,9 +3368,9 @@ This method returns the maximum absolute value in a Vector.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::minAbs(~)}}\label{Vector::minAbs()}\index[DL]{Vector!minAbs(~)}\\
-Minumum absolute value in a Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+Minumum absolute value in a vector.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the vector.
 
-This method returns the minimum absolute value in a Vector.
+This method returns the minimum absolute value in a vector.
 %@END
 
 %@DOC:Vector::distance(Vector y)
@@ -3375,13 +3378,13 @@ This method returns the minimum absolute value in a Vector.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::distance(Vector y)}}\label{Vector::distance(Vector y)}\index[DL]{Vector!distance(Vector y)}\\
-Distance between two points.
+Distance between two points.\\ \hspace*{10mm}$\hookrightarrow$ double : The distance.
 
 This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is the second vector of the operation.
 %@END
 
 %@DOC:Vector::squareDistance(Vector y)
@@ -3389,13 +3392,13 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::squareDistance(Vector y)}}\label{Vector::squareDistance(Vector y)}\index[DL]{Vector!squareDistance(Vector y)}\\
-Square of distance between two points.
+Square of distance between two points.\\ \hspace*{10mm}$\hookrightarrow$ double : The distance.
 
 This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is the second vector of the operation.
 %@END
 
 %@DOC:Vector::dot(Vector y)
@@ -3403,17 +3406,17 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::dot(Vector y)}}\label{Vector::dot(Vector y)}\index[DL]{Vector!dot(Vector y)}\\
-Dot product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ double
+Dot product of two vectors.\\ \hspace*{10mm}$\hookrightarrow$ double : The dot product.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Vector&y&Vector $\overrightarrow{y}$ to use for the dot product operation.
+Vector & y & Vector $\overrightarrow{y}$ to use for the dot product operation.
 \end{tcolorbox}
 
-This method returns the dot product of two Vector defined by the following equation:
+This method returns the dot product of two vectors defined by the following equation:
 \begin{equation*}
 m = \overrightarrow{x}\cdot\overrightarrow{y},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is given by the parameter y.
 %@END
 
 %@DOC:Vector::vectorProduct(Vector y)
@@ -3421,19 +3424,19 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::vectorProduct(Vector y)}}\label{Vector::vectorProduct(Vector y)}\index[DL]{Vector!vectorProduct(Vector y)}\\
-Vector product of two Vector.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+Vector product of two vectors.\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the operation.
 
 \hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method only works for two vectors with 3 components.}
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Vector&y&Vector $\overrightarrow{y}$ to use for the vector product operation.
+Vector & y & Vector $\overrightarrow{y}$ to use for the vector product operation.
 \end{tcolorbox}
 
 This method returns the vector product of two Vector defined by the following equation:
 \begin{equation*}
 \overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is given by the parameter y.
 %@END
 
 %@DOC:Vector::ewInverse()
@@ -3441,7 +3444,7 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::ewInverse(~)}}\label{Vector::ewInverse()}\index[DL]{Vector!ewInverse(~)}\\
-Element-wise inverse of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+Element-wise inverse of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the operation.
 
 This method returns a vector containing the inverse of all elements of the vector.
 \begin{equation*}
@@ -3455,7 +3458,7 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::ewExp(~)}}\label{Vector::ewExp()}\index[DL]{Vector!ewExp(~)}\\
-Element-wise exponential of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+Element-wise exponential of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the operation.
 
 This method returns a vector containing the exponential of all elements of the vector.
 \begin{equation*}
@@ -3469,7 +3472,7 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::ewProduct(Vector y)}}\label{Vector::ewProduct(Vector y)}\index[DL]{Vector!ewProduct(Vector y)}\\
-Element-wise product of two vectors.\\ \hspace*{10mm}$\hookrightarrow$ Vector
+Element-wise product of two vectors.\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector&y&Vector $\overrightarrow{y}$ to use for the element-wise product operation.
@@ -3487,7 +3490,7 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::ewSquare(~)}}\label{Vector::ewSquare()}\index[DL]{Vector!ewSquare(~)}\\
-Element-wise square of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+Element-wise square of a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the operation.
 
 This method returns a vector containing the square of all elements of the vector.
 \begin{equation*}
@@ -3501,7 +3504,7 @@ where the $\overrightarrow{x}$ is the object itself.
 %This area is an automatic documentation generated from the DynELA source code.
 %Do not change anything in this latex file between this position and the @END keyword.
 \textcolor{purple}{\textbf{Vector::ewSquare(double m)}}\label{Vector::ewSquare(double m)}\index[DL]{Vector!ewSquare(double m)}\\
-Element-wise addition of a real to a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector
+Element-wise addition of a real to a vector\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double&m&Value to add to all components of the vector
@@ -3513,6 +3516,219 @@ y_i = x_i + m,
 \end{equation*}
 where the $\overrightarrow{x}$ is the object itself.
 %@END
+
+%@DOC:Vector::setValue(double v)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::setValue(double v)}}\label{Vector::setValue(double v)}\index[DL]{Vector!setValue(double v)}\\
+Fill a vector with a scalar value.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & v & Value to use for the operation.
+\end{tcolorbox}
+
+This method is a surdefinition of the = operator for the vector class.
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}=v\\
+  x_{2}=v\\
+  \vdots\\
+  x_{n}=v
+  \end{array}\right]
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $v$ is the scalar value defined by parameter v.
+%@END
+
+%@DOC:Vector::operator+(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator+(Vector y)}}\label{Vector::operator+(Vector y)}\index[DL]{Vector!operator+(Vector y)}\\
+Addition of 2 vectors.\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vector & y & Vector to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{z}=\overrightarrow{x}+\overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the second vector defined by parameter y.
+%@END
+
+%@DOC:Vector::operator+=(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator+=(Vector y)}}\label{Vector::operator+=(Vector y)}\index[DL]{Vector!operator+=(Vector y)}\\
+Addition of 2 vectors.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vector & y & Vector to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{x}+=\overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the second vector defined by parameter y.
+%@END
+
+%@DOC:Vector::operator-(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator-(Vector y)}}\label{Vector::operator-(Vector y)}\index[DL]{Vector!operator-(Vector y)}\\
+Difference of 2 vectors.\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vector & y & Vector to subtract to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{z}=\overrightarrow{x}-\overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the second vector defined by parameter y.
+%@END
+
+%@DOC:Vector::operator-=(Vector y)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator-=(Vector y)}}\label{Vector::operator-=(Vector y)}\index[DL]{Vector!operator-=(Vector y)}\\
+Difference of 2 vectors.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vector & y & Vector to subtract to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 vectors.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{x}-=\overrightarrow{y}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\overrightarrow{y}$ is the second vector defined by parameter y.
+%@END
+
+%@DOC:Vector::operator-()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator-(~)}}\label{Vector::operator-()}\index[DL]{Vector!operator-(~)}\\
+Opposite of a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vector : The opposite vector.
+
+This method defines the opposite of a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = - \overrightarrow{x}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself.
+%@END
+
+%@DOC:Vector::operator*(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator$\star$(double l)}}\label{Vector::operator*(double l)}\index[DL]{Vector!operator$\star$(double l)}\\
+Multiplication of a vector by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \lambda \overrightarrow{x}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Vector::operator*=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator$\star$=(double l)}}\label{Vector::operator*=(double l)}\index[DL]{Vector!operator$\star$=(double l)}\\
+Multiplication of a vector by a scalar.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{x} *= \lambda
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Vector::operator/(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator/(double l)}}\label{Vector::operator/(double l)}\index[DL]{Vector!operator/(double l)}\\
+Division of a vector by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \frac{1}{\lambda} \overrightarrow{x}
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Vector::operator/=(double l)
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::operator/=(double l)}}\label{Vector::operator/=(double l)}\index[DL]{Vector!operator/=(double l)}\\
+Division of a vector by a scalar.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a vector by a scalar value.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} /= \lambda
+\end{equation*}
+where $\overrightarrow{x}$ is a vector defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:Vector::getNormalized()
+%Warning :
+%This area is an automatic documentation generated from the DynELA source code.
+%Do not change anything in this latex file between this position and the @END keyword.
+\textcolor{purple}{\textbf{Vector::getNormalized(~)}}\label{Vector::getNormalized()}\index[DL]{Vector!getNormalized(~)}\\
+Normalize the Vector.\\ \hspace*{10mm}$\hookrightarrow$  Vector : The result of the nomalization.
+
+This method scales a vector and makes its norm equal to $1$.
+\begin{equation*}
+\overrightarrow{y} = \frac{\overrightarrow{x}}{\sqrt {x_{1}^2 + x_{2}^2 + ... + x_{n}^2}}
+\end{equation*}
+where the $\overrightarrow{x}$ is the object itself.
+%@END
+
 
 \section{The Matrix classes}
 

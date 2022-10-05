@@ -85,15 +85,15 @@ public:
   bool operator!=(const Vector &) const;
   bool operator==(const Vector &) const;
   double distance(const Vector &) const;
-  double dot(const Vector &) const;
-  double norm();
   double dot();
+  double dot(const Vector &) const;
+  double getMean() const;
+  double getSum() const;
   double maxAbs();
   double maxVal();
   double minAbs();
   double minVal();
-  double getMean() const;
-  double getSum() const;
+  double norm();
   double operator()(long) const;
   double squareDistance(const Vector &) const;
   long size() const;
@@ -128,6 +128,7 @@ public:
 
 //------inline functions-------------------------------------------------------
 
+//  tests if the index is ok
 //-----------------------------------------------------------------------------
 inline bool Vector::indexOK(long i) const
 //-----------------------------------------------------------------------------
@@ -144,10 +145,6 @@ inline bool Vector::indexOK(long i) const
 }
 
 // Access to the values _data[i] of 3D vector
-/*
-  - i indice inside of the vector
-  Return : Value of the 3D vector _data[i]
-*/
 //-----------------------------------------------------------------------------
 inline double &Vector::operator()(long i)
 //-----------------------------------------------------------------------------
@@ -159,10 +156,6 @@ inline double &Vector::operator()(long i)
 }
 
 // Access to the values _data[i] of 3D vector (Read only method)
-/*
-  - i indice inside of the vector
-  Return : Value of the 3D vector _data[i]
-*/
 //-----------------------------------------------------------------------------
 inline double Vector::operator()(long i) const
 //-----------------------------------------------------------------------------
@@ -176,7 +169,7 @@ inline double Vector::operator()(long i) const
 /*
 @LABEL:Vector::size()
 @SHORT:Returns the length of the vector.
-@RETURN:long
+@RETURN:long : Length of the vector.
 This method returns the length of the vector, \ie the number of components of the vector.
 @END
 */
@@ -188,10 +181,6 @@ inline long Vector::size() const
 }
 
 // Selection of the output display type
-/*
-  This method allows you to select the type of display requested. The output type is defined by the variables listed in \ref OutVector.
-  - outT Type of the output
-*/
 //-----------------------------------------------------------------------------
 inline void Vector::setOutType(char outT)
 //-----------------------------------------------------------------------------

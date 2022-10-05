@@ -47,6 +47,7 @@ Vec3D::Vec3D(const Vec3D &V)
     memcpy(_data, V._data, 3 * sizeof(double));
 }
 
+// Destructor
 //-----------------------------------------------------------------------------
 Vec3D::~Vec3D()
 //-----------------------------------------------------------------------------
@@ -270,13 +271,13 @@ bool Vec3D::isInsideBox(const Vec3D &vect_m, const Vec3D &vect_M) const
 /*
 @LABEL:Vec3D::dot(Vec3D y)
 @SHORT:Dot product of two Vec3D.
-@RETURN:double
+@RETURN:double : The dot product.
 @ARG:Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the dot product operation.
 This method returns the dot product of two Vec3D defined by the following equation:
 \begin{equation*}
 m = \overrightarrow{x}\cdot\overrightarrow{y},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is given by the parameter y.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -289,13 +290,13 @@ double Vec3D::dot(const Vec3D &V) const
 /*
 @LABEL:Vec3D::vectorProduct(Vec3D y)
 @SHORT:Vector product of two Vec3D.
-@RETURN:Vec3D
+@RETURN:Vec3D : Result of the operation.
 @ARG:Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the vector product operation.
 This method returns the vector product of two Vec3D defined by the following equation:
 \begin{equation*}
 \overrightarrow{w} = \overrightarrow{x}\land\overrightarrow{y},
 \end{equation*}
-where the $\overrightarrow{x}$ is the object itself.
+where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is given by the parameter y.
 @END
 */
 //-----------------------------------------------------------------------------

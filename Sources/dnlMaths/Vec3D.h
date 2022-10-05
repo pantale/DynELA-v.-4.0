@@ -509,6 +509,7 @@ inline double Vec3D::distance(const Vec3D &vect) const
 /*
 @LABEL:Vec3D::squareDistance(Vec3D y)
 @SHORT:Square of distance between two points.
+@RETURN:double : The distance.
 This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
