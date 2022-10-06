@@ -84,7 +84,7 @@ public:
   void numpyReadZ(std::string, std::string);
   void numpyWrite(std::string, bool = false) const;
   void numpyWriteZ(std::string, std::string, bool = false) const;
-  void productBy(Vector &) const;
+  void dot(Vector &) const;
   void redim(const long newSize);
   void scatterFrom(const MatrixDiag &, long *, int);
   void setToUnity();

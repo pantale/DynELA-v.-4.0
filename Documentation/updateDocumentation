@@ -145,7 +145,7 @@ def addDocToTex(data):
 
 def writeTex(out, key):
     # Writes the warning
-    out.append("%Warning :\n%This area is an automatic documentation generated from the DynELA source code.\n%Do not change anything in this latex file between this position and the @END keyword.")
+    out.append("% Automatic documentation generated from the DynELA source code\n% Do not change anything in this LaTeX file between the @DOC and the @END keywords.")
     
     # Writes the header
     ln = "\\textcolor{purple}{\\textbf{" + texify(key,True) + "}}\\label{" + key + "}"

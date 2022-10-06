@@ -144,7 +144,7 @@ inline bool Vector::indexOK(long i) const
   return (false);
 }
 
-// Access to the values _data[i] of 3D vector
+// Access to the values _data[i] of vector
 //-----------------------------------------------------------------------------
 inline double &Vector::operator()(long i)
 //-----------------------------------------------------------------------------
@@ -155,7 +155,7 @@ inline double &Vector::operator()(long i)
   return _data[i];
 }
 
-// Access to the values _data[i] of 3D vector (Read only method)
+// Access to the values _data[i] of vector (Read only method)
 //-----------------------------------------------------------------------------
 inline double Vector::operator()(long i) const
 //-----------------------------------------------------------------------------
@@ -188,6 +188,7 @@ inline void Vector::setOutType(char outT)
   outType = outT;
 }
 
+// Sum of all terms of the vector
 //-----------------------------------------------------------------------------
 inline double Vector::getSum() const
 //-----------------------------------------------------------------------------
@@ -198,6 +199,7 @@ inline double Vector::getSum() const
   return val;
 }
 
+// Mean of all terms of the vector
 //-----------------------------------------------------------------------------
 inline double Vector::getMean() const
 //-----------------------------------------------------------------------------

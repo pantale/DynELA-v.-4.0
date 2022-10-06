@@ -61,6 +61,15 @@ Vector::Vector(const Vector &vect)
 @ARG:double & x1 & first component of the vector to create.
 @ARG:double & x2 & second component of the vector to create.
 @ARG:double & ... & $x^{th}$ component of the vector to create.
+All components have to be defined in col order.
+\begin{equation*}
+\overrightarrow{x}=\left[\begin{array}{c}
+  x_{1}=x1\\
+  x_{2}=x2\\
+  \vdots\\
+  x_{n}=xn
+  \end{array}\right]
+\end{equation*}
 @END
 */
 //-----------------------------------------------------------------------------

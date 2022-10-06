@@ -92,7 +92,7 @@ bool Element3D::computeJacobian(bool reference)
     }
 
     // Computes the det of J
-    _integrationPoint->detJ = _integrationPoint->JxW.getDeterminant3x3();
+    _integrationPoint->detJ = _integrationPoint->JxW.det3();
 
     // Test of the jacobian
     if (_integrationPoint->detJ < 0.0)
@@ -146,7 +146,7 @@ bool Element3D::computeUnderJacobian(bool reference)
     }
 
     // Computes the det of J
-    _underIntegrationPoint->detJ = _underIntegrationPoint->JxW.getDeterminant3x3();
+    _underIntegrationPoint->detJ = _underIntegrationPoint->JxW.det3();
 
     // Test of the jacobian
     if (_underIntegrationPoint->detJ < 0.0)

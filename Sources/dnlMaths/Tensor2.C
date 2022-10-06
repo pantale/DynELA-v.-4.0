@@ -245,7 +245,7 @@ The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A + \B
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor defined by parameter B.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -272,7 +272,7 @@ Tensor2 Tensor2::operator+(const Tensor2 &T) const
 
 /*
 @LABEL:Tensor2::operator-(Tensor2 B)
-@SHORT:Subtraction of 2 second order tensors.
+@SHORT:Difference of 2 second order tensors.
 @ARG:Tensor2 & B & Second order tensor to subtract to the current one.
 @RETURN:Tensor2 : Result of the difference operation.
 This method defines the subtraction of 2 second order tensors.
@@ -280,7 +280,7 @@ The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \T = \A - \B
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor defined by parameter B.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -1044,10 +1044,10 @@ double Tensor2::minAbs()
 This method returns the inverse of a second order tensor.
 The result of this operation is a second order tensor defined by:
 \begin{equation*}
-D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
+d = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
 \end{equation*}
 \begin{equation*}
-T^{-1} = \frac {1}{D} \left[\begin{array}{ccc}
+T^{-1} = \frac {1}{d} \left[\begin{array}{ccc}
   T_{22}T_{33}-T_{23}T_{32}&T_{13}T_{32}-T_{12}T_{33}&T_{12}T_{23}-T_{13}T_{22}\\
   T_{23}T_{31}-T_{21}T_{33}&T_{11}T_{33}-T_{13}T_{31}&T_{13}T_{21}-T_{11}T_{23}\\
   T_{21}T_{32}-T_{22}T_{31}&T_{12}T_{31}-T_{11}T_{32}&T_{11}T_{22}-T_{12}T_{21}
@@ -1149,7 +1149,7 @@ Tensor2 Tensor2::cofactors() const
 
 /*
 @LABEL:Tensor2::solve(Vec3D x)
-@SHORT:Solves a small linear system A.x = b.
+@SHORT:Solves a small linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
 @RETURN:Vec3D : The solution of the linear system.
 This method returns the solution of a small linear system with the following form:
 \begin{equation*}
@@ -1330,8 +1330,8 @@ void Tensor2::buildFTF(double FTF[3][3]) const
 @LABEL:Tensor2::polarQL(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\U$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\U$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1361,8 +1361,8 @@ void Tensor2::polarQL(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarQLLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the QL with implicit shifts algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\log[\U]$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1395,8 +1395,8 @@ void Tensor2::polarQLLnU(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarCuppen(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\U$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\U$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1426,8 +1426,8 @@ void Tensor2::polarCuppen(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarCuppenLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Cuppen’s Divide and Conquer algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\log[\U]$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1460,8 +1460,8 @@ void Tensor2::polarCuppenLnU(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarJacobi(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\U$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\U$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1491,8 +1491,8 @@ void Tensor2::polarJacobi(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarJacobiLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\log[\U]$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1525,14 +1525,14 @@ void Tensor2::polarJacobiLnU(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarLapack(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\U$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\U$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U
 \end{equation*}
 where $\F$ is a second order tensor defined by the object itself.
-It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
+It uses the \textsf{dgeev} function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -1624,8 +1624,8 @@ void Tensor2::polarLapack(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarLapackLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the Jacobi algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\log[\U]$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1634,7 +1634,7 @@ This method computes the polar decomposition of a second order tensor $\F$ and r
 \log [\U] =\sum _{i=1}^{3}\log[\lambda_{i}](\overrightarrow{u}_{i}\otimes \overrightarrow{u}_{i})
 \end{equation*}
 where $\F$ is a second order tensor defined by the object itself.
-It uses the LAPACKE\_dgeev function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
+It uses the \textsf{dgeev} function of the Lapack library which is far from efficient for a trivial 3x3 matrix. So this method is very slow.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -1736,8 +1736,8 @@ void Tensor2::polarLapackLnU(SymTensor2 &U, Tensor2 &R) const
 @LABEL:Tensor2::polarLnU(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the old \DynELA algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\U$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\U$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\log[\U]$ so that:
 \begin{equation*}
 \F = \R \cdot \U
@@ -1882,8 +1882,8 @@ void Tensor2::polarLnU(SymTensor2 &LnU, Tensor2 &R) const
 @LABEL:Tensor2::polar(SymTensor2 U, Tensor2 R)
 @SHORT:Polar decomposition of a second order tensor using the old \DynELA algorithm.
 @RETURN:SymTensor2 and Tensor2
-@ARG:SymTensor2&U&Symmetric tensor $\log[\U]$
-@ARG:Tensor2&R&Rotation tensor $\R$
+@ARG:SymTensor2 & U & Symmetric tensor $\log[\U]$
+@ARG:Tensor2 & R & Rotation tensor $\R$
 This method computes the polar decomposition of a second order tensor $\F$ and returns the symmetric tensor $\R$ and the tensor $\U$ so that:
 \begin{equation*}
 \F = \R \cdot \U

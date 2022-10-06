@@ -578,7 +578,7 @@ Vector MatrixDiag::operator*(const Vector &vec) const
 }
 
 //-----------------------------------------------------------------------------
-void MatrixDiag::productBy(Vector &vec) const
+void MatrixDiag::dot(Vector &vec) const
 //-----------------------------------------------------------------------------
 {
   if (_cols != vec.size())

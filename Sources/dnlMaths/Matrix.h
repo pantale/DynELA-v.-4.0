@@ -17,13 +17,21 @@
 class MatrixDiag;
 class Tensor2;
 
-//-----------------------------------------------------------------------------
-// Class : Matrix
-//
-// Used to manage Matrix
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:Matrix::Matrix
+@SHORT:Matrix class.
+This class is used to store information for Matrices.
+This file is the declaration file for the Matrix class. A Matrix class is a two dimensional object with size $n\times m$ with the following form:
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11} & M_{12} & \hdots & M_{1m}\\
+  M_{21} & M_{21} & \hdots & M_{2m}\\
+  \vdots & \vdots & \hdots & \vdots\\
+  M_{n1} & M_{n1} & \hdots & M_{nm}
+  \end{array}\right]
+\end{equation*}
+@END
+*/
 class Matrix : public Matrices
 {
   friend class Vector;
@@ -37,14 +45,11 @@ class Matrix : public Matrices
 public:
   Matrix(const long = 3, const long = 3, const double = 0.0);
   Matrix(const Matrix &);
-  // Constructor excluded from SWIG
-#ifndef SWIG
-  Matrix(int, int, double, double, ...);
-#endif
   ~Matrix();
 
   // Interface methods excluded from SWIG
 #ifndef SWIG
+  Matrix(int, int, double, double, ...);
   double &operator()(long, long);
   friend Matrix operator*(const double &, const Matrix &);
   friend std::ifstream &operator>>(std::ifstream &, Matrix &);
@@ -71,10 +76,10 @@ public:
   bool operator==(const Matrix &) const;
   double doubleDot() const;
   double doubleDot(const Matrix) const;
-  double getAverageTrace() const;
+  double averageTrace() const;
   double det() const;
-  double getDeterminant2x2() const;
-  double getDeterminant3x3() const;
+  double det2() const;
+  double det3() const;
   double trace() const;
   double maxAbs() const;
   double maxVal() const;
@@ -109,9 +114,9 @@ public:
   Vector getSolve(const Vector &) const;
   Vector operator*(const Vector &) const;
   Vector rowSum() const;
-  Vector trans_mult(const Vector &) const;
-  void computeEigenVectors2(Vector &, Matrix &);
-  void computeEigenVectors2(Vector &);
+  Vector dotTxN(const Vector &) const;
+  // void computeEigenVectors2(Vector &, Matrix &);
+  // void computeEigenVectors2(Vector &);
   void computeInverse2x2(double, Matrix &) const;
   void computeInverse3x3(double, Matrix &) const;
   void computePseudoInverse(Matrix &, Matrix &, bool = false, double = 1e-10);
@@ -123,7 +128,7 @@ public:
   void numpyWriteZ(std::string, std::string, bool = false) const;
   void outStdout() { std::cout << *this << std::endl; }
   void printOut();
-  void productBy(Vector &) const;
+  void dot(Vector &) const;
   void redim(const long, const long);
   void scatterFrom(const Matrix &, long *, int);
   void setToUnity();
@@ -135,13 +140,7 @@ public:
 
 //------inline functions-------------------------------------------------------
 
-// teste les bornes de la matrice
-/*
-  Cette methode teste les bornes d'une matrice
-  - i long de ligne
-  - j long de colonne
-  Return : true si les indices fournis sont dans les bornes, false dans le cas contraire
-*/
+//  tests if the index is ok
 //-----------------------------------------------------------------------------
 inline bool Matrix::indexOK(long i, long j) const
 //-----------------------------------------------------------------------------
@@ -156,12 +155,7 @@ inline bool Matrix::indexOK(long i, long j) const
   return (false);
 }
 
-// acces aux valeurs d'une matrice
-/*
-  - i long de ligne
-  - j long de colonne
-  Return : valeur de la matrice à la ligne \c i et colonne \c j
-*/
+// Access to the values _data[i,j] of matrix (Read only method)
 //-----------------------------------------------------------------------------
 inline double Matrix::operator()(long i, long j) const
 //-----------------------------------------------------------------------------
@@ -172,12 +166,7 @@ inline double Matrix::operator()(long i, long j) const
   return _data[Ind(i, j, _rows, _cols)];
 }
 
-// acces aux valeurs d'une matrice
-/*
-  - i long de ligne
-  - j long de colonne
-  Return : valeur de la matrice à la ligne \c i et colonne \c j
-*/
+// Access to the values _data[i,j] of matrix (Read only method)
 //-----------------------------------------------------------------------------
 inline double &Matrix::operator()(long i, long j)
 //-----------------------------------------------------------------------------
@@ -188,11 +177,7 @@ inline double &Matrix::operator()(long i, long j)
   return _data[Ind(i, j, _rows, _cols)];
 }
 
-// somme de tous les termes d'une matrice
-/*
-  Cette methode calcule la somme de tous les termes d'une matrice
-  Return : somme de tous les termes de la matrice
-*/
+// Sum of all terms of the matrix
 //-----------------------------------------------------------------------------
 inline double Matrix::getSum() const
 //-----------------------------------------------------------------------------
@@ -203,6 +188,7 @@ inline double Matrix::getSum() const
   return val;
 }
 
+// Mean of all terms of the matrix
 //-----------------------------------------------------------------------------
 inline double Matrix::getMean() const
 //-----------------------------------------------------------------------------

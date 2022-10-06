@@ -69,7 +69,7 @@ bool ElementPlane::computeJacobian(bool reference)
     }
 
     // Computes the det of J
-    _integrationPoint->detJ = _integrationPoint->JxW.getDeterminant2x2();
+    _integrationPoint->detJ = _integrationPoint->JxW.det2();
 
     // Test of the jacobian
     if (_integrationPoint->detJ < 0.0)
@@ -128,7 +128,7 @@ bool ElementPlane::computeUnderJacobian(bool reference)
     }
 
     // Computes the det of J
-    _underIntegrationPoint->detJ = _underIntegrationPoint->JxW.getDeterminant2x2();
+    _underIntegrationPoint->detJ = _underIntegrationPoint->JxW.det2();
 
     // Test of the jacobian
     if (_underIntegrationPoint->detJ < 0.0)

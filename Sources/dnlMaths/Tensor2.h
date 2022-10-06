@@ -210,7 +210,7 @@ The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \A += \B
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor defined by parameter B.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -239,7 +239,7 @@ The result of this operation is also a second order tensor defined by:
 \begin{equation*}
 \A -= \B
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor value defined by parameter B.
+where $\A$ is a second order tensor defined by the object itself and $\B$ is the second order tensor defined by parameter B.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -408,10 +408,10 @@ inline double Tensor2::J2() const
 @LABEL:Tensor2::det()
 @SHORT:Determinant of a second order tensor.
 @RETURN:double : The determinant.
-This method returns the determinant of a second second order tensor.
+This method returns the determinant of a second order tensor.
 The result of this operation is a scalar value defined by:
 \begin{equation*}
-D = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
+d = T_{11} T_{22} T_{33} + T_{21} T_{32} T_{13} + T_{31} T_{12} T_{23} - T_{31} T_{22} T_{13} - T_{11} T_{32} T_{23} - T_{21} T_{12} T_{33}
 \end{equation*}
 where $\T$ is a second order tensor defined by the object itself.
 @END
@@ -421,11 +421,11 @@ inline double Tensor2::det() const
 //-----------------------------------------------------------------------------
 {
   return (_data[0] * _data[4] * _data[8] +
-          _data[3] * _data[7] * _data[2] +
-          _data[6] * _data[1] * _data[5] -
-          _data[6] * _data[4] * _data[2] -
-          _data[0] * _data[7] * _data[5] -
-          _data[3] * _data[1] * _data[8]);
+          _data[2] * _data[3] * _data[7] +
+          _data[1] * _data[5] * _data[6] -
+          _data[2] * _data[4] * _data[6] -
+          _data[0] * _data[5] * _data[7] -
+          _data[1] * _data[3] * _data[8]);
 }
 
 #endif

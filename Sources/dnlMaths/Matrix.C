@@ -8,23 +8,6 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*
-  \file Matrix.C
-  Declaration file for the Matrix class
-
-  This file is the declaration file for the Matrix class. A Matrix class is a Matrix with the following form:
-  \f[ M=\left[\begin{array}{cccc}
-  M_{11}&M_{12}&...&M_{1n}\\
-  M_{21}&M_{22}&...&M_{2n}\\
-  ...\\
-  M_{n1}&M_{n2}&...&M_{nn}\\
-  \end{array}\right] \f]
-
-  \ingroup dnlMaths
-*/
-
 #include <lapacke.h>
 #include <cblas.h>
 
@@ -33,11 +16,24 @@
 #include <MatrixDiag.h>
 #include <Tensor2.h>
 
-// constructeur de la classe Matrix
 /*
-  Cette methode construit une matrice de rows/cols elements. Par defaut, le contenu de la matrice est mis à zero
-  - rows nombre de rows
-  - cols nombre de cols
+@LABEL:Matrix::Matrix(long r, long c, double m)
+@SHORT:Constructor of the Matrix class with initialization.
+@RETURN:Matrix : The initialized matrix.
+@ARG:long & r & Number of rows of the matrix to create.
+@ARG:long & c & Number of cols of the matrix to create.
+@ARG:double & m & Value to give to each element of the new matrix.
+This method creates a new matrix of size $r \times c$ where all values are initialized to the scalar value $m$.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=m & M_{12}=m & \hdots & M_{1c}=m\\
+  M_{21}=m & M_{21}=m & \hdots & M_{2c}=m\\
+  \vdots & \vdots & \hdots & \vdots\\
+  M_{r1}=m & M_{r1}=m & \hdots & M_{rc}=m
+  \end{array}\right]
+\end{equation*}
+where the $\M$ is the object itself and $m$ is scalar value defined by parameter m.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix::Matrix(const long rows, const long cols, const double value)
@@ -50,19 +46,37 @@ Matrix::Matrix(const long rows, const long cols, const double value)
   setValue(value);
 }
 
-// constructeur par recopie d'une matrice
-/*
-  Ce constructeur recopie les valeurs contenues dans une matrice. Selon la valeur du flag \ref MEM_funct, la copie est faite soit terme à terme (flag non defini) ou par appel à memcopy() (flag defini).
-*/
+// Copy constructor
 //-----------------------------------------------------------------------------
 Matrix::Matrix(const Matrix &mat)
 //-----------------------------------------------------------------------------
 {
+  // memory allocation
   allocate(mat._rows, mat._cols);
 
   memcpy(_data, mat._data, _dataLength * sizeof(double));
 }
 
+/*
+@LABEL:Matrix::Matrix(int r, int c, double x1, double x2, ...)
+@SHORT:Constructor of the matrix class with initialization.
+@RETURN:Matrix : The initialized matrix.
+@ARG:int & r & Number of rows of the matrix to create.
+@ARG:int & c & Number of cols of the matrix to create.
+@ARG:double & x1 & first component of the matrix to create.
+@ARG:double & x2 & second component of the matrix to create.
+@ARG:double & ... & $x^{th}$ component of the matrix to create.
+All components have to be defined in row order.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=x_1 & M_{12}=x_2 & \hdots & M_{1c}=x_c\\
+  M_{21}=x_{c+1} & M_{21}=x_{c+2} & \hdots & M_{2c}=x_{2c}\\
+  \vdots & \vdots & \hdots & \vdots\\
+  M_{r1}=x_{(r-1)c+1} & M_{r1}=x_{(r-1)c+2} & \hdots & M_{rc}=x_{rc}
+  \end{array}\right]
+\end{equation*}
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix::Matrix(int rows, int cols, double firstValue, double secondValue, ...)
 //-----------------------------------------------------------------------------
@@ -93,9 +107,7 @@ Matrix::Matrix(int rows, int cols, double firstValue, double secondValue, ...)
   va_end(arguments);
 }
 
-// destructeur de la classe Matrix
-/*
- */
+// Destructor
 //-----------------------------------------------------------------------------
 Matrix::~Matrix()
 //-----------------------------------------------------------------------------
@@ -104,6 +116,7 @@ Matrix::~Matrix()
   desallocate();
 }
 
+// Memory allocation
 //-----------------------------------------------------------------------------
 void Matrix::allocate(const long rows, const long cols)
 //-----------------------------------------------------------------------------
@@ -117,7 +130,7 @@ void Matrix::allocate(const long rows, const long cols)
   if (!_data)
   {
     internalFatalErrorLine("Matrix::allocate()",
-                           "new double[%d] for a [%d,%d] Matrixrix allocation Error\n"
+                           "new double[%d] for a [%d,%d] Matrix allocation Error\n"
                            "Seems to have an overflow memory error\n"
                            "Check your memory size, and memory consumption first\n",
                            _dataLength, _rows, _cols);
@@ -125,6 +138,7 @@ void Matrix::allocate(const long rows, const long cols)
 #endif
 }
 
+// Memory deallocation
 //-----------------------------------------------------------------------------
 void Matrix::desallocate()
 //-----------------------------------------------------------------------------
@@ -143,6 +157,16 @@ void Matrix::desallocate()
   - rows nombre de rows
   - cols nombre de cols
 */
+/*
+@LABEL:Matrix::redim(long r, long c)
+@SHORT:Change the allocation size of a matrix.
+@ARG:long & r & Number of rows of the matrix.
+@ARG:long & c & Number of cols of the matrix.
+@WARNING:This method cleans the content of the matrix.
+This method changes the size of a matrix.
+If the new size is the same as the actual size, this method does nothing.
+@END
+*/
 //-----------------------------------------------------------------------------
 void Matrix::redim(const long rows, const long cols)
 //-----------------------------------------------------------------------------
@@ -154,17 +178,7 @@ void Matrix::redim(const long rows, const long cols)
   allocate(rows, cols);
 }
 
-// affichage du contenu d'une matrice
-/*
-  Cette methode est une surdefinition de << pour les flux de sortie, son utilisation est donnee comme suit
-
-  Exemple
-  \code
-  Matrix t;
-  std::cout << t << endl;
-  \endcode
-  - os flux de sortie
-*/
+// Send the content of a matrix to the output flux for display
 //-----------------------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const Matrix &mat)
 //-----------------------------------------------------------------------------
@@ -173,11 +187,7 @@ std::ostream &operator<<(std::ostream &os, const Matrix &mat)
   return os;
 }
 
-// affichage du contenu d'une matrice
-/*
-  Cette methode permet d'afficher le contenu d'une matrice sur la sortie std::ostream
-  - os flux de sortie
-*/
+// Print the content of a matrix to the output flux for display
 //-----------------------------------------------------------------------------
 void Matrix::print(std::ostream &os) const
 //-----------------------------------------------------------------------------
@@ -198,15 +208,12 @@ void Matrix::print(std::ostream &os) const
   os << "}}";
 }
 
-// affectation d'egalite
 /*
-  Cette methode est une surdefinition de la methode d'egalite permettant d'ecrire simplement le remplissage des valeurs d'une matrice par un scalaire
-
-  Exemple :
-  \code
-  Matrix t1;
-  t1=setValue(1.); // affecte 1 à toutes les composantes de la matrice
-  \endcode
+@LABEL:Matrix::setValue(double v)
+@SHORT:Fill a matrix with a scalar value.
+@ARG:double & v & Value to use for the operation.
+This method is a surdefinition of the = operator for the matrix class.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::setValue(double val)
@@ -218,16 +225,22 @@ void Matrix::setValue(double val)
     _data[i] = val;
 }
 
-// renvoie une matrice identite à partir d'une matrice quelconque
 /*
-  Cette methode prend en argument une matrice quelconque et renvoie une matrice identite
-
-  Exemple :
-  \code
-  Matrix t1;
-  t1.setToUnity(); // renvoie identite
-  \endcode
-  \warning Cette methode modifie son argument
+@LABEL:Matrix::setToUnity()
+@SHORT:Unity matrix.
+@SMOD
+@WARNING:This only works on a square matrix $n \times n$.
+This method transforms the current matrix to a unity matrix.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=1 & M_{12}=0 & \hdots & M_{1n}=0\\
+  M_{21}=0 & M_{21}=1 & \hdots & M_{2n}=0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  M_{n1}=0 & M_{n1}=0 & \hdots & M_{nn}=1
+  \end{array}\right]
+\end{equation*}
+where $\M$ is a square matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::setToUnity()
@@ -247,9 +260,12 @@ void Matrix::setToUnity()
       _data[Ind(i, j, _rows, _cols)] = (double)(i == j);
 }
 
-// Maximum component in a matrix
 /*
-  This method returns the maximum component of a matrix
+@LABEL:Matrix::maxVal()
+@SHORT:Maximum component in a matrix.
+@RETURN:double : The maximum component of the matrix.
+This method returns the maximum component in a matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::maxVal() const
@@ -264,9 +280,12 @@ double Matrix::maxVal() const
   return max;
 }
 
-// Minimum component in a matrix
 /*
-  This method returns the minimum component of a matrix
+@LABEL:Matrix::minVal()
+@SHORT:Minimum component in a matrix.
+@RETURN:double : The minimum component of the matrix.
+This method returns the minimum component in a matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::minVal() const
@@ -281,9 +300,12 @@ double Matrix::minVal() const
   return min;
 }
 
-// Maximum absolute component in a matrix
 /*
-  This method returns the maximum absolute component of a matrix
+@LABEL:Matrix::maxAbs()
+@SHORT:Maximum absolute component in a matrix.
+@RETURN:double : The maximum component of the matrix.
+This method returns the maximum absolute component in a matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::maxAbs() const
@@ -298,9 +320,12 @@ double Matrix::maxAbs() const
   return max;
 }
 
-// Minimum absolute component in a matrix
 /*
-  This method returns the minimum absolute component of a matrix
+@LABEL:Matrix::minAbs()
+@SHORT:Minimum absolute component in a matrix.
+@RETURN:double : The minimum component of the matrix.
+This method returns the minimum absolute component in a matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::minAbs() const
@@ -315,15 +340,22 @@ double Matrix::minAbs() const
   return min;
 }
 
-// affectation d'egalite
 /*
-  Cette methode est une surdefinition de la methode d'egalite permettant d'ecrire simplement le remplissage des valeurs d'une matrice par un scalaire
-
-  Exemple :
-  \code
-  Matrix t1;
-  t1=1.; // affecte 1 à toutes les composantes de la matrice
-  \endcode
+@LABEL:Matrix::operator=(double m)
+@SHORT:Fill a matrix with a scalar value.
+@RETURN:Matrix
+@ARG:double & m & Value to use for the operation.
+This method is a surdefinition of the = operator for the matrix class.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=m & M_{12}=m & \hdots & M_{1c}=m\\
+  M_{21}=m & M_{21}=m & \hdots & M_{2c}=m\\
+  \vdots & \vdots & \hdots & \vdots\\
+  M_{r1}=m & M_{r1}=m & \hdots & M_{rc}=m
+  \end{array}\right]
+\end{equation*}
+where $\T$ is a matrix defined by the object itself and $m$ is the scalar value defined by parameter m.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix &Matrix::operator=(const double &val)
@@ -333,16 +365,7 @@ Matrix &Matrix::operator=(const double &val)
   return *this;
 }
 
-// affectation d'egalite
-/*
-  Cette methode est une surdefinition de la methode d'egalite permettant d'ecrire simplement l'affectation sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2;
-  t1=t2; // egalite de deux matrices
-  \endcode
-*/
+// Copy the content of a second order tensor into a new one
 //-----------------------------------------------------------------------------
 Matrix &Matrix::operator=(const Matrix &mat)
 //-----------------------------------------------------------------------------
@@ -356,15 +379,13 @@ Matrix &Matrix::operator=(const Matrix &mat)
   return *this;
 }
 
-// affectation d'egalite
 /*
-  Cette methode est une surdefinition de la methode d'egalite permettant d'ecrire simplement l'affectation sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2;
-  t1=t2; // egalite de deux matrices
-  \endcode
+@LABEL:Matrix::operator=(Tensor2 T)
+@SHORT:Copy the content of a Tensor2 into a Matrix.
+@RETURN:Matrix
+@ARG:Tensor2 & T & Second order tensor to copy.
+The result of this operation is a matrix as a copy of a second order tensor where $\T$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix &Matrix::operator=(const Tensor2 &tens)
@@ -379,15 +400,18 @@ Matrix &Matrix::operator=(const Tensor2 &tens)
   return *this;
 }
 
-// addition de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation d'addition des matrices et d'ecrire simplement la somme de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2,t3;
-  t3=t1+t2; // somme de deux matrices
-  \endcode
+@LABEL:Matrix::operator+(Matrix B)
+@SHORT:Addition of 2 matrices.
+@ARG:Matrix & B & Matrix to add to the current one.
+@RETURN:Matrix : Result of the addition operation.
+This method defines the addition of 2 matrices.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \A + \B
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\B$ is the matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::operator+(const Matrix &mat) const
@@ -414,15 +438,18 @@ Matrix Matrix::operator+(const Matrix &mat) const
   return resu;
 }
 
-// soustraction de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation de soustraction des matrices et d'ecrire simplement la soustraction de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2,t3;
-  t3=t1-t2; // soustraction de deux matrices
-  \endcode
+@LABEL:Matrix::operator-(Matrix B)
+@SHORT:Difference of 2 matrices.
+@ARG:Matrix & B & Matrix to subtract to the current one.
+@RETURN:Matrix : Result of the difference operation.
+This method defines the difference of 2 matrices.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \A - \B
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\B$ is the matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::operator-(const Matrix &mat) const
@@ -449,6 +476,18 @@ Matrix Matrix::operator-(const Matrix &mat) const
   return resu;
 }
 
+/*
+@LABEL:Matrix::operator-()
+@SHORT:Opposite of a matrix.
+@RETURN:Matrix : The opposite matrix.
+This method defines the opposite of a matrix.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = - \A
+\end{equation*}
+where $\A$ is a matrix defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Matrix::operator-() const
 //-----------------------------------------------------------------------------
@@ -466,15 +505,18 @@ Matrix Matrix::operator-() const
   return resu;
 }
 
-// addition de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation d'addition des matrices et d'ecrire simplement la somme de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2;
-  t2+=t1; // somme de deux matrices
-  \endcode
+@LABEL:Matrix::operator+=(Matrix B)
+@SHORT:Addition of 2 matrices.
+@ARG:Matrix & B & Second matrix to add to the current one.
+@RETURN:Matrix : Result of the addition operation.
+This method defines the addition of 2 matrices.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\B$ is the matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::operator+=(const Matrix &mat)
@@ -495,15 +537,18 @@ void Matrix::operator+=(const Matrix &mat)
     _data[i] += mat._data[i];
 }
 
-// soustraction de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation de soustraction des matrices et d'ecrire simplement la soustraction de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2;
-  t2-=t1; // soustraction de deux matrices
-  \endcode
+@LABEL:Matrix::operator-=(Matrix B)
+@SHORT:Difference of 2 matrices.
+@ARG:Matrix & B & Second matrix to add to the current one.
+@RETURN:Matrix : Result of the difference operation.
+This method defines the difference of 2 matrices.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\B$ is the matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::operator-=(const Matrix &mat)
@@ -524,16 +569,18 @@ void Matrix::operator-=(const Matrix &mat)
     _data[i] -= mat._data[i];
 }
 
-// multiplication d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de multiplication des matrices et d'ecrire simplement la multiplication d'une matrice par un scalaire sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2;
-  double l;
-  t2=t1*l; // multiplication par un scalaire
-  \endcode
+@LABEL:Matrix::operator*(double l)
+@SHORT:Multiplication of a matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Matrix : Result of the multiplication operation.
+This method defines the multiplication of a matrix by a scalar value.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::operator*(const double &lambda) const
@@ -547,16 +594,18 @@ Matrix Matrix::operator*(const double &lambda) const
   return resu;
 }
 
-// multiplication d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de multiplication des matrices et d'ecrire simplement la multiplication d'une matrice par un scalaire sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1;
-  double l;
-  t1*=l; // multiplication par un scalaire
-  \endcode
+@LABEL:Matrix::operator*=(double l)
+@SHORT:Multiplication of a matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Matrix : Result of the multiplication operation.
+This method defines the multiplication of a matrix by a scalar value.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\lambda \A
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::operator*=(const double &lambda)
@@ -568,16 +617,18 @@ void Matrix::operator*=(const double &lambda)
     _data[i] *= lambda;
 }
 
-// division d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de division des matrices et d'ecrire simplement la division d'une matrice par un scalaire sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1;
-  double l;
-  t1/=l; // division par un scalaire
-  \endcode
+@LABEL:Matrix::operator/=(double l)
+@SHORT:Division of a matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Matrix : Result of the division operation.
+This method defines the division of a matrix by a scalar value.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::operator/=(const double &lambda)
@@ -589,16 +640,18 @@ void Matrix::operator/=(const double &lambda)
     _data[i] /= lambda;
 }
 
-// division d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de division des matrices et d'ecrire simplement la division d'une matrice par un scalaire sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  Matrix t1,t2;
-  double l;
-  t2=t1/l; // division par un scalaire
-  \endcode
+@LABEL:Matrix::operator/(double l)
+@SHORT:Division of a matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:Matrix : Result of the division operation.
+This method defines the division of a matrix by a scalar value.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::operator/(const double &lambda) const
@@ -612,16 +665,19 @@ Matrix Matrix::operator/(const double &lambda) const
   return resu;
 }
 
-// multiplication d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de multiplication des matrices et d'ecrire simplement la multiplication d'une matrice par un scalaire sous la forme donnee en exemple. Elle est identique à la forme precedente (et commutative).
-
-  Exemple :
-  \code
-  Matrix t1,t2;
-  double l;
-  t2=l*t1; // multiplication par un scalaire
-  \endcode
+@LABEL:operator*(double l, Matrix A)
+@SHORT:Multiplication of a matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@ARG:Matrix & A & Second order tensor to use for the operation.
+@RETURN:Matrix : Result of the multiplication operation.
+This method defines the multiplication of a matrix by a scalar value.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a matrix and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix operator*(const double &lambda, const Matrix &mat)
@@ -635,15 +691,18 @@ Matrix operator*(const double &lambda, const Matrix &mat)
   return resu;
 }
 
-// multiplication de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation de multiplication des matrices et d'ecrire simplement la multiplication de deux matrice sous la forme donnee en exemple. Cette operation correspond à la notion de produit contracte de deux matrices.
-
-  Exemple :
-  \code
-  Matrix t1,t2,t3;
-  t3=t1*t2; // produit contracte
-  \endcode
+@LABEL:Matrix::operator*(Matrix B)
+@SHORT:Single contracted product of two matrices.
+@RETURN:Matrix : Result of the multiplication operation.
+@ARG:Matrix & B & Second tensor for the multiplication operation.
+This method defines a single contracted product of two matrices.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\B$ is the matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::operator*(const Matrix &mat) const
@@ -652,6 +711,19 @@ Matrix Matrix::operator*(const Matrix &mat) const
   return dot(mat);
 }
 
+/*
+@LABEL:Matrix::dot()
+@SHORT:Single contracted product of a matrix by itself.
+@RETURN:Matrix : Result of the multiplication operation.
+This method defines a single contracted product of a matrix by itself.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \A \cdot \A
+\end{equation*}
+where $\A$ is a matrix defined by the object itself.
+This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the operation.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Matrix::dot() const
 //-----------------------------------------------------------------------------
@@ -670,6 +742,19 @@ Matrix Matrix::dot() const
   return resu;
 }
 
+/*
+@LABEL:Matrix::dotTxN()
+@SHORT:Single contracted product of a matrix by its transpose.
+@RETURN:Matrix : Result of the multiplication operation.
+This method defines a single contracted product of a matrix by its transpose.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \A^T\cdot \A
+\end{equation*}
+where $\A$ is a matrix defined by the object itself. Result is a symmetric matrix.
+This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the operation.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Matrix::dotTxN() const
 //-----------------------------------------------------------------------------
@@ -681,6 +766,19 @@ Matrix Matrix::dotTxN() const
   return resu;
 }
 
+/*
+@LABEL:Matrix::dotNxT()
+@SHORT:Single contracted product of a matrix by its transpose.
+@RETURN:Matrix : Result of the multiplication operation.
+This method defines a single contracted product of a matrix by its transpose.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \A \cdot \A^T
+\end{equation*}
+where $\A$ is a matrix defined by the object itself. Result is a symmetric matrix.
+This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the operation.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Matrix::dotNxT() const
 //-----------------------------------------------------------------------------
@@ -692,6 +790,20 @@ Matrix Matrix::dotNxT() const
   return resu;
 }
 
+/*
+@LABEL:Matrix::dot(Matrix B)
+@SHORT:Single contracted product of two matrixs.
+@RETURN:Matrix : Result of the multiplication operation.
+@ARG:Matrix & B & Second tensor for the multiplication operation.
+This method defines a single contracted product of two matrixs.
+The result of this operation is also a matrix defined by:
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\B$ is the matrix defined by parameter B.
+This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the operation.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Matrix::dot(const Matrix mat) const
 //-----------------------------------------------------------------------------
@@ -711,18 +823,17 @@ Matrix Matrix::dot(const Matrix mat) const
   return resu;
 }
 
-// Double contracted product of 2 second order tensors
 /*
-  This method defines a double contracted product of two second order tensors.
-  The result of this operation is a scalar defined by:
-  \f[ s = A : B \f]
-  Example :
-  \code
-  Tensor2 tensor1,tensor2;
-  double s;
-  s = tensor1.doubleDot(tensor2); // double contracted product
-  \endcode
-  - tensor2 Second second order tensor to use for the operation
+@LABEL:Matrix::doubleDot()
+@SHORT:Double contracted product of a matrix by itself.
+@RETURN:double : Result of the multiplication operation.
+This method defines a double contracted product of a matrix by itself.
+The result of this operation is a scalar $s$ defined by:
+\begin{equation*}
+s = \A : \A = \sum_{i=1}^{n} \sum_{j=1}^{m} A_{ij}\times A_{ij}
+\end{equation*}
+where $\A$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::doubleDot() const
@@ -735,18 +846,18 @@ double Matrix::doubleDot() const
   return (sum);
 }
 
-// Double contracted product of 2 second order tensors
 /*
-  This method defines a double contracted product of two second order tensors.
-  The result of this operation is a scalar defined by:
-  \f[ s = A : B \f]
-  Example :
-  \code
-  Tensor2 tensor1,tensor;
-  double s;
-  s = tensor1.doubleDot(tensor); // double contracted product
-  \endcode
-  - tensor Second second order tensor to use for the operation
+@LABEL:Matrix::doubleDot(Matrix B)
+@SHORT:Double contracted product of 2 matrices.
+@RETURN:double : Result of the multiplication operation.
+@ARG:Matrix & B & Second tensor for the multiplication operation.
+This method defines a double contracted product of two matrices.
+The result of this operation is a scalar $s$ defined by:
+\begin{equation*}
+s = \A : \B = \sum_{i=1}^{n} \sum_{j=1}^{m} A_{ij}\times B_{ij}
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\B$ is a matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::doubleDot(const Matrix mat) const
@@ -864,22 +975,22 @@ void Matrix::squareDivideBy(const MatrixDiag &mat)
   }
 }
 
-// multiplication d'une matrice par un vecteur
 /*
-  Cette methode calcule le produit d'une matrice A de taille N-x-M par un vecteur x de taille N. ceci genere un vecteur y de taille M. Cette methode utilise une routine Blas 2 et calcule le resultat de:
-  \f[ y=A^{T}.x \f]
-  Cette methode retourne un vecteur
-  Exemple :
-  \code
-  Matrix t1;
-  Vector v1,v2;
-  v2=t1.trans_mult(v1); // produit
-  \endcode
-  - vec vecteur du second membre
-  Return : vecteur resultant de l'operation de multiplication
+@LABEL:Matrix::dotTxN(Vector V)
+@SHORT:Multiplication of a matrix by a vector.
+@RETURN:Vector : Result of the multiplication operation.
+@ARG:Vector & V & Vector to use for the multiplication operation.
+This method defines the product of a matrix by a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \A^T \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\overrightarrow{x}$ is a Vector defined by parameter V.
+This method uses the Blas \textsf{dgemv} Fortran subroutine to perform the operation.
+@END
 */
 //-----------------------------------------------------------------------------
-Vector Matrix::trans_mult(const Vector &vec) const
+Vector Matrix::dotTxN(const Vector &vec) const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
@@ -897,19 +1008,19 @@ Vector Matrix::trans_mult(const Vector &vec) const
   return resu;
 }
 
-// multiplication d'une matrice par un vecteur
 /*
-  Cette methode calcule le produit d'une matrice A de taille N-x-M par un vecteur x de taille M. ceci genere un vecteur y de taille N. Cette methode utilise une routine Blas 2 et calcule le resultat de:
-  \f[ y=A^{T}.x \f]
-  Cette methode retourne un vecteur
-  Exemple :
-  \code
-  Matrix t1;
-  Vector v1,v2;
-  v2=t1*v1; // produit
-  \endcode
-  - vec vecteur du second membre
-  Return : vecteur resultant de l'operation de multiplication
+@LABEL:Matrix::operator*(Vector V)
+@SHORT:Multiplication of a matrix by a vector.
+@RETURN:Vector : Result of the multiplication operation.
+@ARG:Vector & V & Vector to use for the multiplication operation.
+This method defines the product of a matrix by a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\overrightarrow{x}$ is a Vector defined by parameter V.
+This method uses the Blas \textsf{dgemv} Fortran subroutine to perform the operation.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Matrix::operator*(const Vector &vec) const
@@ -930,13 +1041,27 @@ Vector Matrix::operator*(const Vector &vec) const
   return resu;
 }
 
+/*
+@LABEL:Matrix::dot(Vector V)
+@SHORT:Multiplication of a matrix by a vector.
+@ARG:Vector & V & Vector to use for the multiplication operation.
+@WARNING: The result of the operation is the parameter V itsefl.
+This method defines the product of a matrix by a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a matrix defined by the object itself and $\overrightarrow{x}$ is a Vector defined by parameter V.
+This method uses the Blas \textsf{dgemv} Fortran subroutine to perform the operation.
+@END
+*/
 //-----------------------------------------------------------------------------
-void Matrix::productBy(Vector &resu) const
+void Matrix::dot(Vector &resu) const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
   if (_rows != _cols)
-    fatalError(" Matrix::productBy()",
+    fatalError(" Matrix::dot()",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 
@@ -952,10 +1077,16 @@ void Matrix::productBy(Vector &resu) const
   cblas_dgemv(CblasRowMajor, CblasNoTrans, _rows, _cols, 1, _data, _rows, vec._data, 1, 0, resu._data, 1);
 }
 
-// calcule la trace d'une matrice
 /*
-  Cette methode calcule la trace d'une matrice carree
-  Return : valeur de la trace de la matrice
+@LABEL:Matrix::trace()
+@SHORT:Returns the trace of a matrix.
+@RETURN:double : The trace of the matrix.
+This method returns the trace of a matrix, i.e. the sum $s$ of all the terms of the diagonal:
+\begin{equation*}
+s = \tr[\M] = M_{11}+M_{22}+\hdots+M_{nn}
+\end{equation*}
+where $\M$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::trace() const
@@ -976,20 +1107,26 @@ double Matrix::trace() const
   return trace;
 }
 
-// calcule la moyenne de la trace d'une matrice
 /*
-  Cette methode calcule la moyenne de la trace d'une matrice carree
-  Return : valeur de la moyenne de la trace de la matrice
+@LABEL:Matrix::averageTrace()
+@SHORT:Returns the average trace of a matrix.
+@RETURN:double : The average trace of the matrix.
+This method returns the average trace of a matrix, i.e. the sum $s$ of all the terms of the diagonal divided by the number of terms on the diagonal:
+\begin{equation*}
+s = \frac{1}{n} \tr[\M] = \frac{1}{n} M_{11}+M_{22}+\hdots+M_{nn}
+\end{equation*}
+where $\M$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
-double Matrix::getAverageTrace() const
+double Matrix::averageTrace() const
 //-----------------------------------------------------------------------------
 {
   long i;
 
 #ifdef VERIF_maths
   if (_rows != _cols)
-    fatalError("Matrix::getAverageTrace()",
+    fatalError("Matrix::averageTrace()",
                "Your matrix is not a square matrix, it's a [%d,%d] matrix",
                _rows, _cols);
 #endif
@@ -1000,10 +1137,12 @@ double Matrix::getAverageTrace() const
   return (trace / (double)_rows);
 }
 
-// transposee d'une matrice
 /*
-  Cette methode renvoie la transposee d'une matrice
-  Return : transposee de la matrice
+@LABEL:Matrix::transpose()
+@SHORT:Transpose of a matrix.
+@RETURN:Matrix : The transpose of the matrix.
+This method defines the transpose of a matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::transpose() const
@@ -1018,11 +1157,7 @@ Matrix Matrix::transpose() const
   return resu;
 }
 
-// sommation des rows d'une matrice
-/*
-  Cette methode calcule la somme des termes sur les rows d'une matrice et renvoie un vecteur correspondant
-  Return : vecteur contenant les sommes sur les rows
-*/
+// Sum of rows of a matrix
 //-----------------------------------------------------------------------------
 Vector Matrix::rowSum() const
 //-----------------------------------------------------------------------------
@@ -1036,11 +1171,7 @@ Vector Matrix::rowSum() const
   return resu;
 }
 
-// sommation des cols d'une matrice
-/*
-  Cette methode calcule la somme des termes sur les cols d'une matrice et renvoie un vecteur correspondant
-  Return : vecteur contenant les sommes sur les rows
-*/
+// Sum of cols of a matrix
 //-----------------------------------------------------------------------------
 Vector Matrix::colSum() const
 //-----------------------------------------------------------------------------
@@ -1054,11 +1185,16 @@ Vector Matrix::colSum() const
   return resu;
 }
 
-// partie symetrique d'une matrice
 /*
-  Cette methode extraie la partie symetrique d'une matrice et la renvoie
-  \warning Cette methode n'est disponible que pour les matrices de taille 2 et 3.
-  Return : partie symetrique de la matrice
+@LABEL:Matrix::symmetric()
+@SHORT:Symmetric part of a matrix.
+@RETURN:Matrix : The symmetric part of the matrix.
+This method defines the symmetric part of a matrix with the following:
+\begin{equation*}
+\B = \frac{1}{2} \left( \A + \A^T \right)
+\end{equation*}
+where $\M$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::symmetric() const
@@ -1080,11 +1216,16 @@ Matrix Matrix::symmetric() const
   return result;
 }
 
-// partie anti-symetrique d'une matrice
 /*
-  Cette methode extraie la partie anti-symetrique d'une matrice et la renvoie
-  \warning Cette methode n'est disponible que pour les matrices de taille 2 et 3.
-  Return : partie anti-symetrique de la matrice
+@LABEL:Matrix::skewSymmetric()
+@SHORT:Skew-symmetric part of a matrix.
+@RETURN:Matrix : The skew-symmetric part of the matrix.
+This method defines the skew-symmetric part of a matrix with the following:
+\begin{equation*}
+\B = \frac{1}{2} \left( \A - \A^T \right)
+\end{equation*}
+where $\M$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::skewSymmetric() const
@@ -1106,11 +1247,18 @@ Matrix Matrix::skewSymmetric() const
   return result;
 }
 
-// extraction d'une ligne d'une matrice
 /*
-  Cette methode extraie une ligne d'une matrice et la renvoie
-  - row numero de la ligne de la matrice (origine 0).
-  Return : vecteur contenant la ligne \c row de la matrice
+@LABEL:Matrix::row(short r)
+@SHORT:Extraction of a row from a matrix.
+@RETURN:Vec3D : The extracted row.
+@ARG:short & r & Row to extract
+This method returns a vector as part of a matrix.
+The result of this operation with the argument r is a vector defined by:
+\begin{equation*}
+v_{i} = T_{ri}
+\end{equation*}
+where $\T$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Matrix::row(long row) const
@@ -1126,11 +1274,18 @@ Vector Matrix::row(long row) const
   return resu;
 }
 
-// extraction d'une colonne d'une matrice
 /*
-  Cette methode extraie une colonne d'une matrice et la renvoie
-  - col numero de la colonne de la matrice (origine 0).
-  Return : vecteur contenant la colonne \c col de la matrice
+@LABEL:Matrix::col(short c)
+@SHORT:Extraction of a column from a matrix.
+@RETURN:Vec3D : The extracted col.
+@ARG:short & c & Column to extract
+This method returns a vector as part of a matrix.
+The result of this operation with the argument c is a vector defined by:
+\begin{equation*}
+v_{i} = T_{ic}
+\end{equation*}
+where $\T$ is a matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Matrix::col(long col) const
@@ -1146,11 +1301,7 @@ Vector Matrix::col(long col) const
   return resu;
 }
 
-// egalite de deux matrices
-/*
-  Cette methode teste l'egalite de deux matrices
-  Return : true si les deux matrices sont identiques, false dans la cas contraire
-*/
+//  Test the equality of two matrixs
 //-----------------------------------------------------------------------------
 bool Matrix::operator==(const Matrix &mat) const
 //-----------------------------------------------------------------------------
@@ -1171,11 +1322,7 @@ bool Matrix::operator==(const Matrix &mat) const
   return true;
 }
 
-// inegalite de deux matrices
-/*
-  Cette methode teste l'inegalite de deux matrices
-  Return : true si les deux matrices sont differentes, false dans la cas contraire
-*/
+//  Test the inequality of two matrixs
 //-----------------------------------------------------------------------------
 bool Matrix::operator!=(const Matrix &mat) const
 //-----------------------------------------------------------------------------
@@ -1183,18 +1330,7 @@ bool Matrix::operator!=(const Matrix &mat) const
   return !(*this == mat);
 }
 
-// sortie sur flux std::ofstream
-/*
-  Cette methode permet d'ecrire une matrice dans un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ofstream pfile("fichier");
-  Matrix t;
-  t.write(pfile);
-  t.close();
-  \endcode
-*/
+//  Writes a matrix in a binary flux for storage
 //-----------------------------------------------------------------------------
 void Matrix::write(std::ofstream &ofs) const
 //-----------------------------------------------------------------------------
@@ -1204,17 +1340,7 @@ void Matrix::write(std::ofstream &ofs) const
   ofs.write((char *)_data, _dataLength * sizeof(double));
 }
 
-// lecture sur flux std::ifstream
-/*
-  Cette methode permet de lire une matrice depuis un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ifstream pfile("fichier");
-  Matrix t;
-  t.read(pfile);
-  \endcode
-*/
+//  Reads a matrix in a binary flux from storage
 //-----------------------------------------------------------------------------
 void Matrix::read(std::ifstream &ifs)
 //-----------------------------------------------------------------------------
@@ -1227,17 +1353,7 @@ void Matrix::read(std::ifstream &ifs)
   ifs.read((char *)_data, _dataLength * sizeof(double));
 }
 
-// sortie sur flux std::ofstream
-/*
-  Cette methode permet d'ecrire une matrice dans un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ofstream pfile("fichier");
-  Matrix t;
-  pfile << t;
-  \endcode
-*/
+//  Writes a matrix in a binary flux for storage
 //-----------------------------------------------------------------------------
 std::ofstream &operator<<(std::ofstream &os, const Matrix &mat)
 //-----------------------------------------------------------------------------
@@ -1246,17 +1362,7 @@ std::ofstream &operator<<(std::ofstream &os, const Matrix &mat)
   return os;
 }
 
-// lecture sur flux std::ifstream
-/*
-  Cette methode permet de lire une matrice depuis un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ifstream pfile("fichier");
-  Matrix t;
-  pfile >> t;
-  \endcode
-*/
+//  Reads a matrix from a binary flux for storage
 //-----------------------------------------------------------------------------
 std::ifstream &operator>>(std::ifstream &is, Matrix &mat)
 //-----------------------------------------------------------------------------
@@ -1272,8 +1378,20 @@ long Matrix::Memory() const
   return (_dataLength * sizeof(double));
 }
 
+/*
+@LABEL:Matrix::det2()
+@SHORT:Determinant of a $2 \times 2$ matrix.
+@RETURN:double : The determinant.
+This method returns the determinant of a $2 \times 2$ matrix.
+The result of this operation is a scalar value defined by:
+\begin{equation*}
+d = T_{11} T_{22} - T_{21} T_{12}
+\end{equation*}
+where $\A$ is a matrix defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
-double Matrix::getDeterminant2x2() const
+double Matrix::det2() const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
@@ -1285,8 +1403,20 @@ double Matrix::getDeterminant2x2() const
   return _data[0] * _data[3] - _data[2] * _data[1];
 }
 
+/*
+@LABEL:Matrix::det3()
+@SHORT:Determinant of a $3 \times 3$ matrix.
+@RETURN:double : The determinant.
+This method returns the determinant of a $3 \times 3$ matrix.
+The result of this operation is a scalar value defined by:
+\begin{equation*}
+d = A_{11} A_{22} A_{33} + A_{21} A_{32} A_{13} + A_{31} A_{12} A_{23} - A_{31} A_{22} A_{13} - A_{11} A_{32} A_{23} - A_{21} A_{12} A_{33}
+\end{equation*}
+where $\A$ is a matrix defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
-double Matrix::getDeterminant3x3() const
+double Matrix::det3() const
 //-----------------------------------------------------------------------------
 {
 #ifdef VERIF_maths
@@ -1303,13 +1433,13 @@ double Matrix::getDeterminant3x3() const
          _data[0] * _data[4] * _data[8];
 }
 
-// determinant d'une matrice carree
 /*
-  Cette methode calcule le determinant d'une matrice carree en utilisant la routine DGETRF de la librairie Lapack. Cette routine calcule la decomposition LU d'une matrice generale A de taille M-x-N en utilisant des pivots partiels avec echange de ligne. La factorisation a la forme  A = P * L * U avec P matrice de permutations, L la partie triangulaire inferieure avec elements unitaires sur la diagonale et U la partie triangulaire superieure. On a alors
-  \f[
-  det A = tr [U]
-  \f]
-  Return : valeur du determinant
+@LABEL:Matrix::det()
+@SHORT:Determinant of a matrix.
+@RETURN:double : The determinant.
+This method returns the determinant of a matrix.
+This method uses the Lapack \textsf{dgetrf} Fortran subroutine to perform the operation.
+@END
 */
 //-----------------------------------------------------------------------------
 double Matrix::det() const
@@ -1366,6 +1496,17 @@ double Matrix::det() const
   return Det;
 }
 
+/*
+@LABEL:Matrix::cofactors()
+@SHORT:Cofactors of a matrix.
+@RETURN:Matrix : The cofactor of the matrix.
+This method returns the cofactor of a matrix defined by the following equation:
+\begin{equation*}
+\C = \det[\A] \cdot {\A^{-1}}^T
+\end{equation*}
+where $\T$ is a matrix defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
 Matrix Matrix::cofactors() const
 //-----------------------------------------------------------------------------
@@ -1374,6 +1515,23 @@ Matrix Matrix::cofactors() const
   return (result.transpose() * det());
 }
 
+/*
+@LABEL:Matrix::computeInverse2x2(double d, Matrix B)
+@SHORT:Inverse of a matrix.
+@ARG:double & d & The determinant of the matrix.
+@ARG:Matrix & B & The inverse of the matrix.
+This method returns the inverse of a $2 \times 2$ matrix.
+The result of this operation is a $2 \times 2$ matrix defined by:
+\begin{equation*}
+A^{-1} = \frac {1}{d} \left[\begin{array}{cc}
+  A_{22} & - A_{12}\\
+  -A_{21} & A_{11}
+  \end{array}
+  \right]
+\end{equation*}
+where $\A$ is a matrix defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
 void Matrix::computeInverse2x2(double det, Matrix &inverse) const
 //-----------------------------------------------------------------------------
@@ -1395,6 +1553,24 @@ void Matrix::computeInverse2x2(double det, Matrix &inverse) const
   inverse._data[3] = _data[0] / det;
 }
 
+/*
+@LABEL:Matrix::computeInverse3x3(double d, Matrix B)
+@SHORT:Inverse of a matrix.
+@ARG:double & d & The determinant of the matrix.
+@ARG:Matrix & B & The inverse of the matrix.
+This method returns the inverse of a $3 \times 3$ matrix.
+The result of this operation is a $3 \times 3$ matrix defined by:
+\begin{equation*}
+A^{-1} = \frac {1}{d} \left[\begin{array}{ccc}
+  A_{22}A_{33}-A_{23}A_{32}&A_{13}A_{32}-A_{12}A_{33}&A_{12}A_{23}-A_{13}A_{22}\\
+  A_{23}A_{31}-A_{21}A_{33}&A_{11}A_{33}-A_{13}A_{31}&A_{13}A_{21}-A_{11}A_{23}\\
+  A_{21}A_{32}-A_{22}A_{31}&A_{12}A_{31}-A_{11}A_{32}&A_{11}A_{22}-A_{12}A_{21}
+  \end{array}
+  \right]
+\end{equation*}
+where $\A$ is a matrix defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
 void Matrix::computeInverse3x3(double det, Matrix &inverse) const
 //-----------------------------------------------------------------------------
@@ -1422,10 +1598,13 @@ void Matrix::computeInverse3x3(double det, Matrix &inverse) const
   inverse._data[8] = (_data[0] * _data[4] - _data[1] * _data[3]) / det;
 }
 
-// inverse d'une matrice
 /*
-  Cette methode calcule l'inverse d'une matrice et le renvoie. Elle utilise les fonctions DGETRF et DGETRI de la librairie Lapack. La matrice initiale est preservee par cette methode.
-  Return : valeur de l'inverse d'une matrice
+@LABEL:Matrix::inverse()
+@SHORT:Inverse of a matrix.
+@RETURN:Matrix : The inverse of the matrix.
+This method returns the inverse of a matrix.
+This method uses the Lapack \textsf{dgetrf} and \textsf{dgetri} Fortran subroutines to perform the operation.
+@END
 */
 //-----------------------------------------------------------------------------
 Matrix Matrix::inverse() const
@@ -1477,14 +1656,17 @@ Matrix Matrix::inverse() const
   return inv;
 }
 
-// resolution d'un systeme lineaire
 /*
-  Cette methode calcule la solution du systeme lineaire  \f[ A x = b \f] avec A matrice N-x-N et x et y vecteurs de taille N. Cette methode utilise les routines DGETRF et DGETRS de la librairie Lapack.
-
-  Cette methode utilise des copies de vecteurs et matrices donnes en argument et ne modifie pas les valeurs contenues dans ceux-ci au cours de l'appel.
-  - x vecteur du second membre
-  Return : vecteur solution du systeme lineaire
-
+@LABEL:Matrix::getSolve(Vector x)
+@SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
+@RETURN:Vector : The solution of the linear system.
+This method returns the solution of a small linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+This method uses the Lapack \textsf{dgesv} Fortran subroutine to perform the operation.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector Matrix::getSolve(const Vector &vect) const
@@ -1525,14 +1707,17 @@ Vector Matrix::getSolve(const Vector &vect) const
   return result;
 }
 
-// resolution d'un systeme lineaire
 /*
-  Cette methode calcule la solution du systeme lineaire  \f[ A x = b \f] avec A matrice N-x-N et x et y vecteurs de taille N. Cette methode utilise les routines DGETRF et DGETRS de la librairie Lapack.
-
-  Cette methode utilise directement les vecteurs et matrices donnes en argument et modifie les valeurs contenues dans ceux-ci au cours de l'appel. Cette methode est un peu plus rapide que la methode getSolve(const Vector& x) pour les larges matrices mais possede un avantage concernant les besoins memoire.
-  - x vecteur du second membre
-  Return : vecteur solution du systeme lineaire
-
+@LABEL:Matrix::solve(Vector x)
+@SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
+@WARNING: The result of the operation is the parameter x itsefl.
+This method returns the solution of a small linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+This method uses the Lapack \textsf{dgesv} Fortran subroutine to perform the operation.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::solve(Vector &b)
@@ -1764,15 +1949,15 @@ Matrix Matrix::getNullSpace2(bool relative, double tol)
   return ret;
 }
 
-// evaluation valeurs propres et des vecteurs propres à droite et à gauche
 /*
-  Cette methode calcule les valeurs propres et les vecteurs propres à droite et à gauche d'une matrice \f$ \textbf{A} \f$. Cette methode utilise la routine DGESVD de la librairie Lapack.
-
-  Cette methode utilise des copies de vecteurs et matrices donnes en argument et ne modifie pas les valeurs contenues dans ceux-ci au cours de l'appel. De plus, les matrices et vecteurs de retour donnes en argument n'on pas besoin d'etre dimensionnes à un taille correcte avant appel (ceci est fait en interne dans la routine).
-  \warning la matrice rightEigenVectors contient les vecteurs propres de la matrice sous une forme TRANSPOSEE.
-  - eigenValues vecteur contenant en retour les valeurs propres de la matrice
-  - leftEigenVectors Matrice contenant en retour les vecteurs propres à gauche de la matrice (TRANSPOSES)
-  - rightEigenVectors Matrice contenant en retour les vecteurs propres à droite de la matrice
+@LABEL:Tensor2::computeSVD(Vector w, Matrix L, Matrix R)
+@SHORT:Eigenvalues and eigenvactors of a $n \times m$ matrix.
+@ARG:Vector & w & Eigenvalues of the matrix
+@ARG:Matrix & L & Left eigenvector of the matrix
+@ARG:Matrix & T & Right eigenvector of the matrix
+This method computes the eigenvalues and the left and right eigenvectors of a $n \times m$ matrix
+This method uses the Lapack \textsf{dgesvd} Fortran subroutine to perform the operation.
+@END
 */
 //-----------------------------------------------------------------------------
 void Matrix::computeSVD(Vector &eigenValues, Matrix &leftEigenVectors, Matrix &rightEigenVectors)
@@ -1809,7 +1994,7 @@ void Matrix::computeSVD(Vector &eigenValues, Matrix &leftEigenVectors, Matrix &r
   delete[] superb;
 }
 
-//-----------------------------------------------------------------------------
+/* //-----------------------------------------------------------------------------
 void Matrix::computeEigenVectors2(Vector &eigenValues, Matrix &eigenVectors)
 //-----------------------------------------------------------------------------
 {
@@ -1874,9 +2059,9 @@ void Matrix::computeEigenVectors2(Vector &eigenValues, Matrix &eigenVectors)
                  info);
     }
   }
-}
+} */
 
-//-----------------------------------------------------------------------------
+/* //-----------------------------------------------------------------------------
 void Matrix::computeEigenVectors2(Vector &eigenValues)
 //-----------------------------------------------------------------------------
 {
@@ -1941,7 +2126,7 @@ void Matrix::computeEigenVectors2(Vector &eigenValues)
                  info);
     }
   }
-}
+} */
 
 // evaluation de la pseudo inverse d'une matrice
 /*
@@ -2245,10 +2430,7 @@ void Matrix::scatterFrom(const Matrix &M, long *ind0, int numberOfDim)
 #endif
 }
 
-// affichage à l'ecran suivant format predefini
-/*
-  Cette methode affiche le contenu de la matrice à l'ecran selon un format predefini. La selection du format d'affichage est faite en utilisant la methode \ref setOutType(). Le type de sortie est definit par les variable enumerees dans \ref OutMatrix.
-*/
+// Prints the content of the Matrix
 //-----------------------------------------------------------------------------
 void Matrix::printOut()
 //-----------------------------------------------------------------------------
@@ -2294,16 +2476,7 @@ void Matrix::printOut()
   }
 }
 
-// Saves the content of a Matrix into a NumPy file
-/*
-  This method saves the content of a Matrix object into a NumPy file defined by its filename. If the flag initialize is true, the current file will be concatenated.
-
-  Example
-  \code
-  Matrix t;
-  t.numpyWrite("numpy.npy", true);
-  \endcode
-*/
+//  Saves the content of a Tensor2 into a NumPy file
 //-----------------------------------------------------------------------------
 void Matrix::numpyWrite(std::string filename, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -2314,16 +2487,7 @@ void Matrix::numpyWrite(std::string filename, bool initialize) const
   NumpyInterface::npySave(filename, &_data[0], {_rows, _cols}, mode);
 }
 
-// Saves the content of a Matrix into a NumPyZ file
-/*
-  This method saves the content of a vec3D object into a NumPyZ file defined by its filename. If the flag initialize is true, the current file will be concatenated.
-
-  Example
-  \code
-  Matrix t;
-  t.numpyWriteZ("numpy.npz", true);
-  \endcode
-*/
+//  Saves the content of a Tensor2 into a NumPyZ file
 //-----------------------------------------------------------------------------
 void Matrix::numpyWriteZ(std::string filename, std::string name, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -2334,16 +2498,7 @@ void Matrix::numpyWriteZ(std::string filename, std::string name, bool initialize
   NumpyInterface::npzSave(filename, name, &_data[0], {_rows, _cols}, mode);
 }
 
-// Read the content of a Matrix from a NumPy file
-/*
-  This method reads the content of a vec3D object from a NumPy file defined by its filename.
-
-  Example
-  \code
-  Matrix t;
-  t.numpyRead("numpy.npy");
-  \endcode
-*/
+//  Read the content of a Tensor2 from a NumPy file
 //-----------------------------------------------------------------------------
 void Matrix::numpyRead(std::string filename)
 //-----------------------------------------------------------------------------
@@ -2359,16 +2514,7 @@ void Matrix::numpyRead(std::string filename)
   memcpy(_data, arr.data<double *>(), arr.num_vals * arr.word_size);
 }
 
-// Read the content of a Matrix from a NumPyZ file
-/*
-  This method reads the content of a vec3D object from a NumPyZ file defined by its filename.
-
-  Example
-  \code
-  Matrix t;
-  t.numpyReadZ("numpy.npz");
-  \endcode
-*/
+//  Read the content of a Tensor2 from a NumPyZ file
 //-----------------------------------------------------------------------------
 void Matrix::numpyReadZ(std::string filename, std::string name)
 //-----------------------------------------------------------------------------
