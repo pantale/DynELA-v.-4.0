@@ -104,7 +104,7 @@ Vector::Vector(int vectorLength, double firstValue, double secondValue, ...)
 Vector::~Vector()
 //-----------------------------------------------------------------------------
 {
-  desallocate();
+  deallocate();
 }
 
 // Memory allocation
@@ -119,7 +119,7 @@ void Vector::allocate(const long len)
 
 // Memory deallocation
 //-----------------------------------------------------------------------------
-void Vector::desallocate()
+void Vector::deallocate()
 //-----------------------------------------------------------------------------
 {
   if (_dataLength >= 0)
@@ -170,7 +170,7 @@ void Vector::redim(const long newSize)
   if (newSize == _dataLength)
     return;
 
-  desallocate();
+  deallocate();
   allocate(newSize);
 }
 
@@ -671,7 +671,7 @@ double Vector::norm()
 /*
 @LABEL:Vector::dot()
 @SHORT:Returns the dot product of a vector by itself.
-@RETURN:double : The dot product of the vector by itsefl.
+@RETURN:double : The dot product of the vector by itself.
 This method returns dot product of a vector by itself defined by:
 \begin{equation*}
  \left\Vert \overrightarrow{x} \right\Vert  = x_{1}^2 + x_{2}^2 + ... + x_{n}^2
@@ -693,7 +693,7 @@ double Vector::dot()
 
 /*
 @LABEL:Vector::dyadic()
-@SHORT:Dyadic product of a vector by itsefl.
+@SHORT:Dyadic product of a vector by itself.
 @RETURN:Matrix : The matrix result of the dyadic product.
 This method returns the dyadic product of two vectors defined by the following equation:
 \begin{equation*}

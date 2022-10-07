@@ -14,13 +14,23 @@
 #include <Matrices.h>
 #include <Vector.h>
 
-//-----------------------------------------------------------------------------
-// Class : MatrixDiag
-//
-// Used to manage MatrixDiag
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:MatrixDiag::MatrixDiag
+@SHORT:MatrixDiag class.
+This class is used to store information for diagonal matrices.
+A MatrixDiag class is a two dimensional square object with size $n\times n$ with the following form:
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11} & 0 & \hdots & 0\\
+  0 & M_{22} & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}
+  \end{array}\right]
+\end{equation*}
+The storage scheme is the same as a vector, since only the diagonal of the matrix is effectively stored into memory.
+But the nature of the operators conform to a matrix.
+@END
+*/
 class MatrixDiag : public Matrices
 {
   friend class Matrix;
@@ -29,10 +39,10 @@ class MatrixDiag : public Matrices
   double *_data;
 
   void allocate(const long);
-  void desallocate();
+  void deallocate();
 
 public:
-  MatrixDiag(const long numberOfTerms = 3, double value = 0.0);
+  MatrixDiag(const long = 3, double = 0.0);
   MatrixDiag(const MatrixDiag &);
   ~MatrixDiag();
 
@@ -67,25 +77,25 @@ public:
 #endif
 
   bool indexOK(long) const;
-  double trace();
   double maxAbs();
   double maxVal();
   double minAbs();
   double minVal();
+  double trace();
   long Memory() const;
+  MatrixDiag dot(const MatrixDiag &) const;
   MatrixDiag inverse() const;
   MatrixDiag transpose();
-  MatrixDiag dot(const MatrixDiag &) const;
   Vector getSolve(Vector &);
   Vector operator*(const Vector &) const;
   void divideBy(Vector &) const;
+  void dot(Vector &) const;
   void gatherFrom(const MatrixDiag &, long *, int);
   void numpyRead(std::string);
   void numpyReadZ(std::string, std::string);
   void numpyWrite(std::string, bool = false) const;
   void numpyWriteZ(std::string, std::string, bool = false) const;
-  void dot(Vector &) const;
-  void redim(const long newSize);
+  void redim(const long);
   void scatterFrom(const MatrixDiag &, long *, int);
   void setToUnity();
   void setValue(double);
@@ -94,12 +104,7 @@ public:
 
 //------inline functions-------------------------------------------------------
 
-// teste les bornes de la matrice
-/*
-  Cette methode teste les bornes d'une matrice
-  - i long de ligne
-  Return : true si l'long fourni est dans les bornes, false dans le cas contraire
-*/
+//  tests if the index is ok
 //-----------------------------------------------------------------------------
 inline bool MatrixDiag::indexOK(long i) const
 //-----------------------------------------------------------------------------
@@ -115,11 +120,7 @@ inline bool MatrixDiag::indexOK(long i) const
   return (false);
 }
 
-// acces aux valeurs d'une matrice
-/*
-  - i long de ligne
-  Return : valeur de la matrice à la ligne et colonne \c i
-*/
+// Access to the values _data[i,j] of matrix
 //-----------------------------------------------------------------------------
 inline double &MatrixDiag::operator()(long i)
 //-----------------------------------------------------------------------------
@@ -131,11 +132,7 @@ inline double &MatrixDiag::operator()(long i)
   return _data[i];
 }
 
-// acces aux valeurs d'une matrice
-/*
-  - i long de ligne
-  Return : valeur de la matrice à la ligne et colonne \c i
-*/
+// Access to the values _data[i,j] of matrix (Read only method)
 //-----------------------------------------------------------------------------
 inline double MatrixDiag::operator()(long i) const
 //-----------------------------------------------------------------------------

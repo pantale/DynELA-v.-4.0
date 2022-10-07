@@ -27,7 +27,7 @@ This method creates a new matrix of size $r \times c$ where all values are initi
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=m & M_{12}=m & \hdots & M_{1c}=m\\
-  M_{21}=m & M_{21}=m & \hdots & M_{2c}=m\\
+  M_{21}=m & M_{22}=m & \hdots & M_{2c}=m\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{r1}=m & M_{r1}=m & \hdots & M_{rc}=m
   \end{array}\right]
@@ -70,7 +70,7 @@ All components have to be defined in row order.
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=x_1 & M_{12}=x_2 & \hdots & M_{1c}=x_c\\
-  M_{21}=x_{c+1} & M_{21}=x_{c+2} & \hdots & M_{2c}=x_{2c}\\
+  M_{21}=x_{c+1} & M_{22}=x_{c+2} & \hdots & M_{2c}=x_{2c}\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{r1}=x_{(r-1)c+1} & M_{r1}=x_{(r-1)c+2} & \hdots & M_{rc}=x_{rc}
   \end{array}\right]
@@ -113,7 +113,7 @@ Matrix::~Matrix()
 //-----------------------------------------------------------------------------
 {
   // desallocation de memoire
-  desallocate();
+  deallocate();
 }
 
 // Memory allocation
@@ -140,7 +140,7 @@ void Matrix::allocate(const long rows, const long cols)
 
 // Memory deallocation
 //-----------------------------------------------------------------------------
-void Matrix::desallocate()
+void Matrix::deallocate()
 //-----------------------------------------------------------------------------
 {
   if (_dataLength >= 0)
@@ -151,12 +151,6 @@ void Matrix::desallocate()
   _dataLength = 0;
 }
 
-// redimensionne la matrice
-/*
-  Cette methode est utilisee pour specifier une nouvelle dimension de matrice de celle donnee lors de l'initialisation par le constructeur
-  - rows nombre de rows
-  - cols nombre de cols
-*/
 /*
 @LABEL:Matrix::redim(long r, long c)
 @SHORT:Change the allocation size of a matrix.
@@ -174,7 +168,7 @@ void Matrix::redim(const long rows, const long cols)
   if ((rows == _rows) && (cols == _cols))
     return;
 
-  desallocate();
+  deallocate();
   allocate(rows, cols);
 }
 
@@ -234,7 +228,7 @@ This method transforms the current matrix to a unity matrix.
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=1 & M_{12}=0 & \hdots & M_{1n}=0\\
-  M_{21}=0 & M_{21}=1 & \hdots & M_{2n}=0\\
+  M_{21}=0 & M_{22}=1 & \hdots & M_{2n}=0\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{n1}=0 & M_{n1}=0 & \hdots & M_{nn}=1
   \end{array}\right]
@@ -349,12 +343,12 @@ This method is a surdefinition of the = operator for the matrix class.
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=m & M_{12}=m & \hdots & M_{1c}=m\\
-  M_{21}=m & M_{21}=m & \hdots & M_{2c}=m\\
+  M_{21}=m & M_{22}=m & \hdots & M_{2c}=m\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{r1}=m & M_{r1}=m & \hdots & M_{rc}=m
   \end{array}\right]
 \end{equation*}
-where $\T$ is a matrix defined by the object itself and $m$ is the scalar value defined by parameter m.
+where $\M$ is a matrix defined by the object itself and $m$ is the scalar value defined by parameter m.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -365,7 +359,7 @@ Matrix &Matrix::operator=(const double &val)
   return *this;
 }
 
-// Copy the content of a second order tensor into a new one
+// Copy the content of a matrix into a new one
 //-----------------------------------------------------------------------------
 Matrix &Matrix::operator=(const Matrix &mat)
 //-----------------------------------------------------------------------------
@@ -669,7 +663,7 @@ Matrix Matrix::operator/(const double &lambda) const
 @LABEL:operator*(double l, Matrix A)
 @SHORT:Multiplication of a matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@ARG:Matrix & A & Second order tensor to use for the operation.
+@ARG:Matrix & A & Matrix to use for the operation.
 @RETURN:Matrix : Result of the multiplication operation.
 This method defines the multiplication of a matrix by a scalar value.
 The result of this operation is also a matrix defined by:
@@ -695,7 +689,7 @@ Matrix operator*(const double &lambda, const Matrix &mat)
 @LABEL:Matrix::operator*(Matrix B)
 @SHORT:Single contracted product of two matrices.
 @RETURN:Matrix : Result of the multiplication operation.
-@ARG:Matrix & B & Second tensor for the multiplication operation.
+@ARG:Matrix & B & Second matrix for the multiplication operation.
 This method defines a single contracted product of two matrices.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -792,10 +786,10 @@ Matrix Matrix::dotNxT() const
 
 /*
 @LABEL:Matrix::dot(Matrix B)
-@SHORT:Single contracted product of two matrixs.
+@SHORT:Single contracted product of two matrices.
 @RETURN:Matrix : Result of the multiplication operation.
-@ARG:Matrix & B & Second tensor for the multiplication operation.
-This method defines a single contracted product of two matrixs.
+@ARG:Matrix & B & Second matrix for the multiplication operation.
+This method defines a single contracted product of two matrices.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
 \T = \A \cdot \B
@@ -850,7 +844,7 @@ double Matrix::doubleDot() const
 @LABEL:Matrix::doubleDot(Matrix B)
 @SHORT:Double contracted product of 2 matrices.
 @RETURN:double : Result of the multiplication operation.
-@ARG:Matrix & B & Second tensor for the multiplication operation.
+@ARG:Matrix & B & Second matrix for the multiplication operation.
 This method defines a double contracted product of two matrices.
 The result of this operation is a scalar $s$ defined by:
 \begin{equation*}
@@ -1045,7 +1039,7 @@ Vector Matrix::operator*(const Vector &vec) const
 @LABEL:Matrix::dot(Vector V)
 @SHORT:Multiplication of a matrix by a vector.
 @ARG:Vector & V & Vector to use for the multiplication operation.
-@WARNING: The result of the operation is the parameter V itsefl.
+@WARNING: The result of the operation is the parameter V itself.
 This method defines the product of a matrix by a vector.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -1301,7 +1295,7 @@ Vector Matrix::col(long col) const
   return resu;
 }
 
-//  Test the equality of two matrixs
+//  Test the equality of two matrices
 //-----------------------------------------------------------------------------
 bool Matrix::operator==(const Matrix &mat) const
 //-----------------------------------------------------------------------------
@@ -1322,7 +1316,7 @@ bool Matrix::operator==(const Matrix &mat) const
   return true;
 }
 
-//  Test the inequality of two matrixs
+//  Test the inequality of two matrices
 //-----------------------------------------------------------------------------
 bool Matrix::operator!=(const Matrix &mat) const
 //-----------------------------------------------------------------------------
@@ -1660,11 +1654,11 @@ Matrix Matrix::inverse() const
 @LABEL:Matrix::getSolve(Vector x)
 @SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
 @RETURN:Vector : The solution of the linear system.
-This method returns the solution of a small linear system with the following form:
+This method returns the solution of a linear system with the following form:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+where $\A$ is a matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
 This method uses the Lapack \textsf{dgesv} Fortran subroutine to perform the operation.
 @END
 */
@@ -1710,12 +1704,12 @@ Vector Matrix::getSolve(const Vector &vect) const
 /*
 @LABEL:Matrix::solve(Vector x)
 @SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
-@WARNING: The result of the operation is the parameter x itsefl.
+@WARNING: The result of the operation is the parameter x itself.
 This method returns the solution of a small linear system with the following form:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+where $\A$ is a matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
 This method uses the Lapack \textsf{dgesv} Fortran subroutine to perform the operation.
 @END
 */
@@ -1950,7 +1944,7 @@ Matrix Matrix::getNullSpace2(bool relative, double tol)
 }
 
 /*
-@LABEL:Tensor2::computeSVD(Vector w, Matrix L, Matrix R)
+@LABEL:Matrix::computeSVD(Vector w, Matrix L, Matrix R)
 @SHORT:Eigenvalues and eigenvactors of a $n \times m$ matrix.
 @ARG:Vector & w & Eigenvalues of the matrix
 @ARG:Matrix & L & Left eigenvector of the matrix
@@ -2476,7 +2470,7 @@ void Matrix::printOut()
   }
 }
 
-//  Saves the content of a Tensor2 into a NumPy file
+//  Saves the content of a Matrix into a NumPy file
 //-----------------------------------------------------------------------------
 void Matrix::numpyWrite(std::string filename, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -2487,7 +2481,7 @@ void Matrix::numpyWrite(std::string filename, bool initialize) const
   NumpyInterface::npySave(filename, &_data[0], {_rows, _cols}, mode);
 }
 
-//  Saves the content of a Tensor2 into a NumPyZ file
+//  Saves the content of a Matrix into a NumPyZ file
 //-----------------------------------------------------------------------------
 void Matrix::numpyWriteZ(std::string filename, std::string name, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -2498,7 +2492,7 @@ void Matrix::numpyWriteZ(std::string filename, std::string name, bool initialize
   NumpyInterface::npzSave(filename, name, &_data[0], {_rows, _cols}, mode);
 }
 
-//  Read the content of a Tensor2 from a NumPy file
+//  Read the content of a Matrix from a NumPy file
 //-----------------------------------------------------------------------------
 void Matrix::numpyRead(std::string filename)
 //-----------------------------------------------------------------------------
@@ -2514,7 +2508,7 @@ void Matrix::numpyRead(std::string filename)
   memcpy(_data, arr.data<double *>(), arr.num_vals * arr.word_size);
 }
 
-//  Read the content of a Tensor2 from a NumPyZ file
+//  Read the content of a Matrix from a NumPyZ file
 //-----------------------------------------------------------------------------
 void Matrix::numpyReadZ(std::string filename, std::string name)
 //-----------------------------------------------------------------------------

@@ -8,30 +8,26 @@
 //@!CODEFILE = DynELA-C-file
 //@!BEGIN = PRIVATE
 
-// TODOCXYFILE
-
-/*
-  \file MatrixDiag.C
-  Declaration file for the Matrix class
-
-  This file is the declaration file for the Matrix class. A Matrix class is a Matrix with the following form:
-  \f[ M=\left[\begin{array}{cccc}
-  M_{11}&M_{12}&...&M_{1n}\\
-  M_{21}&M_{22}&...&M_{2n}\\
-  ...\\
-  M_{n1}&M_{n2}&...&M_{nn}\\
-  \end{array}\right] \f]
-
-  \ingroup dnlMaths
-*/
-
 #include <MatrixDiag.h>
 #include <NumpyInterface.h>
 
-// constructeur de la classe MatrixDiag
 /*
-  Cette methode construit une matrice de lignes/colonnes elements. Par defaut, le contenu de la matrice est misàzerho
-  - numberOfTerms nombre de lignes
+@LABEL:MatrixDiag::MatrixDiag(long n, double m)
+@SHORT:Constructor of the MatrixDiag class with initialization.
+@RETURN:MatrixDiag : The initialized matrix.
+@ARG:long & n & Number of rows and cols of the matrix to create.
+@ARG:double & m & Value to give to each element of the new matrix.
+This method creates a new matrix of size $n \times n$ where all values are initialized to the scalar value $m$.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=m & 0 & \hdots & 0\\
+  0 & M_{22}=m & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}=m
+  \end{array}\right]
+\end{equation*}
+where the $\M$ is the object itself and $m$ is scalar value defined by parameter m.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag::MatrixDiag(const long numberOfTerms, double value)
@@ -44,10 +40,7 @@ MatrixDiag::MatrixDiag(const long numberOfTerms, double value)
   setValue(value);
 }
 
-// constructeur par recopie d'une matrice
-/*
-  Ce constructeur recopie les valeurs contenues dans une matrice. Selon la valeur du flag \ref MEM_funct, la copie est faite soit termeàterme (flag non defini) ou par appelàmemcopy() (flag defini).
-*/
+// Copy constructor
 //-----------------------------------------------------------------------------
 MatrixDiag::MatrixDiag(const MatrixDiag &mat)
 //-----------------------------------------------------------------------------
@@ -57,19 +50,20 @@ MatrixDiag::MatrixDiag(const MatrixDiag &mat)
   memcpy(_data, mat._data, _rows * sizeof(double));
 }
 
-// destructeur de la classe MatrixDiag
-/*
- */
+// Destructor
 //-----------------------------------------------------------------------------
 MatrixDiag::~MatrixDiag()
 //-----------------------------------------------------------------------------
 {
-  desallocate();
+  deallocate();
 }
 
-// Maximum _data in a MatrixDiag
 /*
-  This method returns the maximum _data of a MatrixDiag
+@LABEL:MatrixDiag::maxVal()
+@SHORT:Maximum component in a diagonal matrix.
+@RETURN:double : The maximum component of the diagonal matrix.
+This method returns the maximum component in a diagonal matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double MatrixDiag::maxVal()
@@ -84,9 +78,12 @@ double MatrixDiag::maxVal()
   return val;
 }
 
-// Minimum _data in a MatrixDiag
 /*
-  This method returns the minimum _data of a MatrixDiag
+@LABEL:MatrixDiag::minVal()
+@SHORT:Minimum component in a diagonal matrix.
+@RETURN:double : The minimum component of the diagonal matrix.
+This method returns the minimum component in a diagonal matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double MatrixDiag::minVal()
@@ -101,9 +98,12 @@ double MatrixDiag::minVal()
   return val;
 }
 
-// Absolute maximum _data in a MatrixDiag
 /*
-  This method returns the absolute maximum _data of a MatrixDiag
+@LABEL:MatrixDiag::maxAbs()
+@SHORT:Maximum absolute component in a diagonal matrix.
+@RETURN:double : The maximum component of the diagonal matrix.
+This method returns the maximum absolute component in a diagonal matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double MatrixDiag::maxAbs()
@@ -118,9 +118,12 @@ double MatrixDiag::maxAbs()
   return val;
 }
 
-// Absolute minimum _data in a MatrixDiag
 /*
-  This method returns the absolute minimum _data of a MatrixDiag
+@LABEL:MatrixDiag::minAbs()
+@SHORT:Minimum absolute component in a diagonal matrix.
+@RETURN:double : The minimum component of the diagonal matrix.
+This method returns the minimum absolute component in a diagonal matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 double MatrixDiag::minAbs()
@@ -135,6 +138,7 @@ double MatrixDiag::minAbs()
   return val;
 }
 
+// Memory allocation
 //-----------------------------------------------------------------------------
 void MatrixDiag::allocate(const long numberOfTerms)
 //-----------------------------------------------------------------------------
@@ -146,8 +150,9 @@ void MatrixDiag::allocate(const long numberOfTerms)
   _data = new double[_rows];
 }
 
+// Memory deallocation
 //-----------------------------------------------------------------------------
-void MatrixDiag::desallocate()
+void MatrixDiag::deallocate()
 //-----------------------------------------------------------------------------
 {
   _rows = 0;
@@ -156,10 +161,14 @@ void MatrixDiag::desallocate()
   delete[] _data;
 }
 
-// redimensionne la matrice
 /*
-  Cette methode est utilisee pour specifier une nouvelle dimension de matrice de celle donnee lors de l'initialisation par le constructeur
-  - newSize nombre de lignes
+@LABEL:MatrixDiag::redim(long n)
+@SHORT:Change the allocation size of a diagonal matrix.
+@ARG:long & n & Number of rows and cols of the diagonal matrix.
+@WARNING:This method cleans the content of the diagonal matrix.
+This method changes the size of a diagonal matrix.
+If the new size is the same as the actual size, this method does nothing.
+@END
 */
 //-----------------------------------------------------------------------------
 void MatrixDiag::redim(const long newSize)
@@ -168,21 +177,11 @@ void MatrixDiag::redim(const long newSize)
   if (newSize == _rows)
     return;
 
-  desallocate();
+  deallocate();
   allocate(newSize);
 }
 
-// affichage du contenu d'une matrice
-/*
-  Cette methode est une surdefinition de << pour les flux de sortie, son utilisation est donnee comme suit
-
-  Exemple
-  \code
-  MatrixDiag t;
-  cout << t << endl;
-  \endcode
-  - os flux de sortie
-*/
+// Send the content of a diagonal matrix to the output flux for display
 //-----------------------------------------------------------------------------
 std::ostream &operator<<(std::ostream &os, const MatrixDiag &mat)
 //-----------------------------------------------------------------------------
@@ -191,11 +190,7 @@ std::ostream &operator<<(std::ostream &os, const MatrixDiag &mat)
   return os;
 }
 
-// affichage du contenu d'une matrice
-/*
-  Cette methode permet d'afficher le contenu d'une matrice sur la sortie std::ostream
-  - os flux de sortie
-*/
+// Print the content of a diagonal matrix to the output flux for display
 //-----------------------------------------------------------------------------
 void MatrixDiag::print(std::ostream &os) const
 //-----------------------------------------------------------------------------
@@ -209,7 +204,7 @@ void MatrixDiag::print(std::ostream &os) const
     {
       if (j != 0)
         os << ",";
-      os << (i == j ? _data[i] : 0.0);
+      os << (i == j ? _data[i] : 00);
     }
     if (i != _rows - 1)
       os << "},{";
@@ -217,15 +212,12 @@ void MatrixDiag::print(std::ostream &os) const
   os << "}}";
 }
 
-// affectation d'egalite
 /*
-  Cette methode est une surdefinition de la methode d'egalite permettant d'ecrire simplement le remplissage des valeurs d'une matrice par un scalaire
-
-  Exemple :
-  \code
-  MatrixDiag t1;
-  t1=setValue(1.); // affecte 1àtoutes les composantes de la matrice
-  \endcode
+@LABEL:MatrixDiag::setValue(double v)
+@SHORT:Fill a diagonal matrix with a scalar value.
+@ARG:double & v & Value to use for the operation.
+This method is a surdefinition of the = operator for the diagonal matrix class.
+@END
 */
 //-----------------------------------------------------------------------------
 void MatrixDiag::setValue(double val)
@@ -236,16 +228,21 @@ void MatrixDiag::setValue(double val)
     _data[i] = val;
 }
 
-// renvoie une matrice identiteàpartir d'une matrice quelconque
 /*
-  Cette methode prend en argument une matrice quelconque et renvoie une matrice identite. Par definition une matrice diagonale identite est entierement remplie de 1.
-
-  Exemple :
-  \code
-  MatrixDiag t1;
-  t1.setToUnity(); // renvoie identite
-  \endcode
-  \warning Cette methode modifie son argument
+@LABEL:MatrixDiag::setToUnity()
+@SHORT:Unity diagonal matrix.
+@SMOD
+This method transforms the current diagonal matrix to a unity diagonal matrix.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=1 & 0 & \hdots & 0\\
+  0 & M_{22}=1 & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}=1
+  \end{array}\right]
+\end{equation*}
+where $\M$ is a diagonal matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 void MatrixDiag::setToUnity()
@@ -253,18 +250,25 @@ void MatrixDiag::setToUnity()
 {
   long i;
   for (i = 0; i < _rows; i++)
-    _data[i] = 1.0;
+    _data[i] = 1;
 }
 
-// affectation d'egalite
 /*
-  Cette methode est une surdefinition de la methode d'egalite permettant d'ecrire simplement le remplissage des valeurs d'une matrice par un scalaire
-
-  Exemple :
-  \code
-  MatrixDiag t1;
-  t1=1.; // affecte 1àtoutes les composantes de la matrice
-  \endcode
+@LABEL:MatrixDiag::operator=(double m)
+@SHORT:Fill a diagonal matrix with a scalar value.
+@RETURN:MatrixDiag
+@ARG:double & m & Value to use for the operation.
+This method is a surdefinition of the = operator for the diagonal matrix class.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=m & 0 & \hdots & 0\\
+  0 & M_{22}=m & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}=m
+  \end{array}\right]
+\end{equation*}
+where $\M$ is a diagonal matrix defined by the object itself and $m$ is the scalar value defined by parameter m.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag &MatrixDiag::operator=(const double &val)
@@ -274,16 +278,7 @@ MatrixDiag &MatrixDiag::operator=(const double &val)
   return *this;
 }
 
-// affectation d'egalite
-/*
-  Cette methode est une surdefinition de la methode d'egalite permettant d'ecrire simplement l'affectation sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2;
-  t1=t2; // egalite de deux matrices
-  \endcode
-*/
+// Copy the content of a matrix into a new one
 //-----------------------------------------------------------------------------
 MatrixDiag &MatrixDiag::operator=(const MatrixDiag &mat)
 //-----------------------------------------------------------------------------
@@ -297,15 +292,18 @@ MatrixDiag &MatrixDiag::operator=(const MatrixDiag &mat)
   return *this;
 }
 
-// addition de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation d'addition des matrices et d'ecrire simplement la somme de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2,t3;
-  t3=t1+t2; // somme de deux matrices
-  \endcode
+@LABEL:MatrixDiag::operator+(MatrixDiag B)
+@SHORT:Addition of 2 diagonal matrices.
+@ARG:MatrixDiag & B & MatrixDiag to add to the current one.
+@RETURN:MatrixDiag : Result of the addition operation.
+This method defines the addition of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A + \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::operator+(const MatrixDiag &mat) const
@@ -315,8 +313,8 @@ MatrixDiag MatrixDiag::operator+(const MatrixDiag &mat) const
   if (_rows != mat._rows)
   {
     fatalError("MatrixDiag::operator +",
-               "matrix sizes incompatible\n"
-               "You're about to add a [%d,%d] and a [%d,%d] matrix",
+               "diagonal matrix sizes incompatible\n"
+               "You're about to add a [%d,%d] and a [%d,%d] diagonal matrix",
                _rows,
                _cols, mat._rows, mat._cols);
   }
@@ -332,15 +330,18 @@ MatrixDiag MatrixDiag::operator+(const MatrixDiag &mat) const
   return resu;
 }
 
-// soustraction de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation de soustraction des matrices et d'ecrire simplement la soustraction de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2,t3;
-  t3=t1-t2; // soustraction de deux matrices
-  \endcode
+@LABEL:MatrixDiag::operator-(MatrixDiag B)
+@SHORT:Difference of 2 diagonal matrices.
+@ARG:MatrixDiag & B & MatrixDiag to subtract to the current one.
+@RETURN:MatrixDiag : Result of the difference operation.
+This method defines the difference of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A - \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::operator-(const MatrixDiag &mat) const
@@ -349,8 +350,8 @@ MatrixDiag MatrixDiag::operator-(const MatrixDiag &mat) const
   if (_rows != mat._rows)
   {
     fatalError("MatrixDiag::operator -",
-               "matrix sizes incompatible\n"
-               "You're about to substract [%d,%d] and [%d,%d] matrix",
+               "diagonal matrix sizes incompatible\n"
+               "You're about to substract [%d,%d] and [%d,%d] diagonal matrix",
                _rows,
                _cols, mat._rows, mat._cols);
   }
@@ -366,6 +367,18 @@ MatrixDiag MatrixDiag::operator-(const MatrixDiag &mat) const
   return resu;
 }
 
+/*
+@LABEL:MatrixDiag::operator-()
+@SHORT:Opposite of a diagonal matrix.
+@RETURN:MatrixDiag : The opposite diagonal matrix.
+This method defines the opposite of a diagonal matrix.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = - \A
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself.
+@END
+*/
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::operator-() const
 //-----------------------------------------------------------------------------
@@ -381,15 +394,18 @@ MatrixDiag MatrixDiag::operator-() const
   return resu;
 }
 
-// addition de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation d'addition des matrices et d'ecrire simplement la somme de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2;
-  t2+=t1; // somme de deux matrices
-  \endcode
+@LABEL:MatrixDiag::operator+=(MatrixDiag B)
+@SHORT:Addition of 2 diagonal matrices.
+@ARG:MatrixDiag & B & Second diagonal matrix to add to the current one.
+@RETURN:MatrixDiag : Result of the addition operation.
+This method defines the addition of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 void MatrixDiag::operator+=(const MatrixDiag &mat)
@@ -399,8 +415,8 @@ void MatrixDiag::operator+=(const MatrixDiag &mat)
   if (_rows != mat._rows)
   {
     fatalError("MatrixDiag::operator +=",
-               "matrix sizes incompatible\n"
-               "You're about to add a [%d,%d] and a [%d,%d] matrix",
+               "diagonal matrix sizes incompatible\n"
+               "You're about to add a [%d,%d] and a [%d,%d] diagonal matrix",
                _rows,
                _cols, mat._rows, mat._cols);
   }
@@ -410,15 +426,18 @@ void MatrixDiag::operator+=(const MatrixDiag &mat)
     _data[i] += mat._data[i];
 }
 
-// soustraction de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation de soustraction des matrices et d'ecrire simplement la soustraction de deux matrices sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2;
-  t2-=t1; // soustraction de deux matrices
-  \endcode
+@LABEL:MatrixDiag::operator-=(MatrixDiag B)
+@SHORT:Difference of 2 diagonal matrices.
+@ARG:MatrixDiag & B & Second diagonal matrix to add to the current one.
+@RETURN:MatrixDiag : Result of the difference operation.
+This method defines the difference of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 void MatrixDiag::operator-=(const MatrixDiag &mat)
@@ -427,8 +446,8 @@ void MatrixDiag::operator-=(const MatrixDiag &mat)
   if (_rows != mat._rows)
   {
     fatalError("MatrixDiag::operator -=",
-               "matrix sizes incompatible\n"
-               "You're about to substract [%d,%d] and [%d,%d] matrix",
+               "diagonal matrix sizes incompatible\n"
+               "You're about to substract [%d,%d] and [%d,%d] diagonal matrix",
                _rows,
                _cols, mat._rows, mat._cols);
   }
@@ -438,16 +457,18 @@ void MatrixDiag::operator-=(const MatrixDiag &mat)
     _data[i] -= mat._data[i];
 }
 
-// multiplication d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de multiplication des matrices et d'ecrire simplement la multiplication d'une matrice par un scalaire sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2;
-  double l;
-  t2=t1*l; // multiplication par un scalaire
-  \endcode
+@LABEL:MatrixDiag::operator*(double l)
+@SHORT:Multiplication of a diagonal matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:MatrixDiag : Result of the multiplication operation.
+This method defines the multiplication of a diagonal matrix by a scalar value.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::operator*(const double &lambda) const
@@ -460,16 +481,18 @@ MatrixDiag MatrixDiag::operator*(const double &lambda) const
   return resu;
 }
 
-// division d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de division des matrices et d'ecrire simplement la division d'une matrice par un scalaire sous la forme donnee en exemple
-
-  Exemple :
-  \code
-  MatrixDiag t1;
-  double l;
-  t1/=l; // division par un scalaire
-  \endcode
+@LABEL:MatrixDiag::operator/(double l)
+@SHORT:Division of a diagonal matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@RETURN:MatrixDiag : Result of the division operation.
+This method defines the division of a diagonal matrix by a scalar value.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::operator/(const double &lambda) const
@@ -482,16 +505,19 @@ MatrixDiag MatrixDiag::operator/(const double &lambda) const
   return resu;
 }
 
-// multiplication d'une matrice par un scalaire
 /*
-  Cette methode permet de surdefinir l'operation de multiplication des matrices et d'ecrire simplement la multiplication d'une matrice par un scalaire sous la forme donnee en exemple. Elle est identiqueàla forme precedente (et commutative).
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2;
-  double l;
-  t2=l*t1; // multiplication par un scalaire
-  \endcode
+@LABEL:operator*(double l, MatrixDiag A)
+@SHORT:Multiplication of a diagonal matrix by a scalar.
+@ARG:double & l & Scalar value to use for the operation.
+@ARG:MatrixDiag & A & Second matrix to use for the operation.
+@RETURN:MatrixDiag : Result of the multiplication operation.
+This method defines the multiplication of a diagonal matrix by a scalar value.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a diagonal matrix and $\lambda$ is the scalar value defined by parameter l.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag operator*(const double &lambda, const MatrixDiag &mat)
@@ -504,15 +530,18 @@ MatrixDiag operator*(const double &lambda, const MatrixDiag &mat)
   return resu;
 }
 
-// multiplication de deux matrices
 /*
-  Cette methode permet de surdefinir l'operation de multiplication des matrices et d'ecrire simplement la multiplication de deux matrice sous la forme donnee en exemple. Cette operation correspondàla notion de produit contracte de deux matrices.
-
-  Exemple :
-  \code
-  MatrixDiag t1,t2,t3;
-  t3=t1*t2; // produit contracte
-  \endcode
+@LABEL:MatrixDiag::operator*(MatrixDiag B)
+@SHORT:Single contracted product of two diagonal matrices.
+@RETURN:MatrixDiag : Result of the multiplication operation.
+@ARG:MatrixDiag & B & Second matrix for the multiplication operation.
+This method defines a single contracted product of two diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::operator*(const MatrixDiag &mat) const
@@ -521,6 +550,20 @@ MatrixDiag MatrixDiag::operator*(const MatrixDiag &mat) const
   return dot(mat);
 }
 
+/*
+@LABEL:MatrixDiag::dot(MatrixDiag B)
+@SHORT:Single contracted product of two matrixs.
+@RETURN:MatrixDiag : Result of the multiplication operation.
+@ARG:MatrixDiag & B & Second matrix for the multiplication operation.
+This method defines a single contracted product of two matrixs.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the operation.
+@END
+*/
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::dot(const MatrixDiag &mat) const
 //-----------------------------------------------------------------------------
@@ -528,8 +571,8 @@ MatrixDiag MatrixDiag::dot(const MatrixDiag &mat) const
   if (_cols != mat._rows)
   {
     fatalError("MatrixDiag::operator *",
-               "matrix sizes incompatible\n"
-               "You're about to multiply a [%d,%d] and a [%d,%d] matrix",
+               "diagonal matrix sizes incompatible\n"
+               "You're about to multiply a [%d,%d] and a [%d,%d] diagonal matrix",
                _rows, _cols, mat._rows, mat._cols);
   }
 
@@ -541,18 +584,18 @@ MatrixDiag MatrixDiag::dot(const MatrixDiag &mat) const
   return resu;
 }
 
-// multiplication d'une matrice par un vecteur
 /*
-  Cette methode calcule le produit d'une matrice A de taille N-x-N par un vecteur x de taille N. ceci genere un vecteur y de taille N.
-  Cette methode retourne un vecteur
-  Exemple :
-  \code
-  MatrixDiag t1;
-  Vector v1,v2;
-  v2=t1*v1; // produit
-  \endcode
-  - vec vecteur du second membre
-  Return : vecteur resultant de l'operation de multiplication
+@LABEL:MatrixDiag::operator*(Vector V)
+@SHORT:Multiplication of a diagonal matrix by a vector.
+@RETURN:Vector : Result of the multiplication operation.
+@ARG:Vector & V & Vector to use for the multiplication operation.
+This method defines the product of a diagonal matrix by a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a Vector defined by parameter V.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector MatrixDiag::operator*(const Vector &vec) const
@@ -561,8 +604,8 @@ Vector MatrixDiag::operator*(const Vector &vec) const
   if (_cols != vec.size())
   {
     fatalError("MatrixDiag::operator *",
-               "matrix and vector sizes incompatible\n"
-               "You're about to multiply a [%d,%d] matrix and a [%d] vector",
+               "diagonal matrix and vector sizes incompatible\n"
+               "You're about to multiply a [%d,%d] diagonal matrix and a [%d] vector",
                _rows, _cols, vec.size());
   }
 
@@ -577,6 +620,19 @@ Vector MatrixDiag::operator*(const Vector &vec) const
   return resu;
 }
 
+/*
+@LABEL:MatrixDiag::dot(Vector V)
+@SHORT:Multiplication of a diagonal matrix by a vector.
+@ARG:Vector & V & Vector to use for the multiplication operation.
+@WARNING: The result of the operation is the parameter V itself.
+This method defines the product of a diagonal matrix by a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a Vector defined by parameter V.
+@END
+*/
 //-----------------------------------------------------------------------------
 void MatrixDiag::dot(Vector &vec) const
 //-----------------------------------------------------------------------------
@@ -613,25 +669,33 @@ void MatrixDiag::divideBy(Vector &vec) const
     *Vec++ /= *Mat++;
 }
 
-// calcule la trace d'une matrice
 /*
-  Cette methode calcule la trace d'une matrice carree
-  Return : valeur de la trace de la matrice
+@LABEL:MatrixDiag::trace()
+@SHORT:Returns the trace of a diagonal matrix.
+@RETURN:double : The trace of the diagonal matrix.
+This method returns the trace of a diagonal matrix, i.e. the sum $s$ of all the terms of the diagonal:
+\begin{equation*}
+s = \tr[\M] = M_{11}+M_{22}+\hdots+M_{nn}
+\end{equation*}
+where $\M$ is a diagonal matrix defined by the object itself.
+@END
 */
 //-----------------------------------------------------------------------------
 double MatrixDiag::trace()
 //-----------------------------------------------------------------------------
 {
-  double trace = 0.;
+  double trace = 0;
   for (long i = 0; i < _rows; i++)
     trace += _data[i];
   return trace;
 }
 
-// transposee d'une matrice
 /*
-  Cette methode renvoie la transposee d'une matrice
-  Return : transposee de la matrice
+@LABEL:MatrixDiag::transpose()
+@SHORT:Transpose of a diagonal matrix.
+@RETURN:Matrix : The transpose of the diagonal matrix.
+This method defines the transpose of a diagonal matrix.
+@END
 */
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::transpose()
@@ -640,13 +704,16 @@ MatrixDiag MatrixDiag::transpose()
   return *this;
 }
 
-// resolution d'un systeme lineaire
 /*
-  Cette methode calcule la solution du systeme lineaire  \f[ A x = b \f] avec A matrice N-x-N et x et y vecteurs de taille N.
-
-  - x vecteur du second membre
-  Return : vecteur solution du systeme lineaire
-
+@LABEL:MatrixDiag::getSolve(Vector x)
+@SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
+@RETURN:Vector : The solution of the linear system.
+This method returns the solution of a linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+@END
 */
 //-----------------------------------------------------------------------------
 Vector MatrixDiag::getSolve(Vector &vec)
@@ -657,9 +724,9 @@ Vector MatrixDiag::getSolve(Vector &vec)
   if (_rows != vec.size())
   {
     fatalError("MatrixDiag::Solve",
-               "matrix and vector sizes incompatible\n"
+               "diagonal matrix and vector sizes incompatible\n"
                "You're about to Solve a linear system with a [%d,%d]"
-               " matrix and a [%d] vector",
+               " diagonal matrix and a [%d] vector",
                _rows, _cols, vec.size());
   }
 
@@ -669,6 +736,17 @@ Vector MatrixDiag::getSolve(Vector &vec)
   return resu;
 }
 
+/*
+@LABEL:MatrixDiag::solve(Vector x)
+@SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
+@WARNING: The result of the operation is the parameter x itself.
+This method returns the solution of a small linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+@END
+*/
 //-----------------------------------------------------------------------------
 void MatrixDiag::solve(Vector &vec)
 //-----------------------------------------------------------------------------
@@ -677,6 +755,13 @@ void MatrixDiag::solve(Vector &vec)
     vec(component) /= _data[component];
 }
 
+/*
+@LABEL:MatrixDiag::inverse()
+@SHORT:Inverse of a diagonal matrix.
+@RETURN:MatrixDiag : The inverse of the diagonal matrix.
+This method returns the inverse of a diagonal matrix.
+@END
+*/
 //-----------------------------------------------------------------------------
 MatrixDiag MatrixDiag::inverse() const
 //-----------------------------------------------------------------------------
@@ -692,11 +777,7 @@ MatrixDiag MatrixDiag::inverse() const
   return res;
 }
 
-// egalite de deux matrices
-/*
-  Cette methode teste l'egalite de deux matrices
-  Return : true si les deux matrices sont identiques, false dans la cas contraire
-*/
+//  Test the equality of two matrices
 //-----------------------------------------------------------------------------
 bool MatrixDiag::operator==(const MatrixDiag &mat) const
 //-----------------------------------------------------------------------------
@@ -715,11 +796,7 @@ bool MatrixDiag::operator==(const MatrixDiag &mat) const
   return true;
 }
 
-// inegalite de deux matrices
-/*
-  Cette methode teste l'inegalite de deux matrices
-  Return : true si les deux matrices sont differentes, false dans la cas contraire
-*/
+//  Test the inequality of two matrices
 //-----------------------------------------------------------------------------
 bool MatrixDiag::operator!=(const MatrixDiag &mat) const
 //-----------------------------------------------------------------------------
@@ -727,18 +804,7 @@ bool MatrixDiag::operator!=(const MatrixDiag &mat) const
   return !(*this == mat);
 }
 
-// sortie sur flux std::ofstream
-/*
-  Cette methode permet d'ecrire une matrice dans un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ofstream pfile("fichier");
-  Matrix t;
-  t.write(pfile);
-  t.close();
-  \endcode
-*/
+//  Writes a matrix in a binary flux for storage
 //-----------------------------------------------------------------------------
 void MatrixDiag::write(std::ofstream &ofs) const
 //-----------------------------------------------------------------------------
@@ -747,17 +813,7 @@ void MatrixDiag::write(std::ofstream &ofs) const
   ofs.write((char *)_data, _rows * sizeof(double));
 }
 
-// lecture sur flux std::ifstream
-/*
-  Cette methode permet de lire une matrice depuis un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ifstream pfile("fichier");
-  Matrix t;
-  t.read(pfile);
-  \endcode
-*/
+//  Reads a matrix in a binary flux from storage
 //-----------------------------------------------------------------------------
 void MatrixDiag::read(std::ifstream &ifs)
 //-----------------------------------------------------------------------------
@@ -769,17 +825,7 @@ void MatrixDiag::read(std::ifstream &ifs)
   ifs.read((char *)_data, _rows * sizeof(double));
 }
 
-// sortie sur flux std::ofstream
-/*
-  Cette methode permet d'ecrire une matrice dans un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ofstream pfile("fichier");
-  Matrix t;
-  pfile << t;
-  \endcode
-*/
+//  Writes a matrix in a binary flux for storage
 //-----------------------------------------------------------------------------
 std::ofstream &operator<<(std::ofstream &os, const MatrixDiag &mat)
 //-----------------------------------------------------------------------------
@@ -788,17 +834,7 @@ std::ofstream &operator<<(std::ofstream &os, const MatrixDiag &mat)
   return os;
 }
 
-// lecture sur flux std::ifstream
-/*
-  Cette methode permet de lire une matrice depuis un fichier (notament) binaire
-
-  Exemple :
-  \code
-  std::ifstream pfile("fichier");
-  Matrix t;
-  pfile >> t;
-  \endcode
-*/
+//  Reads a matrix from a binary flux for storage
 //-----------------------------------------------------------------------------
 std::ifstream &operator>>(std::ifstream &is, MatrixDiag &mat)
 //-----------------------------------------------------------------------------
@@ -814,16 +850,7 @@ long MatrixDiag::Memory() const
   return (0);
 }
 
-// Saves the content of a Matrix into a NumPy file
-/*
-  This method saves the content of a Matrix object into a NumPy file defined by its filename. If the flag initialize is true, the current file will be concatenated.
-
-  Example
-  \code
-  Matrix t;
-  t.numpyWrite("numpy.npy", true);
-  \endcode
-*/
+//  Saves the content of a Matrix into a NumPy file
 //-----------------------------------------------------------------------------
 void MatrixDiag::numpyWrite(std::string filename, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -834,16 +861,7 @@ void MatrixDiag::numpyWrite(std::string filename, bool initialize) const
   NumpyInterface::npySave(filename, &_data[0], {_rows}, mode);
 }
 
-// Saves the content of a MatrixDiag into a NumPyZ file
-/*
-  This method saves the content of a vec3D object into a NumPyZ file defined by its filename. If the flag initialize is true, the current file will be concatenated.
-
-  Example
-  \code
-  MatrixDiag t;
-  t.numpyWriteZ("numpy.npz", true);
-  \endcode
-*/
+//  Saves the content of a Matrix into a NumPyZ file
 //-----------------------------------------------------------------------------
 void MatrixDiag::numpyWriteZ(std::string filename, std::string name, bool initialize) const
 //-----------------------------------------------------------------------------
@@ -854,16 +872,7 @@ void MatrixDiag::numpyWriteZ(std::string filename, std::string name, bool initia
   NumpyInterface::npzSave(filename, name, &_data[0], {_rows}, mode);
 }
 
-// Read the content of a MatrixDiag from a NumPy file
-/*
-  This method reads the content of a vec3D object from a NumPy file defined by its filename.
-
-  Example
-  \code
-  MatrixDiag t;
-  t.numpyRead("numpy.npy");
-  \endcode
-*/
+//  Read the content of a Matrix from a NumPy file
 //-----------------------------------------------------------------------------
 void MatrixDiag::numpyRead(std::string filename)
 //-----------------------------------------------------------------------------
@@ -879,16 +888,7 @@ void MatrixDiag::numpyRead(std::string filename)
   memcpy(_data, arr.data<double *>(), arr.num_vals * arr.word_size);
 }
 
-// Read the content of a MatrixDiag from a NumPyZ file
-/*
-  This method reads the content of a vec3D object from a NumPyZ file defined by its filename.
-
-  Example
-  \code
-  MatrixDiag t;
-  t.numpyReadZ("numpy.npz");
-  \endcode
-*/
+//  Read the content of a Matrix from a NumPyZ file
 //-----------------------------------------------------------------------------
 void MatrixDiag::numpyReadZ(std::string filename, std::string name)
 //-----------------------------------------------------------------------------

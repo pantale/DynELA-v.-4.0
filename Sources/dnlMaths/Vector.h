@@ -50,7 +50,7 @@ class Vector
   double *_data;
   char outType = outVectorTypeNormal;
   void allocate(const long);
-  void desallocate();
+  void deallocate();
 
 public:
   Vector(long = 3, double = 0);

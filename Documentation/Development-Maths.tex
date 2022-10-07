@@ -346,7 +346,7 @@ where the $\overrightarrow{x}$ is the object itself and $\overrightarrow{y}$ is 
 % Automatic documentation generated from the DynELA source code
 % Do not change anything in this LaTeX file between the @DOC and the @END keywords.
 \textcolor{purple}{\textbf{Vec3D::dyadic(~)}}\label{Vec3D::dyadic()}\index[DL]{Vec3D!dyadic(~)}\\
-Dyadic product of a Vec3D by itsefl.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
+Dyadic product of a Vec3D by itself.\\ \hspace*{10mm}$\hookrightarrow$ SymTensor2
 
 This method returns the dyadic product of two Vec3D defined by the following equation:
 \begin{equation*}
@@ -3101,7 +3101,7 @@ where $\overrightarrow{x}$ is a vector defined by the object itself.
 % Automatic documentation generated from the DynELA source code
 % Do not change anything in this LaTeX file between the @DOC and the @END keywords.
 \textcolor{purple}{\textbf{Vector::dot(~)}}\label{Vector::dot()}\index[DL]{Vector!dot(~)}\\
-Returns the dot product of a vector by itself.\\ \hspace*{10mm}$\hookrightarrow$ double : The dot product of the vector by itsefl.
+Returns the dot product of a vector by itself.\\ \hspace*{10mm}$\hookrightarrow$ double : The dot product of the vector by itself.
 
 This method returns dot product of a vector by itself defined by:
 \begin{equation*}
@@ -3114,7 +3114,7 @@ where $\overrightarrow{x}$ is a vector defined by the object itself.
 % Automatic documentation generated from the DynELA source code
 % Do not change anything in this LaTeX file between the @DOC and the @END keywords.
 \textcolor{purple}{\textbf{Vector::dyadic(~)}}\label{Vector::dyadic()}\index[DL]{Vector!dyadic(~)}\\
-Dyadic product of a vector by itsefl.\\ \hspace*{10mm}$\hookrightarrow$ Matrix : The matrix result of the dyadic product.
+Dyadic product of a vector by itself.\\ \hspace*{10mm}$\hookrightarrow$ Matrix : The matrix result of the dyadic product.
 
 This method returns the dyadic product of two vectors defined by the following equation:
 \begin{equation*}
@@ -3539,12 +3539,12 @@ where the $\overrightarrow{x}$ is the object itself.
 \textcolor{purple}{\textbf{Matrix::Matrix}}\label{Matrix::Matrix}\index[DL]{Matrix!Matrix}\\
 Matrix class.
 
-This class is used to store information for Matrices.
-This file is the declaration file for the Matrix class. A Matrix class is a two dimensional object with size $n\times m$ with the following form:
+This class is used to store information for matrices.
+A Matrix class is a two dimensional object with size $n\times m$ with the following form:
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11} & M_{12} & \hdots & M_{1m}\\
-  M_{21} & M_{21} & \hdots & M_{2m}\\
+  M_{21} & M_{22} & \hdots & M_{2m}\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{n1} & M_{n1} & \hdots & M_{nm}
   \end{array}\right]
@@ -3567,7 +3567,7 @@ This method creates a new matrix of size $r \times c$ where all values are initi
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=m & M_{12}=m & \hdots & M_{1c}=m\\
-  M_{21}=m & M_{21}=m & \hdots & M_{2c}=m\\
+  M_{21}=m & M_{22}=m & \hdots & M_{2c}=m\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{r1}=m & M_{r1}=m & \hdots & M_{rc}=m
   \end{array}\right]
@@ -3593,7 +3593,7 @@ All components have to be defined in row order.
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=x_1 & M_{12}=x_2 & \hdots & M_{1c}=x_c\\
-  M_{21}=x_{c+1} & M_{21}=x_{c+2} & \hdots & M_{2c}=x_{2c}\\
+  M_{21}=x_{c+1} & M_{22}=x_{c+2} & \hdots & M_{2c}=x_{2c}\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{r1}=x_{(r-1)c+1} & M_{r1}=x_{(r-1)c+2} & \hdots & M_{rc}=x_{rc}
   \end{array}\right]
@@ -3655,12 +3655,12 @@ This method is a surdefinition of the = operator for the matrix class.
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=m & M_{12}=m & \hdots & M_{1c}=m\\
-  M_{21}=m & M_{21}=m & \hdots & M_{2c}=m\\
+  M_{21}=m & M_{22}=m & \hdots & M_{2c}=m\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{r1}=m & M_{r1}=m & \hdots & M_{rc}=m
   \end{array}\right]
 \end{equation*}
-where $\T$ is a matrix defined by the object itself and $m$ is the scalar value defined by parameter m.
+where $\M$ is a matrix defined by the object itself and $m$ is the scalar value defined by parameter m.
 %@END
 
 %@DOC:Matrix::operator=(Tensor2 T)
@@ -3842,7 +3842,7 @@ Multiplication of a matrix by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ Matrix
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 double & l & Scalar value to use for the operation.\\
-Matrix & A & Second order tensor to use for the operation.
+Matrix & A & Matrix to use for the operation.
 \end{tcolorbox}
 
 This method defines the multiplication of a matrix by a scalar value.
@@ -3888,7 +3888,7 @@ This method transforms the current matrix to a unity matrix.
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11}=1 & M_{12}=0 & \hdots & M_{1n}=0\\
-  M_{21}=0 & M_{21}=1 & \hdots & M_{2n}=0\\
+  M_{21}=0 & M_{22}=1 & \hdots & M_{2n}=0\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{n1}=0 & M_{n1}=0 & \hdots & M_{nn}=1
   \end{array}\right]
@@ -3964,7 +3964,7 @@ where $\M$ is a matrix defined by the object itself.
 \textcolor{purple}{\textbf{Matrix::dot(Vector V)}}\label{Matrix::dot(Vector V)}\index[DL]{Matrix!dot(Vector V)}\\
 Multiplication of a matrix by a vector.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of the operation is the parameter V itsefl.}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of the operation is the parameter V itself.}
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
 Vector & V & Vector to use for the multiplication operation.
@@ -4047,13 +4047,13 @@ This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the opera
 % Automatic documentation generated from the DynELA source code
 % Do not change anything in this LaTeX file between the @DOC and the @END keywords.
 \textcolor{purple}{\textbf{Matrix::dot(Matrix B)}}\label{Matrix::dot(Matrix B)}\index[DL]{Matrix!dot(Matrix B)}\\
-Single contracted product of two matrixs.\\ \hspace*{10mm}$\hookrightarrow$ Matrix : Result of the multiplication operation.
+Single contracted product of two matrices.\\ \hspace*{10mm}$\hookrightarrow$ Matrix : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Matrix & B & Second tensor for the multiplication operation.
+Matrix & B & Second matrix for the multiplication operation.
 \end{tcolorbox}
 
-This method defines a single contracted product of two matrixs.
+This method defines a single contracted product of two matrices.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
 \T = \A \cdot \B
@@ -4069,7 +4069,7 @@ This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the opera
 Single contracted product of two matrices.\\ \hspace*{10mm}$\hookrightarrow$ Matrix : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Matrix & B & Second tensor for the multiplication operation.
+Matrix & B & Second matrix for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a single contracted product of two matrices.
@@ -4101,7 +4101,7 @@ where $\A$ is a matrix defined by the object itself.
 Double contracted product of 2 matrices.\\ \hspace*{10mm}$\hookrightarrow$ double : Result of the multiplication operation.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
-Matrix & B & Second tensor for the multiplication operation.
+Matrix & B & Second matrix for the multiplication operation.
 \end{tcolorbox}
 
 This method defines a double contracted product of two matrices.
@@ -4290,13 +4290,13 @@ This method uses the Lapack \textsf{dgetrf} and \textsf{dgetri} Fortran subrouti
 \textcolor{purple}{\textbf{Matrix::solve(Vector x)}}\label{Matrix::solve(Vector x)}\index[DL]{Matrix!solve(Vector x)}\\
 Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
 
-\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of the operation is the parameter x itsefl.}
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of the operation is the parameter x itself.}
 
 This method returns the solution of a small linear system with the following form:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+where $\A$ is a matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
 This method uses the Lapack \textsf{dgesv} Fortran subroutine to perform the operation.
 %@END
 
@@ -4306,18 +4306,18 @@ This method uses the Lapack \textsf{dgesv} Fortran subroutine to perform the ope
 \textcolor{purple}{\textbf{Matrix::getSolve(Vector x)}}\label{Matrix::getSolve(Vector x)}\index[DL]{Matrix!getSolve(Vector x)}\\
 Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.\\ \hspace*{10mm}$\hookrightarrow$ Vector : The solution of the linear system.
 
-This method returns the solution of a small linear system with the following form:
+This method returns the solution of a linear system with the following form:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
 \end{equation*}
-where $\A$ is a second order tensor defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+where $\A$ is a matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
 This method uses the Lapack \textsf{dgesv} Fortran subroutine to perform the operation.
 %@END
 
-%@DOC:Tensor2::computeSVD(Vector w, Matrix L, Matrix R)
+%@DOC:Matrix::computeSVD(Vector w, Matrix L, Matrix R)
 % Automatic documentation generated from the DynELA source code
 % Do not change anything in this LaTeX file between the @DOC and the @END keywords.
-\textcolor{purple}{\textbf{Tensor2::computeSVD(Vector w, Matrix L, Matrix R)}}\label{Tensor2::computeSVD(Vector w, Matrix L, Matrix R)}\index[DL]{Tensor2!computeSVD(Vector w, Matrix L, Matrix R)}\\
+\textcolor{purple}{\textbf{Matrix::computeSVD(Vector w, Matrix L, Matrix R)}}\label{Matrix::computeSVD(Vector w, Matrix L, Matrix R)}\index[DL]{Matrix!computeSVD(Vector w, Matrix L, Matrix R)}\\
 Eigenvalues and eigenvactors of a $n \times m$ matrix.
 
 \begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
@@ -4331,6 +4331,440 @@ This method uses the Lapack \textsf{dgesvd} Fortran subroutine to perform the op
 %@END
 
 \subsection{The Diagonal Matrix class}
+
+%@DOC:MatrixDiag::MatrixDiag
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::MatrixDiag}}\label{MatrixDiag::MatrixDiag}\index[DL]{MatrixDiag!MatrixDiag}\\
+MatrixDiag class.
+
+This class is used to store information for diagonal matrices.
+A MatrixDiag class is a two dimensional square object with size $n\times n$ with the following form:
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11} & 0 & \hdots & 0\\
+  0 & M_{22} & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}
+  \end{array}\right]
+\end{equation*}
+The storage scheme is the same as a vector, since only the diagonal of the matrix is effectively stored into memory.
+But the nature of the operators conform to a matrix.
+%@END
+
+%@DOC:MatrixDiag::MatrixDiag(long n, double m)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::MatrixDiag(long n, double m)}}\label{MatrixDiag::MatrixDiag(long n, double m)}\index[DL]{MatrixDiag!MatrixDiag(long n, double m)}\\
+Constructor of the MatrixDiag class with initialization.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : The initialized matrix.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & n & Number of rows and cols of the matrix to create.\\
+double & m & Value to give to each element of the new matrix.
+\end{tcolorbox}
+
+This method creates a new matrix of size $n \times n$ where all values are initialized to the scalar value $m$.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=m & 0 & \hdots & 0\\
+  0 & M_{22}=m & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}=m
+  \end{array}\right]
+\end{equation*}
+where the $\M$ is the object itself and $m$ is scalar value defined by parameter m.
+%@END
+
+%@DOC:MatrixDiag::redim(long n)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::redim(long n)}}\label{MatrixDiag::redim(long n)}\index[DL]{MatrixDiag!redim(long n)}\\
+Change the allocation size of a diagonal matrix.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This method cleans the content of the diagonal matrix.}
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+long & n & Number of rows and cols of the diagonal matrix.
+\end{tcolorbox}
+
+This method changes the size of a diagonal matrix.
+If the new size is the same as the actual size, this method does nothing.
+%@END
+
+\subsubsection{Basic operations}
+
+
+%@DOC:MatrixDiag::operator=(double m)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator=(double m)}}\label{MatrixDiag::operator=(double m)}\index[DL]{MatrixDiag!operator=(double m)}\\
+Fill a diagonal matrix with a scalar value.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & m & Value to use for the operation.
+\end{tcolorbox}
+
+This method is a surdefinition of the = operator for the diagonal matrix class.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=m & 0 & \hdots & 0\\
+  0 & M_{22}=m & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}=m
+  \end{array}\right]
+\end{equation*}
+where $\M$ is a diagonal matrix defined by the object itself and $m$ is the scalar value defined by parameter m.
+%@END
+
+%@DOC:MatrixDiag::operator+(MatrixDiag B)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator+(MatrixDiag B)}}\label{MatrixDiag::operator+(MatrixDiag B)}\index[DL]{MatrixDiag!operator+(MatrixDiag B)}\\
+Addition of 2 diagonal matrices.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+MatrixDiag & B & MatrixDiag to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A + \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+%@END
+
+%@DOC:MatrixDiag::operator-(MatrixDiag B)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator-(MatrixDiag B)}}\label{MatrixDiag::operator-(MatrixDiag B)}\index[DL]{MatrixDiag!operator-(MatrixDiag B)}\\
+Difference of 2 diagonal matrices.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+MatrixDiag & B & MatrixDiag to subtract to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A - \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+%@END
+
+%@DOC:MatrixDiag::operator-()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator-(~)}}\label{MatrixDiag::operator-()}\index[DL]{MatrixDiag!operator-(~)}\\
+Opposite of a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : The opposite diagonal matrix.
+
+This method defines the opposite of a diagonal matrix.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = - \A
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself.
+%@END
+
+%@DOC:MatrixDiag::operator+=(MatrixDiag B)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator+=(MatrixDiag B)}}\label{MatrixDiag::operator+=(MatrixDiag B)}\index[DL]{MatrixDiag!operator+=(MatrixDiag B)}\\
+Addition of 2 diagonal matrices.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the addition operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+MatrixDiag & B & Second diagonal matrix to add to the current one.
+\end{tcolorbox}
+
+This method defines the addition of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\A += \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+%@END
+
+%@DOC:MatrixDiag::operator-=(MatrixDiag B)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator-=(MatrixDiag B)}}\label{MatrixDiag::operator-=(MatrixDiag B)}\index[DL]{MatrixDiag!operator-=(MatrixDiag B)}\\
+Difference of 2 diagonal matrices.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the difference operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+MatrixDiag & B & Second diagonal matrix to add to the current one.
+\end{tcolorbox}
+
+This method defines the difference of 2 diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\A -= \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+%@END
+
+%@DOC:MatrixDiag::operator*(double l)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator$\star$(double l)}}\label{MatrixDiag::operator*(double l)}\index[DL]{MatrixDiag!operator$\star$(double l)}\\
+Multiplication of a diagonal matrix by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a diagonal matrix by a scalar value.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:MatrixDiag::operator/(double l)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator/(double l)}}\label{MatrixDiag::operator/(double l)}\index[DL]{MatrixDiag!operator/(double l)}\\
+Division of a diagonal matrix by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the division operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.
+\end{tcolorbox}
+
+This method defines the division of a diagonal matrix by a scalar value.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \frac{1}{\lambda} \A
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:operator*(double l, MatrixDiag A)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{operator$\star$(double l, MatrixDiag A)}}\label{operator*(double l, MatrixDiag A)}\\
+Multiplication of a diagonal matrix by a scalar.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & l & Scalar value to use for the operation.\\
+MatrixDiag & A & Second matrix to use for the operation.
+\end{tcolorbox}
+
+This method defines the multiplication of a diagonal matrix by a scalar value.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \lambda \A
+\end{equation*}
+where $\A$ is a diagonal matrix and $\lambda$ is the scalar value defined by parameter l.
+%@END
+
+%@DOC:MatrixDiag::operator*(MatrixDiag B)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator$\star$(MatrixDiag B)}}\label{MatrixDiag::operator*(MatrixDiag B)}\index[DL]{MatrixDiag!operator$\star$(MatrixDiag B)}\\
+Single contracted product of two diagonal matrices.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+MatrixDiag & B & Second matrix for the multiplication operation.
+\end{tcolorbox}
+
+This method defines a single contracted product of two diagonal matrices.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+%@END
+
+%@DOC:MatrixDiag::operator*(Vector V)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::operator$\star$(Vector V)}}\label{MatrixDiag::operator*(Vector V)}\index[DL]{MatrixDiag!operator$\star$(Vector V)}\\
+Multiplication of a diagonal matrix by a vector.\\ \hspace*{10mm}$\hookrightarrow$ Vector : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vector & V & Vector to use for the multiplication operation.
+\end{tcolorbox}
+
+This method defines the product of a diagonal matrix by a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a Vector defined by parameter V.
+%@END
+
+\subsubsection{Specific operations}
+
+%@DOC:MatrixDiag::setToUnity()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::setToUnity(~)}}\label{MatrixDiag::setToUnity()}\index[DL]{MatrixDiag!setToUnity(~)}\\
+Unity diagonal matrix.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :} This only works on a diagonal matrix $n \times n$.}
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}} After the call to this method, the object is modified.
+
+This method transforms the current diagonal matrix to a unity diagonal matrix.
+\begin{equation*}
+\M=\left[\begin{array}{cccc}
+  M_{11}=1 & 0 & \hdots & 0\\
+  0 & M_{22}=1 & \hdots & 0\\
+  \vdots & \vdots & \hdots & \vdots\\
+  0 & 0 & \hdots & M_{nn}=1
+  \end{array}\right]
+\end{equation*}
+where $\M$ is a diagonal matrix defined by the object itself.
+%@END
+
+%@DOC:MatrixDiag::maxVal()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::maxVal(~)}}\label{MatrixDiag::maxVal()}\index[DL]{MatrixDiag!maxVal(~)}\\
+Maximum component in a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the diagonal matrix.
+
+This method returns the maximum component in a diagonal matrix.
+%@END
+
+%@DOC:MatrixDiag::minVal()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::minVal(~)}}\label{MatrixDiag::minVal()}\index[DL]{MatrixDiag!minVal(~)}\\
+Minimum component in a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the diagonal matrix.
+
+This method returns the minimum component in a diagonal matrix.
+%@END
+
+%@DOC:MatrixDiag::maxAbs()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::maxAbs(~)}}\label{MatrixDiag::maxAbs()}\index[DL]{MatrixDiag!maxAbs(~)}\\
+Maximum absolute component in a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ double : The maximum component of the diagonal matrix.
+
+This method returns the maximum absolute component in a diagonal matrix.
+%@END
+
+%@DOC:MatrixDiag::minAbs()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::minAbs(~)}}\label{MatrixDiag::minAbs()}\index[DL]{MatrixDiag!minAbs(~)}\\
+Minimum absolute component in a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ double : The minimum component of the diagonal matrix.
+
+This method returns the minimum absolute component in a diagonal matrix.
+%@END
+
+%@DOC:MatrixDiag::setValue(double v)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::setValue(double v)}}\label{MatrixDiag::setValue(double v)}\index[DL]{MatrixDiag!setValue(double v)}\\
+Fill a diagonal matrix with a scalar value.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+double & v & Value to use for the operation.
+\end{tcolorbox}
+
+This method is a surdefinition of the = operator for the diagonal matrix class.
+%@END
+
+%@DOC:MatrixDiag::dot(MatrixDiag B)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::dot(MatrixDiag B)}}\label{MatrixDiag::dot(MatrixDiag B)}\index[DL]{MatrixDiag!dot(MatrixDiag B)}\\
+Single contracted product of two matrixs.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : Result of the multiplication operation.
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+MatrixDiag & B & Second matrix for the multiplication operation.
+\end{tcolorbox}
+
+This method defines a single contracted product of two matrixs.
+The result of this operation is also a diagonal matrix defined by:
+\begin{equation*}
+\T = \A \cdot \B
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\B$ is the diagonal matrix defined by parameter B.
+This method uses the Blas \textsf{dgemm} Fortran subroutine to perform the operation.
+%@END
+
+%@DOC:MatrixDiag::dot(Vector V)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::dot(Vector V)}}\label{MatrixDiag::dot(Vector V)}\index[DL]{MatrixDiag!dot(Vector V)}\\
+Multiplication of a diagonal matrix by a vector.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of the operation is the parameter V itself.}
+
+\begin{tcolorbox}[width=\textwidth,myArgs,tabularx={ll|R}]
+Vector & V & Vector to use for the multiplication operation.
+\end{tcolorbox}
+
+This method defines the product of a diagonal matrix by a vector.
+The result of this operation is also a vector defined by:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a Vector defined by parameter V.
+%@END
+
+\subsubsection{Advanced operations}
+
+%@DOC:MatrixDiag::trace()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::trace(~)}}\label{MatrixDiag::trace()}\index[DL]{MatrixDiag!trace(~)}\\
+Returns the trace of a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ double : The trace of the diagonal matrix.
+
+This method returns the trace of a diagonal matrix, i.e. the sum $s$ of all the terms of the diagonal:
+\begin{equation*}
+s = \tr[\M] = M_{11}+M_{22}+\hdots+M_{nn}
+\end{equation*}
+where $\M$ is a diagonal matrix defined by the object itself.
+%@END
+
+%@DOC:MatrixDiag::transpose()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::transpose(~)}}\label{MatrixDiag::transpose()}\index[DL]{MatrixDiag!transpose(~)}\\
+Transpose of a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ Matrix : The transpose of the diagonal matrix.
+
+This method defines the transpose of a diagonal matrix.
+%@END
+
+%@DOC:MatrixDiag::getSolve(Vector x)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::getSolve(Vector x)}}\label{MatrixDiag::getSolve(Vector x)}\index[DL]{MatrixDiag!getSolve(Vector x)}\\
+Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.\\ \hspace*{10mm}$\hookrightarrow$ Vector : The solution of the linear system.
+
+This method returns the solution of a linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+%@END
+
+%@DOC:MatrixDiag::solve(Vector x)
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::solve(Vector x)}}\label{MatrixDiag::solve(Vector x)}\index[DL]{MatrixDiag!solve(Vector x)}\\
+Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
+
+\hspace*{10mm}\textcolor{red}{\textbf{Warning :}  The result of the operation is the parameter x itself.}
+
+This method returns the solution of a small linear system with the following form:
+\begin{equation*}
+\overrightarrow{y} = \A \cdot \overrightarrow{x}
+\end{equation*}
+where $\A$ is a diagonal matrix defined by the object itself and $\overrightarrow{x}$ is a vector defined by parameter x.
+%@END
+
+%@DOC:MatrixDiag::inverse()
+% Automatic documentation generated from the DynELA source code
+% Do not change anything in this LaTeX file between the @DOC and the @END keywords.
+\textcolor{purple}{\textbf{MatrixDiag::inverse(~)}}\label{MatrixDiag::inverse()}\index[DL]{MatrixDiag!inverse(~)}\\
+Inverse of a diagonal matrix.\\ \hspace*{10mm}$\hookrightarrow$ MatrixDiag : The inverse of the diagonal matrix.
+
+This method returns the inverse of a diagonal matrix.
+%@END
 
 \section{The Function classes}
 

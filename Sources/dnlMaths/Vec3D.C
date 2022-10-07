@@ -391,7 +391,7 @@ Tensor2 Vec3D::dyadic(const Vec3D &V) const
 
 /*
 @LABEL:Vec3D::dyadic()
-@SHORT:Dyadic product of a Vec3D by itsefl.
+@SHORT:Dyadic product of a Vec3D by itself.
 @RETURN:SymTensor2
 This method returns the dyadic product of two Vec3D defined by the following equation:
 \begin{equation*}

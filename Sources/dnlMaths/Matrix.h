@@ -20,12 +20,12 @@ class Tensor2;
 /*
 @LABEL:Matrix::Matrix
 @SHORT:Matrix class.
-This class is used to store information for Matrices.
-This file is the declaration file for the Matrix class. A Matrix class is a two dimensional object with size $n\times m$ with the following form:
+This class is used to store information for matrices.
+A Matrix class is a two dimensional object with size $n\times m$ with the following form:
 \begin{equation*}
 \M=\left[\begin{array}{cccc}
   M_{11} & M_{12} & \hdots & M_{1m}\\
-  M_{21} & M_{21} & \hdots & M_{2m}\\
+  M_{21} & M_{22} & \hdots & M_{2m}\\
   \vdots & \vdots & \hdots & \vdots\\
   M_{n1} & M_{n1} & \hdots & M_{nm}
   \end{array}\right]
@@ -40,7 +40,7 @@ class Matrix : public Matrices
   double *_data;
 
   void allocate(const long, const long);
-  void desallocate();
+  void deallocate();
 
 public:
   Matrix(const long = 3, const long = 3, const double = 0.0);
@@ -166,7 +166,7 @@ inline double Matrix::operator()(long i, long j) const
   return _data[Ind(i, j, _rows, _cols)];
 }
 
-// Access to the values _data[i,j] of matrix (Read only method)
+// Access to the values _data[i,j] of matrix
 //-----------------------------------------------------------------------------
 inline double &Matrix::operator()(long i, long j)
 //-----------------------------------------------------------------------------
