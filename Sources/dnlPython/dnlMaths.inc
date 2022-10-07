@@ -24,7 +24,6 @@
   #include "Tensor4.h"
   #include "Vec3D.h"
   #include "Vector.h"
-  #include "ColorMap.h"
 %}
 
 %include "Vec3D.h"
@@ -278,4 +277,3 @@
 %include "RampFunction.h"
 %include "PolynomialFunction.h"
 %include "SinusFunction.h"
-%include "ColorMap.h"

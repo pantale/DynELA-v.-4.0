@@ -20,6 +20,7 @@
   #include "Solver.h"
   #include "Explicit.h"
   #include "Parallel.h"
+  #include "ColorMap.h"
 %}
 
 %include "Model.h"
@@ -31,3 +32,4 @@
 %include "Solver.h"
 %include "Explicit.h"
 %include "Parallel.h"
+%include "ColorMap.h"

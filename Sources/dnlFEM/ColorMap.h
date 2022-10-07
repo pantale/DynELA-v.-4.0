@@ -15,13 +15,12 @@
 #include <DiscreteFunction.h>
 #include <dnlKernel.h>
 
-//-----------------------------------------------------------------------------
-// Class : ColorMap
-//
-// Used to manage ColorMap
-//
-// This class is included in SWIG
-//-----------------------------------------------------------------------------
+/*
+@LABEL:ColorMap::ColorMap
+@SHORT:ColorMap class.
+This class is used to store information for color maps.
+@END
+*/
 class ColorMap
 {
 private:

@@ -9,6 +9,8 @@ Created on Mon Sep 19 09:41:29 2022
 from pathlib import Path
 import fnmatch
 
+totMethods = 0
+
 def formDoc(label, brief, ret, arg, warn, smod, doc):
     return label, [brief, ret, arg, warn, smod, doc]
 
@@ -58,6 +60,7 @@ def texify(str, et=False):
     return str
 
 def returnDoc(data):
+    global totMethods
     Docs = {}
     doc = []
     label = ''
@@ -90,6 +93,7 @@ def returnDoc(data):
                     doc.append(line)
         if '@LABEL' in line:
             label = after(line,'@LABEL:')
+            totMethods += 1
             go = True
         if '@END' in line:
             go = False
@@ -218,4 +222,6 @@ for targetFile in targetFiles:
     cl = cleanTex(targetFile)
     tex = addDocToTex(cl)
     writeFile(targetFile, tex)
+    
+print('%g sub-documents inserted in %g LaTeX files from %s source files' %(totMethods, len(targetFiles), len(sourceFiles)))
     

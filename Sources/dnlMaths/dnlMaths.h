@@ -19,7 +19,6 @@
 #ifndef __dnlMaths_h__
 #define __dnlMaths_h__
 
-#include <ColorMap.h>
 #include <DiscreteFunction.h>
 #include <DiscreteFunctionSet.h>
 #include <Function.h>

@@ -11,7 +11,11 @@
 #include <ColorMap.h>
 
 /*
-  Default constructor of the ColorMap class
+@LABEL:ColorMap::ColorMap()
+@SHORT:Default constructor of the ColorMap class.
+@RETURN:ColorMap : The new ColorMap object created by the constructor.
+This is the default constructor of the ColorMap class. By default, the associated color map is the deep color map.
+@END
 */
 //-----------------------------------------------------------------------------
 ColorMap::ColorMap()
@@ -21,9 +25,7 @@ ColorMap::ColorMap()
   setDeepColorMap();
 }
 
-/*
-  Default destructor
-*/
+//  Default destructor
 //-----------------------------------------------------------------------------
 ColorMap::~ColorMap()
 //-----------------------------------------------------------------------------
@@ -31,7 +33,9 @@ ColorMap::~ColorMap()
 }
 
 /*
-  Clears the current color map
+@LABEL:ColorMap::clearColorMap()
+@SHORT:Clears the current color map.
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::clearColorMap()
@@ -43,7 +47,14 @@ void ColorMap::clearColorMap()
 }
 
 /*
-  Creates an normal color map
+@LABEL:ColorMap::setColorMap()
+@SHORT:Select the color map.
+Select the color map for drawings.
+The color map is the one represented here after, from blue for low values (left side of the proposed bar) to red for high values (right side of the proposed bar).
+\begin{center}
+\includegraphics{Figures/ProgrammingLanguage/ColorMap}
+\end{center}
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setColorMap()
@@ -85,7 +96,14 @@ void ColorMap::setColorMap()
 }
 
 /*
-  Creates an reverse normal color map
+@LABEL:ColorMap::setReverseDeepColorMap()
+@SHORT:Select the reversed deep color map.
+Select the reversed deep color map for drawings.
+The reversed deep color map is the one represented here after, from dark red for low values (left side of the proposed bar) to dark blue for high values (right side of the proposed bar).
+\begin{center}
+\includegraphics{Figures/ProgrammingLanguage/ReverseDeepColorMap}
+\end{center}
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setReverseDeepColorMap()
@@ -137,7 +155,14 @@ void ColorMap::setReverseDeepColorMap()
 }
 
 /*
-  Creates a deep normal color map
+@LABEL:ColorMap::setDeepColorMap()
+@SHORT:Select the deep color map.
+Select the deep color map for drawings.
+The deep color map is the one represented here after, from dark blue for low values (left side of the proposed bar) to dark red for high values (right side of the proposed bar).
+\begin{center}
+\includegraphics{Figures/ProgrammingLanguage/DeepColorMap}
+\end{center}
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setDeepColorMap()
@@ -189,7 +214,14 @@ void ColorMap::setDeepColorMap()
 }
 
 /*
-  Creates a reverse deep normal color map
+@LABEL:ColorMap::setReverseColorMap()
+@SHORT:Select the color map.
+Select the color map for drawings.
+The color map is the one represented here after, from red for low values (left side of the proposed bar) to blue for high values (right side of the proposed bar).
+\begin{center}
+\includegraphics{Figures/ProgrammingLanguage/ReverseColorMap}
+\end{center}
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setReverseColorMap()
@@ -231,7 +263,14 @@ void ColorMap::setReverseColorMap()
 }
 
 /*
-  Creates a gray normal color map
+@LABEL:ColorMap::setGrayMap()
+@SHORT:Select the gray color map.
+Select the gray color map for drawings.
+The gray color map is the one represented here after, from black for low values (left side of the proposed bar) to white for high values (right side of the proposed bar).
+\begin{center}
+\includegraphics{Figures/ProgrammingLanguage/GrayMap}
+\end{center}
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setGrayMap()
@@ -256,7 +295,14 @@ void ColorMap::setGrayMap()
 }
 
 /*
-  Creates a reverse gray normal color map
+@LABEL:ColorMap::setReverseGrayMap()
+@SHORT:Select the gray color map.
+Select the gray color map for drawings.
+The gray color map is the one represented here after, from white for low values (left side of the proposed bar) to black for high values (right side of the proposed bar).
+\begin{center}
+\includegraphics{Figures/ProgrammingLanguage/ReverseGrayMap}
+\end{center}
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setReverseGrayMap()
@@ -283,7 +329,9 @@ void ColorMap::setReverseGrayMap()
 }
 
 /*
-  Reset and recomputes the colormap
+@LABEL:ColorMap::resetColorMap()
+@SHORT:Reset and recomputes the color map.
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::resetColorMap()
@@ -313,9 +361,11 @@ void ColorMap::resetColorMap()
 }
 
 /*
-  Sets the bounds of the current color map
-  - min : min value of the colormap
-  - max : max value of the colormap
+@LABEL:ColorMap::setBounds(double min, double max)
+@ARGS:double & min & Min value to use for the bounds of the color map.
+@ARGS:double & max & Max value to use for the bounds of the color map.
+@SHORT:Sets the boundary values of the current color map.
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setBounds(double min, double max)
@@ -326,8 +376,10 @@ void ColorMap::setBounds(double min, double max)
 }
 
 /*
-  Sets the number of levels of the current color map
-  - levels : number of levels of the colormap
+@LABEL:ColorMap::setLevels(int l)
+@ARGS:int & l & Number of levels of the color map.
+@SHORT:Sets the number of levels of the current color map.
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::setLevels(int levels)
@@ -338,9 +390,11 @@ void ColorMap::setLevels(int levels)
 }
 
 /*
-  get the color index of a value
-  - value Color value from 0 to 1
-  returns the index level of the color in the colormap
+@LABEL:ColorMap::getIntColor(double val)
+@ARGS:double & val & Value color value from 0 to 1.
+@RETURN: int : the index of the color.
+@SHORT:Get the color index of a value.
+@END
 */
 //-----------------------------------------------------------------------------
 int ColorMap::getIntColor(double value)
@@ -365,10 +419,13 @@ int ColorMap::getIntColor(double value)
 }
 
 /*
-  get the color as RGB components
-  - value Color value from 0 to 1
-  - steps
-  returns the color in the colormap
+@LABEL:ColorMap::getVec3DColor(double val, bool s)
+@ARGS:double & val & Value color value from 0 to 1.
+@ARGS:double & s & If the steps have to be takent into account.
+@RETURN: Vec3D : the RGB components of the color.
+@SHORT:Get the color as RGB components.
+If the color is out of range, this method returns black if the value is lower than the minimum value, white if it is larger than the highest value.
+@END
 */
 //-----------------------------------------------------------------------------
 Vec3D ColorMap::getVec3DColor(double value, bool steps)
@@ -398,10 +455,13 @@ Vec3D ColorMap::getVec3DColor(double value, bool steps)
 }
 
 /*
-  get the color as an hex string
-  - value Color value from 0 to 1
-  - steps
-  returns the color in the colormap
+@LABEL:ColorMap::getStringColor(double val, bool s)
+@ARGS:double & val & Value color value from 0 to 1.
+@ARGS:double & s & If the steps have to be takent into account.
+@RETURN: String : the String components of the color.
+@SHORT:Get the color as String components.
+If the color is out of range, this method returns black if the value is lower than the minimum value, white if it is larger than the highest value.
+@END
 */
 //-----------------------------------------------------------------------------
 String ColorMap::getStringColor(double value, bool steps)
@@ -421,10 +481,12 @@ String ColorMap::getStringColor(double value, bool steps)
 }
 
 /*
-  get all the bounds of the colormap
-  - min min value of the colormap
-  - max max value of the colormap
-  - levels levels number of levels of the colormap
+@LABEL:ColorMap::getBounds(double min, double, max, int l)
+@ARGS:double & min & The minimum value of the range (returned value).
+@ARGS:double & max & The maximum value of the range (returned value).
+@ARGS:int & l & The number of levels (returned value).
+@SHORT:Get the boundaries of the current color map.
+@END
 */
 //-----------------------------------------------------------------------------
 void ColorMap::getBounds(double &min, double &max, int &levels)
@@ -436,7 +498,10 @@ void ColorMap::getBounds(double &min, double &max, int &levels)
 }
 
 /*
-  get max value of the colormap
+@LABEL:ColorMap::getMax()
+@RETURN:double : The maximum value of the range.
+@SHORT:Get the max value of the current color map.
+@END
 */
 //-----------------------------------------------------------------------------
 double ColorMap::getMax()
@@ -446,7 +511,10 @@ double ColorMap::getMax()
 }
 
 /*
-  get min value of the colormap
+@LABEL:ColorMap::getMin()
+@RETURN:double : The minimum value of the range.
+@SHORT:Get the min value of the current color map.
+@END
 */
 //-----------------------------------------------------------------------------
 double ColorMap::getMin()
@@ -456,7 +524,10 @@ double ColorMap::getMin()
 }
 
 /*
-  get levels number value of the colormap
+@LABEL:ColorMap::getLevels()
+@RETURN:int : The number of levels.
+@SHORT:Get the number of levels of the current color map.
+@END
 */
 //-----------------------------------------------------------------------------
 int ColorMap::getLevels()
