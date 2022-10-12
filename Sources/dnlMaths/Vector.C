@@ -15,7 +15,7 @@
 /*
 @LABEL:Vector::Vector(long l, double m)
 @SHORT:Constructor of the Vector class with initialization.
-@RETURN:Vector : The initialized vector.
+@RETURN:Vector & The initialized vector.
 @ARG:long & l & Length of the vector to create.
 @ARG:double & m & Value to give to each element of the new vector.
 This method creates a new vector of length $l$ where all values are initialized to the scalar value $m$.
@@ -56,7 +56,7 @@ Vector::Vector(const Vector &vect)
 /*
 @LABEL:Vector::Vector(int l, double x1, double x2, ...)
 @SHORT:Constructor of the vector class with initialization.
-@RETURN:Vector : The initialized vector.
+@RETURN:Vector & The initialized vector.
 @ARG:int & l & Number of components.
 @ARG:double & x1 & first component of the vector to create.
 @ARG:double & x2 & second component of the vector to create.
@@ -373,7 +373,7 @@ Vector &Vector::operator=(const Vector &vect)
 @LABEL:Vector::operator+(Vector y)
 @SHORT:Addition of 2 vectors.
 @ARG:Vector & y & Vector to add to the current one.
-@RETURN:Vector : Result of the addition operation.
+@RETURN:Vector & Result of the addition operation.
 This method defines the addition of 2 vectors.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -438,7 +438,7 @@ void Vector::operator+=(const Vector &vect)
 @LABEL:Vector::operator-(Vector y)
 @SHORT:Difference of 2 vectors.
 @ARG:Vector & y & Vector to subtract to the current one.
-@RETURN:Vector : Result of the difference operation.
+@RETURN:Vector & Result of the difference operation.
 This method defines the difference of 2 vectors.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -500,7 +500,7 @@ void Vector::operator-=(const Vector &vect)
 /*
 @LABEL:Vector::operator-()
 @SHORT:Opposite of a vector.
-@RETURN:Vector : The opposite vector.
+@RETURN:Vector & The opposite vector.
 This method defines the opposite of a vector.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -524,7 +524,7 @@ Vector Vector::operator-() const
 @LABEL:Vector::operator*(double l)
 @SHORT:Multiplication of a vector by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Vector : Result of the multiplication operation.
+@RETURN:Vector & Result of the multiplication operation.
 This method defines the multiplication of a vector by a scalar value.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -571,7 +571,7 @@ void Vector::operator*=(const double lambda)
 @LABEL:Vector::operator/(double l)
 @SHORT:Division of a vector by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Vector : Result of the division operation.
+@RETURN:Vector & Result of the division operation.
 This method defines the division of a vector by a scalar value.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -648,7 +648,7 @@ Vector operator*(const double lambda, const Vector &vect)
 /*
 @LABEL:Vector::norm()
 @SHORT:Returns the norm of a vector.
-@RETURN:double : The norm of the vector.
+@RETURN:double & The norm of the vector.
 This method returns the norm $s$ of a vector $\overrightarrow{x}$ defined by:
 \begin{equation*}
 s = \left\Vert \overrightarrow{x} \right\Vert = \sqrt {x_{1}^2 + x_{2}^2 + ... + x_{n}^2}
@@ -671,7 +671,7 @@ double Vector::norm()
 /*
 @LABEL:Vector::dot()
 @SHORT:Returns the dot product of a vector by itself.
-@RETURN:double : The dot product of the vector by itself.
+@RETURN:double & The dot product of the vector by itself.
 This method returns dot product of a vector by itself defined by:
 \begin{equation*}
  \left\Vert \overrightarrow{x} \right\Vert  = x_{1}^2 + x_{2}^2 + ... + x_{n}^2
@@ -694,7 +694,7 @@ double Vector::dot()
 /*
 @LABEL:Vector::dyadic()
 @SHORT:Dyadic product of a vector by itself.
-@RETURN:Matrix : The matrix result of the dyadic product.
+@RETURN:Matrix & The matrix result of the dyadic product.
 This method returns the dyadic product of two vectors defined by the following equation:
 \begin{equation*}
 \M = \overrightarrow{x}\otimes\overrightarrow{x},
@@ -794,7 +794,7 @@ Vector Vector::getNormalized()
 /*
 @LABEL:Vector::maxVal()
 @SHORT:Maximum value in a vector.
-@RETURN:double : The maximum component of the vector.
+@RETURN:double & The maximum component of the vector.
 This method returns the maximum value in a vector.
 @END
 */
@@ -814,7 +814,7 @@ double Vector::maxVal()
 /*
 @LABEL:Vector::minVal()
 @SHORT:Minumum value in a vector.
-@RETURN:double : The minimum component of the vector.
+@RETURN:double & The minimum component of the vector.
 This method returns the minimum value in a vector.
 @END
 */
@@ -834,7 +834,7 @@ double Vector::minVal()
 /*
 @LABEL:Vector::maxAbs()
 @SHORT:Maximum absolute value in a vector.
-@RETURN:double : The maximum component of the vector.
+@RETURN:double & The maximum component of the vector.
 This method returns the maximum absolute value in a vector.
 @END
 */
@@ -854,7 +854,7 @@ double Vector::maxAbs()
 /*
 @LABEL:Vector::minAbs()
 @SHORT:Minumum absolute value in a vector.
-@RETURN:double : The minimum component of the vector.
+@RETURN:double & The minimum component of the vector.
 This method returns the minimum absolute value in a vector.
 @END
 */
@@ -1067,7 +1067,7 @@ bool Vector::operator!=(const Vector &vec) const
 /*
 @LABEL:Vector::distance(Vector y)
 @SHORT:Distance between two points.
-@RETURN:double : The distance.
+@RETURN:double & The distance.
 This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
@@ -1095,7 +1095,7 @@ double Vector::distance(const Vector &vect) const
 /*
 @LABEL:Vector::squareDistance(Vector y)
 @SHORT:Square of distance between two points.
-@RETURN:double : The distance.
+@RETURN:double & The distance.
 This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2
@@ -1123,7 +1123,7 @@ double Vector::squareDistance(const Vector &vect) const
 /*
 @LABEL:Vector::dot(Vector y)
 @SHORT:Dot product of two vectors.
-@RETURN:double : The dot product.
+@RETURN:double & The dot product.
 @ARG:Vector & y & Vector $\overrightarrow{y}$ to use for the dot product operation.
 This method returns the dot product of two vectors defined by the following equation:
 \begin{equation*}
@@ -1155,7 +1155,7 @@ double Vector::dot(const Vector &V) const
 /*
 @LABEL:Vector::vectorProduct(Vector y)
 @SHORT:Vector product of two vectors.
-@RETURN:Vector : Result of the operation.
+@RETURN:Vector & Result of the operation.
 @WARNING:This method only works for two vectors with 3 components.
 @ARG:Vector & y & Vector $\overrightarrow{y}$ to use for the vector product operation.
 This method returns the vector product of two Vector defined by the following equation:
@@ -1194,7 +1194,7 @@ Vector Vector::vectorProduct(const Vector &vect) const
 /*
 @LABEL:Vector::ewInverse()
 @SHORT:Element-wise inverse of a vector
-@RETURN:Vector : Result of the operation.
+@RETURN:Vector & Result of the operation.
 This method returns a vector containing the inverse of all elements of the vector.
 \begin{equation*}
 y_i = 1/x_i,
@@ -1216,7 +1216,7 @@ Vector Vector::ewInverse()
 /*
 @LABEL:Vector::ewExp()
 @SHORT:Element-wise exponential of a vector
-@RETURN:Vector : Result of the operation.
+@RETURN:Vector & Result of the operation.
 This method returns a vector containing the exponential of all elements of the vector.
 \begin{equation*}
 y_i = \exp(x_i),
@@ -1237,7 +1237,7 @@ Vector Vector::ewExp()
 /*
 @LABEL:Vector::ewProduct(Vector y)
 @SHORT:Element-wise product of two vectors.
-@RETURN:Vector : Result of the operation.
+@RETURN:Vector & Result of the operation.
 @ARG:Vector&y&Vector $\overrightarrow{y}$ to use for the element-wise product operation.
 This method returns the vector product of two Vector defined by the following equation:
 \begin{equation*}
@@ -1259,7 +1259,7 @@ Vector Vector::ewProduct(const Vector &v2)
 /*
 @LABEL:Vector::ewSquare()
 @SHORT:Element-wise square of a vector
-@RETURN:Vector : Result of the operation.
+@RETURN:Vector & Result of the operation.
 This method returns a vector containing the square of all elements of the vector.
 \begin{equation*}
 y_i = (x_i)^2,
@@ -1281,7 +1281,7 @@ Vector Vector::ewSquare()
 @LABEL:Vector::ewSquare(double m)
 @SHORT:Element-wise addition of a real to a vector
 @ARG:double&m&Value to add to all components of the vector
-@RETURN:Vector : Result of the operation.
+@RETURN:Vector & Result of the operation.
 This method returns a vector containing all elements of the given vector plus a quantity.
 \begin{equation*}
 y_i = x_i + m,

@@ -22,7 +22,6 @@ class Tensor2;
 /*
 @LABEL:SymTensor2::SymTensor2
 @SHORT:Second order tensor class.
-The SymTensor2 library is used to store symmetric second order tensors defined in the \DynELA.
 The SymTensor2 class is used to store and manage data relative to a symmetric second order tensor which can be seen as a $3\times3$ matrix with the following form:
 \begin{equation*}
 \T=\left[\begin{array}{ccc}
@@ -197,7 +196,7 @@ inline void SymTensor2::setValue(const double val)
 @LABEL:SymTensor2::operator+=(SymTensor2 B)
 @SHORT:Addition of 2 second order tensors.
 @ARG:SymTensor2 & B & Second order tensor to add to the current one.
-@RETURN:SymTensor2 : Result of the addition operation.
+@RETURN:SymTensor2 & Result of the addition operation.
 This method defines the addition of 2 second order tensors.
 The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
@@ -223,7 +222,7 @@ inline void SymTensor2::operator+=(const SymTensor2 &tensor)
 @LABEL:SymTensor2::operator-=(SymTensor2 B)
 @SHORT:Difference of 2 second order tensors.
 @ARG:SymTensor2 & B & Second order tensor to add to the current one.
-@RETURN:SymTensor2 : Result of the difference operation.
+@RETURN:SymTensor2 & Result of the difference operation.
 This method defines the difference of 2 second order tensors.
 The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
@@ -249,7 +248,7 @@ inline void SymTensor2::operator-=(const SymTensor2 &tensor)
 @LABEL:SymTensor2::operator*=(double l)
 @SHORT:Multiplication of a symmetric second order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:SymTensor2 : Result of the multiplication operation.
+@RETURN:SymTensor2 & Result of the multiplication operation.
 This method defines the multiplication of a symmetric second order tensor by a scalar value.
 The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
@@ -274,7 +273,7 @@ inline void SymTensor2::operator*=(const double val)
 @LABEL:SymTensor2::operator/=(double l)
 @SHORT:Division of a symmetric second order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:SymTensor2 : Result of the division operation.
+@RETURN:SymTensor2 & Result of the division operation.
 This method defines the division of a symmetric second order tensor by a scalar value.
 The result of this operation is also a symmetric second order tensor defined by:
 \begin{equation*}
@@ -298,7 +297,7 @@ inline void SymTensor2::operator/=(const double val)
 /*
 @LABEL:SymTensor2::trace()
 @SHORT:Returns the trace of a symmetric second order tensor.
-@RETURN:double : The trace of the second order tensor.
+@RETURN:double & The trace of the second order tensor.
 This method returns the trace of a symmetric second order tensor, i.e. the sum $s$ of all the terms of the diagonal:
 \begin{equation*}
 s = \tr[\T] = T_{11}+T_{22}+T_{33}
@@ -316,7 +315,7 @@ inline double SymTensor2::trace() const
 /*
 @LABEL:SymTensor2::thirdTrace()
 @SHORT:Returns the average value of the trace of a symmetric second order tensor.
-@RETURN:double : The third of the trace of the second order tensor.
+@RETURN:double & The third of the trace of the second order tensor.
 This method returns average value of the trace of a symmetric second order tensor, i.e. the sum $s$ of all the terms of the diagonal divided by 3:
 \begin{equation*}
 s = \frac{1}{3} \tr[\T] =  \frac{1}{3} \left( T_{11}+T_{22}+T_{33} \right)
@@ -334,7 +333,7 @@ inline double SymTensor2::thirdTrace() const
 /*
 @LABEL:SymTensor2::vonMises()
 @SHORT:Returns the von Mises stress of a symmetric second order tensor.
-@RETURN:double : the von Mises equivalent stress.
+@RETURN:double & the von Mises equivalent stress.
 This method returns the von Mises stress of a symmetric second order tensor defined by:
 \begin{equation*}
 \overline{\sigma} = \frac {1}{\sqrt{2}}\sqrt{(s_{11}-s_{22})^2+(s_{22}-s_{33})^2+(s_{33}-s_{11})^2+6(s_{12}^2+s_{23}^2+s_{31}^2)}
@@ -352,7 +351,7 @@ inline double SymTensor2::vonMises() const
 /*
 @LABEL:SymTensor2::norm()
 @SHORT:Norm of a symmetric second order tensor.
-@RETURN:double : The norm of the second order tensor.
+@RETURN:double & The norm of the second order tensor.
 This method returns the norm $s$ of a symmetric second order tensor $\T$ defined by:\begin{equation*}
 s = \left\Vert \T \right\Vert  = \sqrt {T_{ij}:T_{ij}}
 \end{equation*}
@@ -388,7 +387,7 @@ inline double SymTensor2::J2() const
 /*
 @LABEL:SymTensor2::det()
 @SHORT:Determinant of a symmetric second order tensor.
-@RETURN:double : The determinant.
+@RETURN:double & The determinant.
 This method returns the determinant of a symmetric second second order tensor.
 The result of this operation is a scalar value defined by:
 \begin{equation*}

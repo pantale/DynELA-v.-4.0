@@ -15,7 +15,7 @@
 /*
 @LABEL:Element::Element(long n, double x, double y, double z)
 @SHORT:Constructor of the Element class with initialization.
-@RETURN:Element
+@RETURN:Element & 
 @ARG:long & n & Element number to create.
 @END
 */

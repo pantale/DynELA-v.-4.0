@@ -158,7 +158,7 @@ inline void Vec3D::setValue(double val)
 /*
 @LABEL:Vec3D::setValue(double x, double y, double z)
 @SHORT:Fill a vector with a scalar value.
-@RETURN:Vec3D : The new Vec3D object created by the constructor.
+@RETURN:Vec3D & The new Vec3D object created by the constructor.
 @ARG:double & x & Component $x_{1}$ of the vector to create.
 @ARG:double & y & Component $x_{2}$ of the vector to create.
 @ARG:double & z & Component $x_{3}$ of the vector to create.
@@ -238,7 +238,7 @@ inline Vec3D &Vec3D::operator=(const double *vals)
 @LABEL:Vec3D::operator+(Vec3D y)
 @SHORT:Addition of 2 vectors.
 @ARG:Vec3D & y & Vector to add to the current one.
-@RETURN:Vec3D : Result of the addition operation.
+@RETURN:Vec3D & Result of the addition operation.
 This method defines the addition of 2 vectors.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -258,7 +258,7 @@ inline Vec3D Vec3D::operator+(const Vec3D &vect) const
 @LABEL:Vec3D::operator-(Vec3D y)
 @SHORT:Difference of 2 vectors.
 @ARG:Vec3D & y & Vector to add to the current one.
-@RETURN:Vec3D : Result of the difference operation.
+@RETURN:Vec3D & Result of the difference operation.
 This method defines the difference of 2 vectors.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -277,7 +277,7 @@ inline Vec3D Vec3D::operator-(const Vec3D &vect) const
 /*
 @LABEL:Vec3D::operator-(Vec3D x)
 @SHORT:Opposite of a vector.
-@RETURN:Vec3D : Result of the opposite operation.
+@RETURN:Vec3D & Result of the opposite operation.
 This method defines the opposite of a vector.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -297,7 +297,7 @@ inline Vec3D Vec3D::operator-() const
 @LABEL:Vec3D::operator+=(Vec3D y)
 @SHORT:Addition of 2 vectors.
 @ARG:Vec3D & y & Vector to add to the current one.
-@RETURN:Vec3D : Result of the addition operation.
+@RETURN:Vec3D & Result of the addition operation.
 This method defines the addition of 2 vectors.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -319,7 +319,7 @@ inline void Vec3D::operator+=(const Vec3D &vect)
 @LABEL:Vec3D::operator-=(Vec3D y)
 @SHORT:Difference of 2 vectors.
 @ARG:Vec3D & y & Vector to add to the current one.
-@RETURN:Vec3D : Result of the difference operation.
+@RETURN:Vec3D & Result of the difference operation.
 This method defines the difference of 2 vectors.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -341,7 +341,7 @@ inline void Vec3D::operator-=(const Vec3D &vect)
 @LABEL:Vec3D::operator*=(double l)
 @SHORT:Multiplication of a vector by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Vec3D : Result of the multiplication operation.
+@RETURN:Vec3D & Result of the multiplication operation.
 This method defines the multiplication of a vector by a scalar value.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -363,7 +363,7 @@ inline void Vec3D::operator*=(const double lambda)
 @LABEL:Vec3D::operator/=(double l)
 @SHORT:Division of a vector by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Vec3D : Result of the division operation.
+@RETURN:Vec3D & Result of the division operation.
 This method defines the division of a vector by a scalar value.
 The result of this operation is also a vector defined by:
 \begin{equation*}
@@ -388,7 +388,7 @@ inline void Vec3D::operator/=(const double lambda)
 /*
 @LABEL:Vec3D::J2()
 @SHORT:J2 norm of a vector.
-@RETURN:double : The J2 of the vector.
+@RETURN:double & The J2 of the vector.
 This method returns the J2 norm $s$ of a vector $\overrightarrow{x}$ defined by:
 \begin{equation*}
 s = \left\Vert \overrightarrow{x} \right\Vert  = \sqrt {x_{1}^2 + x_{2}^2 + x_{3}^2}
@@ -406,7 +406,7 @@ inline double Vec3D::norm()
 /*
 @LABEL:Vec3D::squareNorm()
 @SHORT:Square norm of a vector.
-@RETURN:double : The square of the vector.
+@RETURN:double & The square of the vector.
 This method returns the square norm $s$ of a vector $\overrightarrow{x}$ defined by:
 \begin{equation*}
 s = \left\Vert \overrightarrow{x} \right\Vert^2  = {x_{1}^2 + x_{2}^2 + x_{3}^2}
@@ -424,7 +424,7 @@ inline double Vec3D::squareNorm()
 /*
 @LABEL:Vec3D::dot()
 @SHORT:Returns the dot product of a Vec3D by itself.
-@RETURN:double : The dot product.
+@RETURN:double & The dot product.
 This method returns dot product of a Vec3D by itself defined by:
 \begin{equation*}
 \left\Vert \overrightarrow{x} \right\Vert^2  = x_{1}^2 + x_{2}^2 + x_{3}^2
@@ -490,7 +490,7 @@ inline void Vec3D::setNegativeValuesToZero()
 /*
 @LABEL:Vec3D::distance(Vec3D y)
 @SHORT:Distance between two points.
-@RETURN:double : The distance.
+@RETURN:double & The distance.
 This method computes the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = \left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert
@@ -509,7 +509,7 @@ inline double Vec3D::distance(const Vec3D &vect) const
 /*
 @LABEL:Vec3D::squareDistance(Vec3D y)
 @SHORT:Square of distance between two points.
-@RETURN:double : The distance.
+@RETURN:double & The distance.
 This method computes the square of the distance between two points using an Euclidian norm.
 \begin{equation*}
 d = {\left\Vert \overrightarrow{y} - \overrightarrow{x} \right\Vert}^2

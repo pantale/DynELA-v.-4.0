@@ -21,7 +21,6 @@ class Tensor2;
 /*
 @LABEL:Tensor3::Tensor3
 @SHORT:Third order tensor class.
-The Tensor3 library is used to store third order tensors defined in the \DynELA.
 The Tensor3 class is used to store and manage data relative to a third order tensor which can be seen as a $3\times3\times3$ matrix hard to represent on a plane,
 where $T_{ijk}$ are the components of the third order tensor $\T$.
 Concerning the internal storage of data, the Tensor3 data is stored in a vector of $27$ components named \textsf{\_data}.
@@ -137,7 +136,7 @@ inline void Tensor3::setValue(double val)
 @LABEL:Tensor3::operator+=(Tensor3 B)
 @SHORT:Addition of 2 third order tensors.
 @ARG:Tensor3 & B & Third order tensor to add to the current one.
-@RETURN:Tensor3 : Result of the addition operation.
+@RETURN:Tensor3 & Result of the addition operation.
 This method defines the addition of 2 third order tensors.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -161,7 +160,7 @@ inline void Tensor3::operator+=(const Tensor3 &tens)
 @LABEL:Tensor3::operator-=(Tensor3 B)
 @SHORT:Difference of 2 third order tensors.
 @ARG:Tensor3 & B & Third order tensor to add to the current one.
-@RETURN:Tensor3 : Result of the difference operation.
+@RETURN:Tensor3 & Result of the difference operation.
 This method defines the difference of 2 third order tensors.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -185,7 +184,7 @@ inline void Tensor3::operator-=(const Tensor3 &tens)
 @LABEL:Tensor3::operator*=(double l)
 @SHORT:Multiplication of a third order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor3 : Result of the multiplication operation.
+@RETURN:Tensor3 & Result of the multiplication operation.
 This method defines the multiplication of a third order tensor by a scalar value.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -208,7 +207,7 @@ inline void Tensor3::operator*=(const double val)
 @LABEL:Tensor3::operator/=(double l)
 @SHORT:Division of a third order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor3 : Result of the division operation.
+@RETURN:Tensor3 & Result of the division operation.
 This method defines the division of a third order tensor by a scalar value.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}

@@ -169,7 +169,7 @@ def writeTex(out, key):
  
         # Writes the return
         if dc[1]!='' :
-            ln += ("\\\\ \\hspace*{10mm}$\\hookrightarrow$ "+dc[1])
+            ln += ("\\\\ \\hspace*{5mm}$\\hookrightarrow$\n\\vspace*{-2em}\\begin{tcolorbox}[grow to left by=-1cm, width=\\textwidth-1cm,myArgs,tabularx={l|R}]\n"+dc[1]+"\n\\end{tcolorbox}")
         out.append(ln)
         out.append('')
             

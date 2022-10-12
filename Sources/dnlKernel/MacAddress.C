@@ -25,7 +25,7 @@
 /*
 @LABEL:MacAddresses::MacAddresses()
 @SHORT:Default constructor of the MacAddresses class.
-@RETURN:MacAddresses
+@RETURN:MacAddresses&
 @END
 */
 //-----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ MacAddresses::MacAddresses()
 /*
 @LABEL:MacAddresses::getAddress(int n)
 @SHORT:Return the Mac Address \#n from the list.
-@RETURN:String
+@RETURN:String&
 @ARG:int&n&The index of the MacAddresses to return.
 @END
 */
@@ -91,7 +91,7 @@ String MacAddresses::getAddress(int n)
 /*
 @LABEL:MacAddresses::getInterface(int n)
 @SHORT:Return the Internet interface \#n from the list.
-@RETURN:String
+@RETURN:String&
 @ARG:int&n&The index of the Internet interface to return.
 @END
 */
@@ -107,7 +107,7 @@ String MacAddresses::getInterface(int n)
 /*
 @LABEL:MacAddresses::getNumber()
 @SHORT:Return the number of Internet interfaces of the computer.
-@RETURN:int
+@RETURN:int&
 @END
 */
 //-----------------------------------------------------------------------------

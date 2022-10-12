@@ -19,7 +19,7 @@
 /*
 @LABEL:Matrix::Matrix(long r, long c, double m)
 @SHORT:Constructor of the Matrix class with initialization.
-@RETURN:Matrix : The initialized matrix.
+@RETURN:Matrix & The initialized matrix.
 @ARG:long & r & Number of rows of the matrix to create.
 @ARG:long & c & Number of cols of the matrix to create.
 @ARG:double & m & Value to give to each element of the new matrix.
@@ -60,7 +60,7 @@ Matrix::Matrix(const Matrix &mat)
 /*
 @LABEL:Matrix::Matrix(int r, int c, double x1, double x2, ...)
 @SHORT:Constructor of the matrix class with initialization.
-@RETURN:Matrix : The initialized matrix.
+@RETURN:Matrix & The initialized matrix.
 @ARG:int & r & Number of rows of the matrix to create.
 @ARG:int & c & Number of cols of the matrix to create.
 @ARG:double & x1 & first component of the matrix to create.
@@ -257,7 +257,7 @@ void Matrix::setToUnity()
 /*
 @LABEL:Matrix::maxVal()
 @SHORT:Maximum component in a matrix.
-@RETURN:double : The maximum component of the matrix.
+@RETURN:double & The maximum component of the matrix.
 This method returns the maximum component in a matrix.
 @END
 */
@@ -277,7 +277,7 @@ double Matrix::maxVal() const
 /*
 @LABEL:Matrix::minVal()
 @SHORT:Minimum component in a matrix.
-@RETURN:double : The minimum component of the matrix.
+@RETURN:double & The minimum component of the matrix.
 This method returns the minimum component in a matrix.
 @END
 */
@@ -297,7 +297,7 @@ double Matrix::minVal() const
 /*
 @LABEL:Matrix::maxAbs()
 @SHORT:Maximum absolute component in a matrix.
-@RETURN:double : The maximum component of the matrix.
+@RETURN:double & The maximum component of the matrix.
 This method returns the maximum absolute component in a matrix.
 @END
 */
@@ -317,7 +317,7 @@ double Matrix::maxAbs() const
 /*
 @LABEL:Matrix::minAbs()
 @SHORT:Minimum absolute component in a matrix.
-@RETURN:double : The minimum component of the matrix.
+@RETURN:double & The minimum component of the matrix.
 This method returns the minimum absolute component in a matrix.
 @END
 */
@@ -337,7 +337,7 @@ double Matrix::minAbs() const
 /*
 @LABEL:Matrix::operator=(double m)
 @SHORT:Fill a matrix with a scalar value.
-@RETURN:Matrix
+@RETURN:Matrix&
 @ARG:double & m & Value to use for the operation.
 This method is a surdefinition of the = operator for the matrix class.
 \begin{equation*}
@@ -376,7 +376,7 @@ Matrix &Matrix::operator=(const Matrix &mat)
 /*
 @LABEL:Matrix::operator=(Tensor2 T)
 @SHORT:Copy the content of a Tensor2 into a Matrix.
-@RETURN:Matrix
+@RETURN:Matrix&
 @ARG:Tensor2 & T & Second order tensor to copy.
 The result of this operation is a matrix as a copy of a second order tensor where $\T$ is a matrix defined by the object itself.
 @END
@@ -398,7 +398,7 @@ Matrix &Matrix::operator=(const Tensor2 &tens)
 @LABEL:Matrix::operator+(Matrix B)
 @SHORT:Addition of 2 matrices.
 @ARG:Matrix & B & Matrix to add to the current one.
-@RETURN:Matrix : Result of the addition operation.
+@RETURN:Matrix & Result of the addition operation.
 This method defines the addition of 2 matrices.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -436,7 +436,7 @@ Matrix Matrix::operator+(const Matrix &mat) const
 @LABEL:Matrix::operator-(Matrix B)
 @SHORT:Difference of 2 matrices.
 @ARG:Matrix & B & Matrix to subtract to the current one.
-@RETURN:Matrix : Result of the difference operation.
+@RETURN:Matrix & Result of the difference operation.
 This method defines the difference of 2 matrices.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -473,7 +473,7 @@ Matrix Matrix::operator-(const Matrix &mat) const
 /*
 @LABEL:Matrix::operator-()
 @SHORT:Opposite of a matrix.
-@RETURN:Matrix : The opposite matrix.
+@RETURN:Matrix & The opposite matrix.
 This method defines the opposite of a matrix.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -503,7 +503,7 @@ Matrix Matrix::operator-() const
 @LABEL:Matrix::operator+=(Matrix B)
 @SHORT:Addition of 2 matrices.
 @ARG:Matrix & B & Second matrix to add to the current one.
-@RETURN:Matrix : Result of the addition operation.
+@RETURN:Matrix & Result of the addition operation.
 This method defines the addition of 2 matrices.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -535,7 +535,7 @@ void Matrix::operator+=(const Matrix &mat)
 @LABEL:Matrix::operator-=(Matrix B)
 @SHORT:Difference of 2 matrices.
 @ARG:Matrix & B & Second matrix to add to the current one.
-@RETURN:Matrix : Result of the difference operation.
+@RETURN:Matrix & Result of the difference operation.
 This method defines the difference of 2 matrices.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -567,7 +567,7 @@ void Matrix::operator-=(const Matrix &mat)
 @LABEL:Matrix::operator*(double l)
 @SHORT:Multiplication of a matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 This method defines the multiplication of a matrix by a scalar value.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -592,7 +592,7 @@ Matrix Matrix::operator*(const double &lambda) const
 @LABEL:Matrix::operator*=(double l)
 @SHORT:Multiplication of a matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 This method defines the multiplication of a matrix by a scalar value.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -615,7 +615,7 @@ void Matrix::operator*=(const double &lambda)
 @LABEL:Matrix::operator/=(double l)
 @SHORT:Division of a matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Matrix : Result of the division operation.
+@RETURN:Matrix & Result of the division operation.
 This method defines the division of a matrix by a scalar value.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -638,7 +638,7 @@ void Matrix::operator/=(const double &lambda)
 @LABEL:Matrix::operator/(double l)
 @SHORT:Division of a matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Matrix : Result of the division operation.
+@RETURN:Matrix & Result of the division operation.
 This method defines the division of a matrix by a scalar value.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -664,7 +664,7 @@ Matrix Matrix::operator/(const double &lambda) const
 @SHORT:Multiplication of a matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
 @ARG:Matrix & A & Matrix to use for the operation.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 This method defines the multiplication of a matrix by a scalar value.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -688,7 +688,7 @@ Matrix operator*(const double &lambda, const Matrix &mat)
 /*
 @LABEL:Matrix::operator*(Matrix B)
 @SHORT:Single contracted product of two matrices.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 @ARG:Matrix & B & Second matrix for the multiplication operation.
 This method defines a single contracted product of two matrices.
 The result of this operation is also a matrix defined by:
@@ -708,7 +708,7 @@ Matrix Matrix::operator*(const Matrix &mat) const
 /*
 @LABEL:Matrix::dot()
 @SHORT:Single contracted product of a matrix by itself.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 This method defines a single contracted product of a matrix by itself.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -739,7 +739,7 @@ Matrix Matrix::dot() const
 /*
 @LABEL:Matrix::dotTxN()
 @SHORT:Single contracted product of a matrix by its transpose.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 This method defines a single contracted product of a matrix by its transpose.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -763,7 +763,7 @@ Matrix Matrix::dotTxN() const
 /*
 @LABEL:Matrix::dotNxT()
 @SHORT:Single contracted product of a matrix by its transpose.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 This method defines a single contracted product of a matrix by its transpose.
 The result of this operation is also a matrix defined by:
 \begin{equation*}
@@ -787,7 +787,7 @@ Matrix Matrix::dotNxT() const
 /*
 @LABEL:Matrix::dot(Matrix B)
 @SHORT:Single contracted product of two matrices.
-@RETURN:Matrix : Result of the multiplication operation.
+@RETURN:Matrix & Result of the multiplication operation.
 @ARG:Matrix & B & Second matrix for the multiplication operation.
 This method defines a single contracted product of two matrices.
 The result of this operation is also a matrix defined by:
@@ -820,7 +820,7 @@ Matrix Matrix::dot(const Matrix mat) const
 /*
 @LABEL:Matrix::doubleDot()
 @SHORT:Double contracted product of a matrix by itself.
-@RETURN:double : Result of the multiplication operation.
+@RETURN:double & Result of the multiplication operation.
 This method defines a double contracted product of a matrix by itself.
 The result of this operation is a scalar $s$ defined by:
 \begin{equation*}
@@ -843,7 +843,7 @@ double Matrix::doubleDot() const
 /*
 @LABEL:Matrix::doubleDot(Matrix B)
 @SHORT:Double contracted product of 2 matrices.
-@RETURN:double : Result of the multiplication operation.
+@RETURN:double & Result of the multiplication operation.
 @ARG:Matrix & B & Second matrix for the multiplication operation.
 This method defines a double contracted product of two matrices.
 The result of this operation is a scalar $s$ defined by:
@@ -972,7 +972,7 @@ void Matrix::squareDivideBy(const MatrixDiag &mat)
 /*
 @LABEL:Matrix::dotTxN(Vector V)
 @SHORT:Multiplication of a matrix by a vector.
-@RETURN:Vector : Result of the multiplication operation.
+@RETURN:Vector & Result of the multiplication operation.
 @ARG:Vector & V & Vector to use for the multiplication operation.
 This method defines the product of a matrix by a vector.
 The result of this operation is also a vector defined by:
@@ -1005,7 +1005,7 @@ Vector Matrix::dotTxN(const Vector &vec) const
 /*
 @LABEL:Matrix::operator*(Vector V)
 @SHORT:Multiplication of a matrix by a vector.
-@RETURN:Vector : Result of the multiplication operation.
+@RETURN:Vector & Result of the multiplication operation.
 @ARG:Vector & V & Vector to use for the multiplication operation.
 This method defines the product of a matrix by a vector.
 The result of this operation is also a vector defined by:
@@ -1074,7 +1074,7 @@ void Matrix::dot(Vector &resu) const
 /*
 @LABEL:Matrix::trace()
 @SHORT:Returns the trace of a matrix.
-@RETURN:double : The trace of the matrix.
+@RETURN:double & The trace of the matrix.
 This method returns the trace of a matrix, i.e. the sum $s$ of all the terms of the diagonal:
 \begin{equation*}
 s = \tr[\M] = M_{11}+M_{22}+\hdots+M_{nn}
@@ -1104,7 +1104,7 @@ double Matrix::trace() const
 /*
 @LABEL:Matrix::averageTrace()
 @SHORT:Returns the average trace of a matrix.
-@RETURN:double : The average trace of the matrix.
+@RETURN:double & The average trace of the matrix.
 This method returns the average trace of a matrix, i.e. the sum $s$ of all the terms of the diagonal divided by the number of terms on the diagonal:
 \begin{equation*}
 s = \frac{1}{n} \tr[\M] = \frac{1}{n} M_{11}+M_{22}+\hdots+M_{nn}
@@ -1134,7 +1134,7 @@ double Matrix::averageTrace() const
 /*
 @LABEL:Matrix::transpose()
 @SHORT:Transpose of a matrix.
-@RETURN:Matrix : The transpose of the matrix.
+@RETURN:Matrix & The transpose of the matrix.
 This method defines the transpose of a matrix.
 @END
 */
@@ -1182,7 +1182,7 @@ Vector Matrix::colSum() const
 /*
 @LABEL:Matrix::symmetric()
 @SHORT:Symmetric part of a matrix.
-@RETURN:Matrix : The symmetric part of the matrix.
+@RETURN:Matrix & The symmetric part of the matrix.
 This method defines the symmetric part of a matrix with the following:
 \begin{equation*}
 \B = \frac{1}{2} \left( \A + \A^T \right)
@@ -1213,7 +1213,7 @@ Matrix Matrix::symmetric() const
 /*
 @LABEL:Matrix::skewSymmetric()
 @SHORT:Skew-symmetric part of a matrix.
-@RETURN:Matrix : The skew-symmetric part of the matrix.
+@RETURN:Matrix & The skew-symmetric part of the matrix.
 This method defines the skew-symmetric part of a matrix with the following:
 \begin{equation*}
 \B = \frac{1}{2} \left( \A - \A^T \right)
@@ -1244,7 +1244,7 @@ Matrix Matrix::skewSymmetric() const
 /*
 @LABEL:Matrix::row(short r)
 @SHORT:Extraction of a row from a matrix.
-@RETURN:Vec3D : The extracted row.
+@RETURN:Vec3D & The extracted row.
 @ARG:short & r & Row to extract
 This method returns a vector as part of a matrix.
 The result of this operation with the argument r is a vector defined by:
@@ -1271,7 +1271,7 @@ Vector Matrix::row(long row) const
 /*
 @LABEL:Matrix::col(short c)
 @SHORT:Extraction of a column from a matrix.
-@RETURN:Vec3D : The extracted col.
+@RETURN:Vec3D & The extracted col.
 @ARG:short & c & Column to extract
 This method returns a vector as part of a matrix.
 The result of this operation with the argument c is a vector defined by:
@@ -1375,7 +1375,7 @@ long Matrix::Memory() const
 /*
 @LABEL:Matrix::det2()
 @SHORT:Determinant of a $2 \times 2$ matrix.
-@RETURN:double : The determinant.
+@RETURN:double & The determinant.
 This method returns the determinant of a $2 \times 2$ matrix.
 The result of this operation is a scalar value defined by:
 \begin{equation*}
@@ -1400,7 +1400,7 @@ double Matrix::det2() const
 /*
 @LABEL:Matrix::det3()
 @SHORT:Determinant of a $3 \times 3$ matrix.
-@RETURN:double : The determinant.
+@RETURN:double & The determinant.
 This method returns the determinant of a $3 \times 3$ matrix.
 The result of this operation is a scalar value defined by:
 \begin{equation*}
@@ -1430,7 +1430,7 @@ double Matrix::det3() const
 /*
 @LABEL:Matrix::det()
 @SHORT:Determinant of a matrix.
-@RETURN:double : The determinant.
+@RETURN:double & The determinant.
 This method returns the determinant of a matrix.
 This method uses the Lapack \textsf{dgetrf} Fortran subroutine to perform the operation.
 @END
@@ -1493,7 +1493,7 @@ double Matrix::det() const
 /*
 @LABEL:Matrix::cofactors()
 @SHORT:Cofactors of a matrix.
-@RETURN:Matrix : The cofactor of the matrix.
+@RETURN:Matrix & The cofactor of the matrix.
 This method returns the cofactor of a matrix defined by the following equation:
 \begin{equation*}
 \C = \det[\A] \cdot {\A^{-1}}^T
@@ -1595,7 +1595,7 @@ void Matrix::computeInverse3x3(double det, Matrix &inverse) const
 /*
 @LABEL:Matrix::inverse()
 @SHORT:Inverse of a matrix.
-@RETURN:Matrix : The inverse of the matrix.
+@RETURN:Matrix & The inverse of the matrix.
 This method returns the inverse of a matrix.
 This method uses the Lapack \textsf{dgetrf} and \textsf{dgetri} Fortran subroutines to perform the operation.
 @END
@@ -1653,7 +1653,7 @@ Matrix Matrix::inverse() const
 /*
 @LABEL:Matrix::getSolve(Vector x)
 @SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
-@RETURN:Vector : The solution of the linear system.
+@RETURN:Vector & The solution of the linear system.
 This method returns the solution of a linear system with the following form:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}

@@ -17,7 +17,7 @@
 /*
 @LABEL:Tensor3::Tensor3()
 @SHORT:Default constructor of the Tensor3 class.
-@RETURN:Tensor3 : The new Tensor3 object created by the constructor.
+@RETURN:Tensor3 & The new Tensor3 object created by the constructor.
 This is the default constructor of the Tensor3 class, where all components are initialized to zero by default.
 @END
 */
@@ -128,7 +128,7 @@ Tensor3 &Tensor3::operator=(const Tensor3 &T)
 @LABEL:Tensor3::operator+(Tensor3 B)
 @SHORT:Addition of 2 third order tensors.
 @ARG:Tensor3 & B & Third order tensor to add to the current one.
-@RETURN:Tensor3 : Result of the addition operation.
+@RETURN:Tensor3 & Result of the addition operation.
 This method defines the addition of 2 third order tensors.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -158,7 +158,7 @@ Tensor3 Tensor3::operator+(const Tensor3 &T) const
 @LABEL:Tensor3::operator-(Tensor3 B)
 @SHORT:Subtraction of 2 third order tensors.
 @ARG:Tensor3 & B & Third order tensor to subtract to the current one.
-@RETURN:Tensor3 : Result of the difference operation.
+@RETURN:Tensor3 & Result of the difference operation.
 This method defines the subtraction of 2 third order tensors.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -188,7 +188,7 @@ Tensor3 Tensor3::operator-(const Tensor3 &T) const
 @LABEL:Tensor3::operator*(double l)
 @SHORT:Multiplication of a third order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor3 : Result of the multiplication operation.
+@RETURN:Tensor3 & Result of the multiplication operation.
 This method defines the multiplication of a third order tensor by a scalar value.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -215,7 +215,7 @@ Tensor3 Tensor3::operator*(const double &lambda) const
 @LABEL:Tensor3::operator/(double l)
 @SHORT:Division of a third order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor3 : Result of the division operation.
+@RETURN:Tensor3 & Result of the division operation.
 This method defines the division of a third order tensor by a scalar value.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -243,7 +243,7 @@ Tensor3 Tensor3::operator/(const double &lambda) const
 @SHORT:Multiplication of a third order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
 @ARG:Tensor3 & A & Third order tensor to use for the operation.
-@RETURN:Tensor3 : Result of the multiplication operation.
+@RETURN:Tensor3 & Result of the multiplication operation.
 This method defines the multiplication of a third order tensor by a scalar value.
 The result of this operation is also a third order tensor defined by:
 \begin{equation*}
@@ -269,7 +269,7 @@ Tensor3 operator*(const double &l, const Tensor3 &T)
 /*
 @LABEL:Tensor3::operator*(Vec3D V)
 @SHORT:Multiplication of a third order tensor by a vector.
-@RETURN:Tensor2 : Result of the multiplication operation.
+@RETURN:Tensor2 & Result of the multiplication operation.
 @ARG:Vec3D & V & Vec3D to use for the multiplication operation.
 This method defines the product of a third order tensor by a vector.
 The result of this operation is a second order tensor defined by:

@@ -21,7 +21,7 @@
 @LABEL:System::execute(String s)
 @SHORT:Execution of a system command
 @ARG:String & s & System command to launch.
-@RETURN:int : Status of the system command. A value of 0 is returned if everything works well, another value is returned if a problem was encountered during execution.
+@RETURN:int & Status of the system command. A value of 0 is returned if everything works well, another value is returned if a problem was encountered during execution.
 This method executes an external command. Launching a new process through the system() command.
 The new program is a new process totally independent from the current application.
 The only link is that the calling program waits for the end of the execution of the new process to continue the operations (except if we use the magic parameter \& in the command line...).
@@ -53,7 +53,7 @@ int System::execute(const String &commandToExecute)
 @LABEL:System::env(String s)
 @SHORT:Retrieve the value associated with an environment variable
 @ARG:String & s & Environment variable.
-@RETURN:String : Value associated with the environment variable in the form of String
+@RETURN:String & Value associated with the environment variable in the form of String
 This method retrieves the value associated with a System environment variable. If this variable is not defined, this method returns the following string "cannot get environment value". The returned value is of type String.
 @END
 */
@@ -83,7 +83,7 @@ String System::env(const String &envname)
 @LABEL:System::existEnv(String s)
 @SHORT:Tests for the presence of a defined environment variable
 @ARG:String & s & Environment variable.
-@RETURN:bool : true if the environment variable is set on the system, false if not.
+@RETURN:bool & true if the environment variable is set on the system, false if not.
 This method tests the definition of an environment variable. It returns a boolean value that indicates the state of definition of this environment variable.
 @END
 */
@@ -104,7 +104,7 @@ bool System::existEnv(const String &envname)
 /*
 @LABEL:System::login()
 @SHORT:Returns the user's login.
-@RETURN:String : The user's login or "unknown user" if this information cannot be given.
+@RETURN:String & The user's login or "unknown user" if this information cannot be given.
 This method returns the login of the system user in the form of a string.
 @END
 */
@@ -130,7 +130,7 @@ String System::login()
 /*
 @LABEL:System::hostname()
 @SHORT:Returns the machine name
-@RETURN:String : Machine name or "unknown host" if this information cannot be given.
+@RETURN:String & Machine name or "unknown host" if this information cannot be given.
 This method returns the name of the machine on which the application is running.
 @END
 */
@@ -160,7 +160,7 @@ String System::hostname()
 @LABEL:System::getDate(bool b)
 @ARGS:bool & b & Nature of the result returned
 @SHORT:Returns the current date and time
-@RETURN:String : Current date and time or "unknown date" if this information cannot be given.
+@RETURN:String & Current date and time or "unknown date" if this information cannot be given.
 This method returns the current date and time at the system level.
   - full this boolean value defines the nature of the result returned. If the value is true then the format is the full format of the form (Fri Jan 25 15:08:24 2002) if the value is false then the format returned is the short format of the form (Jan 25, 2002). The default value if nothing is accurate is true.
 @END
@@ -204,7 +204,7 @@ String System::getDate(bool full)
 /*
 @LABEL:System::getTime()
 @SHORT:Returns the current time
-@RETURN:String : Vlue of the current time as a String (format: 14:23:26)
+@RETURN:String & Vlue of the current time as a String (format: 14:23:26)
 This method returns the current time to the system level.
 @END
 */
@@ -224,7 +224,7 @@ String System::getTime()
 /*
 @LABEL:System::pathname()
 @SHORT:Returns the name of the current directory
-@RETURN:String : Current directory or "unknown pathname" if this information cannot be given.
+@RETURN:String & Current directory or "unknown pathname" if this information cannot be given.
 This method returns the name of the current directory from which the execution was started.
 @END
 */
@@ -255,7 +255,7 @@ String System::pathname()
 /*
 @LABEL:System::execPath()
 @SHORT:Returns the execution path of the current application path
-@RETURN:String : Current path or "unknown pathname" if this information cannot be given.
+@RETURN:String & Current path or "unknown pathname" if this information cannot be given.
 This method returns the name of the current application path from which the execution was started.
 @END
 */
@@ -277,7 +277,7 @@ String System::execPath()
 /*
 @LABEL:System::hostID()
 @SHORT:Returns the host back from the machine
-@RETURN:String : hostId of the machine.
+@RETURN:String & hostId of the machine.
 This method returns the host of the machine on which the program is executed. The host is an integer value usually given in hexadecimal form 0xFFFFFFFFFFFFFF on 32 bits. This number is unique per machine.
 @END
 */

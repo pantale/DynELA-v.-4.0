@@ -13,7 +13,7 @@
 /*
 @LABEL:ColorMap::ColorMap()
 @SHORT:Default constructor of the ColorMap class.
-@RETURN:ColorMap : The new ColorMap object created by the constructor.
+@RETURN:ColorMap & The new ColorMap object created by the constructor.
 This is the default constructor of the ColorMap class. By default, the associated color map is the deep color map.
 @END
 */
@@ -392,7 +392,7 @@ void ColorMap::setLevels(int levels)
 /*
 @LABEL:ColorMap::getIntColor(double val)
 @ARGS:double & val & Value color value from 0 to 1.
-@RETURN: int : the index of the color.
+@RETURN: int & The index of the color.
 @SHORT:Get the color index of a value.
 @END
 */
@@ -422,7 +422,7 @@ int ColorMap::getIntColor(double value)
 @LABEL:ColorMap::getVec3DColor(double val, bool s)
 @ARGS:double & val & Value color value from 0 to 1.
 @ARGS:double & s & If the steps have to be takent into account.
-@RETURN: Vec3D : the RGB components of the color.
+@RETURN: Vec3D & the RGB components of the color.
 @SHORT:Get the color as RGB components.
 If the color is out of range, this method returns black if the value is lower than the minimum value, white if it is larger than the highest value.
 @END
@@ -458,7 +458,7 @@ Vec3D ColorMap::getVec3DColor(double value, bool steps)
 @LABEL:ColorMap::getStringColor(double val, bool s)
 @ARGS:double & val & Value color value from 0 to 1.
 @ARGS:double & s & If the steps have to be takent into account.
-@RETURN: String : the String components of the color.
+@RETURN: String & the String components of the color.
 @SHORT:Get the color as String components.
 If the color is out of range, this method returns black if the value is lower than the minimum value, white if it is larger than the highest value.
 @END
@@ -499,7 +499,7 @@ void ColorMap::getBounds(double &min, double &max, int &levels)
 
 /*
 @LABEL:ColorMap::getMax()
-@RETURN:double : The maximum value of the range.
+@RETURN:double & The maximum value of the range.
 @SHORT:Get the max value of the current color map.
 @END
 */
@@ -512,7 +512,7 @@ double ColorMap::getMax()
 
 /*
 @LABEL:ColorMap::getMin()
-@RETURN:double : The minimum value of the range.
+@RETURN:double & The minimum value of the range.
 @SHORT:Get the min value of the current color map.
 @END
 */
@@ -525,7 +525,7 @@ double ColorMap::getMin()
 
 /*
 @LABEL:ColorMap::getLevels()
-@RETURN:int : The number of levels.
+@RETURN:int & The number of levels.
 @SHORT:Get the number of levels of the current color map.
 @END
 */

@@ -271,7 +271,7 @@ bool Vec3D::isInsideBox(const Vec3D &vect_m, const Vec3D &vect_M) const
 /*
 @LABEL:Vec3D::dot(Vec3D y)
 @SHORT:Dot product of two Vec3D.
-@RETURN:double : The dot product.
+@RETURN:double & The dot product.
 @ARG:Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the dot product operation.
 This method returns the dot product of two Vec3D defined by the following equation:
 \begin{equation*}
@@ -290,7 +290,7 @@ double Vec3D::dot(const Vec3D &V) const
 /*
 @LABEL:Vec3D::vectorProduct(Vec3D y)
 @SHORT:Vector product of two Vec3D.
-@RETURN:Vec3D : Result of the operation.
+@RETURN:Vec3D & Result of the operation.
 @ARG:Vec3D & y & Vec3D $\overrightarrow{y}$ to use for the vector product operation.
 This method returns the vector product of two Vec3D defined by the following equation:
 \begin{equation*}

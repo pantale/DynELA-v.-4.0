@@ -22,7 +22,6 @@ class Tensor3;
 /*
 @LABEL:Tensor4::Tensor4
 @SHORT:Second order tensor class.
-The Tensor4 library is used to store fourth order tensors defined in the \DynELA.
 The Tensor4 class is used to store and manage data relative to a fourth order tensor which can be seen as a $3\times3\times3\times3$ matrix where $T_{ijkl}$ are the components of the fourth order tensor $\T$.
 Concerning the internal storage of data, the Tensor4 data is stored in a vector of $81$ components named \textsf{\_data} using the following storage scheme:
 @END
@@ -132,7 +131,7 @@ inline void Tensor4::setValue(const double val)
 @LABEL:Tensor4::operator+=(Tensor4 B)
 @SHORT:Addition of 2 fourth order tensors.
 @ARG:Tensor4 & B & Second order tensor to add to the current one.
-@RETURN:Tensor4 : Result of the addition operation.
+@RETURN:Tensor4 & Result of the addition operation.
 This method defines the addition of 2 fourth order tensors.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -154,7 +153,7 @@ inline void Tensor4::operator+=(const Tensor4 &tens)
 @LABEL:Tensor4::operator-=(Tensor4 B)
 @SHORT:Difference of 2 fourth order tensors.
 @ARG:Tensor4 & B & Second order tensor to add to the current one.
-@RETURN:Tensor4 : Result of the difference operation.
+@RETURN:Tensor4 & Result of the difference operation.
 This method defines the difference of 2 fourth order tensors.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -176,7 +175,7 @@ inline void Tensor4::operator-=(const Tensor4 &tens)
 @LABEL:Tensor4::operator*=(double l)
 @SHORT:Multiplication of a fourth order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor4 : Result of the multiplication operation.
+@RETURN:Tensor4 & Result of the multiplication operation.
 This method defines the multiplication of a fourth order tensor by a scalar value.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -197,7 +196,7 @@ inline void Tensor4::operator*=(const double val)
 @LABEL:Tensor4::operator/=(double l)
 @SHORT:Division of a fourth order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor4 : Result of the division operation.
+@RETURN:Tensor4 & Result of the division operation.
 This method defines the division of a fourth order tensor by a scalar value.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}

@@ -332,7 +332,7 @@ void List<Type>::endLoop()
 /*
 @LABEL:List::next()
 @SHORT:Next element in the list.
-@RETURN:Next item in the list or NULL if it does not exist.
+@RETURN:Type & Next item in the list or NULL if it does not exist.
 This method uses an internal list lookup mechanism to return the next element in the list.
 To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
 @END
@@ -360,7 +360,7 @@ Type List<Type>::next()
 /*
 @LABEL:List::currentUp()
 @SHORT:Next element in the list.
-@RETURN:Next item in the list or NULL if it does not exist.
+@RETURN:Type & Next item in the list or NULL if it does not exist.
 This method uses an internal list lookup mechanism to return the element following the previous call in the list.
 To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
 @END
@@ -388,7 +388,7 @@ Type List<Type>::currentUp()
 /*
 @LABEL:List::currentDown()
 @SHORT:Previous element in the list.
-@RETURN:Previous item in the list or NULL if it does not exist.
+@RETURN:Type & Previous item in the list or NULL if it does not exist.
 This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
 To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
 @END
@@ -416,7 +416,7 @@ Type List<Type>::currentDown()
 /*
 @LABEL:List::first()
 @SHORT:First element in the list.
-@RETURN:First item in the list or NULL if it does not exist.
+@RETURN:Type & First item in the list or NULL if it does not exist.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -433,7 +433,7 @@ Type List<Type>::first()
 /*
 @LABEL:List::last()
 @SHORT:Last element in the list.
-@RETURN:Last item in the list or NULL if it does not exist.
+@RETURN:Type & Last item in the list or NULL if it does not exist.
 @END
 */
 //-----------------------------------------------------------------------------
@@ -450,7 +450,7 @@ Type List<Type>::last()
 /*
 @LABEL:List::previous()
 @SHORT:Previous element in the list.
-@RETURN:Previous item in the list or NULL if it does not exist.
+@RETURN:Type & Previous item in the list or NULL if it does not exist.
 This method uses an internal list lookup mechanism to return the element preceding the previous call in the list.
 To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
 @END
@@ -478,7 +478,7 @@ Type List<Type>::previous()
 /*
 @LABEL:List::current()
 @SHORT:Current element in the list.
-@RETURN:Current item in the list or NULL if it does not exist.
+@RETURN:Type & Current item in the list or NULL if it does not exist.
 This method uses an internal list lookup mechanism to return the current element in the list.
 To use this method, it is necessary to define the list boundaries, and to have the start referenced by the first(), last() or accessors() methods.
 @END
@@ -497,7 +497,7 @@ Type List<Type>::current()
 /*
 @LABEL:List::size()
 @SHORT:Current size of the list.
-@RETURN:long.
+@RETURN:long & Size
 @END
 */
 //-----------------------------------------------------------------------------
@@ -511,7 +511,7 @@ long List<Type>::size() const
 /*
 @LABEL:List::stack()
 @SHORT:Stack size of the list.
-@RETURN:long.
+@RETURN:long&
 @END
 */
 //-----------------------------------------------------------------------------
@@ -525,7 +525,7 @@ long List<Type>::stack() const
 /*
 @LABEL:List::stackIncrement()
 @SHORT:Stack increment size of the list.
-@RETURN:long.
+@RETURN:long&
 @END
 */
 //-----------------------------------------------------------------------------
@@ -819,7 +819,7 @@ void List<Type>::print(std::ostream &outputStream) const
 /*
 @LABEL:List::print(Type object)
 @ARG:Type & object & Object to search.
-@RETURN:Type
+@RETURN:Type&
 @SHORT:Search an object in the List.
 This method performs a simple search for an item in the list and returns an Index indicating the place of the object in the list.
 If the object is not found, it returns the value -1.
@@ -842,7 +842,7 @@ long List<Type>::index(const Type object) const
 /*
 @LABEL:List::contains(Type object)
 @ARG:Type & object & Object to search.
-@RETURN:bool
+@RETURN:bool&
 @SHORT:Search an object in the List.
 This method performs a simple search for an item in the list and returns a boolean according to the presence or or not of this object in the list.
 @END
@@ -1058,7 +1058,7 @@ long ListIndex<Type>::IAppN(const long index) const
 /*
 @LABEL:ListIndex::sorted()
 @SHORT:test if the list is sorted.
-@RETURN:bool
+@RETURN:bool&
 A sorted list is a list where all object have an increasing internal number.
 @END
 */
@@ -1073,7 +1073,7 @@ bool ListIndex<Type>::sorted() const
 /*
 @LABEL:ListIndex::compacted()
 @SHORT:test if the list is compacted.
-@RETURN:bool
+@RETURN:bool&
 A sorted list is a list where all object have a continuous increasing internal number.
 @END
 */

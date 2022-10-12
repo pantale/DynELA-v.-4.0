@@ -19,7 +19,7 @@
 /*
 @LABEL:Tensor4::Tensor4()
 @SHORT:Default constructor of the Tensor4 class.
-@RETURN:Tensor4 : The new Tensor4 object created by the constructor.
+@RETURN:Tensor4 & The new Tensor4 object created by the constructor.
 This is the default constructor of the Tensor4 class, where all components are initialized to zero by default.
 @END
 */
@@ -120,7 +120,7 @@ Tensor4 &Tensor4::operator=(const Tensor4 &T)
 @LABEL:Tensor4::operator+(Tensor4 B)
 @SHORT:Addition of 2 fourth order tensors.
 @ARG:Tensor4 & B & Second order tensor to add to the current one.
-@RETURN:Tensor4 : Result of the addition operation.
+@RETURN:Tensor4 & Result of the addition operation.
 This method defines the addition of 2 fourth order tensors.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -148,7 +148,7 @@ Tensor4 Tensor4::operator+(const Tensor4 &T) const
 @LABEL:Tensor4::operator-(Tensor4 B)
 @SHORT:Subtraction of 2 fourth order tensors.
 @ARG:Tensor4 & B & Second order tensor to subtract to the current one.
-@RETURN:Tensor4 : Result of the difference operation.
+@RETURN:Tensor4 & Result of the difference operation.
 This method defines the subtraction of 2 fourth order tensors.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -176,7 +176,7 @@ Tensor4 Tensor4::operator-(const Tensor4 &T) const
 @LABEL:Tensor4::operator*(double l)
 @SHORT:Multiplication of a fourth order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor4 : Result of the multiplication operation.
+@RETURN:Tensor4 & Result of the multiplication operation.
 This method defines the multiplication of a fourth order tensor by a scalar value.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -201,7 +201,7 @@ Tensor4 Tensor4::operator*(const double &l) const
 @LABEL:Tensor4::operator/(double l)
 @SHORT:Division of a fourth order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:Tensor4 : Result of the division operation.
+@RETURN:Tensor4 & Result of the division operation.
 This method defines the division of a fourth order tensor by a scalar value.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -227,7 +227,7 @@ Tensor4 Tensor4::operator/(const double &lambda) const
 @SHORT:Multiplication of a fourth order tensor by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
 @ARG:Tensor4 & A & Second order tensor to use for the operation.
-@RETURN:Tensor4 : Result of the multiplication operation.
+@RETURN:Tensor4 & Result of the multiplication operation.
 This method defines the multiplication of a fourth order tensor by a scalar value.
 The result of this operation is also a fourth order tensor defined by:
 \begin{equation*}
@@ -251,7 +251,7 @@ Tensor4 operator*(const double &l, const Tensor4 &T)
 /*
 @LABEL:Tensor4::operator*(Vec3D V)
 @SHORT:Multiplication of a fourth order tensor by a vector.
-@RETURN:Vec3D : Result of the multiplication operation.
+@RETURN:Vec3D & Result of the multiplication operation.
 @ARG:Vec3D & V & Vec3D to use for the multiplication operation.
 This method defines the product of a fourth order tensor by a vector.
 The result of this operation is a third order tensor defined by:
@@ -279,7 +279,7 @@ Tensor3 Tensor4::operator*(const Vec3D &V) const
 /*
 @LABEL:Tensor4::operator*(Tensor2 B)
 @SHORT:Multiplication of a fourth order tensor by a second order tensor.
-@RETURN:Tensor2 : Result of the multiplication operation.
+@RETURN:Tensor2 & Result of the multiplication operation.
 @ARG:Tensor2 & B & Tensor2 to use for the multiplication operation.
 This method defines the product of a fourth order tensor by a second order tensor.
 The result of this operation is a second order tensor defined by:

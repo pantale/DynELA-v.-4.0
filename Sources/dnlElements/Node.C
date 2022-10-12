@@ -30,7 +30,7 @@
 /*
 @LABEL:Node::Node(long n, double x, double y, double z)
 @SHORT:Constructor of the Node class with initialization.
-@RETURN:Node
+@RETURN:Node & 
 @ARG:long&n&Node number to create.
 @ARG:double&x&X coordinate of the node to create.
 @ARG:double&y&Y coordinate of the node to create.
@@ -303,7 +303,7 @@ long substractNN(Node *node1, const long number)
 /*
 @LABEL:Node::fieldScalar(short field)
 @SHORT:Get back a nodalField value.
-@RETURN:double
+@RETURN:double & Nodal field.
 @ARG:short&field&Field to extract (see NodalField for informations).
 @END
 */
@@ -372,7 +372,7 @@ double Node::fieldScalar(short field)
 /*
 @LABEL:Node::fieldVec3D(short field)
 @SHORT:Get back a nodalField Vec3D.
-@RETURN:Vec3D
+@RETURN:Vec3D & Nodal field.
 @ARG:short&field&Field to extract (see NodalField for informations).
 @END
 */
@@ -403,7 +403,7 @@ Vec3D Node::fieldVec3D(short field)
 /*
 @LABEL:Node::fieldSymTensor2(short field)
 @SHORT:Get back a nodalField SymTensor2.
-@RETURN:SymTensor2
+@RETURN:SymTensor2 & Nodal field.
 @ARG:short&field&Field to extract (see NodalField for informations).
 @END
 */
@@ -427,7 +427,7 @@ SymTensor2 Node::fieldSymTensor2(short field)
 /*
 @LABEL:Node::fieldTensor2(short field)
 @SHORT:Get back a nodalField Tensor2.
-@RETURN:Tensor2
+@RETURN:Tensor2 & Nodal field.
 @ARG:short&field&Field to extract (see NodalField for informations).
 @END
 */

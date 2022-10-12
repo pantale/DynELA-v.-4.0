@@ -14,7 +14,7 @@
 /*
 @LABEL:MatrixDiag::MatrixDiag(long n, double m)
 @SHORT:Constructor of the MatrixDiag class with initialization.
-@RETURN:MatrixDiag : The initialized matrix.
+@RETURN:MatrixDiag & The initialized matrix.
 @ARG:long & n & Number of rows and cols of the matrix to create.
 @ARG:double & m & Value to give to each element of the new matrix.
 This method creates a new matrix of size $n \times n$ where all values are initialized to the scalar value $m$.
@@ -61,7 +61,7 @@ MatrixDiag::~MatrixDiag()
 /*
 @LABEL:MatrixDiag::maxVal()
 @SHORT:Maximum component in a diagonal matrix.
-@RETURN:double : The maximum component of the diagonal matrix.
+@RETURN:double & The maximum component of the diagonal matrix.
 This method returns the maximum component in a diagonal matrix.
 @END
 */
@@ -81,7 +81,7 @@ double MatrixDiag::maxVal()
 /*
 @LABEL:MatrixDiag::minVal()
 @SHORT:Minimum component in a diagonal matrix.
-@RETURN:double : The minimum component of the diagonal matrix.
+@RETURN:double & The minimum component of the diagonal matrix.
 This method returns the minimum component in a diagonal matrix.
 @END
 */
@@ -101,7 +101,7 @@ double MatrixDiag::minVal()
 /*
 @LABEL:MatrixDiag::maxAbs()
 @SHORT:Maximum absolute component in a diagonal matrix.
-@RETURN:double : The maximum component of the diagonal matrix.
+@RETURN:double & The maximum component of the diagonal matrix.
 This method returns the maximum absolute component in a diagonal matrix.
 @END
 */
@@ -121,7 +121,7 @@ double MatrixDiag::maxAbs()
 /*
 @LABEL:MatrixDiag::minAbs()
 @SHORT:Minimum absolute component in a diagonal matrix.
-@RETURN:double : The minimum component of the diagonal matrix.
+@RETURN:double & The minimum component of the diagonal matrix.
 This method returns the minimum absolute component in a diagonal matrix.
 @END
 */
@@ -296,7 +296,7 @@ MatrixDiag &MatrixDiag::operator=(const MatrixDiag &mat)
 @LABEL:MatrixDiag::operator+(MatrixDiag B)
 @SHORT:Addition of 2 diagonal matrices.
 @ARG:MatrixDiag & B & MatrixDiag to add to the current one.
-@RETURN:MatrixDiag : Result of the addition operation.
+@RETURN:MatrixDiag & Result of the addition operation.
 This method defines the addition of 2 diagonal matrices.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -334,7 +334,7 @@ MatrixDiag MatrixDiag::operator+(const MatrixDiag &mat) const
 @LABEL:MatrixDiag::operator-(MatrixDiag B)
 @SHORT:Difference of 2 diagonal matrices.
 @ARG:MatrixDiag & B & MatrixDiag to subtract to the current one.
-@RETURN:MatrixDiag : Result of the difference operation.
+@RETURN:MatrixDiag & Result of the difference operation.
 This method defines the difference of 2 diagonal matrices.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -370,7 +370,7 @@ MatrixDiag MatrixDiag::operator-(const MatrixDiag &mat) const
 /*
 @LABEL:MatrixDiag::operator-()
 @SHORT:Opposite of a diagonal matrix.
-@RETURN:MatrixDiag : The opposite diagonal matrix.
+@RETURN:MatrixDiag & The opposite diagonal matrix.
 This method defines the opposite of a diagonal matrix.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -398,7 +398,7 @@ MatrixDiag MatrixDiag::operator-() const
 @LABEL:MatrixDiag::operator+=(MatrixDiag B)
 @SHORT:Addition of 2 diagonal matrices.
 @ARG:MatrixDiag & B & Second diagonal matrix to add to the current one.
-@RETURN:MatrixDiag : Result of the addition operation.
+@RETURN:MatrixDiag & Result of the addition operation.
 This method defines the addition of 2 diagonal matrices.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -430,7 +430,7 @@ void MatrixDiag::operator+=(const MatrixDiag &mat)
 @LABEL:MatrixDiag::operator-=(MatrixDiag B)
 @SHORT:Difference of 2 diagonal matrices.
 @ARG:MatrixDiag & B & Second diagonal matrix to add to the current one.
-@RETURN:MatrixDiag : Result of the difference operation.
+@RETURN:MatrixDiag & Result of the difference operation.
 This method defines the difference of 2 diagonal matrices.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -461,7 +461,7 @@ void MatrixDiag::operator-=(const MatrixDiag &mat)
 @LABEL:MatrixDiag::operator*(double l)
 @SHORT:Multiplication of a diagonal matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:MatrixDiag : Result of the multiplication operation.
+@RETURN:MatrixDiag & Result of the multiplication operation.
 This method defines the multiplication of a diagonal matrix by a scalar value.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -485,7 +485,7 @@ MatrixDiag MatrixDiag::operator*(const double &lambda) const
 @LABEL:MatrixDiag::operator/(double l)
 @SHORT:Division of a diagonal matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
-@RETURN:MatrixDiag : Result of the division operation.
+@RETURN:MatrixDiag & Result of the division operation.
 This method defines the division of a diagonal matrix by a scalar value.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -510,7 +510,7 @@ MatrixDiag MatrixDiag::operator/(const double &lambda) const
 @SHORT:Multiplication of a diagonal matrix by a scalar.
 @ARG:double & l & Scalar value to use for the operation.
 @ARG:MatrixDiag & A & Second matrix to use for the operation.
-@RETURN:MatrixDiag : Result of the multiplication operation.
+@RETURN:MatrixDiag & Result of the multiplication operation.
 This method defines the multiplication of a diagonal matrix by a scalar value.
 The result of this operation is also a diagonal matrix defined by:
 \begin{equation*}
@@ -533,7 +533,7 @@ MatrixDiag operator*(const double &lambda, const MatrixDiag &mat)
 /*
 @LABEL:MatrixDiag::operator*(MatrixDiag B)
 @SHORT:Single contracted product of two diagonal matrices.
-@RETURN:MatrixDiag : Result of the multiplication operation.
+@RETURN:MatrixDiag & Result of the multiplication operation.
 @ARG:MatrixDiag & B & Second matrix for the multiplication operation.
 This method defines a single contracted product of two diagonal matrices.
 The result of this operation is also a diagonal matrix defined by:
@@ -553,7 +553,7 @@ MatrixDiag MatrixDiag::operator*(const MatrixDiag &mat) const
 /*
 @LABEL:MatrixDiag::dot(MatrixDiag B)
 @SHORT:Single contracted product of two matrixs.
-@RETURN:MatrixDiag : Result of the multiplication operation.
+@RETURN:MatrixDiag & Result of the multiplication operation.
 @ARG:MatrixDiag & B & Second matrix for the multiplication operation.
 This method defines a single contracted product of two matrixs.
 The result of this operation is also a diagonal matrix defined by:
@@ -587,7 +587,7 @@ MatrixDiag MatrixDiag::dot(const MatrixDiag &mat) const
 /*
 @LABEL:MatrixDiag::operator*(Vector V)
 @SHORT:Multiplication of a diagonal matrix by a vector.
-@RETURN:Vector : Result of the multiplication operation.
+@RETURN:Vector & Result of the multiplication operation.
 @ARG:Vector & V & Vector to use for the multiplication operation.
 This method defines the product of a diagonal matrix by a vector.
 The result of this operation is also a vector defined by:
@@ -672,7 +672,7 @@ void MatrixDiag::divideBy(Vector &vec) const
 /*
 @LABEL:MatrixDiag::trace()
 @SHORT:Returns the trace of a diagonal matrix.
-@RETURN:double : The trace of the diagonal matrix.
+@RETURN:double & The trace of the diagonal matrix.
 This method returns the trace of a diagonal matrix, i.e. the sum $s$ of all the terms of the diagonal:
 \begin{equation*}
 s = \tr[\M] = M_{11}+M_{22}+\hdots+M_{nn}
@@ -693,7 +693,7 @@ double MatrixDiag::trace()
 /*
 @LABEL:MatrixDiag::transpose()
 @SHORT:Transpose of a diagonal matrix.
-@RETURN:Matrix : The transpose of the diagonal matrix.
+@RETURN:Matrix & The transpose of the diagonal matrix.
 This method defines the transpose of a diagonal matrix.
 @END
 */
@@ -707,7 +707,7 @@ MatrixDiag MatrixDiag::transpose()
 /*
 @LABEL:MatrixDiag::getSolve(Vector x)
 @SHORT:Solves a linear system $\A\cdot \overrightarrow{x} = \overrightarrow{b}$.
-@RETURN:Vector : The solution of the linear system.
+@RETURN:Vector & The solution of the linear system.
 This method returns the solution of a linear system with the following form:
 \begin{equation*}
 \overrightarrow{y} = \A \cdot \overrightarrow{x}
@@ -758,7 +758,7 @@ void MatrixDiag::solve(Vector &vec)
 /*
 @LABEL:MatrixDiag::inverse()
 @SHORT:Inverse of a diagonal matrix.
-@RETURN:MatrixDiag : The inverse of the diagonal matrix.
+@RETURN:MatrixDiag & The inverse of the diagonal matrix.
 This method returns the inverse of a diagonal matrix.
 @END
 */

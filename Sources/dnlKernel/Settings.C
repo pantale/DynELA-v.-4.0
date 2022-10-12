@@ -23,7 +23,7 @@
 /*
 @LABEL:Settings::Settings()
 @SHORT:Constructor of the Settings class.
-@RETURN:Settings
+@RETURN:Settings&
 @END
 */
 //-----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ Settings::~Settings()
 @LABEL:Settings::load(string name)
 @SHORT:Load settings from a file.
 @ARG:string & name & Name of the file to read settings from
-@RETURN:bool
+@RETURN:bool&
 @END
 */
 //-----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ bool Settings::load(const std::string &filename)
 /*
 @LABEL:Settings::save()
 @SHORT:Saves settings.
-@RETURN:bool
+@RETURN:bool&
 @END
 */
 //-----------------------------------------------------------------------------
@@ -232,7 +232,7 @@ void Settings::dump() const
 /*
 @LABEL:Settings::isChanged()
 @SHORT:Checks if settings has been changed and needs rewrite.
-@RETURN:bool
+@RETURN:bool&
 @END
 */
 //-----------------------------------------------------------------------------

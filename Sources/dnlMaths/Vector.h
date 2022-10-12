@@ -169,7 +169,7 @@ inline double Vector::operator()(long i) const
 /*
 @LABEL:Vector::size()
 @SHORT:Returns the length of the vector.
-@RETURN:long : Length of the vector.
+@RETURN:long & Length of the vector.
 This method returns the length of the vector, \ie the number of components of the vector.
 @END
 */
