@@ -169,39 +169,47 @@ def writeTex(out, key):
  
         # Writes the return
         if dc[1]!='' :
-            ln += ("\\\\ \\hspace*{5mm}$\\hookrightarrow$\n\\vspace*{-2em}\\begin{tcolorbox}[grow to left by=-1cm, width=\\textwidth-1cm,myArgs,tabularx={l|R}]\n"+dc[1]+"\n\\end{tcolorbox}")
+#            ln += ("\\\\ \\hspace*{5mm}$\\hookrightarrow$\n\\vspace*{-2em}\\begin{tcolorbox}[grow to left by=-1cm, width=\\textwidth-1cm,myArgs,tabularx={l|R}]\n"+dc[1]+"\n\\end{tcolorbox}")
+            ln += "\\vspace*{-0.5em}\n"
+            ln += "\\begin{tcolorbox}[grow to left by=-1cm, width=\\textwidth-1cm,myArgs,tabularx={l|R}]\n"
+            ln += "$\\hookrightarrow$ " + dc[1] + "\n"
+            ln += "\\end{tcolorbox}"
+            
+        # Writes the final HEADER of the documentation
         out.append(ln)
         out.append('')
             
-        # Writes the Warning
+        # Writes the Warning if exists
         if dc[3]!='' :
             out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :} '+dc[3]+'}')
             out.append('')
 
-        # Writes the self modification
+        # Writes the self modification if exists
         if dc[4]==True:
             out.append('\\hspace*{10mm}\\textcolor{red}{\\textbf{Warning :}} After the call to this method, the object is modified.')
             out.append('')
 
-        # Scan args
+        # Scan args if exists
         if (dc[2] != []):
             ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R}]\n'
             #ln = '\\begin{tcolorbox}[width=\\textwidth,myArgs,tabularx={ll|R},title=Arguments of '+before(texify(key,True),'(')+']\n'
             for arg in dc[2]:
-                ln += arg 
+                ln += arg.replace('@>','$\\hookrightarrow$ ')
                 if arg != dc[2][-1]:
                     ln += '\\\\'
                 ln += '\n'
             ln += '\\end{tcolorbox}\n'
             out.append(ln)            
 
-        # Writes the documentation
+        # Writes the documentation if exists
         for ln in dc[-1]:
             out.append(ln)
             
     # Else, writes that the documentation have to be written
     else:
         ln += " : \\textcolor{red}{\\textbf{No documentation defined in source files.}}"
+        
+        # Writes the final HEADER of the documentation
         out.append(ln)
         out.append('')
     return out

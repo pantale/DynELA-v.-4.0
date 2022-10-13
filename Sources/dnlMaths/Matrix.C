@@ -1513,11 +1513,11 @@ Matrix Matrix::cofactors() const
 @LABEL:Matrix::computeInverse2x2(double d, Matrix B)
 @SHORT:Inverse of a matrix.
 @ARG:double & d & The determinant of the matrix.
-@ARG:Matrix & B & The inverse of the matrix.
+@ARG:@>Matrix & B & The inverse of the matrix.
 This method returns the inverse of a $2 \times 2$ matrix.
 The result of this operation is a $2 \times 2$ matrix defined by:
 \begin{equation*}
-A^{-1} = \frac {1}{d} \left[\begin{array}{cc}
+\B = \A^{-1} = \frac {1}{d} \left[\begin{array}{cc}
   A_{22} & - A_{12}\\
   -A_{21} & A_{11}
   \end{array}
@@ -1551,11 +1551,11 @@ void Matrix::computeInverse2x2(double det, Matrix &inverse) const
 @LABEL:Matrix::computeInverse3x3(double d, Matrix B)
 @SHORT:Inverse of a matrix.
 @ARG:double & d & The determinant of the matrix.
-@ARG:Matrix & B & The inverse of the matrix.
+@ARG:@>Matrix & B & The inverse of the matrix.
 This method returns the inverse of a $3 \times 3$ matrix.
 The result of this operation is a $3 \times 3$ matrix defined by:
 \begin{equation*}
-A^{-1} = \frac {1}{d} \left[\begin{array}{ccc}
+\B = \A^{-1} = \frac {1}{d} \left[\begin{array}{ccc}
   A_{22}A_{33}-A_{23}A_{32}&A_{13}A_{32}-A_{12}A_{33}&A_{12}A_{23}-A_{13}A_{22}\\
   A_{23}A_{31}-A_{21}A_{33}&A_{11}A_{33}-A_{13}A_{31}&A_{13}A_{21}-A_{11}A_{23}\\
   A_{21}A_{32}-A_{22}A_{31}&A_{12}A_{31}-A_{11}A_{32}&A_{11}A_{22}-A_{12}A_{21}
