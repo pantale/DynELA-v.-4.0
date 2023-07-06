@@ -1,0 +1,1 @@
+set PATH=%PATH%;D:\Luciano\Numerico\Libs\swigwin-4.1.1;D:\Luciano\Numerico\Libs\zlib-1.2.13
