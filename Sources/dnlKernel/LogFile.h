@@ -13,7 +13,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <String.h>
+#include "String_.h"
 
 //-----------------------------------------------------------------------------
 // Class : LogFile

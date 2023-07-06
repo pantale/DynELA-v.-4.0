@@ -17,7 +17,7 @@
 */
 
 #include <Settings.h>
-#include <System.h>
+//#include <System.h>
 #include <fstream>
 
 /*
@@ -31,15 +31,15 @@ Settings::Settings() : _isChanged(false)
 //-----------------------------------------------------------------------------
 {
     // Get the path value
-    System sys = System();
-    String path = sys.env("DYNELA_BIN");
+    //System sys = System();
+    // //String path = sys.env("DYNELA_BIN");
 
-    // Loads the settings from configuration file
-    if (path != "")
-    {
-        load(path + "/configuration.dnl");
-       // _filename = "";
-    }
+    // // Loads the settings from configuration file
+    // if (path != "")
+    // {
+        // load(path + "/configuration.dnl");
+       // // _filename = "";
+    // }
 }
 
 //-----------------------------------------------------------------------------

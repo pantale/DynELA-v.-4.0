@@ -17,7 +17,7 @@
   \ingroup dnlKernel
 */
 
-#include <String.h>
+#include "String_.h"
 #include <strings.h>
 #include <iostream>
 
