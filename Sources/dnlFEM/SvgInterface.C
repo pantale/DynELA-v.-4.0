@@ -339,7 +339,7 @@ void SvgInterface::legendWrite()
 void SvgInterface::dataInfoWrite()
 //-----------------------------------------------------------------------------
 {
-  System system;
+  //System system;
   int yInc = 22;
   String textVal;
   Vec3D pos(_dataInfosX, _dataInfosY, 0);
@@ -351,9 +351,9 @@ void SvgInterface::dataInfoWrite()
   _name = _name + " v." + _version;
   textWrite(pos, _name, 20);
   pos(1) += yInc;
-  textWrite(pos, system.getDate(), 20);
+  //textWrite(pos, system.getDate(), 20);
   pos(1) += yInc;
-  textWrite(pos, "host : " + system.hostname(), 20);
+  //textWrite(pos, "host : " + system.hostname(), 20);
   pos(1) += yInc + 8;
   textVal.convert(dynelaData->model.currentTime, "%10.3E");
   textWrite(pos, "time : " + textVal, 20);

@@ -12,7 +12,7 @@
 #define __dnlFEM_HistoryFile_h__
 
 #include <List.h>
-#include <String.h>
+#include <String_.h>
 class Element;
 class ElementSet;
 class Model;

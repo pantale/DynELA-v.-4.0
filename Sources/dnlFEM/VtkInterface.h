@@ -11,7 +11,7 @@
 #ifndef __dnlFEM_VtkInterface_h__
 #define __dnlFEM_VtkInterface_h__
 
-#include <String.h>
+#include <String_.h>
 #include <List.h>
 #include <iostream>
 #include <fstream>
