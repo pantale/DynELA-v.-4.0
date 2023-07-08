@@ -7,4 +7,4 @@ INCLUDE_DIRECTORIES("${LAPACK_SRC_DIR}/LAPACKE/include")
 INCLUDE_DIRECTORIES("${BLAS_SRC_DIR}/include")
 
 
-cmake ..\DynELA-v.-4.0\Sources -G "MinGW Makefiles" -DLAPACK_SRC_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0 -DBLAS_SRC_DIR=D:\Luciano\Numerico\Libs\OpenBLAS-0.3.23-x64 -DLAPACK_BIN_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0_bin\lib -DBLAS_BIN_DIR=D:\Luciano\Numerico\Libs\OpenBLAS-0.3.23-x64\bin
+cmake ..\DynELA-v.-4.0\Sources -G "MinGW Makefiles" -DLAPACK_SRC_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0 -DLAPACK_BIN_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0_bin\lib 
