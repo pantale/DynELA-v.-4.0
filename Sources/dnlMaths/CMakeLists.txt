@@ -17,7 +17,11 @@ FILE(GLOB SRCS *.h *.C)
 
 ADD_LIBRARY(dnlMaths SHARED ${SRCS})
 LINK_DIRECTORIES(${LAPACK_BIN_DIR} ${BLAS_BIN_DIR})
-TARGET_LINK_LIBRARIES(dnlMaths dnlKernel lapacke lapack blas zlib)
+if (NOT WIN32)
+ TARGET_LINK_LIBRARIES(dnlMaths dnlKernel lapacke lapack blas zlib)
+ else ()
+  TARGET_LINK_LIBRARIES(dnlMaths dnlKernel lapacke lapack cblas zlib)
+endif()
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 INCLUDE_DIRECTORIES("${LAPACK_SRC_DIR}/LAPACKE/include")
