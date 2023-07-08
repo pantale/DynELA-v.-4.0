@@ -16,7 +16,7 @@
 FILE(GLOB SRCS *.h *.C)
 
 ADD_LIBRARY(dnlElements SHARED ${SRCS})
-TARGET_LINK_LIBRARIES(dnlElements dnlMaths dnlKernel lapacke lapack blas)
+TARGET_LINK_LIBRARIES(dnlElements dnlMaterials dnlMaths dnlKernel lapacke lapack blas)
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
