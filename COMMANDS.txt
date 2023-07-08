@@ -6,5 +6,7 @@ CHANGE NAME TO lapacke_mangling.in to .h
 INCLUDE_DIRECTORIES("${LAPACK_SRC_DIR}/LAPACKE/include")
 INCLUDE_DIRECTORIES("${BLAS_SRC_DIR}/include")
 
+RENAME both LPACKE AND BLAS mangling .pc to in
+
 
 cmake ..\DynELA-v.-4.0\Sources -G "MinGW Makefiles" -DLAPACK_SRC_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0 -DLAPACK_BIN_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0_bin\lib 
