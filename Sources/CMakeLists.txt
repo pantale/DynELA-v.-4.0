@@ -27,6 +27,9 @@ FIND_PACKAGE(PythonLibs 3.7 REQUIRED)
 
 # -- Search for Swig
 FIND_PACKAGE(SWIG REQUIRED)
+if (WIN32)
+set (SWIG_DIR D:/Luciano/Numerico/Libs/swigwin-4.1.1/Lib)
+endif()
 
 # -- Search for Zlib
 FIND_PACKAGE(ZLIB REQUIRED)

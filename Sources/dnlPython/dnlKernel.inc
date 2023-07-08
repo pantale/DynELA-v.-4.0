@@ -12,8 +12,8 @@
   #include "LogFile.h"
   //#include "MacAddress.h"
   #include "Settings.h"
-  #include "_String.h"
-  #include "System.h"
+  #include "String_.h"
+  //#include "System.h"
   #include "Timer.h"
   #include "Field.h"
 %}

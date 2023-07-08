@@ -31,4 +31,4 @@ Just paste it at the end, was a long line in the third line of the link.txt file
 
 
 
-cmake ..\DynELA-v.-4.0\Sources -G "MinGW Makefiles" -DLAPACK_SRC_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0 -DLAPACK_BIN_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0_bin\lib 
+cmake ..\DynELA-v.-4.0\Sources -G "MinGW Makefiles" -DLAPACK_SRC_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0 -DLAPACK_BIN_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0_bin\lib -DSWIG_DIR=D:\Luciano\Numerico\Libs\swigwin-4.1.1
