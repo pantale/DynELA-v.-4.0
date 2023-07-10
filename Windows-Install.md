@@ -32,3 +32,14 @@ Just paste it at the end, was a long line in the third line of the link.txt file
 
 
 cmake ..\DynELA-v.-4.0\Sources -G "MinGW Makefiles" -DLAPACK_SRC_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0 -DLAPACK_BIN_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0_bin\lib -DSWIG_DIR=D:\Luciano\Numerico\Libs\swigwin-4.1.1
+
+if zlib is not found:
+
+cmake ..\DynELA-v.-4.0\Sources -G "MinGW Makefiles" -DLAPACK_SRC_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0 -DLAPACK_BIN_DIR=D:\Luciano\Numerico\Libs\lapack-3.11.0_bin\lib -DSWIG_DIR=D:\Luciano\Numerico\Libs\swigwin-4.1.1 -DZLIB_LIBRARY_RELEASE=D:\Luciano\Numerico\Libs\zlib-1.2.13_bin
+
+
+set PATH=%PATH%;D:\Luciano\Numerico\Libs\swigwin-4.1.1;D:\Luciano\Numerico\Libs\zlib-1.2.13;D:\Luciano\Numerico\Libs\zlib-1.2.13_bin
+
+Could be an error in with ZLIB: No rule to make target 'XXX/zlib-1.2.13_binset', needed by 'lib/_dnlPython.pyd'.  Stop.
+
+
