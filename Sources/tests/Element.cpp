@@ -1,7 +1,14 @@
 #include "DynELA.h"
 #include "Element.h"
+#include "ElementSet.h"
+#include "NodeSet.h"
+#include "Model.h"
 #include "Material.h"
 #include "HardeningLaw.h"
+
+#include "BoundarySpeed.h"
+#include "BoundaryRestrain.h"
+#include "Explicit.h"
 
 int main()
 {
@@ -57,11 +64,17 @@ int main()
   // allNS = dnl.NodeSet('NS_All')
   // model.add(allNS, 1, 4879)
 
-  // allES = dnl.ElementSet('ES_All')
-  // model.add(allES, 1, 3960)
+  ElementSet allES("ES_All");
+  model.add(&allES,1,1);
 
-  // topNS = dnl.NodeSet('NS_Top')
-
+  NodeSet topNS ("NS_Top");
+  model.add(&topNS,   1);
+  model.add(&topNS,   2);
+  model.add(&topNS,   3);
+  model.add(&topNS,   4);
+  
+  NodeSet bottomNS("NS_Bottom");
+  model.add(&bottomNS, 5);
   // model.add(symzNS, 1474)
   // model.add(symzNS, 1475)
   // model.add(symzNS, 1476)
@@ -89,12 +102,12 @@ int main()
   //steel.T0 = T0
 
   // # Finaly link the material to the structure
-  // model.add(steel, allES)
+  model.add(&steel, &allES);
 
   // # Declaration of a boundary condition for bottom line
-  // bottomBC = dnl.BoundaryRestrain('BC_bottom')
-  // bottomBC.setValue(0, 1, 0)
-  // model.attachConstantBC(bottomBC, bottomNS)
+  BoundaryRestrain bottomBC ("BC_bottom");
+  bottomBC.setValue(0, 1, 0);
+  model.attachConstantBC(&bottomBC, &bottomNS);
 
   // # Declaration of a boundary condition for SYMX plane
   // symxBC = dnl.BoundaryRestrain('SYMX_plane')
@@ -107,14 +120,14 @@ int main()
   // model.attachConstantBC(symzBC, symzNS)
 
   // # Declaration of a boundary condition for top line
-  // speedBC = dnl.BoundarySpeed('BC_speed')
-  // speedBC.setValue(0, speed, 0)
-  // model.attachConstantBC(speedBC, topNS)
+  BoundarySpeed speedBC ("BC_speed");
+  speedBC.setValue(0, speed, 0);
+  model.attachConstantBC(&speedBC, &topNS);
 
-  // solver = dnl.Explicit('Solver')
-  // solver.setTimes(0, stopTime)
-  // model.add(solver)
-  // model.setSaveTimes(0, stopTime, stopTime / nbreSaves)
+  Explicit solver("Solver");
+  solver.setTimes(0, stopTime);
+  model.add(&solver);
+  //model.setSaveTimes(0, stopTime, stopTime / nbreSaves)
 
   // # Declaration of the history files
   // vonMisesHist = dnl.HistoryFile('vonMisesHistory')
@@ -192,7 +205,7 @@ int main()
   // svg.rotate(dnl.Vec3D(0, 1, 0), -60)
   // svg.write('mesh.svg')
 
-  // model.solve()
+  model.solve();
 
   // svg.write('temperatureCP.svg', dnl.Field.T)
   // svg.write('vonMisesCP.svg', dnl.Field.vonMises)
