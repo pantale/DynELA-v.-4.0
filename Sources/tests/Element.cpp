@@ -10,6 +10,9 @@
 #include "BoundaryRestrain.h"
 #include "Explicit.h"
 #include "ElasticLaw.h"
+#include "HistoryFile.h"
+
+#include "Field.h"
 
 int main()
 {
@@ -18,7 +21,7 @@ int main()
   double stopTime = 1e-3;
   int nbrePoints = 1000;
   int displacement = 7;
-  double speed = displacement / stopTime;
+  double speed = 1.0;
 
   //# Material parameters
   double young = 206000;
@@ -43,13 +46,13 @@ int main()
   // dnl.DynELA('BarNecking')
   
   model.createNode(1, 0.,0.,0.);
-  model.createNode(2, 1.,0.,0.);
-  model.createNode(3, 0.,1.,0.);
-  model.createNode(4, 1.,1.,0.);
-  model.createNode(5, 0.,0.,1.);
-  model.createNode(6, 1.,0.,1.);
-  model.createNode(7, 0.,1.,1.);
-  model.createNode(8, 1.,1.,1.);
+  model.createNode(2, .1,0.,0.);
+  model.createNode(3, 0.,.1,0.);
+  model.createNode(4, .1,.1,0.);
+  model.createNode(5, 0.,0.,.1);
+  model.createNode(6, .1,0.,.1);
+  model.createNode(7, 0.,.1,.1);
+  model.createNode(8, .1,.1,.1);
   // # Creates the Nodes
   // model.createNode(1, 0., 8.89000034, 6.37024117)
   // model.createNode(2, 0., 8.89000034, 0.)
@@ -74,11 +77,10 @@ int main()
   model.add(&topNS,   7);
   model.add(&topNS,   8);
   
-  NodeSet bottomNS("NS_Bottom");
-  model.add(&bottomNS, 1);
-  model.add(&bottomNS, 2);
-  model.add(&bottomNS, 3);
-  model.add(&bottomNS, 4);
+  NodeSet bottomNS("NS_Bottom");   model.add(&bottomNS, 1);
+  NodeSet bottomNSy("NS_Bottomy"); model.add(&bottomNS, 2);
+  NodeSet bottomNSx("NS_Bottomx"); model.add(&bottomNS, 3);
+  NodeSet bottomNSz("NS_Bottomz"); model.add(&bottomNS, 4);
   // model.add(symzNS, 1474)
   // model.add(symzNS, 1475)
   // model.add(symzNS, 1476)
@@ -111,8 +113,20 @@ int main()
 
   // # Declaration of a boundary condition for bottom line
   BoundaryRestrain bottomBC ("BC_bottom");
-  bottomBC.setValue(0, 1, 0);
+  bottomBC.setValue(1, 1, 1);
   model.attachConstantBC(&bottomBC, &bottomNS);
+
+  BoundaryRestrain bottomBCx ("BC_bottomxz");
+  bottomBC.setValue(1, 0, 1);
+  model.attachConstantBC(&bottomBCx, &bottomNS);
+  
+  BoundaryRestrain bottomBCy ("BC_bottomyz");
+  bottomBC.setValue(0, 1, 1);
+  model.attachConstantBC(&bottomBCy, &bottomNS);
+
+  BoundaryRestrain bottomBCz ("BC_bottomz");
+  bottomBC.setValue(0, 0, 1);
+  model.attachConstantBC(&bottomBCx, &bottomNS);  
 
   // # Declaration of a boundary condition for SYMX plane
   // symxBC = dnl.BoundaryRestrain('SYMX_plane')
@@ -126,7 +140,7 @@ int main()
 
   // # Declaration of a boundary condition for top line
   BoundarySpeed speedBC ("BC_speed");
-  speedBC.setValue(0, speed, 0);
+  speedBC.setValue(0, 0, -speed);
   model.attachConstantBC(&speedBC, &topNS);
 
   Explicit solver("Solver");
@@ -135,11 +149,12 @@ int main()
   model.setSaveTimes(0, stopTime, stopTime / nbreSaves);
 
   // # Declaration of the history files
+  HistoryFile vonMisesHist("vonMisesHistory");
   // vonMisesHist = dnl.HistoryFile('vonMisesHistory')
-  // vonMisesHist.setFileName('vonMises.plot')
-  // vonMisesHist.add(histES, 0, dnl.Field.vonMises)
+  vonMisesHist.setFileName("vonMises.plot");
+  vonMisesHist.add(&allES, 0, Field::vonMises);
   // vonMisesHist.setSaveTime(stopTime / nbrePoints)
-  // model.add(vonMisesHist)
+  model.add(&vonMisesHist);
 
   // plasticStrainHist = dnl.HistoryFile('plasticStrainHistory')
   // plasticStrainHist.setFileName('plasticStrain.plot')
