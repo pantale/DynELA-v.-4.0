@@ -9,6 +9,7 @@
 #include "BoundarySpeed.h"
 #include "BoundaryRestrain.h"
 #include "Explicit.h"
+#include "ElasticLaw.h"
 
 int main()
 {
@@ -68,13 +69,16 @@ int main()
   model.add(&allES,1,1);
 
   NodeSet topNS ("NS_Top");
-  model.add(&topNS,   1);
-  model.add(&topNS,   2);
-  model.add(&topNS,   3);
-  model.add(&topNS,   4);
+  model.add(&topNS,   5);
+  model.add(&topNS,   6);
+  model.add(&topNS,   7);
+  model.add(&topNS,   8);
   
   NodeSet bottomNS("NS_Bottom");
-  model.add(&bottomNS, 5);
+  model.add(&bottomNS, 1);
+  model.add(&bottomNS, 2);
+  model.add(&bottomNS, 3);
+  model.add(&bottomNS, 4);
   // model.add(symzNS, 1474)
   // model.add(symzNS, 1475)
   // model.add(symzNS, 1476)
@@ -89,17 +93,18 @@ int main()
 
   // # Creates the hardening law
   // HardeningLaw hardLaw = dnl.JohnsonCookLaw();
+  ElasticLaw *hardLaw = new ElasticLaw;
   // hardLaw.setParameters(A, B, C, n, m, depsp0, Tm, T0)
 
   // # Creates the material
   Material steel("Steel");
-  //steel.setHardeningLaw(hardLaw);
+  steel.setHardeningLaw(hardLaw);
   steel.youngModulus = young;
   steel.poissonRatio = poisson;
   steel.density = density;
   //steel.heatCapacity = heatCapacity;
   //steel.taylorQuinney = taylorQuinney;
-  //steel.T0 = T0
+  //steel.T0 = T0;
 
   // # Finaly link the material to the structure
   model.add(&steel, &allES);
@@ -127,7 +132,7 @@ int main()
   Explicit solver("Solver");
   solver.setTimes(0, stopTime);
   model.add(&solver);
-  //model.setSaveTimes(0, stopTime, stopTime / nbreSaves)
+  model.setSaveTimes(0, stopTime, stopTime / nbreSaves);
 
   // # Declaration of the history files
   // vonMisesHist = dnl.HistoryFile('vonMisesHistory')
