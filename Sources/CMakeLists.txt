@@ -31,6 +31,8 @@ if (WIN32)
 set (SWIG_DIR D:/Luciano/Numerico/Libs/swigwin-4.1.1/Lib)
 endif()
 
+# add_compile_definitions(SWIG)
+
 # -- Search for Zlib
 FIND_PACKAGE(ZLIB REQUIRED)
 

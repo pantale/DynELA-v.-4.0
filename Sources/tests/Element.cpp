@@ -1,4 +1,7 @@
 #include "DynELA.h"
+#include "Element.h"
+#include "Material.h"
+#include "HardeningLaw.h"
 
 int main()
 {
@@ -46,8 +49,8 @@ int main()
   // model.createNode(4, 0., 0., 6.3499999)
 
 
-  //model.setDefaultElement(dnl.Element.ElHex8N3D);
-  model.createElement(1, 1, 2, 3, 4, 5, 6, 7, 8);
+  model.setDefaultElement(Element::ElHex8N3D);
+  model.createElement(1, 1, 2, 4, 3, 5, 6, 8, 7);
 
   // print('Number of elements created:', model.getElementsNumber())
 
@@ -72,18 +75,18 @@ int main()
   // model.add(histES, 910)
 
   // # Creates the hardening law
-  // hardLaw = dnl.JohnsonCookLaw()
+  // HardeningLaw hardLaw = dnl.JohnsonCookLaw();
   // hardLaw.setParameters(A, B, C, n, m, depsp0, Tm, T0)
 
   // # Creates the material
-  // steel = dnl.Material('Steel')
-  // steel.setHardeningLaw(hardLaw)
-  // steel.youngModulus = young
-  // steel.poissonRatio = poisson
-  // steel.density = density
-  // steel.heatCapacity = heatCapacity
-  // steel.taylorQuinney = taylorQuinney
-  // steel.T0 = T0
+  Material steel("Steel");
+  //steel.setHardeningLaw(hardLaw);
+  steel.youngModulus = young;
+  steel.poissonRatio = poisson;
+  steel.density = density;
+  //steel.heatCapacity = heatCapacity;
+  //steel.taylorQuinney = taylorQuinney;
+  //steel.T0 = T0
 
   // # Finaly link the material to the structure
   // model.add(steel, allES)
