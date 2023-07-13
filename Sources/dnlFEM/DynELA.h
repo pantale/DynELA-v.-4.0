@@ -26,6 +26,8 @@ class Material;
 class ElementSet;
 class NodeSet;
 
+//#define SWIG
+
 #ifndef SWIG
 extern DynELA *dynelaData;
 #endif

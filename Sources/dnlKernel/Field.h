@@ -19,7 +19,7 @@
 #ifndef __dnlKernel_Field_h__
 #define __dnlKernel_Field_h__
 
-#include <String.h>
+#include "String_.h"
 
 #define FIELD_VEC3D(NAME) NAME, NAME##X, NAME##Y, NAME##Z
 #define FIELD_TENSOR2(NAME) NAME, NAME##XX, NAME##XY, NAME##XZ, NAME##YX, NAME##YY, NAME##YZ, NAME##ZX, NAME##ZY, NAME##ZZ

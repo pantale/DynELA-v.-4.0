@@ -17,7 +17,7 @@
   \ingroup dnlKernel
 */
 
-#include <String.h>
+#include "String_.h"
 #include <strings.h>
 #include <iostream>
 
@@ -809,9 +809,9 @@ int String::containsWithCaseSub(const String &substring, bool cas) const
         }
         else
         {
-          while (strncasecmp(x++, y++, 1) == 0)
-            if (y >= lastt)
-              return --p - s;
+          // while (strncasecmp(x++, y++, 1) == 0)
+            // if (y >= lastt)
+              // return --p - s;
         }
       }
     }
@@ -833,9 +833,9 @@ int String::containsWithCaseSub(const String &substring, bool cas) const
         }
         else
         {
-          while (strncasecmp(x--, y--, 1) == 0)
-            if (y < t)
-              return ++x - s;
+          // while (strncasecmp(x--, y--, 1) == 0)
+            // if (y < t)
+              // return ++x - s;
         }
       }
     }

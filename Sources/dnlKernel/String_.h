@@ -11,8 +11,8 @@
 #ifndef __dnlKernel_String_h__
 #define __dnlKernel_String_h__
 
-#include <string>
-
+#include "String_.h"
+#include <String>
 //-----------------------------------------------------------------------------
 // Class : String
 //

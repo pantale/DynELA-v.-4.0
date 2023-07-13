@@ -10,14 +10,14 @@
 
 %{
   #include "LogFile.h"
-  #include "MacAddress.h"
+  //#include "MacAddress.h"
   #include "Settings.h"
-  #include "String.h"
-  #include "System.h"
+  #include "String_.h"
+  //#include "System.h"
   #include "Timer.h"
   #include "Field.h"
 %}
-%include "String.h"
+%include "String_.h"
 %extend String
 {
   const char *__str__()
@@ -26,9 +26,9 @@
   }
 }
 
-%include "System.h"
+//%include "System.h"
 
-%include "MacAddress.h"
+//%include "MacAddress.h"
 
 %include "Timer.h"
 

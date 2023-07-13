@@ -11,7 +11,7 @@
 #ifndef __dnlFEM_Solver_h__
 #define __dnlFEM_Solver_h__
 
-#include <String.h>
+#include <String_.h>
 
 class Model;
 
